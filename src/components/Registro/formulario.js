@@ -1,6 +1,6 @@
 import { Box, TextField, Grid, Card, CardContent } from '@mui/material';
 import CheckboxFormulario from './Checkbox';
-import ButtonForm from './Button';
+import ButtonForm from './ButtonForm';
 
 function Formulario() {
   return (
