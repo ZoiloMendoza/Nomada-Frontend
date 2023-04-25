@@ -4,6 +4,7 @@ import Slider from "react-slick";
 //import "~slick-carousel/slick/slick-theme.css";
 import { dataPlaces } from './data';
 import Image from "next/image";
+import './placeCards.css';
 
 
 function PlaceCards() {
@@ -12,8 +13,8 @@ function PlaceCards() {
     dots: true,
     infinite: false,
     speed: 500,
-    slidesToShow: 4,
-    slidesToScroll: 4,
+    slidesToShow: 3,
+    slidesToScroll: 3,
     initialSlide: 0,
     responsive: [
       {
