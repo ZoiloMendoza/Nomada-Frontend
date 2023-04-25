@@ -1,10 +1,10 @@
-export const dataPlaces = [
+export const data = [
     {
     id: 1,
     title: 'OVO Restaurant',
     description: 'restaurant',
     category: 'restaurant',
-    //image: 'https://cache.marriott.com/content/dam/marriott-renditions/XMNSI/xmnsi-prince-restaurant-6803-hor-wide.jpg?output-quality=70&interpolation=progressive-bilinear&downsize=1336px:*',
+    image: 'https://cache.marriott.com/content/dam/marriott-renditions/XMNSI/xmnsi-prince-restaurant-6803-hor-wide.jpg?output-quality=70&interpolation=progressive-bilinear&downsize=1336px:*',
     rating: '4',
     },
     {
@@ -12,7 +12,7 @@ export const dataPlaces = [
     title: 'W Bar',
     description: 'Bar',
     category: 'bar',
-    //image: 'https://www.spoon-restaurant.com/wp-content/uploads/2022/06/Spoon_cLe_Bonbon-1-scaled.jpg',
+    image: 'https://www.spoon-restaurant.com/wp-content/uploads/2022/06/Spoon_cLe_Bonbon-1-scaled.jpg',
     rating: '5',
     },
     {
@@ -20,7 +20,7 @@ export const dataPlaces = [
     title: 'Beef Taco',
     description: 'Restaurant',
     category: 'restaurant',
-    //image: 'https://www.wineport.ie/wp-content/uploads/2022/10/november-restaurant-8-1366x768-fp_mm-fpoff_0_0.jpg',
+    image: 'https://www.wineport.ie/wp-content/uploads/2022/10/november-restaurant-8-1366x768-fp_mm-fpoff_0_0.jpg',
     rating: '3',
     },
     {
@@ -36,7 +36,7 @@ export const dataPlaces = [
     title: 'Happy',
     description: 'Restaurant',
     category: 'restaurant',
-    //image: 'https://www.hotel-montana.ch/bilder/hauptbilder/restaurant-bar/_1200xAUTO_crop_center-center_100_none/2210_Scala-4.jpg',
+    image: 'https://www.hotel-montana.ch/bilder/hauptbilder/restaurant-bar/_1200xAUTO_crop_center-center_100_none/2210_Scala-4.jpg',
     rating: '3'
     },
     {
@@ -44,7 +44,7 @@ export const dataPlaces = [
     title: 'True Bar',
     description: 'Bar',
     category: 'bar',
-    //image: 'https://assets.architecturaldigest.in/photos/63733ec2a2dd6ea6560eb6da/16:9/pass/Ditas%20Interior%20Image%20-%201%20(8).png',
+    image: 'https://assets.architecturaldigest.in/photos/63733ec2a2dd6ea6560eb6da/16:9/pass/Ditas%20Interior%20Image%20-%201%20(8).png',
     rating: '2'
     }
 ]
