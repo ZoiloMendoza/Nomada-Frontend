@@ -1,58 +1,53 @@
-import React from "react";
-import Carousel from "react-multi-carousel";
-import "react-multi-carousel/lib/styles.css";
-import Image from "next/image";
+import React, { Component } from "react";
+import Slider from "react-slick";
 
-const PlaceCard = ({ place }) => {
-  const { image, title, subtitle, rating } = place;
-
-  return (
-    <div className="place-card">
-      <Image src={image} alt={title} />
-      <div className="place-details">
-        <h3>{title}</h3>
-        <h4>{subtitle}</h4>
-        <div className="rating">
-          {[...Array(rating)].map((_, i) => (
-            <i key={i} className="fas fa-star"></i>
-          ))}
-        </div>
-      </div>
-    </div>
-  );
-};
-
-const PlacesCarousel = ({ places }) => {
-  const responsive = {
-    superLargeDesktop: {
-      breakpoint: { max: 4000, min: 3000 },
-      items: 4,
-    },
-    desktop: {
-      breakpoint: { max: 3000, min: 1024 },
-      items: 3,
-    },
-    tablet: {
-      breakpoint: { max: 1024, min: 464 },
-      items: 2,
-    },
-    mobile: {
-      breakpoint: { max: 464, min: 0 },
-      items: 1,
-    },
-  };
-
-  return (
-    <div className="places-carousel">
-      <Carousel responsive={responsive}>
-        {places.map((place, index) => (
-          <div key={index}>
-            <PlaceCard place={place} />
+export default class SwipeToSlide extends Component {
+  render() {
+    const settings = {
+      className: "center",
+      infinite: true,
+      centerPadding: "60px",
+      slidesToShow: 5,
+      swipeToSlide: true,
+      afterChange: function(index) {
+        console.log(
+          `Slider Changed to: ${index + 1}, background: #222; color: #bada55`
+        );
+      }
+    };
+    return (
+      <div>
+        <h2>Swipe To Slide</h2>
+        <Slider {...settings}>
+          <div>
+            <h3>1</h3>
           </div>
-        ))}
-      </Carousel>
-    </div>
-  );
-};
-
-export default PlacesCarousel;
+          <div>
+            <h3>2</h3>
+          </div>
+          <div>
+            <h3>3</h3>
+          </div>
+          <div>
+            <h3>4</h3>
+          </div>
+          <div>
+            <h3>5</h3>
+          </div>
+          <div>
+            <h3>6</h3>
+          </div>
+          <div>
+            <h3>7</h3>
+          </div>
+          <div>
+            <h3>8</h3>
+          </div>
+          <div>
+            <h3>9</h3>
+          </div>
+        </Slider>
+      </div>
+    );
+  }
+}
