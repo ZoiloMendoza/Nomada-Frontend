@@ -1,65 +1,79 @@
-import { useState } from "react";
+import { Box, TextField, Grid, Card, CardContent } from '@mui/material';
+import CheckboxFormulario from './Checkbox';
+import ButtonForm from './Button';
 
-
-export default function Formulario() {
-    const [usuario, setUsuario] = useState("");
-    const [correo, setCorreo] = useState("");
-    const [contraseña, setContraseña] = useState("");
-    const [confirmacion, setConfirmacion] = useState("");
-    const [terminos, setTerminos] = useState(false);
-
-    const handleSubmit= e => {
-        e.preventDefault();
-        alert("Has creado una cuenta correctamente")
-    }
-    return (
-        <>
-        <h2> Por favor, ingresa los siguientes datos para crear tu cuenta en Nomadapp</h2>
-        <form onSubmit={handleSubmit}>
-            <input
-             type="text"
-              id="usuario" 
-              value={usuario}
-              onchange={(e) => setUsuario(e.target.value)}
-              defaultValue="Usuario"
-              />
-              <label htmlFor="correo"></label>
-            <input
-             type="text"
-              id="correo" 
-              name="correo"
-              value={correo}
-              onchange={(e) => setCorreo(e.target.value)}
-              defaultValue="correo Electrónico"
-              />
-               <input
-             type="text"
-              id="contraseña" 
-              name="contraseña"
-              value={contraseña}
-              onchange={(e) => setContraseña(e.target.value)}
-              defaultValue="contraseña"
-              />
-              <input
-             type="text"
-              id="confirmarcontraseña" 
-              name="confirmarcontraseña"
-              value={confirmacion}
-              onchange={(e) => setConfirmacion(e.target.value)}
-              defaultValue="confirmar contraseña"
-              />
-              <br/>
-              <label htmlFor="terminos"> He leído y acepto los términos y condiciones</label>
-              <input 
-              type="checkbox"
-              value={terminos}
-              id="terminos"
-              name="terminos"
-              onChange={(e) => setTerminos(e.target.checked)}
-              />
-              <input type="submit"/>
-              
-        </form>
-        </>
-    )
+function Formulario() {
+  return (
+    <div className='Formulario'>
+      <header className='Form-header'>
+        <Box my={2}>
+          <Grid container direction='row' spacing={5}>
+            <Grid item xs={18} sm={18} md={18} lg={18} xl={18}>
+              <Card>
+                <CardContent>
+                  <TextField
+                    error={false}
+                    label='usuario'
+                    type='text'
+                    name='usuario'
+                    margin='dense'
+                    fullWidth
+                    variant='outlined'
+                  />
+                </CardContent>
+                <Grid item xs={18} sm={18} md={18} lg={18} xl={18}>
+                  <Card>
+                    <CardContent>
+                      <TextField
+                        error={false}
+                        label='correo electronico'
+                        type='text'
+                        name='correo electronico'
+                        margin='dense'
+                        fullWidth
+                        variant='outlined'
+                      />
+                    </CardContent>
+                    <Grid item xs={18} sm={18} md={18} lg={18} xl={18}>
+                      <Card>
+                        <CardContent>
+                          <TextField
+                            error={false}
+                            label='contraseña'
+                            type='text'
+                            name='contraseña'
+                            margin='dense'
+                            fullWidth
+                            variant='outlined'
+                          />
+                        </CardContent>
+                        <Grid item xs={18} sm={18} md={18} lg={18} xl={18}>
+                          <Card>
+                            <CardContent>
+                              <TextField
+                                error={false}
+                                label='confirmar contraseña'
+                                type='text'
+                                name='confirmar contraseña'
+                                margin='dense'
+                                fullWidth
+                                variant='outlined'
+                              />
+                            </CardContent>
+                            <CheckboxFormulario />
+                            <ButtonForm />
+                          </Card>
+                        </Grid>
+                      </Card>
+                    </Grid>
+                  </Card>
+                </Grid>
+              </Card>
+            </Grid>
+          </Grid>
+        </Box>
+      </header>
+    </div>
+  );
 }
+export default Formulario;
