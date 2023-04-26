@@ -4,7 +4,7 @@ import { Box, Button, Container, Typography } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
   hero: {
-    backgroundImage: `url('https://youmatter.world/app/uploads/sites/2/2019/11/travel-world.jpg')`,
+    backgroundImage: `url('https://www.parisperfect.com/g/photos/upload/sml_584260314-1501857542-travel-plane-large.jpg')`,
     height: 'calc(100vh - 64px)',
     backgroundSize: 'cover',
     backgroundPosition: 'center',
