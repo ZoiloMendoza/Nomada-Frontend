@@ -1,0 +1,129 @@
+import { useState } from 'react';
+import {
+  AppBar,
+  Toolbar,
+  IconButton,
+  Typography,
+  Button,
+  Menu,
+  MenuItem,
+  ListItemIcon,
+  ListItemText,
+  useMediaQuery,
+  useTheme,
+} from '@material-ui/core';
+import {
+  Menu as MenuIcon,
+  AccountCircle,
+  Dashboard,
+  Settings,
+  ExitToApp,
+} from '@material-ui/icons';
+import Link from 'next/link';
+import Image from 'next/image';
+
+function NavbarTwo() {
+  const [anchorEl, setAnchorEl] = useState(null);
+  const [isLoggedIn, setIsLoggedIn] = useState(false); // Replace with your login state
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+
+  const handleMenu = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const handleLogout = () => {
+    // Add your logout logic here
+    setIsLoggedIn(false);
+    handleClose();
+  };
+
+  return (
+    <AppBar position="static">
+      <Toolbar>
+        <IconButton edge="start" color="inherit" aria-label="menu">
+          <MenuIcon />
+        </IconButton>
+        <Link legacyBehavior href="/">
+          <a>
+            <Image src="/logo.png" alt="Logo" height="30" width="30" />
+          </a>
+        </Link>
+        {!isMobile && (
+          <Typography variant="h6" style={{ flexGrow: 1 }}>
+            NomadApp
+          </Typography>
+        )}
+        {isLoggedIn ? (
+          <>
+            {isMobile ? (
+              <>
+                <IconButton
+                  edge="end"
+                  aria-label="account of current user"
+                  aria-haspopup="true"
+                  onClick={handleMenu}
+                  color="inherit"
+                >
+                  <AccountCircle />
+                </IconButton>
+                <Menu
+                  id="menu-appbar"
+                  anchorEl={anchorEl}
+                  anchorOrigin={{
+                    vertical: 'top',
+                    horizontal: 'right',
+                  }}
+                  keepMounted
+                  transformOrigin={{
+                    vertical: 'top',
+                    horizontal: 'right',
+                  }}
+                  open={Boolean(anchorEl)}
+                  onClose={handleClose}
+                >
+                  <MenuItem onClick={handleClose}>
+                    <ListItemIcon>
+                      <Dashboard />
+                    </ListItemIcon>
+                    <ListItemText primary="Dashboard" />
+                  </MenuItem>
+                  <MenuItem onClick={handleClose}>
+                    <ListItemIcon>
+                      <Settings />
+                    </ListItemIcon>
+                    <ListItemText primary="Account Settings" />
+                  </MenuItem>
+                  <MenuItem onClick={handleLogout}>
+                    <ListItemIcon>
+                      <ExitToApp />
+                    </ListItemIcon>
+                    <ListItemText primary="Log Out" />
+                  </MenuItem>
+                </Menu>
+              </>
+            ) : (
+              <>
+                <Button color="inherit">Dashboard</Button>
+                <Button color="inherit">Account Settings</Button>
+                <Button color="inherit" onClick={handleLogout}>
+                  Log Out
+                </Button>
+              </>
+            )}
+          </>
+        ) : (
+          <Link href="/login">
+            <Button color="inherit">Log In</Button>
+          </Link>
+        )}
+      </Toolbar>
+    </AppBar>
+  );
+}
+
+export default NavbarTwo;

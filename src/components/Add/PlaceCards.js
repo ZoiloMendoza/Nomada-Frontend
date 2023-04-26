@@ -2,12 +2,11 @@ import React from "react";
 import Slider from "react-slick";
 //import "~slick-carousel/slick/slick.css"; 
 //import "~slick-carousel/slick/slick-theme.css";
-import { data } from './data';
-//import Image from "next/image";
 //import 'placeCards.css';
-
 import { Card, CardActionArea, CardContent, CardMedia, Typography, makeStyles } from '@material-ui/core';
 import { Star, StarBorder } from '@material-ui/icons';
+
+import { data } from './data';
 
 const useStyles = makeStyles((theme) => ({
   card: {
@@ -21,7 +20,6 @@ const useStyles = makeStyles((theme) => ({
     marginRight: theme.spacing(1),
   },
 }));
-
 
 
 function PlaceCards({ data }) {
@@ -62,6 +60,8 @@ function PlaceCards({ data }) {
     ]
   };
 
+
+
   return (
     <>
     <Slider {...settings}>
@@ -92,5 +92,7 @@ function PlaceCards({ data }) {
     </>
   );
 }
+
+console.log(data)
 
 export default PlaceCards;
