@@ -28,7 +28,7 @@ function NavbarTwo() {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
-  const handleMenu = (event) => {
+  const handleMenu = (event) => { 
     setAnchorEl(event.currentTarget);
   };
 
@@ -43,14 +43,14 @@ function NavbarTwo() {
   };
 
   return (
-    <AppBar position="static">
+    <AppBar position="static" color='#2B2E4A'>
       <Toolbar>
         <IconButton edge="start" color="inherit" aria-label="menu">
           <MenuIcon />
         </IconButton>
         <Link legacyBehavior href="/">
           <a>
-            <Image src="/logo.png" alt="Logo" height="30" width="30" />
+            <Image src="/img/logo1.svg" alt="Logo" height="30" width="30"  />
           </a>
         </Link>
         {!isMobile && (
@@ -109,7 +109,7 @@ function NavbarTwo() {
             ) : (
               <>
                 <Button color="inherit">Dashboard</Button>
-                <Button color="inherit">Account Settings</Button>
+                <Button color="inherit">Configurar Cuenta</Button>
                 <Button color="inherit" onClick={handleLogout}>
                   Log Out
                 </Button>
