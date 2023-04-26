@@ -1,7 +1,8 @@
 import Head from 'next/head';
 import styles from '@/styles/Home.module.css';
-import Navbar from '@/components/Navbar/Navbar';
-import Formulario from '@/components/Registro/Formulario';
+//import Navbar from '@/components/Navbar/Navbar';
+//import Formulario from '@/components/Registro/Formulario';
+import BoxLogin from '@/components/Login/BoxLogin';
 
 export default function Home() {
   return (
@@ -13,9 +14,8 @@ export default function Home() {
         <link rel='icon' href='/favicon.ico' />
       </Head>
       <main className={styles.main}>
-        <Navbar />
         <div>
-          <Formulario />
+          <BoxLogin />
         </div>
       </main>
     </>

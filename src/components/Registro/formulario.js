@@ -6,6 +6,7 @@ function Formulario() {
   return (
     <div className='Formulario'>
       <header className='Form-header'>
+        <h2> Por favor, ingresa los siguientes datos para crear tu cuenta en Nomadapp </h2>
         <Box my={2}>
           <Grid container direction='row' spacing={5}>
             <Grid item xs={18} sm={18} md={18} lg={18} xl={18}>
