@@ -1,14 +1,15 @@
 import React from 'react';
 import Slider from 'react-slick';
-//import "~slick-carousel/slick/slick.css";
-//import "~slick-carousel/slick/slick-theme.css";
-//import 'placeCards.css';
+import "slick-carousel/slick/slick.css"; 
+import "slick-carousel/slick/slick-theme.css";
+//import './placeCards.css';
 import { Card, CardActionArea, CardContent, CardMedia, Typography, makeStyles } from '@material-ui/core';
 import { Star, StarBorder } from '@material-ui/icons';
 
 const useStyles = makeStyles((theme) => ({
   card: {
     maxWidth: 345,
+    margin: 80,
   },
   media: {
     height: 140,
@@ -59,6 +60,7 @@ function PlaceCards({ data }) {
 
   return (
     <>
+    <h2>Recomendaciones</h2>
       <Slider {...settings}>
         {data.map((item) => (
           <Card className={classes.card} key={item.id}>
