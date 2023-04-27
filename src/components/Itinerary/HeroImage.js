@@ -8,6 +8,8 @@ import GetAppIcon from '@mui/icons-material/GetApp';
 import ShareIcon from '@mui/icons-material/Share';
 import PeopleIcon from '@mui/icons-material/People';
 import { Favorite } from '@material-ui/icons';
+import AddCircleIcon from '@mui/icons-material/AddCircle';
+
 
 const CircleIconButton = ({ icon, href }) => (
   <IconButton
@@ -44,7 +46,7 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   heroText: {
-    textAlign: 'center',
+    textAlign: 'left',
     marginBottom: theme.spacing(4),
   },
   heroTitle: {
@@ -109,12 +111,13 @@ const HeroImage = () => {
               icon={<Favorite />}
               href="/favorite"
             />
+            <CircleIconButton
+              icon={<AddCircleIcon />}
+              href="/add"
+            />
           </div>
         </div>  
-          
-
-         
-
+  
       </Container>
     </Box>
   );

@@ -4,15 +4,21 @@ import HeroImage from "@/components/Itinerary/HeroImage";
 import FlightCard from '@/components/Itinerary/FlightCard';
 import HotelCard from '@/components/Itinerary/HotelCard';
 import ActivityCard from '@/components/Itinerary/ActivityCard';
+import PlaceCards from '@/components/Add/PlaceCards';
 
 import Footer from "@/components/Footer/Footer";
 
 import { flightData } from '@/components/Itinerary/flightData';
 import { hotelData } from '@/components/Itinerary/hotelData';
 import { activityData } from '@/components/Itinerary/activityData';
+import { data } from '@/components/Add/data';
+
+import Box from '@mui/material/Box';
 
 
-export default function itinerary() {
+
+
+export default function Itinerary() {
     return(
         <>
             <Head>
@@ -23,13 +29,22 @@ export default function itinerary() {
             </Head>
             <NavbarTwo/>
 
-            <HeroImage/>
+            <HeroImage/> 
 
+            <Box
+                sx={{
+                    margin: 3, 
+                 }}
+            >
             <FlightCard flightData={flightData}/>
 
             <HotelCard hotelData={hotelData}/>
 
             <ActivityCard activityData={activityData}/>
+
+            <PlaceCards data={data}/>
+
+            </Box>
 
             <Footer/>
             

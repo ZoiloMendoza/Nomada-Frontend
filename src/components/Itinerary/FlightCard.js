@@ -19,6 +19,7 @@ import Grid from '@mui/material/Grid';
 const useStyles = makeStyles((theme) => ({
   card: {
     marginBottom: theme.spacing(2),
+    margin: 2,
   },
   expandIcon: {
     transform: "rotate(0deg)",

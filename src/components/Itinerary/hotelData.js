@@ -8,7 +8,7 @@ export const hotelData = [
       checkOut: '30-04-2023',
       totalPrice: '8,563.43',
       reservation: 'GZD285638TRF3450',
-      image: '',
+      image: 'https://s4p5s7j9.stackpathcdn.com/wp-content/uploads/2018/02/hotel-em-cancun.jpg',
     },
     {
         id: 2,
@@ -18,7 +18,7 @@ export const hotelData = [
         checkOut: '5-05-2023',
         totalPrice: '4,763.21',
         reservation: 'TFR47209THB450',
-        image: '',
+        image: 'https://thebettervacation.com/wp-content/uploads/2021/07/Cancun-Hotel-Zone-1200x900.jpg',
       },
   ];
   

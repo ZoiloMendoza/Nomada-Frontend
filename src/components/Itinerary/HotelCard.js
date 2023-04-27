@@ -1,22 +1,45 @@
 import { useState } from 'react';
-import { Card, CardContent, Typography, Button, IconButton } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
+import { Card, CardContent, CardMedia, Typography, IconButton, Collapse } from '@material-ui/core';
 import { Edit as EditIcon, Delete as DeleteIcon } from '@material-ui/icons';
+import { ExpandMore } from "@material-ui/icons";
 import HotelIcon from '@mui/icons-material/Hotel';
 
 import Grid from '@mui/material/Grid';
 
+const useStyles = makeStyles((theme) => ({
+  card: {
+    marginBottom: theme.spacing(2),
+    margin: 2,
+  },
+  media: {
+    maxHeight: 300,
+    paddingTop: '56.25%', // 16:9
+  },
+  expandIcon: {
+    transform: "rotate(0deg)",
+    transition: theme.transitions.create("transform", {
+      duration: theme.transitions.duration.shortest,
+    }),
+  },
+  expandIconOpen: {
+    transform: "rotate(180deg)",
+  },
+}));
+
 
 const HotelCard = ({ hotelData, handleEdit, handleDelete }) => {
-  const [showDetails, setShowDetails] = useState(false);
+  const classes = useStyles();
+  const [expanded, setExpanded] = useState(false);
 
-  const toggleDetails = () => {
-    setShowDetails(!showDetails);
+  const handleExpandClick = () => {
+    setExpanded(!expanded);
   };
 
   return (
     <>
     {hotelData.map((hotelData) => (
-    <Card key={hotelData.id}>
+    <Card className={classes.card} key={hotelData.id}>
       <CardContent>
       <div >
           <IconButton aria-label="edit" onClick={() => handleEdit(hotelInfo)}>
@@ -27,7 +50,14 @@ const HotelCard = ({ hotelData, handleEdit, handleDelete }) => {
           </IconButton>
         </div>
         <Grid container spacing={2}>
-          <Grid item  xs={10}>
+        <Grid item xs={4}>
+          <CardMedia
+            className={classes.media}
+            image={hotelData.image}
+            title={hotelData.title}
+          />
+          </Grid>
+          <Grid item  xs={6}>
             <Typography variant="h5">{hotelData.name}</Typography>
             <Typography variant="subtitle1">{hotelData.address}</Typography>
             <Typography variant="body1">Check-in: {hotelData.checkIn}</Typography>
@@ -38,23 +68,25 @@ const HotelCard = ({ hotelData, handleEdit, handleDelete }) => {
           </Grid>
         </Grid>
         
-        {!showDetails && (
-          <Button variant="outlined" color="primary" onClick={toggleDetails}>
-            Mostrar detalles
-          </Button>
-        )}
-        {showDetails && (
-          <>
+        <IconButton
+        className={`${classes.expandIcon} ${
+          expanded ? classes.expandIconOpen : ""
+        }`}
+        onClick={handleExpandClick}
+        aria-expanded={expanded}
+        aria-label="mostrar más"
+      >
+        <ExpandMore />
+      </IconButton>
+      <Collapse in={expanded} timeout="auto" unmountOnExit>
+        <CardContent>
             <Typography variant="h6">Precio Total: ${hotelData.totalPrice}</Typography>
             <Typography variant="h6">Número de reservación:</Typography>
             <Typography variant="body1">
               {hotelData.reservation}
             </Typography>
-            <Button variant="outlined" color="primary" onClick={toggleDetails}>
-              Ocultar detalles
-            </Button>
-          </>
-        )}
+            </CardContent>
+      </Collapse>
       </CardContent>
     </Card>
     ))}
