@@ -1,11 +1,13 @@
 import { Box, TextField, Grid, Card, CardContent } from '@mui/material';
 import CheckboxFormulario from './Checkbox';
 import ButtonForm from './ButtonForm';
+import BoxRegistro from './BoxRegistro';
 
 function Formulario() {
   return (
     <div className='Formulario'>
       <header className='Form-header'>
+        <BoxRegistro />
         <h2> Por favor, ingresa los siguientes datos para crear tu cuenta en Nomadapp </h2>
         <Box my={2}>
           <Grid container direction='row' spacing={5}>
