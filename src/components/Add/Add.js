@@ -1,7 +1,6 @@
 import { makeStyles } from '@material-ui/core/styles';
 import { Button, ButtonGroup } from '@material-ui/core';
 import { Link } from '@material-ui/core';
-import PlaceCards from './PlaceCards';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -78,8 +77,6 @@ export default function Add() {
           <Button className={classes.buttonTwo}>Mapa</Button>
         </Link>
       </ButtonGroup>
-
-      <PlaceCards/>
 
     </div>
     

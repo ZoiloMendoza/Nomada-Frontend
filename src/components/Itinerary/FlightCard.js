@@ -10,6 +10,11 @@ import {
 } from "@material-ui/core";
 import { ExpandMore } from "@material-ui/icons";
 import { Edit as EditIcon, Delete as DeleteIcon } from '@material-ui/icons';
+import FlightIcon from '@mui/icons-material/Flight';
+
+import Grid from '@mui/material/Grid';
+
+
 
 const useStyles = makeStyles((theme) => ({
   card: {
@@ -26,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const FlightCard = ({ flight, handleEdit, handleDelete }) => {
+const FlightCard = ({ flightData, handleEdit, handleDelete }) => {
   const classes = useStyles();
   const [expanded, setExpanded] = useState(false);
 
@@ -35,7 +40,9 @@ const FlightCard = ({ flight, handleEdit, handleDelete }) => {
   };
 
   return (
-    <Card className={classes.card}>
+    <>
+    {flightData.map((flightData) => (
+    <Card className={classes.card} key={flightData.id}>
         <div className={classes.editDeleteIcons}>
           <IconButton aria-label="edit" onClick={() => handleEdit(flightInfo)}>
             <EditIcon />
@@ -44,16 +51,22 @@ const FlightCard = ({ flight, handleEdit, handleDelete }) => {
             <DeleteIcon />
           </IconButton>
         </div>
+        <Grid container spacing={2}>
+          <Grid item xs={10}>
       <CardHeader
-        title={`${flight.origin} to ${flight.destination}`}
-        subheader={`${flight.date} | ${flight.airline}`}
-      />
+        title={`${flightData.origin} a ${flightData.destination}`}
+        subheader={`${flightData.date} | ${flightData.airline}`}
+      /></Grid>
+      <Grid item xs={2}>
+      <FlightIcon />
+      </Grid>
+      </Grid>
       <CardContent>
         <Typography variant="h6" component="p">
-          {`${flight.departureTime} - ${flight.arrivalTime}`}
+          {`${flightData.departureTime} - ${flightData.arrivalTime}`}
         </Typography>
         <Typography variant="subtitle1" component="p">
-          {`${flight.duration} | ${flight.stops}`}
+          {`duración: ${flightData.duration} | escalas: ${flightData.stops}`}
         </Typography>
       </CardContent>
       <IconButton
@@ -62,31 +75,34 @@ const FlightCard = ({ flight, handleEdit, handleDelete }) => {
         }`}
         onClick={handleExpandClick}
         aria-expanded={expanded}
-        aria-label="show more"
+        aria-label="mostrar más"
       >
         <ExpandMore />
       </IconButton>
       <Collapse in={expanded} timeout="auto" unmountOnExit>
         <CardContent>
           <Typography variant="subtitle1" component="p">
-            {`Status: ${flight.status}`}
+            {`Status: ${flightData.status}`}
           </Typography>
           <Typography variant="subtitle1" component="p">
-            {`Flight Number: ${flight.flightNumber}`}
+            {`Número de vuelo: ${flightData.flightNumber}`}
           </Typography>
           <Typography variant="subtitle1" component="p">
-            {`Terminal: ${flight.terminal}`}
+            {`Terminal: ${flightData.terminal}`}
           </Typography>
           <Typography variant="subtitle1" component="p">
-            {`Gate: ${flight.gate}`}
+            {`Puerta: ${flightData.gate}`}
           </Typography>
           <Typography variant="subtitle1" component="p">
-            {`Class: ${flight.class}`}
+            {`Clase: ${flightData.class}`}
           </Typography>
         </CardContent>
       </Collapse>
     </Card>
+    ))}
+    </>
   );
+
 };
 
 export default FlightCard;
