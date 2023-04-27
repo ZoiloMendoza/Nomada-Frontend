@@ -76,7 +76,7 @@ const HeroImage = () => {
     <Box className={classes.hero}>
       <Container maxWidth="md">
 
-      <Grid container spacing={2}>
+      <Grid container spacing={3}>
       <Grid item>
         <IconButton component="a" href="/download">
           <GetAppIcon sx={{ color: '#FFFFFF' }} />
@@ -96,7 +96,7 @@ const HeroImage = () => {
         
         <div className={classes.heroText}>
           <Typography variant="h1" className={classes.heroTitle}>
-            NombreViaje
+            Cancún 2023
           </Typography>
           <Typography variant="h2" className={classes.heroSubtitle}>
             Destino y fecha

@@ -2,10 +2,14 @@ import Head from 'next/head';
 import NavbarTwo from "@/components/Navbar/NavbarTwo";
 import HeroImage from "@/components/Itinerary/HeroImage";
 import FlightCard from '@/components/Itinerary/FlightCard';
+import HotelCard from '@/components/Itinerary/HotelCard';
+import ActivityCard from '@/components/Itinerary/ActivityCard';
 
 import Footer from "@/components/Footer/Footer";
 
 import { flightData } from '@/components/Itinerary/flightData';
+import { hotelData } from '@/components/Itinerary/hotelData';
+import { activityData } from '@/components/Itinerary/activityData';
 
 
 export default function itinerary() {
@@ -22,6 +26,10 @@ export default function itinerary() {
             <HeroImage/>
 
             <FlightCard flightData={flightData}/>
+
+            <HotelCard hotelData={hotelData}/>
+
+            <ActivityCard activityData={activityData}/>
 
             <Footer/>
             
