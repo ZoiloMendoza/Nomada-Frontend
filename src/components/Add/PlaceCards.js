@@ -1,12 +1,10 @@
-import React from "react";
-import Slider from "react-slick";
-//import "~slick-carousel/slick/slick.css"; 
+import React from 'react';
+import Slider from 'react-slick';
+//import "~slick-carousel/slick/slick.css";
 //import "~slick-carousel/slick/slick-theme.css";
 //import 'placeCards.css';
 import { Card, CardActionArea, CardContent, CardMedia, Typography, makeStyles } from '@material-ui/core';
 import { Star, StarBorder } from '@material-ui/icons';
-
-import { data } from './data';
 
 const useStyles = makeStyles((theme) => ({
   card: {
@@ -20,7 +18,6 @@ const useStyles = makeStyles((theme) => ({
     marginRight: theme.spacing(1),
   },
 }));
-
 
 function PlaceCards({ data }) {
   const classes = useStyles();
@@ -39,60 +36,58 @@ function PlaceCards({ data }) {
           slidesToShow: 3,
           slidesToScroll: 3,
           infinite: true,
-          dots: true
-        }
+          dots: true,
+        },
       },
       {
         breakpoint: 600,
         settings: {
           slidesToShow: 2,
           slidesToScroll: 2,
-          initialSlide: 2
-        }
+          initialSlide: 2,
+        },
       },
       {
         breakpoint: 480,
         settings: {
           slidesToShow: 1,
-          slidesToScroll: 1
-        }
-      }
-    ]
+          slidesToScroll: 1,
+        },
+      },
+    ],
   };
-
-
 
   return (
     <>
-    <Slider {...settings}>
-      {data.map((item) => (
-        <Card className={classes.card} key={item.id}>
-          <CardActionArea>
-            <CardMedia className={classes.media} image={item.image} title={item.title} />
-            <CardContent>
-              <Typography gutterBottom variant="h5" component="h2">
-                {item.title}
-              </Typography>
-              <Typography variant="body2" color="textSecondary" component="p">
-                {item.description}
-              </Typography>
-              <div>
-                {[...Array(item.rating)].map((_, index) => (
-                  <Star className={classes.rating} key={index} />
-                ))}
-                {[...Array(5 - item.rating)].map((_, index) => (
-                  <StarBorder className={classes.rating} key={index} />
-                ))}
-              </div>
-            </CardContent>
-          </CardActionArea>
-        </Card>
-      ))}
+      <Slider {...settings}>
+        {data.map((item) => (
+          <Card className={classes.card} key={item.id}>
+            <CardActionArea>
+              <CardMedia className={classes.media} image={item.image} title={item.title} />
+              <CardContent>
+                <Typography gutterBottom variant='h5' component='h2'>
+                  {item.title}
+                </Typography>
+                <Typography variant='body2' color='textSecondary' component='p'>
+                  {item.description}
+                </Typography>
+                <div>
+                  {[...Array(item.rating)].map((_, index) => (
+                    <Star className={classes.rating} key={index} />
+                  ))}
+                  {[...Array(5 - item.rating)].map((_, index) => (
+                    <StarBorder className={classes.rating} key={index} />
+                  ))}
+                </div>
+              </CardContent>
+            </CardActionArea>
+          </Card>
+        ))}
       </Slider>
     </>
   );
 }
 
-console.log(data)
+//console.log(data)
 
 export default PlaceCards;

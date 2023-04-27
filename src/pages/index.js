@@ -1,7 +1,6 @@
 import Head from 'next/head';
 import styles from '@/styles/Home.module.css';
 import NavbarTwo from '@/components/Navbar/NavbarTwo';
-import MyCard from '@/components/Card';
 import Landing from '@/components/Landing/Landing';
 import Footer from '@/components/Footer/Footer';
 //import Add from '@/components/Add/Add';
@@ -16,15 +15,11 @@ export default function Home() {
         <link rel='icon' href='/img/logo1.svg' />
       </Head>
       <NavbarTwo />
-      <Landing/>
+      <Landing />
       <main className={styles.main}>
-        
-        <div>
-          <MyCard />
-     
-        </div>
+        <div></div>
       </main>
-      <Footer/>
+      <Footer />
     </>
   );
 }
