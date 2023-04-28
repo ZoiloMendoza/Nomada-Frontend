@@ -47,15 +47,15 @@ const Hero = () => {
 
   return (
     <Box className={classes.hero}>
-      <Container maxWidth="md">
+      <Container maxWidth='md'>
         <div className={classes.heroText}>
-          <Typography variant="h1" className={classes.heroTitle}>
+          <Typography variant='h1' className={classes.heroTitle}>
             Planea El Viaje De Tus Sueños
           </Typography>
-          <Typography variant="h2" className={classes.heroSubtitle}>
+          <Typography variant='h2' className={classes.heroSubtitle}>
             Déjanos ayudarte a llevar al máximo tu próxima aventura
           </Typography>
-          <Button variant="contained" color="secondary" className={classes.heroButton}>
+          <Button variant='contained' color='secondary' className={classes.heroButton}>
             Regístrate
           </Button>
         </div>

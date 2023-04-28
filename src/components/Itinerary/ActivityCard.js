@@ -1,31 +1,33 @@
 import { useState } from 'react';
 import { Card, CardHeader, CardMedia, CardContent, Typography, IconButton, Collapse } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import { ExpandMore as ExpandMoreIcon } from '@material-ui/icons';
+import { ExpandMore } from '@material-ui/icons';
 import { Edit as EditIcon, Delete as DeleteIcon } from '@material-ui/icons';
+import LocalActivityIcon from '@material-ui/icons/LocalActivity';
+
+import Grid from '@material-ui/core/Grid';
 
 const useStyles = makeStyles((theme) => ({
   card: {
-    maxWidth: 345,
-    margin: theme.spacing(2),
+    marginBottom: theme.spacing(2),
+    margin: 2,
   },
   media: {
-    height: 0,
+    maxHeight: 300,
     paddingTop: '56.25%', // 16:9
   },
-  expand: {
+  expandIcon: {
     transform: 'rotate(0deg)',
-    marginLeft: 'auto',
     transition: theme.transitions.create('transform', {
       duration: theme.transitions.duration.shortest,
     }),
   },
-  expandOpen: {
+  expandIconOpen: {
     transform: 'rotate(180deg)',
   },
 }));
 
-const ActivityCard = ({ title, subtitle, image, description, handleEdit, handleDelete }) => {
+const ActivityCard = ({ activityData, handleEdit, handleDelete }) => {
   const classes = useStyles();
   const [expanded, setExpanded] = useState(false);
 
@@ -34,41 +36,48 @@ const ActivityCard = ({ title, subtitle, image, description, handleEdit, handleD
   };
 
   return (
-    <Card className={classes.card}>
-        <IconButton aria-label="edit" onClick={() => handleEdit(flightInfo)}>
+    <>
+      {activityData.map((activityData) => (
+        <Card className={classes.card} key={activityData.id}>
+          <IconButton aria-label='edit' onClick={() => handleEdit(activityInfo)}>
             <EditIcon />
           </IconButton>
-          <IconButton aria-label="delete" onClick={() => handleDelete(flightInfo)}>
+          <IconButton aria-label='delete' onClick={() => handleDelete(activityInfo)}>
             <DeleteIcon />
           </IconButton>
-      <CardHeader
-        title={title}
-        subheader={subtitle}
-      />
-      <CardMedia
-        className={classes.media}
-        image={image}
-        title={title}
-      />
-      <CardContent>
-        <Typography variant="body2" color="textSecondary" component="p">
-          {description.substring(0, 100)}...
-        </Typography>
-      </CardContent>
-      <IconButton
-        className={expanded ? classes.expandOpen : classes.expand}
-        onClick={handleExpandClick}
-        aria-expanded={expanded}
-        aria-label="show more"
-      >
-        <ExpandMoreIcon />
-      </IconButton>
-      <Collapse in={expanded} timeout="auto" unmountOnExit>
-        <CardContent>
-          <Typography paragraph>{description}</Typography>
-        </CardContent>
-      </Collapse>
-    </Card>
+          <Grid container spacing={2}>
+            <Grid item xs={4}>
+              <CardMedia className={classes.media} image={activityData.image} title={activityData.title} />
+            </Grid>
+            <Grid item xs={6}>
+              <CardHeader title={activityData.title} subheader={activityData.subtitle} />
+              <CardContent>
+                <Typography variant='body2' color='textSecondary' component='p'>
+                  {activityData.time}
+                </Typography>
+              </CardContent>
+            </Grid>
+            <Grid item xs={2}>
+              <LocalActivityIcon />
+            </Grid>
+          </Grid>
+
+          <IconButton
+            className={`${classes.expandIcon} ${expanded ? classes.expandIconOpen : ''}`}
+            onClick={handleExpandClick}
+            aria-expanded={expanded}
+            aria-label='mostrar más'
+          >
+            <ExpandMore />
+          </IconButton>
+          <Collapse in={expanded} timeout='auto' unmountOnExit>
+            <CardContent>
+              <Typography paragraph>{activityData.description}</Typography>
+            </CardContent>
+          </Collapse>
+        </Card>
+      ))}
+    </>
   );
 };
 

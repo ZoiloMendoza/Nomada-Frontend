@@ -1,32 +1,28 @@
-import { useState } from "react";
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  Typography,
-  Collapse,
-  IconButton,
-  makeStyles,
-} from "@material-ui/core";
-import { ExpandMore } from "@material-ui/icons";
+import { useState } from 'react';
+import { Card, CardContent, CardHeader, Typography, Collapse, IconButton, makeStyles } from '@material-ui/core';
+import { ExpandMore } from '@material-ui/icons';
 import { Edit as EditIcon, Delete as DeleteIcon } from '@material-ui/icons';
+import FlightIcon from '@material-ui/icons/Flight';
+
+import Grid from '@material-ui/core/Grid';
 
 const useStyles = makeStyles((theme) => ({
   card: {
     marginBottom: theme.spacing(2),
+    margin: 2,
   },
   expandIcon: {
-    transform: "rotate(0deg)",
-    transition: theme.transitions.create("transform", {
+    transform: 'rotate(0deg)',
+    transition: theme.transitions.create('transform', {
       duration: theme.transitions.duration.shortest,
     }),
   },
   expandIconOpen: {
-    transform: "rotate(180deg)",
+    transform: 'rotate(180deg)',
   },
 }));
 
-const FlightCard = ({ flight, handleEdit, handleDelete }) => {
+const FlightCard = ({ flightData, handleEdit, handleDelete }) => {
   const classes = useStyles();
   const [expanded, setExpanded] = useState(false);
 
@@ -35,57 +31,66 @@ const FlightCard = ({ flight, handleEdit, handleDelete }) => {
   };
 
   return (
-    <Card className={classes.card}>
-        <div className={classes.editDeleteIcons}>
-          <IconButton aria-label="edit" onClick={() => handleEdit(flightInfo)}>
-            <EditIcon />
+    <>
+      {flightData.map((flightData) => (
+        <Card className={classes.card} key={flightData.id}>
+          <div className={classes.editDeleteIcons}>
+            <IconButton aria-label='edit' onClick={() => handleEdit(flightInfo)}>
+              <EditIcon />
+            </IconButton>
+            <IconButton aria-label='delete' onClick={() => handleDelete(flightInfo)}>
+              <DeleteIcon />
+            </IconButton>
+          </div>
+          <Grid container spacing={2}>
+            <Grid item xs={10}>
+              <CardHeader
+                title={`${flightData.origin} a ${flightData.destination}`}
+                subheader={`${flightData.date} | ${flightData.airline}`}
+              />
+            </Grid>
+            <Grid item xs={2}>
+              <FlightIcon />
+            </Grid>
+          </Grid>
+          <CardContent>
+            <Typography variant='h6' component='p'>
+              {`${flightData.departureTime} - ${flightData.arrivalTime}`}
+            </Typography>
+            <Typography variant='subtitle1' component='p'>
+              {`duración: ${flightData.duration} | escalas: ${flightData.stops}`}
+            </Typography>
+          </CardContent>
+          <IconButton
+            className={`${classes.expandIcon} ${expanded ? classes.expandIconOpen : ''}`}
+            onClick={handleExpandClick}
+            aria-expanded={expanded}
+            aria-label='mostrar más'
+          >
+            <ExpandMore />
           </IconButton>
-          <IconButton aria-label="delete" onClick={() => handleDelete(flightInfo)}>
-            <DeleteIcon />
-          </IconButton>
-        </div>
-      <CardHeader
-        title={`${flight.origin} to ${flight.destination}`}
-        subheader={`${flight.date} | ${flight.airline}`}
-      />
-      <CardContent>
-        <Typography variant="h6" component="p">
-          {`${flight.departureTime} - ${flight.arrivalTime}`}
-        </Typography>
-        <Typography variant="subtitle1" component="p">
-          {`${flight.duration} | ${flight.stops}`}
-        </Typography>
-      </CardContent>
-      <IconButton
-        className={`${classes.expandIcon} ${
-          expanded ? classes.expandIconOpen : ""
-        }`}
-        onClick={handleExpandClick}
-        aria-expanded={expanded}
-        aria-label="show more"
-      >
-        <ExpandMore />
-      </IconButton>
-      <Collapse in={expanded} timeout="auto" unmountOnExit>
-        <CardContent>
-          <Typography variant="subtitle1" component="p">
-            {`Status: ${flight.status}`}
-          </Typography>
-          <Typography variant="subtitle1" component="p">
-            {`Flight Number: ${flight.flightNumber}`}
-          </Typography>
-          <Typography variant="subtitle1" component="p">
-            {`Terminal: ${flight.terminal}`}
-          </Typography>
-          <Typography variant="subtitle1" component="p">
-            {`Gate: ${flight.gate}`}
-          </Typography>
-          <Typography variant="subtitle1" component="p">
-            {`Class: ${flight.class}`}
-          </Typography>
-        </CardContent>
-      </Collapse>
-    </Card>
+          <Collapse in={expanded} timeout='auto' unmountOnExit>
+            <CardContent>
+              <Typography variant='subtitle1' component='p'>
+                {`Status: ${flightData.status}`}
+              </Typography>
+              <Typography variant='subtitle1' component='p'>
+                {`Número de vuelo: ${flightData.flightNumber}`}
+              </Typography>
+              <Typography variant='subtitle1' component='p'>
+                {`Terminal: ${flightData.terminal}`}
+              </Typography>
+              <Typography variant='subtitle1' component='p'>
+                {`Puerta: ${flightData.gate}`}
+              </Typography>
+              <Typography variant='subtitle1' component='p'>
+                {`Clase: ${flightData.class}`}
+              </Typography>
+            </CardContent>
+          </Collapse>
+        </Card>
+      ))}
+    </>
   );
 };
 
