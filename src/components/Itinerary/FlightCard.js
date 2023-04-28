@@ -81,7 +81,7 @@ const FlightCard = ({ flightData, handleEdit, handleDelete }) => {
         <ExpandMore />
       </IconButton>
       <Collapse in={expanded} timeout="auto" unmountOnExit>
-        <CardContent>
+        <CardContent> 
           <Typography variant="subtitle1" component="p">
             {`Status: ${flightData.status}`}
           </Typography>
