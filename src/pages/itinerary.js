@@ -13,7 +13,7 @@ import { hotelData } from '@/components/Itinerary/hotelData';
 import { activityData } from '@/components/Itinerary/activityData';
 import { data } from '@/components/Add/data';
 
-import Box from '@mui/material/Box';
+import Box from '@material-ui/core/Box';
 
 export default function Itinerary() {
   return (
@@ -29,8 +29,8 @@ export default function Itinerary() {
       <HeroImage />
 
       <Box
-        sx={{
-          margin: 3,
+        style={{
+          margin: 5,
         }}
       >
         <FlightCard flightData={flightData} />
