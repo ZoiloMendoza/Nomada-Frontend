@@ -46,9 +46,9 @@ function Formulario() {
                     <CardContent>
                       <TextField
                         error={false}
-                        label='correo electronico'
+                        label='correo'
                         type='text'
-                        name='correo electronico'
+                        name='correo'
                         value={formData.correo}
                         onChange={handleOnChange}
                         margin='dense'
