@@ -12,13 +12,7 @@ import {
   useMediaQuery,
   useTheme,
 } from '@material-ui/core';
-import {
-  Menu as MenuIcon,
-  AccountCircle,
-  Dashboard,
-  Settings,
-  ExitToApp,
-} from '@material-ui/icons';
+import { Menu as MenuIcon, AccountCircle, Dashboard, Settings, ExitToApp } from '@material-ui/icons';
 import Link from 'next/link';
 import Image from 'next/image';
 
@@ -28,7 +22,7 @@ function NavbarTwo() {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
-  const handleMenu = (event) => { 
+  const handleMenu = (event) => {
     setAnchorEl(event.currentTarget);
   };
 
@@ -43,36 +37,43 @@ function NavbarTwo() {
   };
 
   return (
-    <AppBar position="static" color='#2B2E4A'>
+    <AppBar position='static' color='#2B2E4A'>
       <Toolbar>
-        <IconButton edge="start" color="inherit" aria-label="menu">
+        <IconButton edge='start' color='inherit' aria-label='menu'>
           <MenuIcon />
         </IconButton>
-        <Link legacyBehavior href="/">
+        <Link legacyBehavior href='/'>
           <a>
-            <Image src="/img/logo1.svg" alt="Logo" height="30" width="30"  />
+            <Image src='/img/logo1.svg' alt='Logo' height='30' width='30' />
           </a>
         </Link>
+
         {!isMobile && (
-          <Typography variant="h6" style={{ flexGrow: 1 }}>
+          <Typography variant='h6' style={{ flexGrow: 1 }}>
             NomadApp
           </Typography>
         )}
+        <Link legacyBehavior href='/itinerary'>
+          <Button color='inherit'>itinerario</Button>
+        </Link>
+        <Link legacyBehavior href='/add'>
+          <Button color='inherit'>add</Button>
+        </Link>
         {isLoggedIn ? (
           <>
             {isMobile ? (
               <>
                 <IconButton
-                  edge="end"
-                  aria-label="account of current user"
-                  aria-haspopup="true"
+                  edge='end'
+                  aria-label='account of current user'
+                  aria-haspopup='true'
                   onClick={handleMenu}
-                  color="inherit"
+                  color='inherit'
                 >
                   <AccountCircle />
                 </IconButton>
                 <Menu
-                  id="menu-appbar"
+                  id='menu-appbar'
                   anchorEl={anchorEl}
                   anchorOrigin={{
                     vertical: 'top',
@@ -90,35 +91,35 @@ function NavbarTwo() {
                     <ListItemIcon>
                       <Dashboard />
                     </ListItemIcon>
-                    <ListItemText primary="Dashboard" />
+                    <ListItemText primary='Dashboard' />
                   </MenuItem>
                   <MenuItem onClick={handleClose}>
                     <ListItemIcon>
                       <Settings />
                     </ListItemIcon>
-                    <ListItemText primary="Account Settings" />
+                    <ListItemText primary='Account Settings' />
                   </MenuItem>
                   <MenuItem onClick={handleLogout}>
                     <ListItemIcon>
                       <ExitToApp />
                     </ListItemIcon>
-                    <ListItemText primary="Log Out" />
+                    <ListItemText primary='Log Out' />
                   </MenuItem>
                 </Menu>
               </>
             ) : (
               <>
-                <Button color="inherit">Dashboard</Button>
-                <Button color="inherit">Configurar Cuenta</Button>
-                <Button color="inherit" onClick={handleLogout}>
+                <Button color='inherit'>Dashboard</Button>
+                <Button color='inherit'>Configurar Cuenta</Button>
+                <Button color='inherit' onClick={handleLogout}>
                   Log Out
                 </Button>
               </>
             )}
           </>
         ) : (
-          <Link href="/login">
-            <Button color="inherit">Log In</Button>
+          <Link href='/login'>
+            <Button color='inherit'>Log In</Button>
           </Link>
         )}
       </Toolbar>
