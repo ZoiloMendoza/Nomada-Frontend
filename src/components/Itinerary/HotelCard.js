@@ -3,7 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Card, CardContent, CardMedia, Typography, IconButton, Collapse } from '@material-ui/core';
 import { Edit as EditIcon, Delete as DeleteIcon } from '@material-ui/icons';
 import { ExpandMore } from '@material-ui/icons';
-import HotelIcon from '@mui/icons-material/Hotel';
+import HotelIcon from '@material-ui/icons/Hotel';
 
 import Grid from '@material-ui/core/Grid';
 
