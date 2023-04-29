@@ -4,6 +4,8 @@ import styles from '@/styles/Home.module.css';
 import Formulario from '@/components/Registro/Formulario';
 //import BoxRegistro from '@/components/Registro/BoxRegistro';
 //import BoxLogin from '@/components/Login/BoxLogin';
+//import ButtonMisViajes from '@/components/misViajes/ButtonMisViajes';
+//import CardMisViajes from '@/components/misViajes/CardMisViajes';
 
 export default function Home() {
   return (
@@ -15,9 +17,9 @@ export default function Home() {
         <link rel='icon' href='/favicon.ico' />
       </Head>
       <main className={styles.main}>
-        <div>
-          <Formulario />
-        </div>
+        <Formulario />
+
+        <div></div>
       </main>
     </>
   );

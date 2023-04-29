@@ -2,7 +2,7 @@ import { ThemeProvider } from '@emotion/react';
 import Button from '@mui/material/Button';
 import theme from './TemaConfig';
 
-const ButtonForm = () => {
+const ButtonForm = ({ onClick }) => {
   const customColor = '#6C6D7F';
 
   return (
@@ -16,6 +16,7 @@ const ButtonForm = () => {
           textTransform: 'none',
           alignItems: 'center',
         }}
+        onClick={onClick}
       >
         Crear cuenta
       </Button>
