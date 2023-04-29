@@ -53,6 +53,9 @@ function NavbarTwo() {
             NomadApp
           </Typography>
         )}
+        <Link legacyBehavior href='/search'>
+          <Button color='inherit'>search</Button>
+        </Link>
         <Link legacyBehavior href='/itinerary'>
           <Button color='inherit'>itinerario</Button>
         </Link>
