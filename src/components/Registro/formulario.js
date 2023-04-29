@@ -8,7 +8,7 @@ import axios from 'axios';
 function Formulario() {
   const [trigger, setTrigger] = useState(false);
   const [confirmarPassword, setConfirmarPaswordd] = useState({
-    passwordConfirmar: '',
+    confirmar: '',
   });
   const [formData, setFormData] = useState({
     name: '',
@@ -26,25 +26,42 @@ function Formulario() {
   };
 
   const handleSubmit = (name, email, password) => {
+    if (password !== confirmarPassword.confirmar) {
+      alert('Las contraseñas no coinciden.');
+      return;
+    }
     console.log('enviado', formData);
     alert('Usuario creado correctamente', name, email, password);
     setTrigger(true);
   };
   useEffect(() => {
     if (trigger) {
-      const addUser = async () => {
-        const userPost = await axios.post('https://nomada-backend-production.up.railway.app/api/v1/users', formData);
-        console.log('statusCode', userPost.status);
-        if (userPost.status !== 201) {
-          console.log('error al insertar');
-        } else {
-          setFormData(userPost.data._id);
+      (async () => {
+        try {
+          const userPost = await axios.post('https://nomada-backend-production.up.railway.app/api/v1/users', formData);
+          console.log('statusCode', userPost.status);
+          if (userPost.status == 201) {
+            console.log('Usuario creado exitosamente');
+            setFormData({
+              name: '',
+              email: '',
+              password: '',
+            });
+            setConfirmarPaswordd({
+              confirmar: '',
+            });
+          } else {
+            console.log('Error al insertar');
+          }
+        } catch (error) {
+          console.error('Error en la petición:', error);
+          alert('Error al crear el usuario. Por favor, inténtalo de nuevo.');
         }
-      };
-      addUser();
+      })();
       setTrigger(false);
     }
   }, [trigger]);
+
   return (
     <div className='Formulario'>
       <header className='Form-header'>
@@ -104,8 +121,8 @@ function Formulario() {
                                 error={false}
                                 label='confirmarPassword'
                                 type='password'
-                                name='confirmarPassword'
-                                value={confirmarPassword.passwordConfirmar || ''}
+                                name='confirmar'
+                                value={confirmarPassword.confirmar || ''}
                                 onChange={handleOnChangeConfirmarPassword}
                                 margin='dense'
                                 fullWidth
