@@ -7,6 +7,9 @@ import axios from 'axios';
 
 function Formulario() {
   const [trigger, setTrigger] = useState(false);
+  const [confirmarPassword, setConfirmarPaswordd] = useState({
+    passwordConfirmar: '',
+  });
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -16,6 +19,10 @@ function Formulario() {
   const handleOnChange = (e) => {
     console.log([e.target.name], e.target.value);
     setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+  const handleOnChangeConfirmarPassword = (e) => {
+    console.log([e.target.name], e.target.value);
+    setConfirmarPaswordd({ ...confirmarPassword, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = (name, email, password) => {
@@ -53,7 +60,7 @@ function Formulario() {
                     label='name'
                     type='text'
                     name='name'
-                    value={formData.name}
+                    value={formData.name || ''}
                     onChange={handleOnChange}
                     margin='dense'
                     fullWidth
@@ -68,7 +75,7 @@ function Formulario() {
                         label='email'
                         type='text'
                         name='email'
-                        value={formData.email}
+                        value={formData.email || ''}
                         onChange={handleOnChange}
                         margin='dense'
                         fullWidth
@@ -83,7 +90,7 @@ function Formulario() {
                             label='password'
                             type='password'
                             name='password'
-                            value={formData.password}
+                            value={formData.password || ''}
                             onChange={handleOnChange}
                             margin='dense'
                             fullWidth
@@ -95,10 +102,11 @@ function Formulario() {
                             <CardContent>
                               <TextField
                                 error={false}
-                                label='confirmarContraseña'
+                                label='confirmarPassword'
                                 type='password'
-                                name='confirmarContraseña'
-                                onChange={handleOnChange}
+                                name='confirmarPassword'
+                                value={confirmarPassword.passwordConfirmar || ''}
+                                onChange={handleOnChangeConfirmarPassword}
                                 margin='dense'
                                 fullWidth
                                 variant='outlined'
