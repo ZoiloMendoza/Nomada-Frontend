@@ -1,6 +1,12 @@
 import { Box, TextField, Grid, Card, CardContent } from '@mui/material';
+import { useState } from 'react';
 
+//nose si agregar lo siguiente
 function FormLogin() {
+  const [formData, setFormData] = useState({
+    correo: '',
+    constraseña: '',
+  });
   return (
     <div className='Formulario'>
       <header className='Form-header'>

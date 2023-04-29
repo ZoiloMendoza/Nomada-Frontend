@@ -1,11 +1,47 @@
 import { Box, TextField, Grid, Card, CardContent } from '@mui/material';
-import CheckboxFormulario from './Checkbox';
+import CheckboxFormulario from './CheckboxFormulario';
 import ButtonForm from './ButtonForm';
+import BoxRegistro from './BoxRegistro';
+import { useState, useEffect } from 'react';
+import axios from 'axios';
 
 function Formulario() {
+  const [trigger, setTrigger] = useState(false);
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    password: '',
+  });
+  const { name, email, password } = formData;
+  const handleOnChange = (e) => {
+    console.log([e.target.name], e.target.value);
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = (name, email, password) => {
+    console.log('enviado', formData);
+    alert('Usuario creado correctamente', name, email, password);
+    setTrigger(true);
+  };
+  useEffect(() => {
+    if (trigger) {
+      const addUser = async () => {
+        const userPost = await axios.post('https://nomada-backend-production.up.railway.app/api/v1/users', formData);
+        console.log('statusCode', userPost.status);
+        if (userPost.status !== 201) {
+          console.log('error al insertar');
+        } else {
+          setFormData(userPost.data._id);
+        }
+      };
+      addUser();
+      setTrigger(false);
+    }
+  }, [trigger]);
   return (
     <div className='Formulario'>
       <header className='Form-header'>
+        <BoxRegistro />
         <h2> Por favor, ingresa los siguientes datos para crear tu cuenta en Nomadapp </h2>
         <Box my={2}>
           <Grid container direction='row' spacing={5}>
@@ -14,9 +50,11 @@ function Formulario() {
                 <CardContent>
                   <TextField
                     error={false}
-                    label='usuario'
+                    label='name'
                     type='text'
-                    name='usuario'
+                    name='name'
+                    value={formData.name}
+                    onChange={handleOnChange}
                     margin='dense'
                     fullWidth
                     variant='outlined'
@@ -27,9 +65,11 @@ function Formulario() {
                     <CardContent>
                       <TextField
                         error={false}
-                        label='correo electronico'
+                        label='email'
                         type='text'
-                        name='correo electronico'
+                        name='email'
+                        value={formData.email}
+                        onChange={handleOnChange}
                         margin='dense'
                         fullWidth
                         variant='outlined'
@@ -40,9 +80,11 @@ function Formulario() {
                         <CardContent>
                           <TextField
                             error={false}
-                            label='contraseña'
-                            type='text'
-                            name='contraseña'
+                            label='password'
+                            type='password'
+                            name='password'
+                            value={formData.password}
+                            onChange={handleOnChange}
                             margin='dense'
                             fullWidth
                             variant='outlined'
@@ -53,16 +95,17 @@ function Formulario() {
                             <CardContent>
                               <TextField
                                 error={false}
-                                label='confirmar contraseña'
-                                type='text'
-                                name='confirmar contraseña'
+                                label='confirmarContraseña'
+                                type='password'
+                                name='confirmarContraseña'
+                                onChange={handleOnChange}
                                 margin='dense'
                                 fullWidth
                                 variant='outlined'
                               />
                             </CardContent>
                             <CheckboxFormulario />
-                            <ButtonForm />
+                            <ButtonForm size='medium' onClick={() => handleSubmit(name, email, password)} />
                           </Card>
                         </Grid>
                       </Card>
