@@ -11,8 +11,8 @@ import {
   ListItemText,
   useMediaQuery,
   useTheme,
-} from '@material-ui/core';
-import { Menu as MenuIcon, AccountCircle, Dashboard, Settings, ExitToApp } from '@material-ui/icons';
+} from '@mui/material';
+import { Menu as MenuIcon, AccountCircle, Dashboard, Settings, ExitToApp } from '@mui/icons-material';
 import Link from 'next/link';
 import Image from 'next/image';
 
@@ -37,7 +37,7 @@ function NavbarTwo() {
   };
 
   return (
-    <AppBar position='static' color='#2B2E4A'>
+    <AppBar position='static' color='#FFFFFF'>
       <Toolbar>
         <IconButton edge='start' color='inherit' aria-label='menu'>
           <MenuIcon />

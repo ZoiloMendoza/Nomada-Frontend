@@ -1,11 +1,11 @@
 import { useState } from 'react';
-import { Card, CardHeader, CardMedia, CardContent, Typography, IconButton, Collapse } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
-import { ExpandMore } from '@material-ui/icons';
-import { Edit as EditIcon, Delete as DeleteIcon } from '@material-ui/icons';
-import LocalActivityIcon from '@material-ui/icons/LocalActivity';
+import { Card, CardHeader, CardMedia, CardContent, Typography, IconButton, Collapse } from '@mui/material';
+import { makeStyles } from '@mui/styles';
+import { ExpandMore } from '@mui/icons-material';
+import { Edit as EditIcon, Delete as DeleteIcon } from '@mui/icons-material';
+import LocalActivityIcon from '@mui/icons-material/LocalActivity';
 
-import Grid from '@material-ui/core/Grid';
+import Grid from '@mui/material/Grid';
 
 const useStyles = makeStyles((theme) => ({
   card: {

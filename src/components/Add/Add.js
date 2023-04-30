@@ -1,6 +1,6 @@
-import { makeStyles } from '@material-ui/core/styles';
-import { Button, ButtonGroup } from '@material-ui/core';
-import { Link } from '@material-ui/core';
+import { makeStyles } from '@mui/material/styles';
+import { Button, ButtonGroup } from '@mui/material';
+import { Link } from '@mui/material';
 
 const useStyles = makeStyles((theme) => ({
   root: {

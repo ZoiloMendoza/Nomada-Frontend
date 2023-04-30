@@ -1,10 +1,11 @@
 import { useState } from 'react';
-import { Card, CardContent, CardHeader, Typography, Collapse, IconButton, makeStyles } from '@material-ui/core';
-import { ExpandMore } from '@material-ui/icons';
-import { Edit as EditIcon, Delete as DeleteIcon } from '@material-ui/icons';
-import FlightIcon from '@material-ui/icons/Flight';
+import { makeStyles } from '@mui/styles';
+import { Card, CardContent, CardHeader, Typography, Collapse, IconButton } from '@mui/material';
+import { ExpandMore } from '@mui/icons-material';
+import { Edit as EditIcon, Delete as DeleteIcon } from '@mui/icons-material';
+import FlightIcon from '@mui/icons-material/Flight';
 
-import Grid from '@material-ui/core/Grid';
+import Grid from '@mui/material/Grid';
 
 const useStyles = makeStyles((theme) => ({
   card: {

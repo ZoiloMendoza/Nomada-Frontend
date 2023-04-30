@@ -1,14 +1,14 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import { Box, Button, Container, Typography } from '@material-ui/core';
+import { makeStyles } from '@mui/styles';
+import { Box, Button, Container, Typography } from '@mui/material';
 
-import Grid from '@material-ui/core/Grid';
-import IconButton from '@material-ui/core/IconButton';
-import GetAppIcon from '@material-ui/icons/GetApp';
-import ShareIcon from '@material-ui/icons/Share';
-import PeopleIcon from '@material-ui/icons/People';
-import { Favorite } from '@material-ui/icons';
-import AddCircleIcon from '@material-ui/icons/AddCircle';
+import Grid from '@mui/material/Grid';
+import IconButton from '@mui/material/IconButton';
+import GetAppIcon from '@mui/icons-material/GetApp';
+import ShareIcon from '@mui/icons-material/Share';
+import PeopleIcon from '@mui/icons-material/People';
+import { Favorite } from '@mui/icons-material';
+import AddCircleIcon from '@mui/icons-material/AddCircle';
 
 const CircleIconButton = ({ icon, href }) => (
   <IconButton
