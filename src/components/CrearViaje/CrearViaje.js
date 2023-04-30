@@ -1,9 +1,9 @@
-import React from 'react';
 import { Box, Card, TextField, Typography } from '@mui/material';
 import { styled } from '@mui/system';
 import { createTheme, ThemeProvider } from '@mui/material';
 import FlightIcon from '@mui/icons-material/Flight';
-
+import LuggageOutlinedIcon from '@mui/icons-material/LuggageOutlined';
+import ButtonCustom from './ButtonCustom';
 const theme = createTheme({
   palette: {
     primary: {
@@ -19,42 +19,43 @@ const FlightInfoContainer = styled(Card)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'space-between',
-  alignItems: 'center',
-  backgroundColor: '#2B2E4A',
+  alignItems: 'stretch',
+  width: '40vw',
+  minWidth: '400px',
+  backgroundColor: '#FFFFFF',
   padding: theme.spacing(2),
   borderRadius: theme.spacing(1),
   boxShadow: theme.shadows[5],
 }));
 
 const BoardingPassCard = () => (
-  <Box display='flex' justifyContent='center' mt={5}>
+  <Box display='flex' flexDirection='column' alignItems='center' mt={5} maxWidth='100%'>
+    <Typography variant='h5' sx={{ marginBottom: 2 }}>
+      Si tienes número de vuelo ingrésalo, si no, agrega manualmente tu Destino.
+    </Typography>
     <FlightInfoContainer>
-      <Box display='flex' alignItems='center'>
-        <Typography variant='h6' sx={{ color: 'white' }}>
-          Tarjeta de embarque
-        </Typography>
-        <FlightIcon sx={{ transform: 'rotate(90deg)', fontSize: '2rem' }} />
+      <Box display='flex' justifyContent='space-between' alignItems='center'>
+        <TextField label='Número de vuelo' variant='outlined' color='primary' size='small' sx={{ marginBottom: 2 }} />
+        <FlightIcon sx={{ transform: 'rotate(90deg)', fontSize: '2rem', marginBottom: 2 }} />
       </Box>
-      <TextField
-        label='Aerolínea'
-        variant='outlined'
-        color='secondary'
-        size='small'
-        fullWidth
-        sx={{ marginBottom: 1 }}
-      />
-      <TextField
-        label='Número de vuelo'
-        variant='outlined'
-        color='secondary'
-        size='small'
-        fullWidth
-        sx={{ marginBottom: 1 }}
-      />
-      <TextField label='Origen' variant='outlined' color='secondary' size='small' fullWidth sx={{ marginBottom: 1 }} />
-      <TextField label='Destino' variant='outlined' color='secondary' size='small' fullWidth sx={{ marginBottom: 1 }} />
-      <TextField label='Fecha' variant='outlined' color='secondary' size='small' fullWidth sx={{ marginBottom: 1 }} />
-      <TextField label='Hora de salida' variant='outlined' color='secondary' size='small' fullWidth />
+      <Box display='flex' justifyContent='space-between' alignItems='center'>
+        <TextField label='Origen' variant='outlined' color='primary' size='small' fullWidth sx={{ marginBottom: 2 }} />
+        <LuggageOutlinedIcon sx={{ marginBottom: 2 }} />
+        <TextField label='Destino' variant='outlined' color='primary' size='small' fullWidth sx={{ marginBottom: 2 }} />
+      </Box>
+      <Box display='flex' justifyContent='space-between' alignItems='center'>
+        <TextField
+          label='Fecha Ida'
+          variant='outlined'
+          color='primary'
+          size='small'
+          sx={{ marginBottom: 2, marginRight: 3 }}
+        />
+        <TextField label='Hora de salida' variant='outlined' color='primary' size='small' sx={{ marginBottom: 2 }} />
+      </Box>
+      <Box display='flex' justifyContent='center' sx={{ width: '100%' }}>
+        <ButtonCustom text={'Agregar'} />
+      </Box>
     </FlightInfoContainer>
   </Box>
 );
