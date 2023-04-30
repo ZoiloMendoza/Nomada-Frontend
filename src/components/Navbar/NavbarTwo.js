@@ -37,7 +37,7 @@ function NavbarTwo() {
   };
 
   return (
-    <AppBar position='static' color='#2B2E4A'>
+    <AppBar position='static' color='#FFFFFF'>
       <Toolbar>
         <IconButton edge='start' color='inherit' aria-label='menu'>
           <MenuIcon />
