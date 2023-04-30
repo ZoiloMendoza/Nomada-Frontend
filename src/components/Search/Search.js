@@ -1,7 +1,7 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import { IconButton, InputBase, Paper, Toolbar } from '@material-ui/core';
-import { ArrowBack, Search } from '@material-ui/icons';
+import { makeStyles } from '@mui/styles';
+import { IconButton, InputBase, Paper, Toolbar } from '@mui/material';
+import { ArrowBack, Search } from '@mui/icons-material';
 import Link from 'next/link';
 
 const useStyles = makeStyles((theme) => ({

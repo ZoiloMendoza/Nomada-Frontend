@@ -8,7 +8,7 @@ import Footer from '@/components/Footer/Footer';
 import { cityData } from '@/components/Search/cityData';
 import { data } from '@/components/Add/data';
 
-import Box from '@material-ui/core/Box';
+import Box from '@mui/material/Box';
 
 export default function Search() {
   return (
@@ -18,7 +18,7 @@ export default function Search() {
       <SearchBar />
 
       <Box
-        style={{
+        sx={{
           margin: 10,
         }}
       >

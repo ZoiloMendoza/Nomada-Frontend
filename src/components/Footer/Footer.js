@@ -1,21 +1,20 @@
-import { makeStyles } from "@material-ui/core/styles";
-import { Container, Grid, IconButton } from "@material-ui/core";
-import FacebookIcon from "@material-ui/icons/Facebook";
-import TwitterIcon from "@material-ui/icons/Twitter";
-import InstagramIcon from "@material-ui/icons/Instagram";
-
+import { makeStyles } from '@mui/styles';
+import { Container, Grid, IconButton } from '@mui/material';
+import FacebookIcon from '@mui/icons-material/Facebook';
+import TwitterIcon from '@mui/icons-material/Twitter';
+import InstagramIcon from '@mui/icons-material/Instagram';
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    backgroundColor: "#2B2E4A",
-    color: "#fff",
+    backgroundColor: '#2B2E4A',
+    color: '#fff',
     padding: theme.spacing(4),
   },
   iconButton: {
-    color: "#fff",
-    "&:hover": {
-      backgroundColor: "transparent",
-      color: "#E91E63",
+    color: '#fff',
+    '&:hover': {
+      backgroundColor: 'transparent',
+      color: '#E91E63',
     },
   },
 }));
@@ -25,34 +24,24 @@ const Footer = () => {
 
   return (
     <div className={classes.root}>
-      <Container maxWidth="md">
-        <Grid container justifyContent="center" alignItems="center">
+      <Container maxWidth='md'>
+        <Grid container justifyContent='center' alignItems='center'>
           <Grid item xs={12} md={6}>
             <p>Síguenos en nuestras Redes Sociales:</p>
           </Grid>
           <Grid item xs={12} md={6}>
-            <Grid container justifyContent="flex-end" alignItems="center">
-              <IconButton
-                className={classes.iconButton}
-                href="https://www.facebook.com"
-                target="_blank"
-                rel="noopener"
-              >
+            <Grid container justifyContent='flex-end' alignItems='center'>
+              <IconButton className={classes.iconButton} href='https://www.facebook.com' target='_blank' rel='noopener'>
                 <FacebookIcon />
               </IconButton>
-              <IconButton
-                className={classes.iconButton}
-                href="https://www.twitter.com"
-                target="_blank"
-                rel="noopener"
-              >
+              <IconButton className={classes.iconButton} href='https://www.twitter.com' target='_blank' rel='noopener'>
                 <TwitterIcon />
               </IconButton>
               <IconButton
                 className={classes.iconButton}
-                href="https://www.instagram.com"
-                target="_blank"
-                rel="noopener"
+                href='https://www.instagram.com'
+                target='_blank'
+                rel='noopener'
               >
                 <InstagramIcon />
               </IconButton>

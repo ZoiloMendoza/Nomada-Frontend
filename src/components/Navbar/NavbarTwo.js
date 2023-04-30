@@ -11,8 +11,8 @@ import {
   ListItemText,
   useMediaQuery,
   useTheme,
-} from '@material-ui/core';
-import { Menu as MenuIcon, AccountCircle, Dashboard, Settings, ExitToApp } from '@material-ui/icons';
+} from '@mui/material';
+import { Menu as MenuIcon, AccountCircle, Dashboard, Settings, ExitToApp } from '@mui/icons-material';
 import Link from 'next/link';
 import Image from 'next/image';
 

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import { Card, CardMedia, CardContent, Typography, IconButton } from '@material-ui/core';
-import { Favorite, Add } from '@material-ui/icons';
+import { makeStyles } from '@mui/styles';
+import { Card, CardMedia, CardContent, Typography, IconButton } from '@mui/material';
+import { Favorite, Add } from '@mui/icons-material';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
