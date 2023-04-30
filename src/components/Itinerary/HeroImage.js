@@ -7,7 +7,7 @@ import IconButton from '@mui/material/IconButton';
 import GetAppIcon from '@mui/icons-material/GetApp';
 import ShareIcon from '@mui/icons-material/Share';
 import PeopleIcon from '@mui/icons-material/People';
-import { Favorite } from '@mui/icons-materials';
+import { Favorite } from '@mui/icons-material';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 
 const CircleIconButton = ({ icon, href }) => (
