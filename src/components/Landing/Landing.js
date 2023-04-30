@@ -1,12 +1,12 @@
 import React from 'react';
-import Hero from './Hero';
+import HeroSection from './Hero';
 import Steps from './Steps';
 
 import Box from '@mui/material/Box';
 
 const Landing = () => (
   <>
-    <Hero />
+    <HeroSection />
     <Box
       sx={{
         margin: 5,

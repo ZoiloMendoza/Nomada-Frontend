@@ -37,7 +37,7 @@ function NavbarTwo() {
   };
 
   return (
-    <AppBar position='static' sx={{ backgroundColor: '#FFFFFF' }}>
+    <AppBar position='static' sx={{ backgroundColor: '#333333' }}>
       <Toolbar>
         <IconButton edge='start' color='inherit' aria-label='menu'>
           <MenuIcon />
