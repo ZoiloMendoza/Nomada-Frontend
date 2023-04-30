@@ -1,0 +1,13 @@
+{
+  "plugins": ["@typescript-eslint"],
+  "extends": ["next/core-web-vitals", "plugin:@typescript-eslint/recommended", "prettier"],
+  "globals": {
+    "React": "readonly",
+    "JSX": "readonly"
+  },
+  "rules": {
+    "@typescript-eslint/no-unused-vars": "error",
+    "no-unused-vars": "error",
+    "arrow-body-style": ["error", "as-needed"]
+  }
+}
