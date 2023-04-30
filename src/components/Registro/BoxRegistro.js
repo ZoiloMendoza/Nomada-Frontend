@@ -7,7 +7,7 @@ const BoxRegistro = () => {
 
   return (
     <div>
-      <Box color={customColor2} bgcolor={customColor} mr={22} p={4} fontStyle={customSyle} href=''>
+      <Box color={customColor2} bgcolor={customColor} mr={22} p={4} fontStyle={customSyle}>
         Nomadapp
       </Box>
     </div>
