@@ -1,6 +1,6 @@
 import Head from 'next/head';
 import styles from '@/styles/Home.module.css';
-//import NavbarTwo from '@/components/Navbar/NavbarTwo';
+import NavbarTwo from '@/components/Navbar/NavbarTwo';
 import Landing from '@/components/Landing/Landing';
 import Footer from '@/components/Footer/Footer';
 //import Add from '@/components/Add/Add';
@@ -14,7 +14,7 @@ export default function Home() {
         <meta name='viewport' content='width=device-width, initial-scale=1' />
         <link rel='icon' href='/img/logo1.svg' />
       </Head>
-
+      <NavbarTwo />
       <Landing />
       <main className={styles.main}>
         <div></div>
