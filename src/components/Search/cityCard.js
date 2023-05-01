@@ -102,7 +102,7 @@ const CityCard = ({ cityData }) => {
       <Slider {...settings}>
         {cityData.map((cityData) => (
           <Card
-            className={classes.card}
+            className={classes.root}
             key={cityData.id}
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}

@@ -6,7 +6,7 @@ const ButtonAdd = () => {
   return (
     <Button
       variant='contained'
-      style={{
+      sx={{
         backgroundColor: customColor,
         borderRadius: '50px',
         padding: '10px 20px',
