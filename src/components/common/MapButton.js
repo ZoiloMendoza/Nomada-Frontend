@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'next/link';
+import Link from 'next/link';
 import { makeStyles } from '@mui/styles';
 import Button from '@mui/material/Button';
 import MapIcon from '@mui/icons-material/Map';
@@ -17,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function MapButton() {
+function MapButton() {
   const classes = useStyles();
 
   return (
@@ -28,3 +28,5 @@ export default function MapButton() {
     </Link>
   );
 }
+
+export default MapButton;

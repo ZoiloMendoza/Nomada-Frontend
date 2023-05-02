@@ -3,7 +3,7 @@ import NavbarTwo from '@/components/Navbar/NavbarTwo';
 import CityCard from '@/components/Search/cityCard';
 import PlaceCards from '@/components/Add/PlaceCards';
 import SearchBar from '@/components/Search/Search';
-//import MapButton from '@/components/common/MapButton';
+import MapButton from '@/components/common/MapButton';
 
 import Footer from '@/components/Footer/Footer';
 
@@ -33,6 +33,8 @@ export default function Search() {
         <CityCard cityData={cityData} />
 
         <PlaceCards data={data} />
+
+        <MapButton />
       </Box>
 
       <Footer />
