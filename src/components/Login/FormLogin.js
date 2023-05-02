@@ -7,6 +7,21 @@ function FormLogin() {
     correo: '',
     constraseña: '',
   });
+  useEffect(() => {
+    if (trigger) {
+      const addUser = async () => {
+        const userPost = await axios.post('https://nomada-backend-production.up.railway.app/api/v1/login', formData);
+        console.log('statusCode', userPost.status);
+        if (userPost.status !== 201) {
+          console.log('error al insertar');
+        } else {
+          setFormData(userPost.data._id);
+        }
+      };
+      addUser();
+      setTrigger(false);
+    }
+  }, [trigger]);
   return (
     <div className='Formulario'>
       <header className='Form-header'>
