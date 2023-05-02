@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import { makeStyles } from '@mui/styles';
 import { Card, CardMedia, CardContent, Typography, IconButton } from '@mui/material';
 import { Favorite, Add } from '@mui/icons-material';
-import Slider from 'react-slick';
+import Carrusel from '../common/Carrusel';
+//import Slider from 'react-slick';
 //import 'slick-carousel/slick/slick.css';
 //import 'slick-carousel/slick/slick-theme.css';
 
@@ -17,9 +18,7 @@ const useStyles = makeStyles({
     },
   },
   media: {
-    height: 0,
-    paddingTop: '56.25%', // 16:9
-    width: '50%',
+    width: '100%',
     margin: 'auto',
     transition: 'width 0.3s',
     '&:hover': {
@@ -39,42 +38,10 @@ const useStyles = makeStyles({
       opacity: 1,
     },
   },
+  iconButton: {
+    color: '#FFF',
+  },
 });
-
-const settings = {
-  dots: true,
-  infinite: false,
-  speed: 500,
-  slidesToShow: 4,
-  slidesToScroll: 4,
-  initialSlide: 0,
-  responsive: [
-    {
-      breakpoint: 1024,
-      settings: {
-        slidesToShow: 3,
-        slidesToScroll: 3,
-        infinite: true,
-        dots: true,
-      },
-    },
-    {
-      breakpoint: 600,
-      settings: {
-        slidesToShow: 2,
-        slidesToScroll: 2,
-        initialSlide: 2,
-      },
-    },
-    {
-      breakpoint: 480,
-      settings: {
-        slidesToShow: 1,
-        slidesToScroll: 1,
-      },
-    },
-  ],
-};
 
 const CityCard = ({ cityData }) => {
   const classes = useStyles();
@@ -99,7 +66,7 @@ const CityCard = ({ cityData }) => {
   return (
     <>
       <h2>Destinos</h2>
-      <Slider {...settings}>
+      <Carrusel>
         {cityData.map((cityData) => (
           <Card
             className={classes.root}
@@ -129,7 +96,7 @@ const CityCard = ({ cityData }) => {
             </CardContent>
           </Card>
         ))}
-      </Slider>
+      </Carrusel>
     </>
   );
 };

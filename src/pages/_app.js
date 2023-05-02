@@ -1,9 +1,11 @@
-import '@/styles/globals.css';
+import { StylesProvider, createGenerateClassName } from '@mui/styles';
+
 import { config } from '@fortawesome/fontawesome-svg-core';
 import '@fortawesome/fontawesome-svg-core/styles.css';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 config.autoAddCss = false;
+import '@/styles/globals.css';
 
 const theme = createTheme({
   palette: {
@@ -16,11 +18,17 @@ const theme = createTheme({
   },
 });
 
+const generateClassName = createGenerateClassName({
+  productionPrefix: 'c',
+});
+
 export default function App({ Component, pageProps }) {
   return (
-    <ThemeProvider theme={theme}>
-      <CssBaseline />
-      <Component {...pageProps} />
-    </ThemeProvider>
+    <StylesProvider generateClassName={generateClassName}>
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        <Component {...pageProps} />
+      </ThemeProvider>
+    </StylesProvider>
   );
 }

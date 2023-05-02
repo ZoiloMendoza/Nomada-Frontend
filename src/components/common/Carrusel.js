@@ -37,9 +37,9 @@ const settings = {
   ],
 };
 
-const Carrusel = ({ Children }) => (
+const Carrusel = ({ children }) => (
   <div sx={{ width: '100%' }}>
-    <Slider {...settings}>{Children}</Slider>
+    <Slider {...settings}>{children}</Slider>
   </div>
 );
 

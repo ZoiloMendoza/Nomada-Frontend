@@ -44,7 +44,7 @@ function NavbarTwo() {
         </IconButton>
         <Link legacyBehavior href='/'>
           <a>
-            <Image src='/img/logo1.svg' alt='Logo' height='30' width='30' />
+            <Image src='/img/logo1.svg' alt='Logo' height='30' width='30' sx={{ color: '#FFFFFF' }} />
           </a>
         </Link>
 
