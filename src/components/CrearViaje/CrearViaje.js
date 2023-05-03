@@ -73,7 +73,6 @@ const BoardingPassCard = () => {
       const dataApi = flightGet.data.response;
       if (flightGet.status == 200) {
         console.log('Vuelo encontrado');
-
         setFormData({
           flightNumber: dataApi.flight_iata,
           origin: dataApi.dep_city,
