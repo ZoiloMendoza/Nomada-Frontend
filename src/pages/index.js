@@ -4,6 +4,9 @@ import styles from '@/styles/Home.module.css';
 //import Formulario from '@/components/Registro/formulario';
 //import BoxLogin from '@/components/Login/BoxLogin';
 import CardMisViajes from '@/components/misViajes/CardMisViajes';
+import ButtonMisViajes from '@/components/misViajes/ButtonMisViajes';
+import ButtonNuevoViaje from '@/components/misViajes/ButtonNuevoViaje';
+//import CardMisViajes from '@/components/misViajes/CardMisViajes';
 
 export default function Home() {
   return (
@@ -16,7 +19,9 @@ export default function Home() {
       </Head>
       <main className={styles.main}>
         <div>
+          <ButtonMisViajes />
           <CardMisViajes />
+          <ButtonNuevoViaje />
         </div>
       </main>
     </>
