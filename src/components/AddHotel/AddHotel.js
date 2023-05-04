@@ -118,7 +118,10 @@ const AddHotel = () => {
             fullWidth
           />
           <Button type='submit' variant='contained' color='primary' className={classes.button}>
-            Submit
+            Agregar
+          </Button>
+          <Button type='button' variant='contained' color='primary'>
+            Cancelar
           </Button>
         </form>
       </Box>
