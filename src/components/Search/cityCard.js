@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { makeStyles } from '@mui/styles';
 import { Card, CardMedia, CardContent, Typography, IconButton } from '@mui/material';
-import { Favorite, Add } from '@mui/icons-material';
+import { Favorite, Add, FavoriteBorder } from '@mui/icons-material';
 import Carrusel from '../common/Carrusel';
 //import Slider from 'react-slick';
 //import 'slick-carousel/slick/slick.css';
@@ -44,6 +44,7 @@ const useStyles = makeStyles({
 });
 
 const CityCard = ({ cityData }) => {
+  const [isFavorite, setIsFavorite] = useState(false);
   const classes = useStyles();
   const [hovered, setHovered] = useState(false);
 
@@ -60,6 +61,7 @@ const CityCard = ({ cityData }) => {
   };
 
   const handleFavoriteClick = () => {
+    setIsFavorite(!isFavorite);
     console.log('Favorite button clicked!');
   };
 
@@ -89,7 +91,7 @@ const CityCard = ({ cityData }) => {
                     <Add />
                   </IconButton>
                   <IconButton className={classes.iconButton} aria-label='favorite' onClick={handleFavoriteClick}>
-                    <Favorite />
+                    {isFavorite ? <Favorite /> : <FavoriteBorder />}
                   </IconButton>
                 </>
               )}

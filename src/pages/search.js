@@ -35,11 +35,7 @@ export default function Search() {
 
       <SearchBar />
 
-      <Box
-        sx={{
-          margin: 10,
-        }}
-      >
+      <Box>
         <CityCard cityData={cityData} />
 
         <PlaceCards data={data} />

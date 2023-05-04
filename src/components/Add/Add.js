@@ -57,13 +57,13 @@ export default function Add() {
         <Link href='/page1'>
           <AddButton>Nuevo destino</AddButton>
         </Link>
-        <Link href='/page2'>
+        <Link href='/addhotel'>
           <AddButton>Hospedaje</AddButton>
         </Link>
         <Link href='/page3'>
           <AddButton>Buscar actividades</AddButton>
         </Link>
-        <Link href='/page4'>
+        <Link href='/map'>
           <AddButtonTwo>Mapa</AddButtonTwo>
         </Link>
       </AddButtonGroup>
