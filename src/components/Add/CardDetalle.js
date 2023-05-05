@@ -4,7 +4,7 @@ import PopupBox from '../common/PopupBox';
 import { makeStyles } from '@mui/styles';
 import { Grid, Typography, Card, CardMedia, CardContent, Box, IconButton } from '@mui/material';
 import { Rating } from '@mui/lab';
-import { Add, Favorite } from '@mui/icons-material';
+import { Add, Favorite, FavoriteBorder } from '@mui/icons-material';
 
 const useStyles = makeStyles((theme) => ({
   gridItem: {
@@ -56,6 +56,7 @@ const useStyles = makeStyles((theme) => ({
 const CardDetalle = ({ data }) => {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
+  const [isFavorite, setIsFavorite] = useState(false);
 
   const handleClick = () => {
     setOpen(true);
@@ -63,6 +64,11 @@ const CardDetalle = ({ data }) => {
 
   const handleClose = () => {
     setOpen(false);
+  };
+
+  const handleFavoriteClick = () => {
+    setIsFavorite(!isFavorite);
+    console.log('Favorite button clicked!');
   };
 
   return (
@@ -90,8 +96,8 @@ const CardDetalle = ({ data }) => {
                   <IconButton className={classes.addIcon} aria-label='Add to itinerary'>
                     <Add />
                   </IconButton>
-                  <IconButton className={classes.favoriteIcon} aria-label='Add to favorites'>
-                    <Favorite />
+                  <IconButton className={classes.iconButton} aria-label='favorite' onClick={handleFavoriteClick}>
+                    {isFavorite ? <Favorite /> : <FavoriteBorder />}
                   </IconButton>
                 </CardContent>
               </Card>
