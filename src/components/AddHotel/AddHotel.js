@@ -41,9 +41,21 @@ const AddHotel = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // send the data to the database or API endpoint
+    // Enviar info a la base de datos aqui
     console.log(hotelData);
-    // reset the form after submit
+
+    setHotelData({
+      name: '',
+      address: '',
+      checkIn: '',
+      checkOut: '',
+      reservation: '',
+    });
+  };
+
+  const resetData = (e) => {
+    e.preventDefault();
+
     setHotelData({
       name: '',
       address: '',
@@ -120,7 +132,7 @@ const AddHotel = () => {
           <Button type='submit' variant='contained' color='primary' className={classes.button}>
             Agregar
           </Button>
-          <Button type='button' variant='contained' color='primary'>
+          <Button type='button' variant='contained' color='primary' onClick={resetData}>
             Cancelar
           </Button>
         </form>

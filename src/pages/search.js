@@ -39,7 +39,9 @@ export default function Search() {
         <CityCard cityData={cityData} />
 
         <PlaceCards data={data} />
+      </Box>
 
+      <Box>
         <MapButton />
       </Box>
 
