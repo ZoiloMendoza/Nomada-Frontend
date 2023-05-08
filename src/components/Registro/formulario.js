@@ -1,9 +1,10 @@
-import { Box, TextField, Grid, Card, CardContent } from '@mui/material';
+import { Box, TextField, Grid, Card, CardContent, Typography } from '@mui/material';
 import CheckboxFormulario from './CheckboxFormulario';
 import ButtonForm from './ButtonForm';
 import BoxRegistro from './BoxRegistro';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import theme from './TemaConfig';
 
 function Formulario() {
   const [trigger, setTrigger] = useState(false);
@@ -64,84 +65,93 @@ function Formulario() {
 
   return (
     <div className='Formulario'>
-      <header className='Form-header'>
-        <BoxRegistro />
-        <h2> Por favor, ingresa los siguientes datos para crear tu cuenta en Nomadapp </h2>
-        <Box my={2}>
-          <Grid container direction='row' spacing={5}>
-            <Grid item xs={18} sm={18} md={18} lg={18} xl={18}>
-              <Card>
-                <CardContent>
-                  <TextField
-                    error={false}
-                    label='name'
-                    type='text'
-                    name='name'
-                    value={formData.name || ''}
-                    onChange={handleOnChange}
-                    margin='dense'
-                    fullWidth
-                    variant='outlined'
-                  />
-                </CardContent>
-                <Grid item xs={18} sm={18} md={18} lg={18} xl={18}>
-                  <Card>
-                    <CardContent>
-                      <TextField
-                        error={false}
-                        label='email'
-                        type='text'
-                        name='email'
-                        value={formData.email || ''}
-                        onChange={handleOnChange}
-                        margin='dense'
-                        fullWidth
-                        variant='outlined'
-                      />
-                    </CardContent>
-                    <Grid item xs={18} sm={18} md={18} lg={18} xl={18}>
-                      <Card>
-                        <CardContent>
-                          <TextField
-                            error={false}
-                            label='password'
-                            type='password'
-                            name='password'
-                            value={formData.password || ''}
-                            onChange={handleOnChange}
-                            margin='dense'
-                            fullWidth
-                            variant='outlined'
-                          />
-                        </CardContent>
-                        <Grid item xs={18} sm={18} md={18} lg={18} xl={18}>
-                          <Card>
-                            <CardContent>
-                              <TextField
-                                error={false}
-                                label='confirmarPassword'
-                                type='password'
-                                name='confirmar'
-                                value={confirmarPassword.confirmar || ''}
-                                onChange={handleOnChangeConfirmarPassword}
-                                margin='dense'
-                                fullWidth
-                                variant='outlined'
-                              />
-                            </CardContent>
+      <BoxRegistro />
+      <Typography align='center' variant='h4' sx={{ fontFamily: 'Inter, sans-serif', fontSize: 30 }}>
+        {' '}
+        Por favor, ingresa los siguientes datos para crear tu cuenta en Nomadapp{' '}
+      </Typography>
+      <Box my={1}>
+        <Grid container direction='row' spacing={5}>
+          <Grid item xs={18} sm={18} md={18} lg={18} xl={18}>
+            <Card>
+              <CardContent>
+                <TextField
+                  variant='filled'
+                  error={false}
+                  label='usuario'
+                  type='text'
+                  name='name'
+                  value={formData.name || ''}
+                  onChange={handleOnChange}
+                  margin='dense'
+                  fullWidth
+                  sx={{ fontFamily: 'Inter, sans-serif' }}
+                />
+              </CardContent>
+              <Grid item xs={18} sm={18} md={18} lg={18} xl={18}>
+                <Card>
+                  <CardContent>
+                    <TextField
+                      variant='filled'
+                      error={false}
+                      label='correo electrónico'
+                      type='text'
+                      name='email'
+                      value={formData.email || ''}
+                      onChange={handleOnChange}
+                      margin='dense'
+                      fullWidth
+                      sx={{ fontFamily: 'Inter, sans-serif' }}
+                    />
+                  </CardContent>
+                  <Grid item xs={18} sm={18} md={18} lg={18} xl={18}>
+                    <Card>
+                      <CardContent>
+                        <TextField
+                          sx={{ fontFamily: 'Inter, sans-serif' }}
+                          variant='filled'
+                          error={false}
+                          label='contraseña'
+                          type='password'
+                          name='password'
+                          value={formData.password || ''}
+                          onChange={handleOnChange}
+                          margin='dense'
+                          fullWidth
+                        />
+                      </CardContent>
+                      <Grid item xs={18} sm={18} md={18} lg={18} xl={18}>
+                        <Card>
+                          <CardContent>
+                            <TextField
+                              sx={{ fontFamily: 'Inter, sans-serif' }}
+                              variant='filled'
+                              error={false}
+                              label='confirmar contraseña'
+                              type='password'
+                              name='confirmar'
+                              value={confirmarPassword.confirmar || ''}
+                              onChange={handleOnChangeConfirmarPassword}
+                              margin='dense'
+                              fullWidth
+                            />
+                          </CardContent>
+                          <Grid item xs={12} style={{ textAlign: 'center' }}>
                             <CheckboxFormulario />
+                          </Grid>
+                          <Grid my={4} justifyContent='center' direction='row' container>
                             <ButtonForm size='medium' onClick={() => handleSubmit(name, email, password)} />
-                          </Card>
-                        </Grid>
-                      </Card>
-                    </Grid>
-                  </Card>
-                </Grid>
-              </Card>
-            </Grid>
+                          </Grid>
+                        </Card>
+                      </Grid>
+                    </Card>
+                  </Grid>
+                </Card>
+              </Grid>
+            </Card>
           </Grid>
-        </Box>
-      </header>
+        </Grid>
+      </Box>
     </div>
   );
 }

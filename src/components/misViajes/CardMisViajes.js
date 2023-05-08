@@ -9,10 +9,10 @@ import Typography from '@mui/material/Typography';
 import DirectionsBusIcon from '@mui/icons-material/DirectionsBus';
 import DirectionsBoatIcon from '@mui/icons-material/DirectionsBoat';
 import FlightIcon from '@mui/icons-material/Flight';
-//import SkipPreviousIcon from '@mui/icons-material/SkipPrevious';
-//import PlayArrowIcon from '@mui/icons-material/PlayArrow';
-//import SkipNextIcon from '@mui/icons-material/SkipNext';
 import Button from '@mui/material/Button';
+import { Grid } from '@mui/material';
+import ButtonMisViajes from './ButtonMisViajes';
+import ButtonNuevoViaje from './ButtonNuevoViaje';
 
 export default function CardMisViajes() {
   const theme = useTheme();
@@ -21,68 +21,96 @@ export default function CardMisViajes() {
   const customColor3 = '#6C6D7F';
 
   return (
-    <Card bgcolor={customColor3} sx={{ display: 'flex' }}>
-      <CardMedia
-        bgcolor={customColor3}
-        component='img'
-        sx={{ width: 151 }}
-        image='/static/images/cards/live-from-space.jpg'
-        alt='Rivera Maya'
-      />
-      <Box bgcolor={customColor3} sx={{ display: 'flex', flexDirection: 'column' }}>
-        <CardContent sx={{ flex: '1 0 auto' }}>
-          <Typography component='div' variant='h5'>
-            Rivera Maya
-          </Typography>
-          <Typography variant='subtitle1' color='text.secondary' component='div'>
-            Yucatán, MX
-          </Typography>
-          <Typography variant='subtitle1' color='text.secondary' component='div'>
-            Diciembre 12-15-2023
-          </Typography>
-        </CardContent>
-        <Box sx={{ display: 'flex', alignItems: 'center', pl: 1, pb: 1 }}>
-          <IconButton aria-label='previous'>
-            {theme.direction === 'rtl' ? <DirectionsBusIcon /> : <DirectionsBusIcon />}
-          </IconButton>
-          <IconButton aria-label='play/pause'>
-            <DirectionsBoatIcon sx={{ height: 25, width: 25 }} />
-          </IconButton>
-          <IconButton aria-label='next'>{theme.direction === 'rtl' ? <FlightIcon /> : <FlightIcon />}</IconButton>
+    <div className='CardMisVijaes'>
+      <Grid mb={8}>
+        <ButtonMisViajes />
+      </Grid>
+      <Card bgcolor={customColor3} sx={{ display: 'flex' }}>
+        <Box bgcolor={customColor3} width={250} sx={{ display: 'flex', flexDirection: 'column', color: 'white' }}>
+          <CardMedia
+            bgcolor={customColor3}
+            component='img'
+            sx={{ width: 200 }}
+            image='/static/images/cards/live-from-space.jpg'
+            alt='Rivera Maya'
+          />
         </Box>
-      </Box>
-      <Box bgcolor={customColor3} sx={{ display: 'flex', flexDirection: 'column', pl: 10, pb: 10 }}>
-        <Button
-          variant='contained'
-          style={{
-            backgroundColor: customColor,
-            borderRadius: '50px',
-            padding: '10px 20px',
-          }}
-        >
-          Ver viaje
-        </Button>
-        <Button
-          variant='contained'
-          style={{
-            backgroundColor: customColor,
-            borderRadius: '50px',
-            padding: '10px 20px',
-          }}
-        >
-          Compartir viaje
-        </Button>
-        <Button
-          variant='contained'
-          style={{
-            backgroundColor: customColor2,
-            borderRadius: '50px',
-            padding: '10px 20px',
-          }}
-        >
-          Eliminar Viaje
-        </Button>
-      </Box>
-    </Card>
+        <Box bgcolor={customColor3} width={250} sx={{ display: 'flex', flexDirection: 'column', color: 'white' }}>
+          <CardContent>
+            <Typography
+              component='div'
+              variant='h4'
+              align='center'
+              mt={2}
+              mb={1}
+              sx={{ fontFamily: 'Inter, sans-serif', fontSize: 28 }}
+            >
+              Rivera Maya
+            </Typography>
+            <Typography variant='h6' component='div' align='center' sx={{ fontFamily: 'Inter, sans-serif' }}>
+              Yucatán, MX
+            </Typography>
+            <Typography variant='subtitle1' component='div' align='center' sx={{ fontFamily: 'Inter, sans-serif' }}>
+              Diciembre 12-15-2023
+            </Typography>
+          </CardContent>
+          <Box ml={4} sx={{ display: 'flex', alignItems: 'center' }}>
+            <IconButton aria-label='camion'>
+              <DirectionsBusIcon sx={{ height: 40, width: 40 }} />
+            </IconButton>
+            <IconButton aria-label='barco'>
+              <DirectionsBoatIcon sx={{ height: 40, width: 40 }} />
+            </IconButton>
+            <IconButton aria-label='avion'>
+              <FlightIcon sx={{ height: 40, width: 40 }} />
+            </IconButton>
+          </Box>
+        </Box>
+
+        <Box bgcolor={customColor3} width={250} style={{ textAlign: 'center', alignItems: 'center' }}>
+          <Grid my={4}>
+            <Grid item sx={{ mb: 1 }}>
+              <Button
+                variant='contained'
+                style={{
+                  backgroundColor: customColor,
+                  borderRadius: '10px',
+                  padding: '10px 45px',
+                }}
+              >
+                Ver viaje
+              </Button>
+            </Grid>
+            <Grid item sx={{ mb: 1 }}>
+              <Button
+                variant='contained'
+                style={{
+                  backgroundColor: customColor,
+                  borderRadius: '10px',
+                  padding: '10px 20px',
+                }}
+              >
+                Compartir viaje
+              </Button>
+            </Grid>
+            <Grid item sx={{ mb: 1 }}>
+              <Button
+                variant='contained'
+                style={{
+                  backgroundColor: customColor2,
+                  borderRadius: '10px',
+                  padding: '10px 30px',
+                }}
+              >
+                Eliminar Viaje
+              </Button>
+            </Grid>
+          </Grid>
+        </Box>
+      </Card>
+      <Grid my={5} container justifyContent={'flex-end'}>
+        <ButtonNuevoViaje />
+      </Grid>
+    </div>
   );
 }

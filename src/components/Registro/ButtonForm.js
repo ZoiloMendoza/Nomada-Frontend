@@ -7,17 +7,7 @@ const ButtonForm = ({ onClick }) => {
 
   return (
     <ThemeProvider theme={theme}>
-      <Button
-        variant='contained'
-        style={{
-          backgroundColor: customColor,
-          borderRadius: '10px',
-          padding: '10px 20px',
-          textTransform: 'none',
-          alignItems: 'center',
-        }}
-        onClick={onClick}
-      >
+      <Button variant='bold' onClick={onClick} sx={{ fontFamily: 'Inter, sans-serif' }}>
         Crear cuenta
       </Button>
     </ThemeProvider>

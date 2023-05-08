@@ -6,7 +6,9 @@ import Checkbox from '@mui/material/Checkbox';
 export default function CheckboxLogin() {
   return (
     <FormGroup>
-      <FormControlLabel required control={<Checkbox />} label='Recuérdame' />
+      <div>
+        <FormControlLabel required control={<Checkbox />} label='Recuérdame' sx={{ fontFamily: 'Inter, sans-serif' }} />
+      </div>
     </FormGroup>
   );
 }
