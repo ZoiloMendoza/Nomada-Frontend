@@ -1,6 +1,7 @@
 import Slider from 'react-slick';
-import 'slick-carousel/slick/slick.css';
-import 'slick-carousel/slick/slick-theme.css';
+import Box from '@mui/material/Box';
+//import 'slick-carousel/slick/slick.css';
+//import 'slick-carousel/slick/slick-theme.css';
 
 const settings = {
   dots: true,
@@ -38,9 +39,9 @@ const settings = {
 };
 
 const Carrusel = ({ children }) => (
-  <div sx={{ width: '100%' }}>
+  <Box sx={{ width: '100%', margin: '3em 0', position: 'relative' }}>
     <Slider {...settings}>{children}</Slider>
-  </div>
+  </Box>
 );
 
 export default Carrusel;

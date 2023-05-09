@@ -60,7 +60,7 @@ export default function Add() {
         <Link href='/addhotel'>
           <AddButton>Hospedaje</AddButton>
         </Link>
-        <Link href='/page3'>
+        <Link href='/search'>
           <AddButton>Buscar actividades</AddButton>
         </Link>
         <Link href='/map'>

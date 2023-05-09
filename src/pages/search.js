@@ -41,7 +41,7 @@ export default function Search() {
         <PlaceCards data={data} />
       </Box>
 
-      <Box>
+      <Box sx={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
         <MapButton />
       </Box>
 

@@ -10,7 +10,7 @@ import Carrusel from '../common/Carrusel';
 const useStyles = makeStyles((theme) => ({
   card: {
     maxWidth: 345,
-    margin: 80,
+    margin: '0 80px',
   },
   media: {
     height: 140,
