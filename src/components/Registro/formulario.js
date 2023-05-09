@@ -1,65 +1,158 @@
-import { useState } from "react";
+import { Box, TextField, Grid, Card, CardContent, Typography } from '@mui/material';
+import CheckboxFormulario from './CheckboxFormulario';
+import ButtonForm from './ButtonForm';
+import BoxRegistro from './BoxRegistro';
+import { useState, useEffect } from 'react';
+import axios from 'axios';
+//import theme from './TemaConfig';
 
+function Formulario() {
+  const [trigger, setTrigger] = useState(false);
+  const [confirmarPassword, setConfirmarPaswordd] = useState({
+    confirmar: '',
+  });
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    password: '',
+  });
+  const { name, email, password } = formData;
+  const handleOnChange = (e) => {
+    console.log([e.target.name], e.target.value);
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+  const handleOnChangeConfirmarPassword = (e) => {
+    console.log([e.target.name], e.target.value);
+    setConfirmarPaswordd({ ...confirmarPassword, [e.target.name]: e.target.value });
+  };
 
-export default function Formulario() {
-    const [usuario, setUsuario] = useState("");
-    const [correo, setCorreo] = useState("");
-    const [contraseña, setContraseña] = useState("");
-    const [confirmacion, setConfirmacion] = useState("");
-    const [terminos, setTerminos] = useState(false);
-
-    const handleSubmit= e => {
-        e.preventDefault();
-        alert("Has creado una cuenta correctamente")
+  const handleSubmit = (name, email, password) => {
+    if (password !== confirmarPassword.confirmar) {
+      alert('Las contraseñas no coinciden.');
+      return;
     }
-    return (
-        <>
-        <h2> Por favor, ingresa los siguientes datos para crear tu cuenta en Nomadapp</h2>
-        <form onSubmit={handleSubmit}>
-            <input
-             type="text"
-              id="usuario" 
-              value={usuario}
-              onchange={(e) => setUsuario(e.target.value)}
-              defaultValue="Usuario"
-              />
-              <label htmlFor="correo"></label>
-            <input
-             type="text"
-              id="correo" 
-              name="correo"
-              value={correo}
-              onchange={(e) => setCorreo(e.target.value)}
-              defaultValue="correo Electrónico"
-              />
-               <input
-             type="text"
-              id="contraseña" 
-              name="contraseña"
-              value={contraseña}
-              onchange={(e) => setContraseña(e.target.value)}
-              defaultValue="contraseña"
-              />
-              <input
-             type="text"
-              id="confirmarcontraseña" 
-              name="confirmarcontraseña"
-              value={confirmacion}
-              onchange={(e) => setConfirmacion(e.target.value)}
-              defaultValue="confirmar contraseña"
-              />
-              <br/>
-              <label htmlFor="terminos"> He leído y acepto los términos y condiciones</label>
-              <input 
-              type="checkbox"
-              value={terminos}
-              id="terminos"
-              name="terminos"
-              onChange={(e) => setTerminos(e.target.checked)}
-              />
-              <input type="submit"/>
-              
-        </form>
-        </>
-    )
+    console.log('enviado', formData);
+    alert('Usuario creado correctamente', name, email, password);
+    setTrigger(true);
+  };
+  useEffect(() => {
+    if (trigger) {
+      (async () => {
+        try {
+          const userPost = await axios.post('https://nomada-backend-production.up.railway.app/api/v1/users', formData);
+          console.log('statusCode', userPost.status);
+          if (userPost.status == 201) {
+            console.log('Usuario creado exitosamente');
+            setFormData({
+              name: '',
+              email: '',
+              password: '',
+            });
+            setConfirmarPaswordd({
+              confirmar: '',
+            });
+          } else {
+            console.log('Error al insertar');
+          }
+        } catch (error) {
+          console.error('Error en la petición:', error);
+          alert('Error al crear el usuario. Por favor, inténtalo de nuevo.');
+        }
+      })();
+      setTrigger(false);
+    }
+  }, [trigger]);
+
+  return (
+    <div className='Formulario'>
+      <BoxRegistro />
+      <Typography align='center' variant='h4' sx={{ fontFamily: 'Inter, sans-serif', fontSize: 30 }}>
+        {' '}
+        Por favor, ingresa los siguientes datos para crear tu cuenta en Nomadapp{' '}
+      </Typography>
+      <Box my={1}>
+        <Grid container direction='row' spacing={5}>
+          <Grid item xs={18} sm={18} md={18} lg={18} xl={18}>
+            <Card>
+              <CardContent>
+                <TextField
+                  variant='filled'
+                  error={false}
+                  label='usuario'
+                  type='text'
+                  name='name'
+                  value={formData.name || ''}
+                  onChange={handleOnChange}
+                  margin='dense'
+                  fullWidth
+                  sx={{ fontFamily: 'Inter, sans-serif' }}
+                />
+              </CardContent>
+              <Grid item xs={18} sm={18} md={18} lg={18} xl={18}>
+                <Card>
+                  <CardContent>
+                    <TextField
+                      variant='filled'
+                      error={false}
+                      label='correo electrónico'
+                      type='text'
+                      name='email'
+                      value={formData.email || ''}
+                      onChange={handleOnChange}
+                      margin='dense'
+                      fullWidth
+                      sx={{ fontFamily: 'Inter, sans-serif' }}
+                    />
+                  </CardContent>
+                  <Grid item xs={18} sm={18} md={18} lg={18} xl={18}>
+                    <Card>
+                      <CardContent>
+                        <TextField
+                          sx={{ fontFamily: 'Inter, sans-serif' }}
+                          variant='filled'
+                          error={false}
+                          label='contraseña'
+                          type='password'
+                          name='password'
+                          value={formData.password || ''}
+                          onChange={handleOnChange}
+                          margin='dense'
+                          fullWidth
+                        />
+                      </CardContent>
+                      <Grid item xs={18} sm={18} md={18} lg={18} xl={18}>
+                        <Card>
+                          <CardContent>
+                            <TextField
+                              sx={{ fontFamily: 'Inter, sans-serif' }}
+                              variant='filled'
+                              error={false}
+                              label='confirmar contraseña'
+                              type='password'
+                              name='confirmar'
+                              value={confirmarPassword.confirmar || ''}
+                              onChange={handleOnChangeConfirmarPassword}
+                              margin='dense'
+                              fullWidth
+                            />
+                          </CardContent>
+                          <Grid item xs={12} style={{ textAlign: 'center' }}>
+                            <CheckboxFormulario />
+                          </Grid>
+                          <Grid my={4} justifyContent='center' direction='row' container>
+                            <ButtonForm size='medium' onClick={() => handleSubmit(name, email, password)} />
+                          </Grid>
+                        </Card>
+                      </Grid>
+                    </Card>
+                  </Grid>
+                </Card>
+              </Grid>
+            </Card>
+          </Grid>
+        </Grid>
+      </Box>
+    </div>
+  );
 }
+export default Formulario;

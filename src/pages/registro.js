@@ -1,14 +1,14 @@
 import NavbarTwo from '@/components/Navbar/NavbarTwo';
 
-import FormLogin from '@/components/Login/FormLogin';
+import Formulario from '@/components/Registro/formulario';
 import Footer from '@/components/Footer/Footer';
 
-export default function Login() {
+export default function Registro() {
   return (
     <>
       <NavbarTwo />
 
-      <FormLogin />
+      <Formulario />
 
       <Footer />
     </>
