@@ -22,7 +22,7 @@ export default function CardMisViajes() {
 
   return (
     <div className='CardMisVijaes'>
-      <Grid mb={8}>
+      <Grid mb={9}>
         <ButtonMisViajes />
       </Grid>
       <Card bgcolor={customColor3} sx={{ display: 'flex' }}>
