@@ -10,7 +10,7 @@ import FormLogin from '@/components/Login/FormLogin';
 import CardMisViajes from '@/components/misViajes/CardMisViajes';
 import CompartirViaje from '@/components/CompartirViaje/BoxCompartirViaje';
 import CrearViaje from '@/components/BoxCrearViaje/CrearViaje';
-import BasicCard from '@/components/BoxCrearViaje/MisViajes.js';
+import ImgMediaCard from '@/components/BoxCrearViaje/MisViajes';
 
 export default function Home() {
   return (
@@ -23,7 +23,7 @@ export default function Home() {
       </Head>
       <main className={styles.main}>
         <div>
-          <BasicCard />
+          <CrearViaje />
         </div>
       </main>
     </>

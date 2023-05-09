@@ -1,36 +1,45 @@
-import { Card, CardContent, CardMedia, Typography } from '@mui/material';
+import { Card, Input, Box, CardMedia, Button } from '@mui/material';
 
-function BasicCard() {
+export default function ImgMediaCard() {
   const customColor = '#2B2E4A';
   const customColor2 = '#E91E63';
   const customColor3 = '#FFFFFF';
 
   return (
-    <Card bgcolor='gray' variant='soft' sx={{ backgroundColor: "'#BABCBE'", minWidth: '100px', width: '300px' }}>
-      <CardMedia>
-        <img
-          src='https://images.unsplash.com/photo-1502657877623-f66bf489d236?auto=format&fit=crop&w=800'
-          srcSet='https://images.unsplash.com/photo-1502657877623-f66bf489d236?auto=format&fit=crop&w=800&dpr=2 2x'
-          loading='lazy'
-          alt=''
+    <Card
+      bgcolor='gray'
+      variant='soft'
+      sx={{
+        backgroundColor: '#BABCBE',
+        minHeight: '100px',
+        width: '300px',
+      }}
+    >
+      <Card bgcolor='gray' sx={{ maxWidth: 345 }}>
+        <CardMedia
+          component='img'
+          bgcolor='gray'
+          alt='green iguana'
+          height='140'
+          image='/static/images/cards/contemplative-reptile.jpg'
         />
-      </CardMedia>
-      <Box my={4} ml={7} justifyContent='center' direction='row' bgcolor='gray' container>
-        <Button
-          variant='contained'
-          style={{
-            fontSize: '15px',
-            backgroundColor: customColor,
-            borderRadius: '40px',
-            padding: '15px 40px',
-            textTransform: 'none',
-            fontFamily: 'Inter, sans-serif',
-          }}
-        >
-          CREAR VIAJE
-        </Button>
-      </Box>
+
+        <Box  my={4} ml={7} justifyContent='center' direction='row' container>
+          <Button
+            variant='contained'
+            style={{
+              fontSize: '15px',
+              backgroundColor: customColor,
+              borderRadius: '40px',
+              padding: '15px 40px',
+              textTransform: 'none',
+              fontFamily: 'Inter, sans-serif',
+            }}
+          >
+            MIS VIAJES
+          </Button>
+        </Box>
+      </Card>
     </Card>
   );
 }
-export default BasicCard;
