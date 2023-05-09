@@ -1,26 +1,35 @@
-import { Box, TextField, Grid, Card, CardContent, Typeography } from '@mui/material';
-import { useState, useEffect } from 'react';
+import { Box, TextField, Grid, Card, CardContent } from '@mui/material';
+import { useState } from 'react';
 import ButtonLogin from './ButtonLogin';
 import CheckboxLogin from './CheckboxLogin';
+import axios from 'axios';
 
-//nose si agregar lo siguiente
 function FormLogin() {
   const [formData, setFormData] = useState({
-    correo: '',
-    constraseña: '',
+    email: '',
+    password: '',
   });
+  const handleOnChange = (e) => {
+    console.log([e.target.name], e.target.value);
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
   const addUser = async () => {
     const userPost = await axios.post('https://nomada-backend-production.up.railway.app/api/v1/login', formData);
     console.log('statusCode', userPost.status);
-    if (userPost.status !== 201) {
+    if (userPost.status !== 200) {
       console.log('error al insertar');
     } else {
-      setFormData(userPost.data._id);
+      console.log('Logeado');
+      setFormData({
+        email: '',
+        password: '',
+      });
+      alert('Usuario logeado correctamente');
     }
   };
 
   return (
-    <Grid containter justifyContent='center'>
+    <Grid justifyContent='center'>
       <h2> Inicia sesión con correo electrónico </h2>
       <Box my={6}>
         <Grid container justifyContent='center' direction='row'>
@@ -30,8 +39,10 @@ function FormLogin() {
                 error={false}
                 label='correo electrónico'
                 type='text'
-                name='correo electrónico'
+                name='email'
                 margin='dense'
+                value={formData.email || ''}
+                onChange={handleOnChange}
                 fullWidth
                 variant='outlined'
               />
@@ -41,9 +52,11 @@ function FormLogin() {
               <TextField
                 error={false}
                 label='contraseña'
-                type='text'
-                name='contraseña'
+                type='password'
+                name='password'
                 margin='dense'
+                value={formData.password || ''}
+                onChange={handleOnChange}
                 fullWidth
                 variant='outlined'
               />
@@ -52,7 +65,7 @@ function FormLogin() {
         </Grid>
       </Box>
       <Grid my={4} justifyContent='center' direction='row' container>
-        <ButtonLogin variant='contained' sx={{ fontSize: 24 }} onClick={addUser} />
+        <ButtonLogin sx={{ fontSize: 24 }} onClick={addUser} />
       </Grid>
       <Grid item xs={50} style={{ textAlign: 'center' }}>
         <CheckboxLogin />
