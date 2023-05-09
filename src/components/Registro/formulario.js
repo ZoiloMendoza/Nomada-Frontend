@@ -2,21 +2,22 @@ import { Box, TextField, Grid, Card, CardContent, Typography } from '@mui/materi
 import CheckboxFormulario from './CheckboxFormulario';
 import ButtonForm from './ButtonForm';
 import BoxRegistro from './BoxRegistro';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import axios from 'axios';
 //import theme from './TemaConfig';
 
 function Formulario() {
-  const [trigger, setTrigger] = useState(false);
   const [confirmarPassword, setConfirmarPaswordd] = useState({
     confirmar: '',
   });
   const [formData, setFormData] = useState({
     name: '',
     email: '',
+    role: 'admin',
     password: '',
   });
   const { name, email, password } = formData;
+
   const handleOnChange = (e) => {
     console.log([e.target.name], e.target.value);
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -26,42 +27,34 @@ function Formulario() {
     setConfirmarPaswordd({ ...confirmarPassword, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (name, email, password) => {
+  const handleSubmit = async (name, email, password) => {
     if (password !== confirmarPassword.confirmar) {
       alert('Las contraseñas no coinciden.');
       return;
     }
     console.log('enviado', formData);
-    alert('Usuario creado correctamente', name, email, password);
-    setTrigger(true);
-  };
-  useEffect(() => {
-    if (trigger) {
-      (async () => {
-        try {
-          const userPost = await axios.post('https://nomada-backend-production.up.railway.app/api/v1/users', formData);
-          console.log('statusCode', userPost.status);
-          if (userPost.status == 201) {
-            console.log('Usuario creado exitosamente');
-            setFormData({
-              name: '',
-              email: '',
-              password: '',
-            });
-            setConfirmarPaswordd({
-              confirmar: '',
-            });
-          } else {
-            console.log('Error al insertar');
-          }
-        } catch (error) {
-          console.error('Error en la petición:', error);
-          alert('Error al crear el usuario. Por favor, inténtalo de nuevo.');
-        }
-      })();
-      setTrigger(false);
+    try {
+      const userPost = await axios.post('https://nomada-backend-production.up.railway.app/api/v1/signup', formData);
+      console.log('statusCode', userPost.status);
+      if (userPost.status == 201) {
+        console.log('Usuario creado exitosamente');
+        setFormData({
+          name: '',
+          email: '',
+          password: '',
+        });
+        setConfirmarPaswordd({
+          confirmar: '',
+        });
+        alert('Usuario creado correctamente', name, email, password);
+      } else {
+        console.log('Error al insertar');
+      }
+    } catch (error) {
+      console.error('Error en la petición:', error);
+      alert('Error al crear el usuario. Por favor, inténtalo de nuevo.');
     }
-  }, [trigger]);
+  };
 
   return (
     <div className='Formulario'>

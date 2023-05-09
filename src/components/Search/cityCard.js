@@ -67,17 +67,8 @@ const CityCard = ({ cityData }) => {
   };
 
   useEffect(() => {
-    const location = '150807';
-    const apiKey = process.env.NEXT_PUBLIC_API_TRIPADVISOR_KEY;
-
-    const options = {
-      method: 'GET',
-      url: `https://api.content.tripadvisor.com/api/v1/location/${location}/details?key=${apiKey}&language=en&currency=USD`,
-      headers: { accept: 'application/json' },
-    };
-
     axios
-      .request(options)
+      .get('/api/proxy/tripadvisor')
       .then(function (response) {
         console.log(response.data);
       })

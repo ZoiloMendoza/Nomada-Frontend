@@ -4,7 +4,6 @@ import ButtonLogin from './ButtonLogin';
 import CheckboxLogin from './CheckboxLogin';
 import axios from 'axios';
 
-//nose si agregar lo siguiente
 function FormLogin() {
   const [formData, setFormData] = useState({
     email: '',
@@ -15,17 +14,23 @@ function FormLogin() {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
   const addUser = async () => {
-    const userPost = await axios.post('http://localhost:5001/api/v1/login', formData);
+    const userPost = await axios.post('https://nomada-backend-production.up.railway.app/api/v1/login', formData);
     console.log('statusCode', userPost.status);
     if (userPost.status !== 200) {
       console.log('error al insertar');
     } else {
+      console.log('Logeado');
+      setFormData({
+        email: '',
+        password: '',
+      });
+      alert('Usuario logeado correctamente');
     }
   };
   console.log(formData);
 
   return (
-    <Grid containter justifyContent='center'>
+    <Grid justifyContent='center'>
       <h2> Inicia sesión con correo electrónico </h2>
       <Box my={6}>
         <Grid container justifyContent='center' direction='row'>
@@ -36,9 +41,9 @@ function FormLogin() {
                 label='correo electrónico'
                 type='text'
                 name='email'
+                margin='dense'
                 value={formData.email || ''}
                 onChange={handleOnChange}
-                margin='dense'
                 fullWidth
                 variant='outlined'
               />
@@ -50,9 +55,9 @@ function FormLogin() {
                 label='contraseña'
                 type='password'
                 name='password'
+                margin='dense'
                 value={formData.password || ''}
                 onChange={handleOnChange}
-                margin='dense'
                 fullWidth
                 variant='outlined'
               />
@@ -61,7 +66,7 @@ function FormLogin() {
         </Grid>
       </Box>
       <Grid my={4} justifyContent='center' direction='row' container>
-        <ButtonLogin variant='contained' sx={{ fontSize: 24 }} onClick={addUser} />
+        <ButtonLogin sx={{ fontSize: 24 }} onClick={addUser} />
       </Grid>
       <Grid item xs={50} style={{ textAlign: 'center' }}>
         <CheckboxLogin />
