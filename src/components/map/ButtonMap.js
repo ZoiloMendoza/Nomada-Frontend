@@ -6,7 +6,7 @@ const ButtonMap = () => {
   return (
     <Button
       variant='contained'
-      style={{
+      sx={{
         backgroundColor: customColor,
         borderRadius: '10px',
         padding: '10px 20px',

@@ -1,15 +1,16 @@
 import React from 'react';
-import Slider from 'react-slick';
-import "slick-carousel/slick/slick.css"; 
-import "slick-carousel/slick/slick-theme.css";
-// import '@/placeCards.css';
-import { Card, CardActionArea, CardContent, CardMedia, Typography, makeStyles } from '@material-ui/core';
-import { Star, StarBorder } from '@material-ui/icons';
+import { Card, CardActionArea, CardContent, CardMedia, Typography } from '@mui/material';
+import { Star, StarBorder } from '@mui/icons-material';
+import { makeStyles } from '@mui/styles';
+//import Slider from 'react-slick';
+import Carrusel from '../common/Carrusel';
+//import 'slick-carousel/slick/slick.css';
+//import 'slick-carousel/slick/slick-theme.css';
 
 const useStyles = makeStyles((theme) => ({
   card: {
     maxWidth: 345,
-    margin: 80,
+    margin: '0 80px',
   },
   media: {
     height: 140,
@@ -23,45 +24,10 @@ const useStyles = makeStyles((theme) => ({
 function PlaceCards({ data }) {
   const classes = useStyles();
 
-  var settings = {
-    dots: true,
-    infinite: false,
-    speed: 500,
-    slidesToShow: 4,
-    slidesToScroll: 4,
-    initialSlide: 0,
-    responsive: [
-      {
-        breakpoint: 1024,
-        settings: {
-          slidesToShow: 3,
-          slidesToScroll: 3,
-          infinite: true,
-          dots: true,
-        },
-      },
-      {
-        breakpoint: 600,
-        settings: {
-          slidesToShow: 2,
-          slidesToScroll: 2,
-          initialSlide: 2,
-        },
-      },
-      {
-        breakpoint: 480,
-        settings: {
-          slidesToShow: 1,
-          slidesToScroll: 1,
-        },
-      },
-    ],
-  };
-
   return (
     <>
-    <h2>Recomendaciones</h2>
-      <Slider {...settings}>
+      <h2>Recomendaciones</h2>
+      <Carrusel>
         {data.map((item) => (
           <Card className={classes.card} key={item.id}>
             <CardActionArea>
@@ -85,11 +51,9 @@ function PlaceCards({ data }) {
             </CardActionArea>
           </Card>
         ))}
-      </Slider>
+      </Carrusel>
     </>
   );
 }
-
-//console.log(data)
 
 export default PlaceCards;

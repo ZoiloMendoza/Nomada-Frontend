@@ -1,79 +1,72 @@
-import { makeStyles } from '@material-ui/core/styles';
-import { Button, ButtonGroup } from '@material-ui/core';
-import { Link } from '@material-ui/core';
+import { styled } from '@mui/system';
+import { Button, ButtonGroup } from '@mui/material';
+import { Link } from '@mui/material';
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: '#EAEDED',
-    borderRadius: '5px',
-    width: '100%',
-    '& > *': {
-      margin: theme.spacing(1),
-    },
-  },
-  button: {
-    backgroundColor: '#6C6D7F',
-    border: 'none',
-    color: '#FFFFFF',
-    cursor: 'pointer',
-    fontSize: '16px',
-    fontWeight: 'bold',
-    margin: '10px',
-    padding: '10px 20px',
-    transition: 'all 0.3s ease',
-    textAlign: 'center',
-    width: '100%;',
-  },
-  buttonTwo: {
-    backgroundColor: '#E91E63',
-    border: 'none',
-    color: '#FFFFFF',
-    cursor: 'pointer',
-    fontSize: '16px',
-    fontWeight: 'bold',
-    margin: '10px',
-    padding: '10px 20px',
-    transition: 'all 0.3s ease',
-    textAlign: 'center',
-    width: '100%;',
-  },
-  group: {
-    display: 'flex',
-    flexDirection: 'column',
-    flexWrap: 'wrap',
-    justifyContent: 'center',
-    alignItems: 'center',
+const AddSection = styled('div')(({ theme }) => ({
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
+  justifyContent: 'center',
+  backgroundColor: '#EAEDED',
+  borderRadius: '5px',
+  width: '100%',
+  '& > *': {
+    margin: theme.spacing(1),
   },
 }));
 
-export default function Add() {
-  const classes = useStyles();
+const AddButton = styled(Button)(() => ({
+  backgroundColor: '#6C6D7F',
+  border: 'none',
+  color: '#FFFFFF',
+  cursor: 'pointer',
+  fontSize: '16px',
+  fontWeight: 'bold',
+  margin: '10px',
+  padding: '10px 20px',
+  transition: 'all 0.3s ease',
+  textAlign: 'center',
+  width: '100%;',
+}));
 
+const AddButtonTwo = styled(Button)(() => ({
+  backgroundColor: '#E91E63',
+  border: 'none',
+  color: '#FFFFFF',
+  cursor: 'pointer',
+  fontSize: '16px',
+  fontWeight: 'bold',
+  margin: '10px',
+  padding: '10px 20px',
+  transition: 'all 0.3s ease',
+  textAlign: 'center',
+  width: '100%;',
+}));
+const AddButtonGroup = styled(ButtonGroup)(() => ({
+  display: 'flex',
+  flexDirection: 'column',
+  flexWrap: 'wrap',
+  justifyContent: 'center',
+  alignItems: 'center',
+}));
+
+export default function Add() {
   return (
-    <div className={classes.root}>
-      <ButtonGroup
-        className={classes.group}
-        orientation='vertical'
-        color='primary'
-        aria-label='vertical outlined primary button group'
-      >
+    <AddSection>
+      <AddButtonGroup orientation='vertical' color='primary' aria-label='vertical outlined primary button group'>
         <Link href='/page1'>
-          <Button className={classes.button}>Nuevo destino</Button>
+          <AddButton>Nuevo destino</AddButton>
         </Link>
-        <Link href='/page2'>
-          <Button className={classes.button}>Hospedaje</Button>
+        <Link href='/addhotel'>
+          <AddButton>Hospedaje</AddButton>
         </Link>
-        <Link href='/page3'>
-          <Button className={classes.button}>Buscar actividades</Button>
+        <Link href='/search'>
+          <AddButton>Buscar actividades</AddButton>
         </Link>
-        <Link href='/page4'>
-          <Button className={classes.buttonTwo}>Mapa</Button>
+        <Link href='/map'>
+          <AddButtonTwo>Mapa</AddButtonTwo>
         </Link>
-      </ButtonGroup>
-    </div>
+      </AddButtonGroup>
+    </AddSection>
   );
 }

@@ -1,11 +1,11 @@
 import { useState } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import { Card, CardContent, CardMedia, Typography, IconButton, Collapse } from '@material-ui/core';
-import { Edit as EditIcon, Delete as DeleteIcon } from '@material-ui/icons';
-import { ExpandMore } from '@material-ui/icons';
-import HotelIcon from '@material-ui/icons/Hotel';
+import { makeStyles } from '@mui/styles';
+import { Card, CardContent, CardMedia, Typography, IconButton, Collapse } from '@mui/material';
+import { Edit as EditIcon, Delete as DeleteIcon } from '@mui/icons-material';
+import { ExpandMore } from '@mui/icons-material';
+import HotelIcon from '@mui/icons-material/Hotel';
 
-import Grid from '@material-ui/core/Grid';
+import Grid from '@mui/material/Grid';
 
 const useStyles = makeStyles((theme) => ({
   card: {

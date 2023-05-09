@@ -6,7 +6,23 @@ export const data = [
     category: 'restaurant',
     image:
       'https://cache.marriott.com/content/dam/marriott-renditions/XMNSI/xmnsi-prince-restaurant-6803-hor-wide.jpg?output-quality=70&interpolation=progressive-bilinear&downsize=1336px:*',
-    rating: '4',
+    rating: 4,
+    reviews: [
+      {
+        _id: 1,
+        name: 'Jesus Lopez',
+        comment: 'Muy bueno!',
+        rating: 4,
+        createdAt: '14:54',
+      },
+      {
+        _id: 2,
+        name: 'Jennifer Aniston',
+        comment: 'Buenísimo!',
+        rating: 5,
+        createdAt: '12:33',
+      },
+    ],
   },
   {
     id: 2,
@@ -14,7 +30,7 @@ export const data = [
     description: 'Bar',
     category: 'bar',
     image: 'https://www.spoon-restaurant.com/wp-content/uploads/2022/06/Spoon_cLe_Bonbon-1-scaled.jpg',
-    rating: '5',
+    rating: 3,
   },
   {
     id: 3,
@@ -22,7 +38,7 @@ export const data = [
     description: 'Restaurant',
     category: 'restaurant',
     image: 'https://www.wineport.ie/wp-content/uploads/2022/10/november-restaurant-8-1366x768-fp_mm-fpoff_0_0.jpg',
-    rating: '3',
+    rating: 5,
   },
   {
     id: 4,
@@ -31,7 +47,7 @@ export const data = [
     category: 'restaurant',
     image:
       'https://media.houseandgarden.co.uk/photos/626bae2b6fc29fccf7658b2a/3:2/w_3000,h_2000,c_limit/220311_Lisboeta0739_039_+R2_Lights_HiRes.jpg',
-    rating: '4',
+    rating: 4,
   },
   {
     id: 5,
@@ -40,7 +56,7 @@ export const data = [
     category: 'restaurant',
     image:
       'https://www.hotel-montana.ch/bilder/hauptbilder/restaurant-bar/_1200xAUTO_crop_center-center_100_none/2210_Scala-4.jpg',
-    rating: '3',
+    rating: 3,
   },
   {
     id: 6,
