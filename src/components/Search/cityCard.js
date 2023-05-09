@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@mui/styles';
 import { Card, CardMedia, CardContent, Typography, IconButton } from '@mui/material';
 import { Favorite, Add, FavoriteBorder } from '@mui/icons-material';
 import Carrusel from '../common/Carrusel';
+import axios from 'axios';
 //import Slider from 'react-slick';
 //import 'slick-carousel/slick/slick.css';
 //import 'slick-carousel/slick/slick-theme.css';
@@ -64,6 +65,26 @@ const CityCard = ({ cityData }) => {
     setIsFavorite(!isFavorite);
     console.log('Favorite button clicked!');
   };
+
+  useEffect(() => {
+    const location = '150807';
+    const apiKey = process.env.NEXT_PUBLIC_API_TRIPADVISOR_KEY;
+
+    const options = {
+      method: 'GET',
+      url: `https://api.content.tripadvisor.com/api/v1/location/${location}/details?key=${apiKey}&language=en&currency=USD`,
+      headers: { accept: 'application/json' },
+    };
+
+    axios
+      .request(options)
+      .then(function (response) {
+        console.log(response.data);
+      })
+      .catch(function (error) {
+        console.error(error);
+      });
+  }, []);
 
   return (
     <>
