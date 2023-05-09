@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useTheme } from '@mui/material/styles';
+//import { useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
@@ -15,7 +15,7 @@ import ButtonMisViajes from './ButtonMisViajes';
 import ButtonNuevoViaje from './ButtonNuevoViaje';
 
 export default function CardMisViajes() {
-  const theme = useTheme();
+  //const theme = useTheme();
   const customColor = '#2B2E4A';
   const customColor2 = '#E91E63';
   const customColor3 = '#6C6D7F';
