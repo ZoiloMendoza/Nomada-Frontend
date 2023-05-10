@@ -1,18 +1,36 @@
 import Head from 'next/head';
 import NavbarTwo from '@/components/Navbar/NavbarTwo';
-import CityCard from '@/components/Search/cityCard';
-import PlaceCards from '@/components/Add/PlaceCards';
+//import PlaceCards from '@/components/Add/PlaceCards';
 import SearchBar from '@/components/Search/Search';
 import MapButton from '@/components/common/MapButton';
 
 import Footer from '@/components/Footer/Footer';
 
-import { cityData } from '@/components/Search/cityData';
-import { data } from '@/components/Add/data';
+//import { cityData } from '@/components/Search/cityData';
+//import { data } from '@/components/Add/data';
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
 
 import Box from '@mui/material/Box';
+import CityCard from '@/components/Search/cityCard';
 
 export default function Search() {
+  const [data, setData] = useState({});
+
+  useEffect(() => {
+    axios
+      .get('/api/proxy/nearbySearch')
+      .then(function (response) {
+        console.log(response.data);
+        setData(response.data);
+      })
+      .catch(function (error) {
+        console.error(error);
+      });
+  }, []);
+
+  console.log(data);
+
   return (
     <>
       <Head>
@@ -36,9 +54,7 @@ export default function Search() {
       <SearchBar />
 
       <Box>
-        <CityCard cityData={cityData} />
-
-        <PlaceCards data={data} />
+        <CityCard cityData={data.data} />
       </Box>
 
       <Box sx={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>

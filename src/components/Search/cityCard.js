@@ -1,9 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { makeStyles } from '@mui/styles';
 import { Card, CardMedia, CardContent, Typography, IconButton } from '@mui/material';
 import { Favorite, Add, FavoriteBorder } from '@mui/icons-material';
 import Carrusel from '../common/Carrusel';
-import axios from 'axios';
 //import Slider from 'react-slick';
 //import 'slick-carousel/slick/slick.css';
 //import 'slick-carousel/slick/slick-theme.css';
@@ -66,50 +65,44 @@ const CityCard = ({ cityData }) => {
     console.log('Favorite button clicked!');
   };
 
-  useEffect(() => {
-    axios
-      .get('/api/proxy/tripadvisor')
-      .then(function (response) {
-        console.log(response.data);
-      })
-      .catch(function (error) {
-        console.error(error);
-      });
-  }, []);
-
+  console.log(cityData);
   return (
     <>
       <h2>Destinos</h2>
       <Carrusel>
-        {cityData.map((cityData) => (
-          <Card
-            className={classes.root}
-            key={cityData.id}
-            onMouseEnter={handleMouseEnter}
-            onMouseLeave={handleMouseLeave}
-          >
-            <CardMedia component='img' className={classes.media} image={cityData.image} title={cityData.title} />
-            <CardContent className={classes.content}>
-              {hovered && (
-                <>
-                  <Typography className={classes.title} variant='h5' gutterBottom>
-                    {cityData.title}
-                  </Typography>
-                  <Typography className={classes.subtitle} variant='subtitle1' gutterBottom>
-                    {cityData.subtitle}
-                  </Typography>
+        {cityData === undefined || cityData.length === 0 ? (
+          <div> vacío </div>
+        ) : (
+          cityData.map((cityData) => (
+            <Card
+              className={classes.root}
+              key={cityData.location_id}
+              onMouseEnter={handleMouseEnter}
+              onMouseLeave={handleMouseLeave}
+            >
+              <CardMedia component='img' className={classes.media} image={cityData.image} title={cityData.title} />
+              <CardContent className={classes.content}>
+                {hovered && (
+                  <>
+                    <Typography className={classes.title} variant='h5' gutterBottom>
+                      {cityData.name}
+                    </Typography>
+                    <Typography className={classes.subtitle} variant='subtitle1' gutterBottom>
+                      {cityData.address_obj.state}
+                    </Typography>
 
-                  <IconButton className={classes.iconButton} aria-label='add' onClick={handleClick}>
-                    <Add />
-                  </IconButton>
-                  <IconButton className={classes.iconButton} aria-label='favorite' onClick={handleFavoriteClick}>
-                    {isFavorite ? <Favorite /> : <FavoriteBorder />}
-                  </IconButton>
-                </>
-              )}
-            </CardContent>
-          </Card>
-        ))}
+                    <IconButton className={classes.iconButton} aria-label='add' onClick={handleClick}>
+                      <Add />
+                    </IconButton>
+                    <IconButton className={classes.iconButton} aria-label='favorite' onClick={handleFavoriteClick}>
+                      {isFavorite ? <Favorite /> : <FavoriteBorder />}
+                    </IconButton>
+                  </>
+                )}
+              </CardContent>
+            </Card>
+          ))
+        )}
       </Carrusel>
     </>
   );
