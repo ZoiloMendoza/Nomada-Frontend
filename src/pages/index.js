@@ -23,7 +23,7 @@ export default function Home() {
       </Head>
       <main className={styles.main}>
         <div>
-          <CrearViaje />
+          <FormLogin />
         </div>
       </main>
     </>
