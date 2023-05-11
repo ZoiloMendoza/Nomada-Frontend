@@ -81,7 +81,7 @@ const CityCard = ({ contentApi }) => {
             <CardMedia
               component='img'
               className={classes.media}
-              image={item.data[0].images.small.url}
+              image={hovered === true ? item.data[0].images.original.url : item.data[0].images.small.url}
               title={item.name}
             />
             <CardContent className={classes.content}>
