@@ -69,7 +69,7 @@ const CityCard = ({ contentApi }) => {
   console.log(contentApi);
   return (
     <>
-      <h2>Destinos</h2>
+      <h2 style={{ marginLeft: '30px' }}>Destinos</h2>
       <Carrusel>
         {contentApi.map((item) => (
           <Card

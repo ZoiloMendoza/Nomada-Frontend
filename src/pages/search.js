@@ -3,8 +3,11 @@ import NavbarTwo from '@/components/Navbar/NavbarTwo';
 import SearchBar from '@/components/Search/Search';
 import MapButton from '@/components/common/MapButton';
 import { cityData } from '@/components/Search/cityData';
+import RestaurantCard from '@/components/Search/RestaurantCard';
+import { restaurantData } from '@/components/Search/restaurantData';
 import Footer from '@/components/Footer/Footer';
-import axios from 'axios';
+//import Spinner from '@/components/common/Spinner';
+//import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 
 import Box from '@mui/material/Box';
@@ -53,9 +56,14 @@ export default function Search() {
 
       <Box>
         {
-          /*contentApi === undefined || contentApi.lengh === 0 ? <div> vacío </div> :*/ <CityCard
-            contentApi={cityData}
-          />
+          /*contentApi === undefined || contentApi.lengh === 0 ? <Spinner/> :*/
+          <CityCard contentApi={cityData} />
+        }
+      </Box>
+      <Box>
+        {
+          /*contentApi === undefined || contentApi.lengh === 0 ? <Spinner/> :*/
+          <RestaurantCard restaurantData={restaurantData.data} />
         }
       </Box>
 

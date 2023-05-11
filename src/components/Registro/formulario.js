@@ -4,6 +4,7 @@ import ButtonForm from './ButtonForm';
 import BoxRegistro from './BoxRegistro';
 import { useState } from 'react';
 import axios from 'axios';
+import Link from 'next/link';
 //import theme from './TemaConfig';
 
 function Formulario() {
@@ -63,7 +64,14 @@ function Formulario() {
         {' '}
         Por favor, ingresa los siguientes datos para crear tu cuenta en Nomadapp{' '}
       </Typography>
-      <Box my={1}>
+      <Box
+        my={1}
+        style={{
+          margin: '10px',
+          width: '50vw',
+          textAlign: 'center',
+        }}
+      >
         <Grid container direction='row' spacing={5}>
           <Grid item xs={18} sm={18} md={18} lg={18} xl={18}>
             <Card>
@@ -132,6 +140,11 @@ function Formulario() {
                           <Grid item xs={12} style={{ textAlign: 'center' }}>
                             <CheckboxFormulario />
                           </Grid>
+                          <Link legacyBehavior href='/login'>
+                            <p>
+                              ¿Ya tienes una cuenta? <a style={{ color: 'blue', cursor: 'pointer' }}>Inicia sesión</a>
+                            </p>
+                          </Link>
                           <Grid my={4} justifyContent='center' direction='row' container>
                             <ButtonForm size='medium' onClick={() => handleSubmit(name, email, password)} />
                           </Grid>

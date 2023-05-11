@@ -1,10 +1,8 @@
 import { Card, Typography, Input, Button, Box } from '@mui/material';
-
+import Link from 'next/link';
 
 export default function CrearViaje() {
-
   const customColor2 = '#E91E63';
-
 
   return (
     <Card
@@ -46,19 +44,21 @@ export default function CrearViaje() {
         />
       </Box>
       <Box my={4} ml={7} justifyContent='center' direction='row' container>
-        <Button
-          variant='contained'
-          style={{
-            fontSize: '15px',
-            backgroundColor: customColor2,
-            borderRadius: '40px',
-            padding: '15px 40px',
-            textTransform: 'none',
-            fontFamily: 'Inter, sans-serif',
-          }}
-        >
-          CREAR VIAJE
-        </Button>
+        <Link href='/crear-viaje'>
+          <Button
+            variant='contained'
+            style={{
+              fontSize: '15px',
+              backgroundColor: customColor2,
+              borderRadius: '40px',
+              padding: '15px 40px',
+              textTransform: 'none',
+              fontFamily: 'Inter, sans-serif',
+            }}
+          >
+            CREAR VIAJE
+          </Button>
+        </Link>
       </Box>
     </Card>
   );
