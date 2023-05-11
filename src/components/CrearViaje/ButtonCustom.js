@@ -6,6 +6,7 @@ const ButtonCustom = ({ text }) => {
 
   return (
     <Button
+      href='/itinerary'
       variant='contained'
       style={{
         backgroundColor: customColor,

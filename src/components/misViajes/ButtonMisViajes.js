@@ -2,6 +2,7 @@ import Button from '@mui/material/Button';
 
 const ButtonMisViajes = () => (
   <Button
+    href='/misviajes'
     variant='contained'
     style={{
       backgroundColor: 'gray',
