@@ -23,7 +23,7 @@ const useStyles = makeStyles({
     margin: 'auto',
     transition: 'width 0.3s',
     '&:hover': {
-      width: '100%',
+      width: '300px',
     },
   },
   content: {
@@ -81,7 +81,7 @@ const CityCard = ({ contentApi }) => {
             <CardMedia
               component='img'
               className={classes.media}
-              image={hovered === true ? item.data[0].images.original.url : item.data[0].images.small.url}
+              image={item.data[0].images.original.url}
               title={item.name}
             />
             <CardContent className={classes.content}>
