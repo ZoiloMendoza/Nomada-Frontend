@@ -1,6 +1,7 @@
 import React from 'react';
 import { styled } from '@mui/system';
 import { Box, Button, Container, Typography } from '@mui/material';
+import Link from 'next/link';
 
 const HeroSection = styled(Box)(({ theme }) => ({
   backgroundImage: `url('https://www.parisperfect.com/g/photos/upload/sml_584260314-1501857542-travel-plane-large.jpg')`,
@@ -50,9 +51,11 @@ const Hero = () => (
       <HeroText>
         <HeroTitle variant='h1'>Planea El Viaje De Tus Sueños</HeroTitle>
         <HeroSubtitle variant='h2'>Déjanos ayudarte a llevar al máximo tu próxima aventura</HeroSubtitle>
-        <HeroButton variant='contained' color='secondary'>
-          Regístrate
-        </HeroButton>
+        <Link legacyBehavior href='/registro'>
+          <HeroButton variant='contained' color='secondary'>
+            Regístrate
+          </HeroButton>
+        </Link>
       </HeroText>
     </Container>
   </HeroSection>

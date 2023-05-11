@@ -4,7 +4,7 @@ import SearchBar from '@/components/Search/Search';
 import MapButton from '@/components/common/MapButton';
 import { cityData } from '@/components/Search/cityData';
 import Footer from '@/components/Footer/Footer';
-import axios from 'axios';
+//import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 
 import Box from '@mui/material/Box';
