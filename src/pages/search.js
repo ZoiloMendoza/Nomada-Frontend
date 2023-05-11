@@ -12,7 +12,7 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 
 import Box from '@mui/material/Box';
-//import CityCard from '@/components/Search/cityCard';
+import CityCard from '@/components/Search/cityCard';
 
 export default function Search() {
   const [contentApi, setContentApi] = useState({});
@@ -55,11 +55,7 @@ export default function Search() {
       <SearchBar />
 
       <Box>
-        {/*contentApi.data === undefined || contentApi.data === 0 ? (
-          <div> vacío </div>
-        ) : (
-          <CityCard cityData={contentApi.data} />
-        )*/}
+        {contentApi === undefined || contentApi.lengh < 0 ? <div> vacío </div> : <CityCard contentApi={contentApi} />}
       </Box>
 
       <Box sx={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>

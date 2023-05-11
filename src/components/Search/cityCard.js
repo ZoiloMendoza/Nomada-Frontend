@@ -44,7 +44,7 @@ const useStyles = makeStyles({
   },
 });
 
-const CityCard = ({ cityData }) => {
+const CityCard = ({ contentApi }) => {
   const [isFavorite, setIsFavorite] = useState(false);
   const classes = useStyles();
   const [hovered, setHovered] = useState(false);
@@ -66,22 +66,32 @@ const CityCard = ({ cityData }) => {
     console.log('Favorite button clicked!');
   };
 
-  console.log(cityData);
+  console.log(contentApi);
   return (
     <>
       <h2>Destinos</h2>
       <Carrusel>
-        {cityData.map((item) => (
-          <Card className={classes.root} key={item.id} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
-            <CardMedia component='img' className={classes.media} image={item.images.original.url} title={item.album} />
+        {contentApi.map((item) => (
+          <Card
+            className={classes.root}
+            key={item.location_id}
+            onMouseEnter={handleMouseEnter}
+            onMouseLeave={handleMouseLeave}
+          >
+            <CardMedia
+              component='img'
+              className={classes.media}
+              image={item.data[0].images.original.url}
+              title={item.name}
+            />
             <CardContent className={classes.content}>
               {hovered && (
                 <>
                   <Typography className={classes.title} variant='h5' gutterBottom>
-                    {item.album}
+                    {item.address_obj.addres_string}
                   </Typography>
                   <Typography className={classes.subtitle} variant='subtitle1' gutterBottom>
-                    {item.album}
+                    {item.item.address_obj.city}
                   </Typography>
 
                   <IconButton className={classes.iconButton} aria-label='add' onClick={handleClick}>
