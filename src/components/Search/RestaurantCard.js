@@ -4,6 +4,8 @@ import { Card, CardActionArea, CardContent, CardMedia, Typography } from '@mui/m
 import { makeStyles } from '@mui/styles';
 //import Slider from 'react-slick';
 import Carrusel from '../common/Carrusel';
+import CardDetalle from '../Add/CardDetalle';
+import { dataTwo } from '../Add/dataTwo';
 //import 'slick-carousel/slick/slick.css';
 //import 'slick-carousel/slick/slick-theme.css';
 
@@ -26,7 +28,7 @@ function RestaurantCard({ restaurantData }) {
 
   return (
     <>
-      <h2>Restaurantes</h2>
+      <h2 style={{ marginLeft: '30px' }}>Restaurantes</h2>
       <Carrusel>
         {restaurantData.map((restaurantData) => (
           <Card className={classes.card} key={restaurantData.location_id}>
@@ -49,6 +51,7 @@ function RestaurantCard({ restaurantData }) {
                 </div> */}
               </CardContent>
             </CardActionArea>
+            <CardDetalle data={dataTwo} />
           </Card>
         ))}
       </Carrusel>
