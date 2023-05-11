@@ -51,6 +51,14 @@ const useStyles = makeStyles((theme) => ({
   review: {
     marginBottom: theme.spacing(2),
   },
+  button: {
+    backgroundColor: '#E91E62',
+    color: '#FFFFFF',
+    padding: '10px',
+    borderRadius: '5px',
+    border: 'none',
+    margin: '10px',
+  },
 }));
 
 const CardDetalle = ({ data }) => {
@@ -73,7 +81,9 @@ const CardDetalle = ({ data }) => {
 
   return (
     <>
-      <button onClick={handleClick}>Open Pop-up Box</button>
+      <button className={classes.button} onClick={handleClick}>
+        Ver detalles
+      </button>
       <PopupBox open={open} onClose={handleClose}>
         <Grid container>
           {data.map((item) => (

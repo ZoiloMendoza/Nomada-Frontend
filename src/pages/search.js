@@ -3,6 +3,8 @@ import NavbarTwo from '@/components/Navbar/NavbarTwo';
 import SearchBar from '@/components/Search/Search';
 import MapButton from '@/components/common/MapButton';
 import { cityData } from '@/components/Search/cityData';
+import RestaurantCard from '@/components/Search/RestaurantCard';
+import { restaurantData } from '@/components/Search/restaurantData';
 import Footer from '@/components/Footer/Footer';
 //import Spinner from '@/components/common/Spinner';
 //import axios from 'axios';
@@ -56,6 +58,12 @@ export default function Search() {
         {
           /*contentApi === undefined || contentApi.lengh === 0 ? <Spinner/> :*/
           <CityCard contentApi={cityData} />
+        }
+      </Box>
+      <Box>
+        {
+          /*contentApi === undefined || contentApi.lengh === 0 ? <Spinner/> :*/
+          <RestaurantCard restaurantData={restaurantData.data} />
         }
       </Box>
 

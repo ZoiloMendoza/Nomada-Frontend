@@ -1,6 +1,7 @@
 import React from 'react';
 import { makeStyles } from '@mui/styles';
 import { Box, Button, Container, Typography } from '@mui/material';
+import Link from 'next/link';
 
 import Grid from '@mui/material/Grid';
 import IconButton from '@mui/material/IconButton';
@@ -100,9 +101,11 @@ const HeroImage = () => {
           <Typography variant='h2' className={classes.heroSubtitle}>
             Destino y fecha
           </Typography>
-          <Button variant='contained' color='secondary' className={classes.heroButton}>
-            Calendario
-          </Button>
+          <Link href='/calendario'>
+            <Button variant='contained' color='secondary' className={classes.heroButton}>
+              Calendario
+            </Button>
+          </Link>
           <div>
             <CircleIconButton icon={<Favorite />} href='/favorite' />
             <CircleIconButton icon={<AddCircleIcon />} href='/add' />
