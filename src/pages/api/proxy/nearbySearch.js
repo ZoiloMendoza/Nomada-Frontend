@@ -12,7 +12,27 @@ export default async function handler(req, res) {
   try {
     const response = await axios.get(apiUrl);
 
-    res.status(200).json(response.data);
+    if (!response.data || !response.data.data) {
+      res.status(500).json({ error: 'No data received from the TripAdvisor API' });
+      return;
+    }
+
+    const locationData = response.data.data;
+    const exampleData = await Promise.all(
+      locationData.map(async (item) => {
+        try {
+          const responsePhoto = await axios.get(
+            `https://api.content.tripadvisor.com/api/v1/location/${item.location_id}/photos?key=${apiKey}&language=en`,
+          );
+          return { ...item, ...responsePhoto.data };
+        } catch (error) {
+          console.error(`Error fetching photo for location ${item.location_id}:`, error);
+          return item;
+        }
+      }),
+    );
+
+    res.status(200).json(exampleData);
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'An error occurred while fetching data from the TripAdvisor API' });
