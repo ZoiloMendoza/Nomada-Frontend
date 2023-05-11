@@ -13,6 +13,7 @@ import Button from '@mui/material/Button';
 import { Grid } from '@mui/material';
 import ButtonMisViajes from './ButtonMisViajes';
 import ButtonNuevoViaje from './ButtonNuevoViaje';
+import Link from 'next/link';
 
 export default function CardMisViajes() {
   //const theme = useTheme();
@@ -70,16 +71,18 @@ export default function CardMisViajes() {
         <Box bgcolor={customColor3} width={250} style={{ textAlign: 'center', alignItems: 'center' }}>
           <Grid my={4}>
             <Grid item sx={{ mb: 1 }}>
-              <Button
-                variant='contained'
-                style={{
-                  backgroundColor: customColor,
-                  borderRadius: '10px',
-                  padding: '10px 45px',
-                }}
-              >
-                Ver viaje
-              </Button>
+              <Link href='/itinerary'>
+                <Button
+                  variant='contained'
+                  style={{
+                    backgroundColor: customColor,
+                    borderRadius: '10px',
+                    padding: '10px 45px',
+                  }}
+                >
+                  Ver viaje
+                </Button>
+              </Link>
             </Grid>
             <Grid item sx={{ mb: 1 }}>
               <Button

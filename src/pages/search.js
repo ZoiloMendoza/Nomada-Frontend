@@ -53,9 +53,8 @@ export default function Search() {
 
       <Box>
         {
-          /*contentApi === undefined || contentApi.lengh === 0 ? <div> vacío </div> :*/ <CityCard
-            contentApi={cityData}
-          />
+          /*contentApi === undefined || contentApi.lengh === 0 ? <div> vacío </div> :*/
+          <CityCard contentApi={cityData} />
         }
       </Box>
 
