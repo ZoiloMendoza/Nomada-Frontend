@@ -71,27 +71,17 @@ const CityCard = ({ cityData }) => {
     <>
       <h2>Destinos</h2>
       <Carrusel>
-        {cityData.map((cityData) => (
-          <Card
-            className={classes.root}
-            key={cityData.location_id}
-            onMouseEnter={handleMouseEnter}
-            onMouseLeave={handleMouseLeave}
-          >
-            <CardMedia
-              component='img'
-              className={classes.media}
-              image={cityData.images.medium.url}
-              title={cityData.title}
-            />
+        {cityData.map((item) => (
+          <Card className={classes.root} key={item.id} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
+            <CardMedia component='img' className={classes.media} image={item.images.original.url} title={item.album} />
             <CardContent className={classes.content}>
               {hovered && (
                 <>
                   <Typography className={classes.title} variant='h5' gutterBottom>
-                    {cityData.name}
+                    {item.album}
                   </Typography>
                   <Typography className={classes.subtitle} variant='subtitle1' gutterBottom>
-                    {cityData.address_obj.state}
+                    {item.album}
                   </Typography>
 
                   <IconButton className={classes.iconButton} aria-label='add' onClick={handleClick}>

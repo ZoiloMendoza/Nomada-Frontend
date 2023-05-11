@@ -15,21 +15,21 @@ import Box from '@mui/material/Box';
 import CityCard from '@/components/Search/cityCard';
 
 export default function Search() {
-  const [data, setData] = useState({});
+  const [contentApi, setContentApi] = useState({});
 
   useEffect(() => {
     axios
       .get('/api/proxy/locationPhotos')
       .then(function (response) {
         console.log(response.data);
-        setData(response.data);
+        setContentApi(response.data);
       })
       .catch(function (error) {
         console.error(error);
       });
   }, []);
 
-  console.log(data);
+  console.log(contentApi);
 
   return (
     <>
@@ -53,7 +53,13 @@ export default function Search() {
 
       <SearchBar />
 
-      <Box>{data.data === undefined || data.data === 0 ? <div> vacío </div> : <CityCard cityData={data.data} />}</Box>
+      <Box>
+        {contentApi.data === undefined || contentApi.data === 0 ? (
+          <div> vacío </div>
+        ) : (
+          <CityCard cityData={contentApi.data} />
+        )}
+      </Box>
 
       <Box sx={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
         <MapButton />
