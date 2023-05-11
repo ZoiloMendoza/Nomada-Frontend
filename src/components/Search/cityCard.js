@@ -91,7 +91,7 @@ const CityCard = ({ contentApi }) => {
                     {item.address_obj.addres_string}
                   </Typography>
                   <Typography className={classes.subtitle} variant='subtitle1' gutterBottom>
-                    {item.item.address_obj.city}
+                    {item.address_obj.city}
                   </Typography>
 
                   <IconButton className={classes.iconButton} aria-label='add' onClick={handleClick}>

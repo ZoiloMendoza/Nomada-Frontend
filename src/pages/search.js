@@ -11,7 +11,7 @@ import Box from '@mui/material/Box';
 import CityCard from '@/components/Search/cityCard';
 
 export default function Search() {
-  const [contentApi, setContentApi] = useState({});
+  const [contentApi, setContentApi] = useState([]);
 
   useEffect(() => {
     axios
