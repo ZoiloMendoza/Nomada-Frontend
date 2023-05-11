@@ -2,7 +2,7 @@ import Head from 'next/head';
 import NavbarTwo from '@/components/Navbar/NavbarTwo';
 import SearchBar from '@/components/Search/Search';
 import MapButton from '@/components/common/MapButton';
-
+import { cityData } from '@/components/Search/cityData';
 import Footer from '@/components/Footer/Footer';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
@@ -14,8 +14,9 @@ export default function Search() {
   const [contentApi, setContentApi] = useState([]);
 
   useEffect(() => {
+    /*
     axios
-      .get('/api/proxy/nearbySearch')
+      .get('/api/proxy/responseNearbySearch')
       .then(function (response) {
         console.log(response.data);
 
@@ -23,7 +24,7 @@ export default function Search() {
       })
       .catch(function (error) {
         console.error(error);
-      });
+      });*/
   }, []);
 
   console.log(contentApi);
@@ -51,7 +52,11 @@ export default function Search() {
       <SearchBar />
 
       <Box>
-        {contentApi === undefined || contentApi.lengh === 0 ? <div> vacío </div> : <CityCard contentApi={contentApi} />}
+        {
+          /*contentApi === undefined || contentApi.lengh === 0 ? <div> vacío </div> :*/ <CityCard
+            contentApi={cityData}
+          />
+        }
       </Box>
 
       <Box sx={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
