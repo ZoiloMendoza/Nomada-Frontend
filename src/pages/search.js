@@ -51,7 +51,7 @@ export default function Search() {
       <SearchBar />
 
       <Box>
-        {contentApi === undefined || contentApi.lengh < 0 ? <div> vacío </div> : <CityCard contentApi={contentApi} />}
+        {contentApi === undefined || contentApi.lengh === 0 ? <div> vacío </div> : <CityCard contentApi={contentApi} />}
       </Box>
 
       <Box sx={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
