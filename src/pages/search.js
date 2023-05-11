@@ -12,7 +12,7 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 
 import Box from '@mui/material/Box';
-import CityCard from '@/components/Search/cityCard';
+//import CityCard from '@/components/Search/cityCard';
 
 export default function Search() {
   const [contentApi, setContentApi] = useState({});

@@ -11,14 +11,8 @@ export default async function handler(req, res) {
 
   try {
     const response = await axios.get(apiUrl);
-    const locationData = response.data.data;
-    const exampleData = locationData.map( async (item) => {
-      const responsePhoto = await axios.get(
-        `https://api.content.tripadvisor.com/api/v1/location/${item.location_id}/photos?key=${apiKey}&language=en`,
-      );
-      return item;
-    });
-    res.status(200).json(exampleData);
+
+    res.status(200).json(response.data);
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'An error occurred while fetching data from the TripAdvisor API' });
