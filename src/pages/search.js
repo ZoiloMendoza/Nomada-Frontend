@@ -19,9 +19,10 @@ export default function Search() {
 
   useEffect(() => {
     axios
-      .get('/api/proxy/locationPhotos')
+      .get('/api/proxy/nearbySearch')
       .then(function (response) {
         console.log(response.data);
+
         setContentApi(response.data);
       })
       .catch(function (error) {
@@ -54,11 +55,11 @@ export default function Search() {
       <SearchBar />
 
       <Box>
-        {contentApi.data === undefined || contentApi.data === 0 ? (
+        {/*contentApi.data === undefined || contentApi.data === 0 ? (
           <div> vacío </div>
         ) : (
           <CityCard cityData={contentApi.data} />
-        )}
+        )*/}
       </Box>
 
       <Box sx={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
