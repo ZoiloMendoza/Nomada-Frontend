@@ -1,13 +1,9 @@
 import Head from 'next/head';
 import NavbarTwo from '@/components/Navbar/NavbarTwo';
-//import PlaceCards from '@/components/Add/PlaceCards';
 import SearchBar from '@/components/Search/Search';
 import MapButton from '@/components/common/MapButton';
 
 import Footer from '@/components/Footer/Footer';
-
-//import { cityData } from '@/components/Search/cityData';
-//import { data } from '@/components/Add/data';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 
