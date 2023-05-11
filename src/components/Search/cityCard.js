@@ -19,7 +19,7 @@ const useStyles = makeStyles({
     },
   },
   media: {
-    width: '100%',
+    width: '150px',
     margin: 'auto',
     transition: 'width 0.3s',
     '&:hover': {
@@ -81,17 +81,17 @@ const CityCard = ({ contentApi }) => {
             <CardMedia
               component='img'
               className={classes.media}
-              image={item.data[0].images.original.url}
+              image={item.data[0].images.small.url}
               title={item.name}
             />
             <CardContent className={classes.content}>
               {hovered && (
                 <>
                   <Typography className={classes.title} variant='h5' gutterBottom>
-                    {item.address_obj.addres_string}
+                    {item.name}
                   </Typography>
                   <Typography className={classes.subtitle} variant='subtitle1' gutterBottom>
-                    {item.address_obj.city}
+                    {item.address_obj.addres_string}
                   </Typography>
 
                   <IconButton className={classes.iconButton} aria-label='add' onClick={handleClick}>
