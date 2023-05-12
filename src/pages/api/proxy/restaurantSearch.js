@@ -29,7 +29,8 @@ export async function getData() {
           const responsePhoto = await axios.get(
             `https://api.content.tripadvisor.com/api/v1/location/${item.location_id}/photos?key=${apiKey}&language=en`,
           );
-          return { ...item, ...responsePhoto.data };
+          const photoData = responsePhoto?.data || { data: [] };
+          return { ...item, ...photoData.data };
         } catch (error) {
           console.error(`Error fetching photo for location ${item.location_id}:`, error);
           return item;
