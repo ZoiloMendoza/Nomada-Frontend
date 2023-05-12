@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { TextField, Button, Box, Grid } from '@mui/material';
 import { makeStyles } from '@mui/styles';
+import Link from 'next/Link';
 
 const useStyles = makeStyles(() => ({
   box: {
@@ -129,9 +130,11 @@ const AddHotel = () => {
             onChange={handleChange}
             fullWidth
           />
-          <Button type='submit' variant='contained' color='primary' className={classes.button}>
-            Agregar
-          </Button>
+          <Link href='/itinerary'>
+            <Button type='submit' variant='contained' color='primary' className={classes.button}>
+              Agregar
+            </Button>
+          </Link>
           <Button type='button' variant='contained' color='primary' onClick={resetData}>
             Cancelar
           </Button>

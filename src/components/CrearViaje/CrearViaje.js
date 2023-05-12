@@ -8,6 +8,7 @@ import ButtonCustom from './ButtonCustom';
 import { useState } from 'react';
 import SearchIcon from '@mui/icons-material/Search';
 import axios from 'axios';
+import Link from 'next/Link';
 
 const apiKey = process.env.NEXT_PUBLIC_API_VUELOS_KEY;
 
@@ -161,7 +162,9 @@ const BoardingPassCard = () => {
           />
         </Box>
         <Box display='flex' justifyContent='center' sx={{ width: '100%' }}>
-          <ButtonCustom text={'Agregar'}  onClick={handleClick} />
+          <Link href='/itinerary'>
+            <ButtonCustom text={'Agregar'} onClick={handleClick} />
+          </Link>
         </Box>
       </FlightInfoContainer>
     </Box>
