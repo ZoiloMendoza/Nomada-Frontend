@@ -59,7 +59,8 @@ export default function Search({ contentApi = [] }) {
   );
 }
 
-Search.getInitialProps = async () => {
+export const getServerSideProps = async (context) => {
+  console.log(context);
   let contentApi = [];
   try {
     const response = await axios.get('/api/proxy/restaurantSearch');
