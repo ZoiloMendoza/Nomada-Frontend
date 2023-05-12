@@ -15,6 +15,7 @@ import CityCard from '@/components/Search/cityCard';
 import axios from 'axios';
 
 export default function Search({ contentApi = [] }) {
+  console.log('contentApi Search', contentApi);
   return (
     <>
       <Head>
@@ -59,15 +60,22 @@ export default function Search({ contentApi = [] }) {
   );
 }
 
-export const getServerSideProps = async (context) => {
-  console.log(context);
+export const getServerSideProps = async () => {
   let contentApi = [];
   try {
     const response = await axios.get('/api/proxy/restaurantSearch');
     contentApi = response.data;
-    console.log(response);
-    return { contentApi: contentApi };
+    console.log('response', response);
+    return {
+      props: {
+        contentApi: contentApi,
+      },
+    };
   } catch (error) {
-    return { contentApi: [] };
+    return {
+      props: {
+        contentApi: {},
+      },
+    };
   }
 };
