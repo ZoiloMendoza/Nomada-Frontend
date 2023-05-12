@@ -15,8 +15,6 @@ import CityCard from '@/components/Search/cityCard';
 import axios from 'axios';
 
 export default function Search({ contentApi = [] }) {
-  console.log('getInitialProps', contentApi);
-
   return (
     <>
       <Head>
@@ -54,7 +52,6 @@ export default function Search({ contentApi = [] }) {
 
       <Box sx={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
         <MapButton />
-        <div>{contentApi}</div>
       </Box>
 
       <Footer />
@@ -69,7 +66,6 @@ Search.getInitialProps = async () => {
     contentApi = response.data;
     return { contentApi: contentApi };
   } catch (error) {
-    console.error(error);
     return { contentApi: [] };
   }
 };

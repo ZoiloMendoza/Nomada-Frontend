@@ -28,7 +28,7 @@ export default async function handler(req, res) {
 
     res.status(200).json(exampleData);
   } catch (error) {
-    console.error(error);
+    console.error('api/proxy/restaurant', error);
     res.status(500).json({ error: 'An error occurred while fetching data from the TripAdvisor API' });
   }
 }
