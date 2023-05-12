@@ -6,11 +6,13 @@ export default async function handler(req, res) {
   const category = 'restaurants';
   const apiUrl = `https://api.content.tripadvisor.com/api/v1/location/nearby_search?latLong=${latitude}%2C${longitude}&key=${apiKey}&category=${category}&radius=60&radiusUnit=km&language=en`;
   try {
+    console.log('req', req);
     const response = await axios.get(apiUrl);
     if (!response.data || !response.data.data) {
       res.status(500).json({ error: 'No data received from the TripAdvisor API' });
       return;
     }
+
     const locationData = response.data.data.slice(0, 4);
     const exampleData = await Promise.all(
       locationData.map(async (item) => {
