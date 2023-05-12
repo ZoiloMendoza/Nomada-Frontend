@@ -35,8 +35,8 @@ function RestaurantCard({ restaurantData }) {
             <CardActionArea>
               <CardMedia
                 className={classes.media}
-                image={restaurantData.data[0].images.original.url}
-                title={restaurantData.title}
+                image={restaurantData.data ? restaurantData.data[0].images.original.url : ''}
+                title={restaurantData.data ? restaurantData.data[0].user.username : restaurantData.address_obj.city}
               />
               <CardContent>
                 <Typography gutterBottom variant='h5' component='h2'>
