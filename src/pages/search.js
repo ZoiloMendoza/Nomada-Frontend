@@ -8,28 +8,14 @@ import { restaurantData } from '@/components/Search/restaurantData';
 import Footer from '@/components/Footer/Footer';
 //import Spinner from '@/components/common/Spinner';
 //import axios from 'axios';
-import React, { useEffect, useState } from 'react';
+//import React, { useEffect, useState } from 'react';
 
 import Box from '@mui/material/Box';
 import CityCard from '@/components/Search/cityCard';
+import axios from 'axios';
 
-export default function Search() {
-  const [contentApi, setContentApi] = useState([]);
-
-  useEffect(() => {
-    /*axios
-      .get('/api/proxy/restaurantSearch')
-      .then(function (response) {
-        console.log(response.data);
-
-        setContentApi(response.data);
-      })
-      .catch(function (error) {
-        console.error(error);
-      });*/
-  }, []);
-
-  console.log(contentApi);
+export default function Search({ contentApi = [] }) {
+  console.log('getInitialProps', contentApi);
 
   return (
     <>
@@ -75,3 +61,15 @@ export default function Search() {
     </>
   );
 }
+
+Search.getInitialProps = async () => {
+  let contentApi = [];
+  try {
+    const response = await axios.get('/api/proxy/restaurantSearch');
+    contentApi = response.data;
+  } catch (error) {
+    console.error(error);
+  }
+
+  return { contentApi };
+};
