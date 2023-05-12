@@ -7,7 +7,7 @@ import RestaurantCard from '@/components/Search/RestaurantCard';
 import { restaurantData } from '@/components/Search/restaurantData';
 import Footer from '@/components/Footer/Footer';
 //import Spinner from '@/components/common/Spinner';
-//import axios from 'axios';
+import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 
 import Box from '@mui/material/Box';
