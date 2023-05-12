@@ -4,8 +4,10 @@ import { Card, CardActionArea, CardContent, CardMedia, Typography } from '@mui/m
 import { makeStyles } from '@mui/styles';
 //import Slider from 'react-slick';
 import Carrusel from '../common/Carrusel';
+import { useState } from 'react';
 import CardDetalle from '../Add/CardDetalle';
-import { dataTwo } from '../Add/dataTwo';
+//import { dataTwo } from '../Add/dataTwo';
+import { data } from '../Add/data';
 //import 'slick-carousel/slick/slick.css';
 //import 'slick-carousel/slick/slick-theme.css';
 
@@ -21,10 +23,33 @@ const useStyles = makeStyles((theme) => ({
     color: theme.palette.secondary.main,
     marginRight: theme.spacing(1),
   },
+  button: {
+    backgroundColor: '#E91E62',
+    color: '#FFFFFF',
+    padding: '10px',
+    borderRadius: '5px',
+    border: 'none',
+    margin: '10px',
+  },
 }));
 
 function RestaurantCard({ restaurantData }) {
   const classes = useStyles();
+  const [open, setOpen] = useState(false);
+  const [selectedRestaurant, setSelectedRestaurant] = useState();
+
+  const handleClick = (location_id) => {
+    const selectedRestaurant = restaurantData.filter((restaurant) => {
+      if (location_id == restaurant.location_id) return restaurant;
+    });
+    setSelectedRestaurant(selectedRestaurant);
+    console.log(selectedRestaurant);
+    setOpen(true);
+  };
+
+  const closeCard = () => {
+    setOpen(false);
+  };
 
   return (
     <>
@@ -55,10 +80,18 @@ function RestaurantCard({ restaurantData }) {
                 </div> */}
               </CardContent>
             </CardActionArea>
-            <CardDetalle data={dataTwo} />
+            <button
+              className={classes.button}
+              onClick={() => {
+                handleClick(restaurantData.location_id);
+              }}
+            >
+              Ver detalles
+            </button>
           </Card>
         ))}
       </Carrusel>
+      {open && <CardDetalle data={selectedRestaurant} open={open} closeCard={closeCard} />}
     </>
   );
 }
