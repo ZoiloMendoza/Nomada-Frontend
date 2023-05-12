@@ -1,22 +1,25 @@
 import Button from '@mui/material/Button';
+import Link from 'next/link';
 
 const ButtonMisViajes = () => (
-  <Button
-    href='/misviajes'
-    variant='contained'
-    style={{
-      backgroundColor: 'gray',
-      borderRadius: '10px',
-      padding: '10px 40px',
-      textTransform: 'none',
-      alignItems: 'center',
+  <Link href='/misviajes'>
+    <Button
+      href='/misviajes'
+      variant='contained'
+      style={{
+        backgroundColor: 'gray',
+        borderRadius: '10px',
+        padding: '10px 40px',
+        textTransform: 'none',
+        alignItems: 'center',
 
-      fontFamily: 'Inter, sans-serif',
-      fontSize: '24px',
-    }}
-  >
-    Mis Viajes
-  </Button>
+        fontFamily: 'Inter, sans-serif',
+        fontSize: '24px',
+      }}
+    >
+      Mis Viajes
+    </Button>
+  </Link>
 );
 
 export default ButtonMisViajes;
