@@ -69,7 +69,7 @@ export default function Search() {
       <Box sx={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
         <MapButton />
       </Box>
-
+      <div>{contentApi}</div>
       <Footer />
     </>
   );
