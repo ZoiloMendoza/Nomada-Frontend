@@ -7,7 +7,7 @@ import RestaurantCard from '@/components/Search/RestaurantCard';
 import { restaurantData } from '@/components/Search/restaurantData';
 import Footer from '@/components/Footer/Footer';
 //import Spinner from '@/components/common/Spinner';
-import axios from 'axios';
+//import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 
 import Box from '@mui/material/Box';
@@ -17,7 +17,7 @@ export default function Search() {
   const [contentApi, setContentApi] = useState([]);
 
   useEffect(() => {
-    axios
+    /*axios
       .get('/api/proxy/restaurantSearch')
       .then(function (response) {
         console.log(response.data);
@@ -26,7 +26,7 @@ export default function Search() {
       })
       .catch(function (error) {
         console.error(error);
-      });
+      });*/
   }, []);
 
   console.log(contentApi);

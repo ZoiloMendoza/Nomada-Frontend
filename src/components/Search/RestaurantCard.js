@@ -33,7 +33,11 @@ function RestaurantCard({ restaurantData }) {
         {restaurantData.map((restaurantData) => (
           <Card className={classes.card} key={restaurantData.location_id}>
             <CardActionArea>
-              <CardMedia className={classes.media} image={restaurantData.image} title={restaurantData.title} />
+              <CardMedia
+                className={classes.media}
+                image={restaurantData.data[0].images.original.url}
+                title={restaurantData.title}
+              />
               <CardContent>
                 <Typography gutterBottom variant='h5' component='h2'>
                   {restaurantData.name}
