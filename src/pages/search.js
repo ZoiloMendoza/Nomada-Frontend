@@ -17,9 +17,8 @@ export default function Search() {
   const [contentApi, setContentApi] = useState([]);
 
   useEffect(() => {
-    /*
     axios
-      .get('/api/proxy/responseNearbySearch')
+      .get('/api/proxy/restaurantSearch')
       .then(function (response) {
         console.log(response.data);
 
@@ -27,7 +26,7 @@ export default function Search() {
       })
       .catch(function (error) {
         console.error(error);
-      });*/
+      });
   }, []);
 
   console.log(contentApi);
