@@ -7,7 +7,7 @@ import Carrusel from '../common/Carrusel';
 //import 'slick-carousel/slick/slick.css';
 //import 'slick-carousel/slick/slick-theme.css';
 
-import CardDetalle from './CardDetalle';
+import CardDetalle from '../Search/CardDetalle';
 import { dataTwo } from './dataTwo';
 
 const useStyles = makeStyles((theme) => ({

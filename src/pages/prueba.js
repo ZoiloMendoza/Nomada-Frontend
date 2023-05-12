@@ -1,6 +1,5 @@
 import Head from 'next/head';
-import CardDetalle from '../components/Add/CardDetalle';
-import { dataTwo } from '../components/Add/dataTwo';
+import PopupForm from '@/components/common/PopupForm';
 
 export default function Prueba() {
   return (
@@ -12,7 +11,7 @@ export default function Prueba() {
         <link rel='icon' href='/img/logo1.svg' />
       </Head>
 
-      <CardDetalle data={dataTwo} />
+      <PopupForm />
     </>
   );
 }

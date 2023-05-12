@@ -5,7 +5,7 @@ import { makeStyles } from '@mui/styles';
 //import Slider from 'react-slick';
 import Carrusel from '../common/Carrusel';
 import { useState } from 'react';
-import CardDetalle from '../Add/CardDetalle';
+import CardDetalle from './CardDetalle';
 //import { dataTwo } from '../Add/dataTwo';
 //import { data } from '../Add/data';
 //import 'slick-carousel/slick/slick.css';

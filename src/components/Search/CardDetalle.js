@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import PopupBox from '../common/PopupBox';
 
 import { makeStyles } from '@mui/styles';
-import { Grid, Typography, Card, CardMedia, CardContent, Box, IconButton } from '@mui/material';
+import { Grid, Typography, CardMedia, CardContent, Box, IconButton } from '@mui/material';
 import { Rating } from '@mui/lab';
 import { Add, Favorite, FavoriteBorder } from '@mui/icons-material';
 
@@ -69,29 +69,28 @@ const CardDetalle = ({ data, open, closeCard }) => {
           {data &&
             data.map((item, index) => (
               <Grid item className={classes.gridItem} key={item.data.location_id}>
-                <Card className={classes.card}>
-                  <CardMedia className={classes.media} image={item.data[index].images.small.url} title={item.name} />
-                  <CardContent>
-                    <Typography variant='h6' gutterBottom>
-                      {item.name}
+                <CardMedia className={classes.media} image={item.data[index].images.small.url} />
+                <CardContent>
+                  <Typography variant='h6' gutterBottom>
+                    {item.name}
+                  </Typography>
+                  <Box display='flex' alignItems='center' mb={1}>
+                    <Rating value={item.rating} precision={0.5} readOnly />
+                    <Typography variant='body2' color='textSecondary' ml={1}>
+                      ({item.numReviews} reviews)
                     </Typography>
-                    <Box display='flex' alignItems='center' mb={1}>
-                      <Rating value={item.rating} precision={0.5} readOnly />
-                      <Typography variant='body2' color='textSecondary' ml={1}>
-                        ({item.numReviews} reviews)
-                      </Typography>
-                    </Box>
-                    <Typography variant='body1' gutterBottom>
-                      {item.address}
-                    </Typography>
-                    <IconButton className={classes.addIcon} aria-label='Add to itinerary'>
-                      <Add />
-                    </IconButton>
-                    <IconButton className={classes.iconButton} aria-label='favorite' onClick={handleFavoriteClick}>
-                      {isFavorite ? <Favorite /> : <FavoriteBorder />}
-                    </IconButton>
-                  </CardContent>
-                </Card>
+                  </Box>
+                  <Typography variant='body1' gutterBottom>
+                    {item.address}
+                  </Typography>
+                  <IconButton className={classes.addIcon} aria-label='Add to itinerary'>
+                    <Add />
+                  </IconButton>
+                  <IconButton className={classes.iconButton} aria-label='favorite' onClick={handleFavoriteClick}>
+                    {isFavorite ? <Favorite /> : <FavoriteBorder />}
+                  </IconButton>
+                </CardContent>
+
                 <Box className={classes.reviewsContainer}>
                   {item?.reviews?.map((review) => (
                     <Box key={review._id} className={classes.review}>

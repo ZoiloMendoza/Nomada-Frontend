@@ -5,7 +5,7 @@ const ButtonNuevoViaje = () => {
   const customColor = '#E91E63';
 
   return (
-    <Link href='/crear-viaje'>
+    <Link href='/inicio'>
       <Button
         variant='contained'
         style={{
