@@ -1,10 +1,7 @@
 import NavbarTwo from '@/components/Navbar/NavbarTwo';
 import Head from 'next/head';
 import Add from '@/components/Add/Add';
-import PlaceCards from '@/components/Add/PlaceCards';
 import Footer from '@/components/Footer/Footer';
-
-import { data } from '@/components/Add/data';
 
 export default function AddItem() {
   return (
@@ -27,7 +24,6 @@ export default function AddItem() {
       </Head>
       <NavbarTwo />
       <Add />
-      <PlaceCards data={data} />
 
       <Footer />
     </>

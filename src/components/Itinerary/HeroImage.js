@@ -19,12 +19,10 @@ const CircleIconButton = ({ icon, href }) => (
       borderRadius: '50%',
       width: '50px',
       height: '50px',
-      margin: '20px 0',
+      margin: '20px 5px',
     }}
     component='a'
     href={href}
-    target='_blank'
-    rel='noopener noreferrer'
   >
     {icon}
   </IconButton>

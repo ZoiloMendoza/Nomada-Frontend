@@ -146,7 +146,9 @@ function Formulario() {
                             </p>
                           </Link>
                           <Grid my={4} justifyContent='center' direction='row' container>
-                            <ButtonForm size='medium' onClick={() => handleSubmit(name, email, password)} />
+                            <Link href='/login'>
+                              <ButtonForm size='medium' onClick={() => handleSubmit(name, email, password)} />
+                            </Link>
                           </Grid>
                         </Card>
                       </Grid>

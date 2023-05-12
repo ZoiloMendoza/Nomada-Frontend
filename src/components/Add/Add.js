@@ -54,7 +54,7 @@ export default function Add() {
   return (
     <AddSection>
       <AddButtonGroup orientation='vertical' color='primary' aria-label='vertical outlined primary button group'>
-        <Link href='/page1'>
+        <Link href='/crear-viaje'>
           <AddButton>Nuevo destino</AddButton>
         </Link>
         <Link href='/addhotel'>

@@ -7,7 +7,7 @@ import Carrusel from '../common/Carrusel';
 import { useState } from 'react';
 import CardDetalle from '../Add/CardDetalle';
 //import { dataTwo } from '../Add/dataTwo';
-import { data } from '../Add/data';
+//import { data } from '../Add/data';
 //import 'slick-carousel/slick/slick.css';
 //import 'slick-carousel/slick/slick-theme.css';
 
