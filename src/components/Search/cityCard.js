@@ -66,7 +66,6 @@ const CityCard = ({ contentApi }) => {
     console.log('Favorite button clicked!');
   };
 
-  console.log(contentApi);
   return (
     <>
       <h2 style={{ marginLeft: '30px' }}>Destinos</h2>

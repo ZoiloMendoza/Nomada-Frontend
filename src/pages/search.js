@@ -64,6 +64,7 @@ Search.getInitialProps = async () => {
   try {
     const response = await axios.get('/api/proxy/restaurantSearch');
     contentApi = response.data;
+    console.log(response);
     return { contentApi: contentApi };
   } catch (error) {
     return { contentApi: [] };
