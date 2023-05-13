@@ -36,8 +36,8 @@ const FlightInfoContainer = styled(Card)(({ theme }) => ({
   boxShadow: theme.shadows[5],
 }));
 
-const BoardingPassCard = ({ contentViaje = [] }) => {
-  console.log(contentViaje);
+const BoardingPassCard = ({ viaje }) => {
+  console.log(viaje);
   const [formData, setFormData] = useState({
     flightNumber: '',
     origin: '',
@@ -172,9 +172,9 @@ const BoardingPassCard = ({ contentViaje = [] }) => {
   );
 };
 
-const BoardingPassCardWrapper = () => (
+const BoardingPassCardWrapper = ({ contentViaje = [] }) => (
   <ThemeProvider theme={theme}>
-    <BoardingPassCard />
+    <BoardingPassCard viaje={contentViaje} />
   </ThemeProvider>
 );
 
