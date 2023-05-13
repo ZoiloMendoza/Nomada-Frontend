@@ -5,7 +5,7 @@ import { createTheme, ThemeProvider } from '@mui/material';
 import FlightIcon from '@mui/icons-material/Flight';
 import LuggageOutlinedIcon from '@mui/icons-material/LuggageOutlined';
 import ButtonCustom from './ButtonCustom';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import SearchIcon from '@mui/icons-material/Search';
 import axios from 'axios';
 
@@ -35,15 +35,38 @@ const FlightInfoContainer = styled(Card)(({ theme }) => ({
   boxShadow: theme.shadows[5],
 }));
 
-const BoardingPassCard = ({ contentViaje = [] }) => {
-  console.log(contentViaje);
+const BoardingPassCard = () => {
   const [formData, setFormData] = useState({
     flightNumber: '',
-    origin: '',
-    destination: '',
-    departureDate: '',
-    departureTime: '',
+    origen: '',
+    destino: '',
+    fechaInicio: '',
+    fechaFinal: '',
   });
+  useEffect(() => {
+    (async () => {
+      let contentViaje = [];
+      try {
+        contentViaje = await axios.get(
+          'https://nomada-backend-production.up.railway.app/api/v1/viajes/645eeaf038279c8ea63e9a15',
+        );
+        console.log('statusCode', contentViaje.status);
+        console.log('getServer', contentViaje);
+        return {
+          props: {
+            contentViaje: contentViaje.data,
+          },
+        };
+      } catch (error) {
+        console.log(error);
+        return {
+          props: {
+            contentViaje: {},
+          },
+        };
+      }
+    })();
+  }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -54,8 +77,28 @@ const BoardingPassCard = ({ contentViaje = [] }) => {
     console.log(formData);
   };
 
-  const handleClick = () => {
+  const handleClick = async () => {
     console.log(formData);
+    const { origen, destino, fechaInicio, fechaFinal } = formData;
+    const modelViaje = {
+      origen,
+      destino,
+      fechaInicio,
+      fechaFinal,
+    };
+    const viajePost = await axios.patch(
+      'https://nomada-backend-production.up.railway.app/api/v1/viajes/645eeaf038279c8ea63e9a15',
+      modelViaje,
+    );
+    console.log('statusCode', viajePost.status);
+    if (viajePost.status !== 201) {
+      console.log('error al insertar');
+    } else {
+      console.log('Viaje actualizado');
+      setViajeName({
+        nombre: '',
+      });
+    }
   };
   const searchClick = async (e) => {
     e.preventDefault();
@@ -75,10 +118,10 @@ const BoardingPassCard = ({ contentViaje = [] }) => {
         console.log('Vuelo encontrado');
         setFormData({
           flightNumber: '',
-          origin: '',
-          destination: '',
-          departureDate: '',
-          departureTime: '',
+          origen: '',
+          destino: '',
+          fechaInicio: '',
+          fechaFinal: '',
         });
       } else {
         console.log('Error al insertar');
@@ -116,47 +159,47 @@ const BoardingPassCard = ({ contentViaje = [] }) => {
         </Box>
         <Box display='flex' justifyContent='space-between' alignItems='center'>
           <TextField
-            name='origin'
+            name='origen'
             label='Origen'
             variant='outlined'
             color='primary'
             size='small'
             fullWidth
-            value={formData.origin}
+            value={formData.origen}
             onChange={handleChange}
             sx={{ marginBottom: 2 }}
           />
           <LuggageOutlinedIcon sx={{ marginBottom: 2 }} />
           <TextField
-            name='destination'
+            name='destino'
             label='Destino'
             variant='outlined'
             color='primary'
             size='small'
             fullWidth
-            value={formData.destination}
+            value={formData.destino}
             onChange={handleChange}
             sx={{ marginBottom: 2 }}
           />
         </Box>
         <Box display='flex' justifyContent='space-between' alignItems='center'>
           <TextField
-            name='departureDate'
+            name='fechaInicio'
             label='Fecha Ida'
             variant='outlined'
             color='primary'
             size='small'
-            value={formData.departureDate}
+            value={formData.fechaInicio}
             onChange={handleChange}
             sx={{ marginBottom: 2, marginRight: 3 }}
           />
           <TextField
-            name='departureTime'
+            name='fechaFinal'
             label='Hora de salida'
             variant='outlined'
             color='primary'
             size='small'
-            value={formData.departureTime}
+            value={formData.fechaFinal}
             onChange={handleChange}
             sx={{ marginBottom: 2 }}
           />
@@ -174,28 +217,5 @@ const BoardingPassCardWrapper = () => (
     <BoardingPassCard />
   </ThemeProvider>
 );
-
-export const getServerSideProps = async () => {
-  let contentViaje = [];
-  try {
-    contentViaje = await axios.get(
-      'https://nomada-backend-production.up.railway.app/api/v1/viajes/645eeaf038279c8ea63e9a15',
-    );
-    console.log('statusCode', contentViaje.status);
-    console.log('getServer', contentViaje);
-    return {
-      props: {
-        contentViaje: contentViaje.data,
-      },
-    };
-  } catch (error) {
-    console.log(error);
-    return {
-      props: {
-        contentViaje: {},
-      },
-    };
-  }
-};
 
 export default BoardingPassCardWrapper;
