@@ -7,6 +7,8 @@ import Carrusel from '../common/Carrusel';
 const RootCard = styled(Card)(({ theme }) => ({
   maxWidth: 345,
   margin: '1rem',
+  marginLeft: '20px', // Agrega el margen izquierdo deseado
+  marginRight: '20px', // Agrega el margen derecho deseado
   position: 'relative',
   transition: 'transform 0.3s',
   '&:hover': {
@@ -69,25 +71,22 @@ const CityCard = ({ contentApi }) => {
         {contentApi.map((item) => (
           <RootCard key={item.location_id} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
             <Media component='img' image={item.data[0].images.small.url} title={item.name} />
-            <Content>
-              {hovered && (
-                <>
-                  <Typography variant='h5' gutterBottom>
-                    {item.name}
-                  </Typography>
-                  <Typography variant='subtitle1' gutterBottom>
-                    {item.address_obj.addres_string}
-                  </Typography>
-
-                  <IconButtonStyled aria-label='add' onClick={handleClick}>
-                    <Add />
-                  </IconButtonStyled>
-                  <IconButtonStyled aria-label='favorite' onClick={handleFavoriteClick}>
-                    {isFavorite ? <Favorite /> : <FavoriteBorder />}
-                  </IconButtonStyled>
-                </>
-              )}
-            </Content>
+            {hovered && (
+              <Content>
+                <Typography variant='h5' gutterBottom>
+                  {item.name}
+                </Typography>
+                <Typography variant='subtitle1' gutterBottom>
+                  {item.address_obj.addres_string}
+                </Typography>
+                <IconButtonStyled aria-label='add' onClick={handleClick}>
+                  <Add />
+                </IconButtonStyled>
+                <IconButtonStyled aria-label='favorite' onClick={handleFavoriteClick}>
+                  {isFavorite ? <Favorite /> : <FavoriteBorder />}
+                </IconButtonStyled>
+              </Content>
+            )}
           </RootCard>
         ))}
       </Carrusel>
