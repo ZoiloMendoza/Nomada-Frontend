@@ -11,8 +11,6 @@ import { restaurantData } from '@/components/Search/restaurantData';
 export default function Search() {
   return (
     <>
-      <SearchBar />
-
       <Box>
         {/*contentApi === undefined || contentApi.lengh === 0 ? <Spinner/> :*/}
         <CityCard contentApi={cityData} />
@@ -22,12 +20,6 @@ export default function Search() {
         {/*contentApi === undefined || contentApi.lengh === 0 ? <Spinner/> :*/}
         <RestaurantCard restaurantData={restaurantData.data} />
       </Box>
-
-      <Box sx={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-        <MapButton />
-      </Box>
-
-      <Footer />
     </>
   );
 }
