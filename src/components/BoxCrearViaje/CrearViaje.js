@@ -10,7 +10,7 @@ export default function CrearViaje() {
 
   const handleOnChange = (e) => {
     console.log([e.target.name], e.target.value);
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    setFormData({ ...viajeName, [e.target.name]: e.target.value });
   };
   const addViaje = async () => {
     const viajePost = await axios.post('https://nomada-backend-production.up.railway.app/api/v1/viajes', viajeName);
