@@ -5,7 +5,7 @@ import '@fortawesome/fontawesome-svg-core/styles.css';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 config.autoAddCss = false;
-import '@/styles/globals.css';
+//import '@/styles/globals.css';
 
 const theme = createTheme({
   palette: {
