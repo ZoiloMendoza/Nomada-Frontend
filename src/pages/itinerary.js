@@ -4,7 +4,7 @@ import HeroImage from '@/components/Itinerary/HeroImage';
 import FlightCard from '@/components/Itinerary/FlightCard';
 import HotelCard from '@/components/Itinerary/HotelCard';
 import ActivityCard from '@/components/Itinerary/ActivityCard';
-
+import axios from 'axios';
 import Footer from '@/components/Footer/Footer';
 
 import { flightData } from '@/components/Itinerary/flightData';
