@@ -95,8 +95,12 @@ const BoardingPassCard = () => {
       console.log('error al insertar');
     } else {
       console.log('Viaje actualizado');
-      setViajeName({
-        nombre: '',
+      setFormData({
+        flightNumber: '',
+        origen: '',
+        destino: '',
+        fechaInicio: '',
+        fechaFinal: '',
       });
     }
   };
@@ -104,33 +108,33 @@ const BoardingPassCard = () => {
     e.preventDefault();
     console.log('lupa', apiKey);
     try {
-      //flight_iata: 'SU1478';
+      //flight_iata: 'VB1353';
       //flight_icao: 'AFL1478';
       const url = `https://airlabs.co/api/v9/flight`;
       const params = {
         api_key: apiKey,
         flight_iata: formData.flightNumber,
       };
-      const userPost = await axios.get(url, { params });
-      console.log('statusCode', userPost.status);
-      console.log(userPost.data.data);
-      if (userPost.status == 201) {
+      const flightGet = await axios.get(url, { params });
+      console.log('statusCode', flightGet.status);
+      console.log(flightGet.data.response);
+      const dataApi = flightGet.data.response;
+      if (flightGet.status == 200) {
         console.log('Vuelo encontrado');
         setFormData({
-          flightNumber: '',
-          origen: '',
-          destino: '',
-          fechaInicio: '',
-          fechaFinal: '',
+          flightNumber: dataApi.flight_iata,
+          origen: dataApi.dep_city,
+          destino: dataApi.arr_city,
+          fechaInicio: dataApi.dep_time,
+          fechaFinal: dataApi.arr_time,
         });
       } else {
         console.log('Error al insertar');
       }
     } catch (error) {
       console.error('Error en la petición:', error);
-      alert('Error al crear el usuario. Por favor, inténtalo de nuevo.');
+      alert('Error al crear al buscar el vuelo. Por favor, inténtalo de nuevo.');
     }
-    console.log('Número de vuelo correcto', formData.flightNumber);
   };
 
   return (
