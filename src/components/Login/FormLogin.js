@@ -21,7 +21,7 @@ function FormLogin() {
       console.log('error al insertar');
     } else {
       console.log('Logeado');
-      console.log('token auth', userPost.data.token);
+
       setFormData({
         email: '',
         password: '',
