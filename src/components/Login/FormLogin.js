@@ -5,7 +5,7 @@ import CheckboxLogin from './CheckboxLogin';
 import axios from 'axios';
 import Link from 'next/Link';
 
-export default function FormLogin() {
+function FormLogin() {
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -77,26 +77,4 @@ export default function FormLogin() {
     </Grid>
   );
 }
-
-export const getServerSideProps = async () => {
-  /*
-  let contentApi = [];
-  try {
-    //const response = await axios.get('./api/proxy/restaurantSearch');
-    
-    contentApi = await getData();
-    console.log('response', contentApi);
-    return {
-      props: {
-        contentApi: contentApi,
-      },
-    };
-  } catch (error) {
-    return {
-      props: {
-        contentApi: {},
-      },
-    };
-  }
-  */
-};
+export default FormLogin;
