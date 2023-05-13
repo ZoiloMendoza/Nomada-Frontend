@@ -3,7 +3,6 @@ import { useState } from 'react';
 import ButtonLogin from './ButtonLogin';
 import CheckboxLogin from './CheckboxLogin';
 import axios from 'axios';
-import Link from 'next/link';
 
 function FormLogin() {
   const [formData, setFormData] = useState({
@@ -71,9 +70,7 @@ function FormLogin() {
         </Grid>
       </Box>
       <Grid my={4} justifyContent='center' direction='row' container>
-        <Link href='/misviajes'>
-          <ButtonLogin sx={{ fontSize: 24 }} onClick={addUser} />
-        </Link>
+        <ButtonLogin sx={{ fontSize: 24 }} onClick={addUser} />
       </Grid>
     </Grid>
   );
