@@ -1,6 +1,7 @@
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
-
+import axios from 'axios';
+axios.defaults.withCredentials = true;
 const theme = createTheme({
   palette: {
     primary: {
