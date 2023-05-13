@@ -185,7 +185,7 @@ export const getServerSideProps = async () => {
       'https://nomada-backend-production.up.railway.app/api/v1/viajes/645eeaf038279c8ea63e9a15',
     );
     console.log('statusCode', contentViaje.status);
-
+    console.log(contentViaje);
     return {
       props: {
         contentViaje: contentViaje.data,
