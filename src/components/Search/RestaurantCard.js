@@ -1,10 +1,9 @@
 import { Card, CardActionArea, CardContent, CardMedia, Typography } from '@mui/material';
-import { makeStyles } from '@mui/styles';
 import Carrusel from '../common/Carrusel';
 import { useState } from 'react';
 import CardDetalle from './CardDetalle';
 
-const useStyles = makeStyles((theme) => ({
+const styles = {
   card: {
     maxWidth: 345,
     margin: '0 80px',
@@ -20,10 +19,9 @@ const useStyles = makeStyles((theme) => ({
     border: 'none',
     margin: '10px',
   },
-}));
+};
 
 function RestaurantCard({ restaurantData }) {
-  const classes = useStyles();
   const [open, setOpen] = useState(false);
   const [selectedRestaurant, setSelectedRestaurant] = useState(null);
 
@@ -43,10 +41,10 @@ function RestaurantCard({ restaurantData }) {
       <h2 style={{ marginLeft: '30px' }}>Restaurantes</h2>
       <Carrusel>
         {restaurantData.map((restaurant) => (
-          <Card className={classes.card} key={restaurant.location_id}>
+          <Card sx={styles.card} key={restaurant.location_id}>
             <CardActionArea>
               <CardMedia
-                className={classes.media}
+                sx={styles.media}
                 image={restaurant.data[0].images.original.url}
                 title={restaurant.data[0].user.username}
               />
@@ -60,7 +58,7 @@ function RestaurantCard({ restaurantData }) {
               </CardContent>
             </CardActionArea>
             <button
-              className={classes.button}
+              style={styles.button}
               onClick={() => {
                 handleClick(restaurant.location_id);
               }}
