@@ -5,6 +5,8 @@ import CityCard from '@/components/Search/cityCard';
 import RestaurantCard from '@/components/Search/RestaurantCard';
 import MapButton from '@/components/common/MapButton';
 import Footer from '@/components/Footer/Footer';
+import { cityData } from '@/components/Search/cityData';
+import { restaurantData } from '@/components/Search/restaurantData';
 
 export default function Search() {
   return (
