@@ -1,4 +1,4 @@
-import NavbarTwo from '@/components/Navbar/NavbarTwo';
+//import NavbarTwo from '@/components/Navbar/NavbarTwo';
 import SearchBar from '@/components/Search/Search';
 import Box from '@mui/material/Box';
 import CityCard from '@/components/Search/cityCard';
@@ -11,8 +11,6 @@ import { restaurantData } from '@/components/Search/restaurantData';
 export default function Search() {
   return (
     <>
-      <NavbarTwo />
-
       <SearchBar />
 
       <Box>
