@@ -6,6 +6,7 @@ export default function CrearViaje() {
   const customColor2 = '#E91E63';
   const [viajeName, setViajeName] = useState({
     nombre: '',
+    administradorViaje: '6459e9d638279c8ea63e99c7',
   });
 
   const handleOnChange = (e) => {
