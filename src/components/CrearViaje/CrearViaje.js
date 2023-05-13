@@ -36,7 +36,8 @@ const FlightInfoContainer = styled(Card)(({ theme }) => ({
   boxShadow: theme.shadows[5],
 }));
 
-const BoardingPassCard = () => {
+const BoardingPassCard = ({ contentViaje = [] }) => {
+  console.log(contentViaje);
   const [formData, setFormData] = useState({
     flightNumber: '',
     origin: '',
@@ -176,5 +177,28 @@ const BoardingPassCardWrapper = () => (
     <BoardingPassCard />
   </ThemeProvider>
 );
+
+export const getServerSideProps = async () => {
+  let contentViaje = [];
+  try {
+    contentViaje = await axios.get(
+      'https://nomada-backend-production.up.railway.app/api/v1/viajes/645eeaf038279c8ea63e9a15',
+    );
+    console.log('statusCode', contentViaje.status);
+
+    return {
+      props: {
+        contentViaje: contentViaje.data,
+      },
+    };
+  } catch (error) {
+    console.log(error);
+    return {
+      props: {
+        contentViaje: {},
+      },
+    };
+  }
+};
 
 export default BoardingPassCardWrapper;
