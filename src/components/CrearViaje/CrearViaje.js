@@ -8,7 +8,6 @@ import ButtonCustom from './ButtonCustom';
 import { useState } from 'react';
 import SearchIcon from '@mui/icons-material/Search';
 import axios from 'axios';
-import Link from 'next/Link';
 
 const apiKey = process.env.NEXT_PUBLIC_API_VUELOS_KEY;
 
@@ -36,8 +35,8 @@ const FlightInfoContainer = styled(Card)(({ theme }) => ({
   boxShadow: theme.shadows[5],
 }));
 
-const BoardingPassCard = ({ viaje }) => {
-  console.log(viaje);
+const BoardingPassCard = ({ contentViaje = [] }) => {
+  console.log(contentViaje);
   const [formData, setFormData] = useState({
     flightNumber: '',
     origin: '',
@@ -163,18 +162,16 @@ const BoardingPassCard = ({ viaje }) => {
           />
         </Box>
         <Box display='flex' justifyContent='center' sx={{ width: '100%' }}>
-          <Link href='/itinerary'>
-            <ButtonCustom text={'Agregar'} onClick={handleClick} />
-          </Link>
+          <ButtonCustom text={'Agregar'} onClick={handleClick} />
         </Box>
       </FlightInfoContainer>
     </Box>
   );
 };
 
-const BoardingPassCardWrapper = ({ contentViaje = [] }) => (
+const BoardingPassCardWrapper = () => (
   <ThemeProvider theme={theme}>
-    <BoardingPassCard viaje={contentViaje} />
+    <BoardingPassCard />
   </ThemeProvider>
 );
 
@@ -185,7 +182,7 @@ export const getServerSideProps = async () => {
       'https://nomada-backend-production.up.railway.app/api/v1/viajes/645eeaf038279c8ea63e9a15',
     );
     console.log('statusCode', contentViaje.status);
-    console.log(contentViaje);
+    console.log('getServer', contentViaje);
     return {
       props: {
         contentViaje: contentViaje.data,
