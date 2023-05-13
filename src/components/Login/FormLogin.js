@@ -3,7 +3,7 @@ import { useState } from 'react';
 import ButtonLogin from './ButtonLogin';
 import CheckboxLogin from './CheckboxLogin';
 import axios from 'axios';
-import Link from 'next/Link';
+import Link from 'next/link';
 
 function FormLogin() {
   const [formData, setFormData] = useState({
