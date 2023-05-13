@@ -1,9 +1,30 @@
 import { Card, Typography, Input, Button, Box } from '@mui/material';
 import Link from 'next/link';
-
+import { useState } from 'react';
+import axios from 'axios';
 export default function CrearViaje() {
   const customColor2 = '#E91E63';
+  const [viajeName, setViajeName] = useState({
+    nombre: '',
+  });
 
+  const handleOnChange = (e) => {
+    console.log([e.target.name], e.target.value);
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+  const addViaje = async () => {
+    const viajePost = await axios.post('https://nomada-backend-production.up.railway.app/api/v1/viajes', viajeName);
+    console.log('statusCode', viajePost.status);
+    if (viajePost.status !== 201) {
+      console.log('error al insertar');
+    } else {
+      console.log('Viaje creado');
+      setViajeName({
+        nombre: '',
+      });
+    }
+  };
+  console.log(viajeName);
   return (
     <Card
       bgcolor='gray'
@@ -41,6 +62,9 @@ export default function CrearViaje() {
           sx={{ padding: '10px', borderRadius: '5px', backgroundColor: '#fff', width: '250px', margin: 'auto' }}
           placeholder='Mi viaje ideal'
           variant='soft'
+          name='nombre'
+          value={viajeName.nombre || ''}
+          onChange={handleOnChange}
         />
       </Box>
       <Box my={4} ml={7} justifyContent='center' direction='row' container>
@@ -55,6 +79,7 @@ export default function CrearViaje() {
               textTransform: 'none',
               fontFamily: 'Inter, sans-serif',
             }}
+            onClick={addViaje}
           >
             CREAR VIAJE
           </Button>
