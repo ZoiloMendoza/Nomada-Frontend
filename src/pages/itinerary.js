@@ -13,7 +13,8 @@ import { activityData } from '@/components/Itinerary/activityData';
 
 import Box from '@mui/material/Box';
 
-export default function Itinerary() {
+export default function Itinerary({ contentViaje = [] }) {
+  console.log(contentViaje);
   return (
     <>
       <Head>
@@ -42,3 +43,24 @@ export default function Itinerary() {
     </>
   );
 }
+
+export const getServerSideProps = async () => {
+  let contentViaje = [];
+  try {
+    contentViaje = await axios.get('https://nomada-backend-production.up.railway.app/api/v1/viajes');
+    console.log('statusCode', contentViaje.status);
+
+    return {
+      props: {
+        contentViaje: contentViaje.data,
+      },
+    };
+  } catch (error) {
+    console.log(error);
+    return {
+      props: {
+        contentViaje: {},
+      },
+    };
+  }
+};
