@@ -7,8 +7,6 @@ import Carrusel from '../common/Carrusel';
 const RootCard = styled(Card)(({ theme }) => ({
   maxWidth: 345,
   margin: '1rem',
-  marginLeft: '20px', // Agrega el margen izquierdo deseado
-  marginRight: '20px', // Agrega el margen derecho deseado
   position: 'relative',
   transition: 'transform 0.3s',
   '&:hover': {
