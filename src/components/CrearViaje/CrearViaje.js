@@ -106,12 +106,12 @@ const BoardingPassCard = () => {
     try {
       //flight_iata: 'SU1478';
       //flight_icao: 'AFL1478';
-      const url = `https://airlabs.co/api/v9/flights?api_key=${apiKey}`;
-      /*const params = {
+      const url = `https://airlabs.co/api/v9/flight`;
+      const params = {
         api_key: apiKey,
-        flight_iata: 'VB4081',
-      };*/
-      const userPost = await axios.get(url);
+        flight_iata: formData.flightNumber,
+      };
+      const userPost = await axios.get(url, { params });
       console.log('statusCode', userPost.status);
       console.log(userPost.data.data);
       if (userPost.status == 201) {
