@@ -62,10 +62,11 @@ export default function Search({ contentApi = [] }) {
 }
 
 export const getServerSideProps = async () => {
+  /*
   let contentApi = [];
   try {
     //const response = await axios.get('./api/proxy/restaurantSearch');
-
+    
     contentApi = await getData();
     console.log('response', contentApi);
     return {
@@ -80,4 +81,5 @@ export const getServerSideProps = async () => {
       },
     };
   }
+  */
 };
