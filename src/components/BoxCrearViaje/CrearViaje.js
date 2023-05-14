@@ -17,7 +17,7 @@ export default function CrearViaje() {
   };
   const addViaje = async () => {
     const usuario = JSON.parse(localStorage.getItem('usuarioLogeado'));
-    const viajeBody = { viajeName, administradorViaje: usuario.idUser };
+    const viajeBody = { nombre: viajeName.nombre, administradorViaje: usuario.idUser };
     const viajePost = await axios.post('https://nomada-backend-production.up.railway.app/api/v1/viajes', viajeBody);
     console.log('statusCode', viajePost.status);
     if (viajePost.status !== 201) {
