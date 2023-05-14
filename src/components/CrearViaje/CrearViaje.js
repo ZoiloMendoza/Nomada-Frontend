@@ -9,9 +9,13 @@ import { useState, useEffect } from 'react';
 import SearchIcon from '@mui/icons-material/Search';
 import axios from 'axios';
 <<<<<<< HEAD
+<<<<<<< HEAD
 //import Link from 'next/Link';
 =======
 >>>>>>> 8309c8bb23e5d47f3af3f585e61142e19a3d802e
+=======
+import { useRouter } from 'next/router';
+>>>>>>> 5ca5a7f6f6498b2f29dc28b682913da89137bdae
 
 const apiKey = process.env.NEXT_PUBLIC_API_VUELOS_KEY;
 
@@ -47,30 +51,32 @@ const BoardingPassCard = () => {
     fechaInicio: '',
     fechaFinal: '',
   });
-  useEffect(() => {
-    (async () => {
-      let contentViaje = [];
-      try {
-        contentViaje = await axios.get(
-          'https://nomada-backend-production.up.railway.app/api/v1/viajes/645eeaf038279c8ea63e9a15',
-        );
-        console.log('statusCode', contentViaje.status);
-        console.log('getServer', contentViaje);
-        return {
-          props: {
-            contentViaje: contentViaje.data,
-          },
-        };
-      } catch (error) {
-        console.log(error);
-        return {
-          props: {
-            contentViaje: {},
-          },
-        };
-      }
-    })();
-  }, []);
+  const router = useRouter();
+
+  const { id } = router.query;
+  console.log(id);
+  // useEffect(() => {
+  //   (async () => {
+  //     let contentViaje = [];
+  //     try {
+  //       contentViaje = await axios.get(`https://nomada-backend-production.up.railway.app/api/v1/viajes/${id}`);
+  //       console.log('statusCode', contentViaje.status);
+  //       console.log('getServer', contentViaje);
+  //       return {
+  //         props: {
+  //           contentViaje: contentViaje.data,
+  //         },
+  //       };
+  //     } catch (error) {
+  //       console.log(error);
+  //       return {
+  //         props: {
+  //           contentViaje: {},
+  //         },
+  //       };
+  //     }
+  //   })();
+  // }, [id]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -82,7 +88,10 @@ const BoardingPassCard = () => {
   };
 
   const handleClick = async () => {
+    console.log(id, 'buttonn');
+
     console.log(formData);
+    event.preventDefault();
     const { origen, destino, fechaInicio, fechaFinal } = formData;
     const modelViaje = {
       origen,
@@ -91,7 +100,7 @@ const BoardingPassCard = () => {
       fechaFinal,
     };
     const viajePost = await axios.patch(
-      'https://nomada-backend-production.up.railway.app/api/v1/viajes/645eeaf038279c8ea63e9a15',
+      `https://nomada-backend-production.up.railway.app/api/v1/viajes/${id}`,
       modelViaje,
     );
     console.log('statusCode', viajePost.status);
@@ -99,6 +108,7 @@ const BoardingPassCard = () => {
       console.log('error al insertar');
     } else {
       console.log('Viaje actualizado');
+      router.push(`/itinerary?id=${id}`);
       setFormData({
         flightNumber: '',
         origen: '',
@@ -213,7 +223,7 @@ const BoardingPassCard = () => {
           />
         </Box>
         <Box display='flex' justifyContent='center' sx={{ width: '100%' }}>
-          <ButtonCustom text={'Agregar'} onClick={handleClick} />
+          <ButtonCustom text={'Agregar'} onClick={() => handleClick()} />
         </Box>
       </FlightInfoContainer>
     </Box>

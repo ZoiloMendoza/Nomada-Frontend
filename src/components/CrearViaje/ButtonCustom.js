@@ -1,7 +1,7 @@
 import Button from '@mui/material/Button';
 import { Typography } from '@mui/material';
 
-const ButtonCustom = ({ text }) => {
+const ButtonCustom = ({ text, onClick }) => {
   const customColor = '#E91E63';
 
   return (
@@ -9,12 +9,13 @@ const ButtonCustom = ({ text }) => {
       href='/itinerary'
       variant='contained'
       style={{
-        backgroundColor: customColor,
+        backgroundColor: 'red',
         borderRadius: '50px',
         padding: '10px 10px',
         width: '50%',
         textTransform: 'none',
       }}
+      onClick={() => onClick()}
     >
       <Typography variant='body1' sx={{ marginBottom: 0 }}>
         {text}

@@ -1,27 +1,15 @@
-import React from 'react';
 import { Card, CardActionArea, CardContent, CardMedia, Typography } from '@mui/material';
-//import { Star, StarBorder } from '@mui/icons-material';
-import { makeStyles } from '@mui/styles';
-//import Slider from 'react-slick';
 import Carrusel from '../common/Carrusel';
 import { useState } from 'react';
 import CardDetalle from './CardDetalle';
-//import { dataTwo } from '../Add/dataTwo';
-//import { data } from '../Add/data';
-//import 'slick-carousel/slick/slick.css';
-//import 'slick-carousel/slick/slick-theme.css';
 
-const useStyles = makeStyles((theme) => ({
+const styles = {
   card: {
     maxWidth: 345,
     margin: '0 80px',
   },
   media: {
     height: 140,
-  },
-  rating: {
-    color: theme.palette.secondary.main,
-    marginRight: theme.spacing(1),
   },
   button: {
     backgroundColor: '#E91E62',
@@ -31,17 +19,14 @@ const useStyles = makeStyles((theme) => ({
     border: 'none',
     margin: '10px',
   },
-}));
+};
 
 function RestaurantCard({ restaurantData }) {
-  const classes = useStyles();
   const [open, setOpen] = useState(false);
-  const [selectedRestaurant, setSelectedRestaurant] = useState();
+  const [selectedRestaurant, setSelectedRestaurant] = useState(null);
 
   const handleClick = (location_id) => {
-    const selectedRestaurant = restaurantData.filter((restaurant) => {
-      if (location_id == restaurant.location_id) return restaurant;
-    });
+    const selectedRestaurant = restaurantData.find((restaurant) => restaurant.location_id === location_id);
     setSelectedRestaurant(selectedRestaurant);
     console.log(selectedRestaurant);
     setOpen(true);
@@ -55,35 +40,27 @@ function RestaurantCard({ restaurantData }) {
     <>
       <h2 style={{ marginLeft: '30px' }}>Restaurantes</h2>
       <Carrusel>
-        {restaurantData.map((restaurantData) => (
-          <Card className={classes.card} key={restaurantData.location_id}>
+        {restaurantData.map((restaurant) => (
+          <Card sx={styles.card} key={restaurant.location_id}>
             <CardActionArea>
               <CardMedia
-                className={classes.media}
-                image={restaurantData.data[0].images.original.url}
-                title={restaurantData.data[0].user.username}
+                sx={styles.media}
+                image={restaurant.data[0].images.original.url}
+                title={restaurant.data[0].user.username}
               />
               <CardContent>
                 <Typography gutterBottom variant='h5' component='h2'>
-                  {restaurantData.name}
+                  {restaurant.name}
                 </Typography>
                 <Typography variant='body2' color='textSecondary' component='p'>
-                  {restaurantData.address_obj.street1}
+                  {restaurant.address_obj.street1}
                 </Typography>
-                {/* <div>
-                  {[...Array(restaurantData.rating)].map((_, index) => (
-                    <Star className={classes.rating} key={index} />
-                  ))}
-                  {[...Array(5 - restaurantData.rating)].map((_, index) => (
-                    <StarBorder className={classes.rating} key={index} />
-                  ))}
-                </div> */}
               </CardContent>
             </CardActionArea>
             <button
-              className={classes.button}
+              style={styles.button}
               onClick={() => {
-                handleClick(restaurantData.location_id);
+                handleClick(restaurant.location_id);
               }}
             >
               Ver detalles
