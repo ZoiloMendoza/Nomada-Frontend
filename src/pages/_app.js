@@ -1,5 +1,3 @@
-import { StylesProvider, createGenerateClassName } from '@mui/styles';
-
 import { config } from '@fortawesome/fontawesome-svg-core';
 import '@fortawesome/fontawesome-svg-core/styles.css';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
@@ -18,17 +16,11 @@ const theme = createTheme({
   },
 });
 
-const generateClassName = createGenerateClassName({
-  productionPrefix: 'c',
-});
-
 export default function App({ Component, pageProps }) {
   return (
-    <StylesProvider generateClassName={generateClassName}>
-      <ThemeProvider theme={theme}>
-        <CssBaseline />
-        <Component {...pageProps} />
-      </ThemeProvider>
-    </StylesProvider>
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <Component {...pageProps} />
+    </ThemeProvider>
   );
 }

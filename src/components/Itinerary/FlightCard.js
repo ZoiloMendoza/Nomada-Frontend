@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { makeStyles } from '@mui/styles';
 import { Card, CardContent, CardHeader, Typography, Collapse, IconButton } from '@mui/material';
 import { ExpandMore } from '@mui/icons-material';
 import { Edit as EditIcon, Delete as DeleteIcon } from '@mui/icons-material';
@@ -7,24 +6,21 @@ import FlightIcon from '@mui/icons-material/Flight';
 
 import Grid from '@mui/material/Grid';
 
-const useStyles = makeStyles((theme) => ({
+const styles = {
   card: {
-    marginBottom: theme.spacing(2),
+    marginBottom: '10px',
     margin: 2,
   },
   expandIcon: {
     transform: 'rotate(0deg)',
-    transition: theme.transitions.create('transform', {
-      duration: theme.transitions.duration.shortest,
-    }),
+    transition: 'ease 0.3s',
   },
   expandIconOpen: {
     transform: 'rotate(180deg)',
   },
-}));
+};
 
 const FlightCard = ({ flightData, handleEdit, handleDelete }) => {
-  const classes = useStyles();
   const [expanded, setExpanded] = useState(false);
 
   const handleExpandClick = () => {
@@ -34,8 +30,8 @@ const FlightCard = ({ flightData, handleEdit, handleDelete }) => {
   return (
     <>
       {flightData.map((flightData) => (
-        <Card className={classes.card} key={flightData.id}>
-          <div className={classes.editDeleteIcons}>
+        <Card sx={styles.card} key={flightData.id}>
+          <div sx={styles.editDeleteIcons}>
             <IconButton aria-label='edit' onClick={() => handleEdit(flightInfo)}>
               <EditIcon />
             </IconButton>
@@ -63,7 +59,7 @@ const FlightCard = ({ flightData, handleEdit, handleDelete }) => {
             </Typography>
           </CardContent>
           <IconButton
-            className={`${classes.expandIcon} ${expanded ? classes.expandIconOpen : ''}`}
+            className={`${styles.expandIcon} ${expanded ? styles.expandIconOpen : ''}`}
             onClick={handleExpandClick}
             aria-expanded={expanded}
             aria-label='mostrar más'

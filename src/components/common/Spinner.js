@@ -1,7 +1,6 @@
 import { CircularProgress } from '@mui/material';
-import { makeStyles } from '@mui/styles';
 
-const useStyles = makeStyles((theme) => ({
+const styles = {
   root: {
     display: 'flex',
     justifyContent: 'center',
@@ -17,13 +16,11 @@ const useStyles = makeStyles((theme) => ({
     color: '#E91E63',
     fontSize: '1.2rem',
   },
-}));
+};
 
 function Spinner() {
-  const classes = useStyles();
-
   return (
-    <div className={classes.root}>
+    <div sx={styles.root}>
       <CircularProgress className={classes.spinner} size={40} thickness={4} />
       <span className={classes.text}>Traveling...</span>
     </div>

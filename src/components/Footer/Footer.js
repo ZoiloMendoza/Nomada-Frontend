@@ -1,14 +1,13 @@
-import { makeStyles } from '@mui/styles';
 import { Container, Grid, IconButton } from '@mui/material';
 import FacebookIcon from '@mui/icons-material/Facebook';
 import TwitterIcon from '@mui/icons-material/Twitter';
 import InstagramIcon from '@mui/icons-material/Instagram';
 
-const useStyles = makeStyles((theme) => ({
+const styles = {
   root: {
     backgroundColor: '#2B2E4A',
     color: '#fff',
-    padding: theme.spacing(4),
+    padding: '10px',
   },
   iconButton: {
     color: '#fff',
@@ -17,40 +16,31 @@ const useStyles = makeStyles((theme) => ({
       color: '#E91E63',
     },
   },
-}));
+};
 
-const Footer = () => {
-  const classes = useStyles();
-
-  return (
-    <div className={classes.root}>
-      <Container maxWidth='md'>
-        <Grid container justifyContent='center' alignItems='center'>
-          <Grid item xs={12} md={6}>
-            <p>Síguenos en nuestras Redes Sociales:</p>
-          </Grid>
-          <Grid item xs={12} md={6}>
-            <Grid container justifyContent='flex-end' alignItems='center'>
-              <IconButton className={classes.iconButton} href='https://www.facebook.com' target='_blank' rel='noopener'>
-                <FacebookIcon />
-              </IconButton>
-              <IconButton className={classes.iconButton} href='https://www.twitter.com' target='_blank' rel='noopener'>
-                <TwitterIcon />
-              </IconButton>
-              <IconButton
-                className={classes.iconButton}
-                href='https://www.instagram.com'
-                target='_blank'
-                rel='noopener'
-              >
-                <InstagramIcon />
-              </IconButton>
-            </Grid>
+const Footer = () => (
+  <div sx={styles.root}>
+    <Container maxWidth='md'>
+      <Grid container justifyContent='center' alignItems='center'>
+        <Grid item xs={12} md={6}>
+          <p>Síguenos en nuestras Redes Sociales:</p>
+        </Grid>
+        <Grid item xs={12} md={6}>
+          <Grid container justifyContent='flex-end' alignItems='center'>
+            <IconButton sx={styles.iconButton} href='https://www.facebook.com' target='_blank' rel='noopener'>
+              <FacebookIcon />
+            </IconButton>
+            <IconButton sx={styles.iconButton} href='https://www.twitter.com' target='_blank' rel='noopener'>
+              <TwitterIcon />
+            </IconButton>
+            <IconButton sx={styles.iconButton} href='https://www.instagram.com' target='_blank' rel='noopener'>
+              <InstagramIcon />
+            </IconButton>
           </Grid>
         </Grid>
-      </Container>
-    </div>
-  );
-};
+      </Grid>
+    </Container>
+  </div>
+);
 
 export default Footer;

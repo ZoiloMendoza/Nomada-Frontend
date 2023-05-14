@@ -68,7 +68,9 @@ function RestaurantCard({ restaurantData }) {
           </Card>
         ))}
       </Carrusel>
-      {open && <CardDetalle data={selectedRestaurant} open={open} closeCard={closeCard} />}
+      {open && selectedRestaurant !== null && (
+        <CardDetalle data={selectedRestaurant.data} open={open} closeCard={closeCard} />
+      )}
     </>
   );
 }

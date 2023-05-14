@@ -1,7 +1,7 @@
 import Slider from 'react-slick';
 import Box from '@mui/material/Box';
-//import 'slick-carousel/slick/slick.css';
-//import 'slick-carousel/slick/slick-theme.css';
+import 'node_modules/slick-carousel/slick/slick.css';
+import 'node_modules/slick-carousel/slick/slick-theme.css';
 
 const settings = {
   dots: true,
