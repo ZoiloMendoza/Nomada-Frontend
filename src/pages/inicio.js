@@ -11,6 +11,7 @@ export default function Inicio() {
 
   useEffect(() => {
     const usuario = getUser();
+    console.log(usuario);
     if (!usuario?.token) {
       router.push('/login');
     }

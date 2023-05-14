@@ -1,1 +1,1 @@
-export const getUser = () => (datosLog = JSON.parse(localStorage.getItem('usuarioLogeado')));
+export const getUser = () => JSON.parse(localStorage.getItem('usuarioLogeado'));
