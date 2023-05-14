@@ -5,7 +5,7 @@ import { createTheme, ThemeProvider } from '@mui/material';
 import FlightIcon from '@mui/icons-material/Flight';
 import LuggageOutlinedIcon from '@mui/icons-material/LuggageOutlined';
 import ButtonCustom from './ButtonCustom';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import SearchIcon from '@mui/icons-material/Search';
 import axios from 'axios';
 <<<<<<< HEAD
@@ -54,6 +54,7 @@ const BoardingPassCard = () => {
   const router = useRouter();
 
   const { id } = router.query;
+
   console.log(id);
   // useEffect(() => {
   //   (async () => {

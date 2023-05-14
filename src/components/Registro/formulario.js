@@ -4,10 +4,12 @@ import ButtonForm from './ButtonForm';
 import BoxRegistro from './BoxRegistro';
 import { useState } from 'react';
 import axios from 'axios';
-import Link from 'next/link';
+//import Link from 'next/link';
 //import theme from './TemaConfig';
+import { useRouter } from 'next/router';
 
 function Formulario() {
+  const router = useRouter();
   const [confirmarPassword, setConfirmarPaswordd] = useState({
     confirmar: '',
   });
@@ -37,17 +39,16 @@ function Formulario() {
     try {
       const userPost = await axios.post('https://nomada-backend-production.up.railway.app/api/v1/signup', formData);
       console.log('statusCode', userPost.status);
+      console;
       if (userPost.status == 201) {
+        console.log(userPost);
         console.log('Usuario creado exitosamente');
-        setFormData({
-          name: '',
-          email: '',
-          password: '',
-        });
-        setConfirmarPaswordd({
-          confirmar: '',
-        });
-        alert('Usuario creado correctamente', name, email, password);
+        const usuario = {
+          ...userPost.data,
+        };
+        localStorage.setItem('usuarioLogeado', JSON.stringify(usuario));
+        router.push('/inicio');
+        //alert('Usuario creado correctamente', name, email, password);
       } else {
         console.log('Error al insertar');
       }
@@ -140,15 +141,13 @@ function Formulario() {
                           <Grid item xs={12} style={{ textAlign: 'center' }}>
                             <CheckboxFormulario />
                           </Grid>
-                          <Link legacyBehavior href='/login'>
-                            <p>
-                              ¿Ya tienes una cuenta? <a style={{ color: 'blue', cursor: 'pointer' }}>Inicia sesión</a>
-                            </p>
-                          </Link>
+
+                          <p>
+                            ¿Ya tienes una cuenta? <a style={{ color: 'blue', cursor: 'pointer' }}>Inicia sesión</a>
+                          </p>
+
                           <Grid my={4} justifyContent='center' direction='row' container>
-                            <Link href='/login'>
-                              <ButtonForm size='medium' onClick={() => handleSubmit(name, email, password)} />
-                            </Link>
+                            <ButtonForm size='medium' onClick={() => handleSubmit(name, email, password)} />
                           </Grid>
                         </Card>
                       </Grid>
