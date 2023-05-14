@@ -12,7 +12,7 @@ export default function Inicio() {
   useEffect(() => {
     const usuario = getUser();
     console.log(usuario);
-    if (!usuario?.token) {
+    if (!usuario) {
       router.push('/login');
     }
   }, [router]);
