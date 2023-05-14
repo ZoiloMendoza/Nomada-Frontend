@@ -6,7 +6,7 @@ import { Box } from '@mui/material';
 import { getUser } from '@/utils/auth';
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';
-export default function Registro() {
+export default function Inicio() {
   const router = useRouter();
 
   useEffect(() => {
