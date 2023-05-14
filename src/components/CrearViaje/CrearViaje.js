@@ -5,10 +5,13 @@ import { createTheme, ThemeProvider } from '@mui/material';
 import FlightIcon from '@mui/icons-material/Flight';
 import LuggageOutlinedIcon from '@mui/icons-material/LuggageOutlined';
 import ButtonCustom from './ButtonCustom';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import SearchIcon from '@mui/icons-material/Search';
 import axios from 'axios';
+<<<<<<< HEAD
 //import Link from 'next/Link';
+=======
+>>>>>>> 8309c8bb23e5d47f3af3f585e61142e19a3d802e
 
 const apiKey = process.env.NEXT_PUBLIC_API_VUELOS_KEY;
 
@@ -36,15 +39,38 @@ const FlightInfoContainer = styled(Card)(({ theme }) => ({
   boxShadow: theme.shadows[5],
 }));
 
-const BoardingPassCard = ({ contentViaje = [] }) => {
-  console.log(contentViaje);
+const BoardingPassCard = () => {
   const [formData, setFormData] = useState({
     flightNumber: '',
-    origin: '',
-    destination: '',
-    departureDate: '',
-    departureTime: '',
+    origen: '',
+    destino: '',
+    fechaInicio: '',
+    fechaFinal: '',
   });
+  useEffect(() => {
+    (async () => {
+      let contentViaje = [];
+      try {
+        contentViaje = await axios.get(
+          'https://nomada-backend-production.up.railway.app/api/v1/viajes/645eeaf038279c8ea63e9a15',
+        );
+        console.log('statusCode', contentViaje.status);
+        console.log('getServer', contentViaje);
+        return {
+          props: {
+            contentViaje: contentViaje.data,
+          },
+        };
+      } catch (error) {
+        console.log(error);
+        return {
+          props: {
+            contentViaje: {},
+          },
+        };
+      }
+    })();
+  }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -55,40 +81,64 @@ const BoardingPassCard = ({ contentViaje = [] }) => {
     console.log(formData);
   };
 
-  const handleClick = () => {
+  const handleClick = async () => {
     console.log(formData);
+    const { origen, destino, fechaInicio, fechaFinal } = formData;
+    const modelViaje = {
+      origen,
+      destino,
+      fechaInicio,
+      fechaFinal,
+    };
+    const viajePost = await axios.patch(
+      'https://nomada-backend-production.up.railway.app/api/v1/viajes/645eeaf038279c8ea63e9a15',
+      modelViaje,
+    );
+    console.log('statusCode', viajePost.status);
+    if (viajePost.status !== 201) {
+      console.log('error al insertar');
+    } else {
+      console.log('Viaje actualizado');
+      setFormData({
+        flightNumber: '',
+        origen: '',
+        destino: '',
+        fechaInicio: '',
+        fechaFinal: '',
+      });
+    }
   };
   const searchClick = async (e) => {
     e.preventDefault();
     console.log('lupa', apiKey);
     try {
-      //flight_iata: 'SU1478';
+      //flight_iata: 'VB1353';
       //flight_icao: 'AFL1478';
-      const url = `https://airlabs.co/api/v9/flights?api_key=${apiKey}`;
-      /*const params = {
+      const url = `https://airlabs.co/api/v9/flight`;
+      const params = {
         api_key: apiKey,
-        flight_iata: 'VB4081',
-      };*/
-      const userPost = await axios.get(url);
-      console.log('statusCode', userPost.status);
-      console.log(userPost.data.data);
-      if (userPost.status == 201) {
+        flight_iata: formData.flightNumber,
+      };
+      const flightGet = await axios.get(url, { params });
+      console.log('statusCode', flightGet.status);
+      console.log(flightGet.data.response);
+      const dataApi = flightGet.data.response;
+      if (flightGet.status == 200) {
         console.log('Vuelo encontrado');
         setFormData({
-          flightNumber: '',
-          origin: '',
-          destination: '',
-          departureDate: '',
-          departureTime: '',
+          flightNumber: dataApi.flight_iata,
+          origen: dataApi.dep_city,
+          destino: dataApi.arr_city,
+          fechaInicio: dataApi.dep_time,
+          fechaFinal: dataApi.arr_time,
         });
       } else {
         console.log('Error al insertar');
       }
     } catch (error) {
       console.error('Error en la petición:', error);
-      alert('Error al crear el usuario. Por favor, inténtalo de nuevo.');
+      alert('Error al crear al buscar el vuelo. Por favor, inténtalo de nuevo.');
     }
-    console.log('Número de vuelo correcto', formData.flightNumber);
   };
 
   return (
@@ -117,47 +167,47 @@ const BoardingPassCard = ({ contentViaje = [] }) => {
         </Box>
         <Box display='flex' justifyContent='space-between' alignItems='center'>
           <TextField
-            name='origin'
+            name='origen'
             label='Origen'
             variant='outlined'
             color='primary'
             size='small'
             fullWidth
-            value={formData.origin}
+            value={formData.origen}
             onChange={handleChange}
             sx={{ marginBottom: 2 }}
           />
           <LuggageOutlinedIcon sx={{ marginBottom: 2 }} />
           <TextField
-            name='destination'
+            name='destino'
             label='Destino'
             variant='outlined'
             color='primary'
             size='small'
             fullWidth
-            value={formData.destination}
+            value={formData.destino}
             onChange={handleChange}
             sx={{ marginBottom: 2 }}
           />
         </Box>
         <Box display='flex' justifyContent='space-between' alignItems='center'>
           <TextField
-            name='departureDate'
+            name='fechaInicio'
             label='Fecha Ida'
             variant='outlined'
             color='primary'
             size='small'
-            value={formData.departureDate}
+            value={formData.fechaInicio}
             onChange={handleChange}
             sx={{ marginBottom: 2, marginRight: 3 }}
           />
           <TextField
-            name='departureTime'
+            name='fechaFinal'
             label='Hora de salida'
             variant='outlined'
             color='primary'
             size='small'
-            value={formData.departureTime}
+            value={formData.fechaFinal}
             onChange={handleChange}
             sx={{ marginBottom: 2 }}
           />
@@ -175,28 +225,5 @@ const BoardingPassCardWrapper = () => (
     <BoardingPassCard />
   </ThemeProvider>
 );
-
-export const getServerSideProps = async () => {
-  let contentViaje = [];
-  try {
-    contentViaje = await axios.get(
-      'https://nomada-backend-production.up.railway.app/api/v1/viajes/645eeaf038279c8ea63e9a15',
-    );
-    console.log('statusCode', contentViaje.status);
-
-    return {
-      props: {
-        contentViaje: contentViaje.data,
-      },
-    };
-  } catch (error) {
-    console.log(error);
-    return {
-      props: {
-        contentViaje: {},
-      },
-    };
-  }
-};
 
 export default BoardingPassCardWrapper;
