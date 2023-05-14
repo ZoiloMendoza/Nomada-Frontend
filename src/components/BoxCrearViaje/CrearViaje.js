@@ -2,6 +2,7 @@ import { Card, Typography, Input, Button, Box } from '@mui/material';
 import Link from 'next/link';
 import { useState } from 'react';
 import axios from 'axios';
+
 export default function CrearViaje() {
   const customColor2 = '#E91E63';
   const [viajeName, setViajeName] = useState({
