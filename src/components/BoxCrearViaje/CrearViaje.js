@@ -2,13 +2,13 @@ import { Card, Typography, Input, Button, Box } from '@mui/material';
 import Link from 'next/link';
 import { useState } from 'react';
 import axios from 'axios';
-import { getUser } from '@/utils/auth';
+import { useRouter } from 'next/router';
+
 export default function CrearViaje() {
-  const usuario = getUser();
   const customColor2 = '#E91E63';
+  const router = useRouter();
   const [viajeName, setViajeName] = useState({
     nombre: '',
-    administradorViaje: usuario?.idUser,
   });
 
   const handleOnChange = (e) => {
@@ -16,7 +16,9 @@ export default function CrearViaje() {
     setViajeName({ ...viajeName, [e.target.name]: e.target.value });
   };
   const addViaje = async () => {
-    const viajePost = await axios.post('https://nomada-backend-production.up.railway.app/api/v1/viajes', viajeName);
+    const usuario = JSON.parse(localStorage.getItem('usuarioLogeado'));
+    const viajeBody = { viajeName, administradorViaje: usuario.idUser };
+    const viajePost = await axios.post('https://nomada-backend-production.up.railway.app/api/v1/viajes', viajeBody);
     console.log('statusCode', viajePost.status);
     if (viajePost.status !== 201) {
       console.log('error al insertar');
@@ -25,6 +27,8 @@ export default function CrearViaje() {
       setViajeName({
         nombre: '',
       });
+      const idViaje = viajePost.data._id;
+      router.push({ pathname: '/crear-viaje', query: { id: idViaje } });
     }
   };
   console.log(viajeName);

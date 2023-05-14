@@ -8,14 +8,10 @@ import ButtonCustom from './ButtonCustom';
 import { useState } from 'react';
 import SearchIcon from '@mui/icons-material/Search';
 import axios from 'axios';
-<<<<<<< HEAD
-<<<<<<< HEAD
+
 //import Link from 'next/Link';
-=======
->>>>>>> 8309c8bb23e5d47f3af3f585e61142e19a3d802e
-=======
+
 import { useRouter } from 'next/router';
->>>>>>> 5ca5a7f6f6498b2f29dc28b682913da89137bdae
 
 const apiKey = process.env.NEXT_PUBLIC_API_VUELOS_KEY;
 

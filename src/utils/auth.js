@@ -1,1 +1,5 @@
-export const getUser = () => JSON.parse(localStorage.getItem('usuarioLogeado'));
+/*export const getUser = () => {
+  if (typeof window !== undefined) JSON.parse(localStorage.getItem('usuarioLogeado'));
+};
+
+*/
