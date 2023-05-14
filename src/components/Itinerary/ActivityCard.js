@@ -1,15 +1,14 @@
 import { useState } from 'react';
 import { Card, CardHeader, CardMedia, CardContent, Typography, IconButton, Collapse } from '@mui/material';
-import { makeStyles } from '@mui/styles';
 import { ExpandMore } from '@mui/icons-material';
 import { Edit as EditIcon, Delete as DeleteIcon } from '@mui/icons-material';
 import LocalActivityIcon from '@mui/icons-material/LocalActivity';
 
 import Grid from '@mui/material/Grid';
 
-const useStyles = makeStyles((theme) => ({
+const styles = {
   card: {
-    marginBottom: theme.spacing(2),
+    marginBottom: '10px',
     margin: 2,
   },
   media: {
@@ -18,17 +17,14 @@ const useStyles = makeStyles((theme) => ({
   },
   expandIcon: {
     transform: 'rotate(0deg)',
-    transition: theme.transitions.create('transform', {
-      duration: theme.transitions.duration.shortest,
-    }),
+    transition: '0.3s ease',
   },
   expandIconOpen: {
     transform: 'rotate(180deg)',
   },
-}));
+};
 
 const ActivityCard = ({ activityData, handleEdit, handleDelete }) => {
-  const classes = useStyles();
   const [expanded, setExpanded] = useState(false);
 
   const handleExpandClick = () => {
@@ -38,7 +34,7 @@ const ActivityCard = ({ activityData, handleEdit, handleDelete }) => {
   return (
     <>
       {activityData.map((activityData) => (
-        <Card className={classes.card} key={activityData.id}>
+        <Card sx={styles.card} key={activityData.id}>
           <IconButton aria-label='edit' onClick={() => handleEdit(activityInfo)}>
             <EditIcon />
           </IconButton>
@@ -47,7 +43,7 @@ const ActivityCard = ({ activityData, handleEdit, handleDelete }) => {
           </IconButton>
           <Grid container spacing={2}>
             <Grid item xs={4}>
-              <CardMedia className={classes.media} image={activityData.image} title={activityData.title} />
+              <CardMedia sx={styles.media} image={activityData.image} title={activityData.title} />
             </Grid>
             <Grid item xs={6}>
               <CardHeader title={activityData.title} subheader={activityData.subtitle} />
@@ -63,7 +59,7 @@ const ActivityCard = ({ activityData, handleEdit, handleDelete }) => {
           </Grid>
 
           <IconButton
-            className={`${classes.expandIcon} ${expanded ? classes.expandIconOpen : ''}`}
+            className={`${styles.expandIcon} ${expanded ? styles.expandIconOpen : ''}`}
             onClick={handleExpandClick}
             aria-expanded={expanded}
             aria-label='mostrar más'

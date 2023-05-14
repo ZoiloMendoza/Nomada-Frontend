@@ -1,9 +1,9 @@
-import { Box, Typography } from '@mui/material';
-import FormLogin from './FormLogin';
+import { Box } from '@mui/material';
+//import FormLogin from './FormLogin';
 
 const BoxLogin = () => {
   const customColor = '#2B2E4A';
-  const customColor2 = '#FFFFFF';
+  //const customColor2 = '#FFFFFF';
 
   return (
     <Box

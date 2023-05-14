@@ -1,9 +1,8 @@
 import React from 'react';
-import { makeStyles } from '@mui/styles';
 import { Box, IconButton } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 
-const useStyles = makeStyles((theme) => ({
+const styles = {
   root: {
     position: 'fixed',
     top: 0,
@@ -23,32 +22,27 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#fff',
-    padding: theme.spacing(4),
-    borderRadius: theme.spacing(2),
+    padding: '10px',
+    borderRadius: '5px',
     boxShadow: '0px 3px 12px rgba(0, 0, 0, 0.3)',
   },
   closeIcon: {
     position: 'absolute',
-    top: theme.spacing(1),
-    right: theme.spacing(1),
+    top: '5px',
+    right: '5px',
   },
-}));
-
-const PopupBox = ({ open, onClose, children }) => {
-  const classes = useStyles();
-
-  return (
-    open && (
-      <Box className={classes.root}>
-        <Box className={classes.content}>
-          <IconButton className={classes.closeIcon} onClick={onClose}>
-            <CloseIcon />
-          </IconButton>
-          {children}
-        </Box>
-      </Box>
-    )
-  );
 };
+
+const PopupBox = ({ open, onClose, children }) =>
+  open && (
+    <Box sx={styles.root}>
+      <Box sx={styles.content}>
+        <IconButton sx={styles.closeIcon} onClick={onClose}>
+          <CloseIcon />
+        </IconButton>
+        {children}
+      </Box>
+    </Box>
+  );
 
 export default PopupBox;
