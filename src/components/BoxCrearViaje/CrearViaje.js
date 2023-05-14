@@ -2,12 +2,13 @@ import { Card, Typography, Input, Button, Box } from '@mui/material';
 import Link from 'next/link';
 import { useState } from 'react';
 import axios from 'axios';
-
+import { getUser } from '@/utils/auth';
 export default function CrearViaje() {
+  const usuario = getUser();
   const customColor2 = '#E91E63';
   const [viajeName, setViajeName] = useState({
     nombre: '',
-    administradorViaje: '6459e9d638279c8ea63e99c7',
+    administradorViaje: usuario?.idUser,
   });
 
   const handleOnChange = (e) => {
