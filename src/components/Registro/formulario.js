@@ -6,8 +6,10 @@ import { useState } from 'react';
 import axios from 'axios';
 //import Link from 'next/link';
 //import theme from './TemaConfig';
+import { useRouter } from 'next/router';
 
 function Formulario() {
+  const router = useRouter();
   const [confirmarPassword, setConfirmarPaswordd] = useState({
     confirmar: '',
   });
@@ -41,15 +43,12 @@ function Formulario() {
       if (userPost.status == 201) {
         console.log(userPost);
         console.log('Usuario creado exitosamente');
-        setFormData({
-          name: '',
-          email: '',
-          password: '',
-        });
-        setConfirmarPaswordd({
-          confirmar: '',
-        });
-        alert('Usuario creado correctamente', name, email, password);
+        const usuario = {
+          ...userPost.data,
+        };
+        localStorage.setItem('usuarioLogeado', JSON.stringify(usuario));
+        router.push('/inicio');
+        //alert('Usuario creado correctamente', name, email, password);
       } else {
         console.log('Error al insertar');
       }
