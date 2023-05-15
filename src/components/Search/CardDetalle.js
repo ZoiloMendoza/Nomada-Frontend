@@ -1,26 +1,28 @@
 import React, { useState } from 'react';
 import PopupBox from '../common/PopupBox';
+import { styled } from '@mui/system';
 
 import { Grid, Typography, CardMedia, CardContent, Box, IconButton } from '@mui/material';
 import { Rating } from '@mui/lab';
 import { Add, Favorite, FavoriteBorder } from '@mui/icons-material';
 
-const styles = {
-  gridItem: {
+const GridItem = styled(Grid)(({ theme }) => ({
+  padding: '5px',
+  [theme.breakpoints.down('sm')]: {
+    maxHeight: '50vh',
+    overflow: 'scroll',
+    position: 'absolute',
+    bottom: 0,
+    width: '100%',
+    zIndex: 100,
+    background: '#fff',
+    borderTop: '1px solid #ccc',
+    borderBottom: '1px solid #ccc',
     padding: '5px',
-    /* [theme.breakpoints.down('sm')]: {
-      maxHeight: '50vh',
-      overflow: 'scroll',
-      position: 'absolute',
-      bottom: 0,
-      width: '100%',
-      zIndex: 100,
-      background: '#fff',
-      borderTop: '1px solid #ccc',
-      borderBottom: '1px solid #ccc',
-      padding: '5px',
-    }, */
   },
+}));
+
+const styles = {
   card: {},
   media: {
     height: 0,
@@ -68,7 +70,7 @@ const CardDetalle = ({ data, open, closeCard }) => {
         <Grid container>
           {data &&
             data.map((item) => (
-              <Grid item sx={styles.gridItem} key={item.location_id}>
+              <GridItem item key={item.location_id}>
                 <CardMedia sx={styles.media} image={item.images.small.url} />
                 <CardContent>
                   <Typography variant='h6' gutterBottom>
@@ -107,7 +109,7 @@ const CardDetalle = ({ data, open, closeCard }) => {
                     </Box>
                   ))}
                 </Box>
-              </Grid>
+              </GridItem>
             ))}
         </Grid>
       </PopupBox>

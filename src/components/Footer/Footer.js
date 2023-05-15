@@ -1,25 +1,29 @@
+import { styled } from '@mui/system';
 import { Container, Grid, IconButton } from '@mui/material';
 import FacebookIcon from '@mui/icons-material/Facebook';
 import TwitterIcon from '@mui/icons-material/Twitter';
 import InstagramIcon from '@mui/icons-material/Instagram';
 
-const styles = {
-  root: {
-    backgroundColor: '#2B2E4A',
-    color: '#fff',
-    padding: '10px',
+const RootSection = styled('div')(({ theme }) => ({
+  backgroundColor: '#2B2E4A',
+  color: '#fff',
+  padding: theme.spacing(4),
+  position: 'relative',
+  left: '0',
+  bottom: '0',
+  width: '100%',
+}));
+
+const IconButtonIcon = styled(IconButton)(() => ({
+  color: '#fff',
+  '&:hover': {
+    backgroundColor: 'transparent',
+    color: '#E91E63',
   },
-  iconButton: {
-    color: '#fff',
-    '&:hover': {
-      backgroundColor: 'transparent',
-      color: '#E91E63',
-    },
-  },
-};
+}));
 
 const Footer = () => (
-  <div sx={styles.root}>
+  <RootSection>
     <Container maxWidth='md'>
       <Grid container justifyContent='center' alignItems='center'>
         <Grid item xs={12} md={6}>
@@ -27,20 +31,20 @@ const Footer = () => (
         </Grid>
         <Grid item xs={12} md={6}>
           <Grid container justifyContent='flex-end' alignItems='center'>
-            <IconButton sx={styles.iconButton} href='https://www.facebook.com' target='_blank' rel='noopener'>
+            <IconButtonIcon href='https://www.facebook.com' target='_blank' rel='noopener'>
               <FacebookIcon />
-            </IconButton>
-            <IconButton sx={styles.iconButton} href='https://www.twitter.com' target='_blank' rel='noopener'>
+            </IconButtonIcon>
+            <IconButtonIcon href='https://www.twitter.com' target='_blank' rel='noopener'>
               <TwitterIcon />
-            </IconButton>
-            <IconButton sx={styles.iconButton} href='https://www.instagram.com' target='_blank' rel='noopener'>
+            </IconButtonIcon>
+            <IconButtonIcon href='https://www.instagram.com' target='_blank' rel='noopener'>
               <InstagramIcon />
-            </IconButton>
+            </IconButtonIcon>
           </Grid>
         </Grid>
       </Grid>
     </Container>
-  </div>
+  </RootSection>
 );
 
 export default Footer;

@@ -37,7 +37,7 @@ function NavbarTwo() {
   };
 
   return (
-    <AppBar position='static' sx={{ backgroundColor: '#333333' }}>
+    <AppBar position='static' sx={{ backgroundColor: '#2B2E4A' }}>
       <Toolbar>
         <IconButton edge='start' color='inherit' aria-label='menu'>
           <MenuIcon />
@@ -59,9 +59,7 @@ function NavbarTwo() {
         <Link legacyBehavior href='/itinerary'>
           <Button color='inherit'>itinerario</Button>
         </Link>
-        <Link legacyBehavior href='/add'>
-          <Button color='inherit'>add</Button>
-        </Link>
+
         {isLoggedIn ? (
           <>
             {isMobile ? (
@@ -112,10 +110,10 @@ function NavbarTwo() {
               </>
             ) : (
               <>
-                <Button color='inherit'>Dashboard</Button>
+                <Button color='inherit'>Mis viajes</Button>
                 <Button color='inherit'>Configurar Cuenta</Button>
                 <Button color='inherit' onClick={handleLogout}>
-                  Log Out
+                  Cerrar sesión
                 </Button>
               </>
             )}
