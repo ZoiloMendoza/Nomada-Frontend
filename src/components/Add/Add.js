@@ -3,10 +3,6 @@ import { Button, ButtonGroup } from '@mui/material';
 import { Link } from '@mui/material';
 
 const AddSection = styled('div')(({ theme }) => ({
-  display: 'flex',
-  flexDirection: 'column',
-  alignItems: 'center',
-  justifyContent: 'center',
   backgroundColor: '#EAEDED',
   borderRadius: '5px',
   width: '100%',
@@ -44,16 +40,16 @@ const AddButtonTwo = styled(Button)(() => ({
 }));
 const AddButtonGroup = styled(ButtonGroup)(() => ({
   display: 'flex',
-  flexDirection: 'column',
+  flexDirection: 'row',
   flexWrap: 'wrap',
-  justifyContent: 'center',
+  justifyContent: 'space-evenly',
   alignItems: 'center',
 }));
 
 export default function Add({ destino }) {
   return (
     <AddSection>
-      <AddButtonGroup orientation='vertical' color='primary' aria-label='vertical outlined primary button group'>
+      <AddButtonGroup aria-label='button group'>
         <Link href='/crear-viaje'>
           <AddButton>Nuevo destino</AddButton>
         </Link>
