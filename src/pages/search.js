@@ -6,16 +6,17 @@ import { cityData } from '@/components/Search/cityData';
 import RestaurantCard from '@/components/Search/RestaurantCard';
 import { restaurantData } from '@/components/Search/restaurantData';
 import Footer from '@/components/Footer/Footer';
-//import { getData } from './api/proxy/restaurantSearch';
+import { getData } from './api/proxy/restaurantSearch';
 //import Spinner from '@/components/common/Spinner';
-//import axios from 'axios';
+import axios from 'axios';
 //import React, { useEffect, useState } from 'react';
 
 import Box from '@mui/material/Box';
 import CityCard from '@/components/Search/cityCard';
 //import axios from 'axios';
 
-export default function Search() {
+export default function Search({ contentApi }) {
+  console.log(contentApi);
   return (
     <>
       <Head>
@@ -49,3 +50,23 @@ export default function Search() {
     </>
   );
 }
+export const getServerSideProps = async (context) => {
+  //let contentApi = [];
+  try {
+    //const contentApi = await axios.get('./api/proxy/tripadvisor');
+
+    const contentApi = await getData();
+    console.log('response', contentApi);
+    return {
+      props: {
+        contentApi: contentApi,
+      },
+    };
+  } catch (error) {
+    return {
+      props: {
+        contentApi: { error: JSON.stringify(error) },
+      },
+    };
+  }
+};

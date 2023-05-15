@@ -1,7 +1,7 @@
 import React from 'react';
 import { Box, Button, Container, Typography } from '@mui/material';
 import Link from 'next/link';
-
+import { useRouter } from 'next/router';
 import Grid from '@mui/material/Grid';
 import IconButton from '@mui/material/IconButton';
 import GetAppIcon from '@mui/icons-material/GetApp';
@@ -10,7 +10,7 @@ import PeopleIcon from '@mui/icons-material/People';
 import { Favorite } from '@mui/icons-material';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 
-const CircleIconButton = ({ icon, href }) => (
+const CircleIconButton = ({ icon, href, onClick }) => (
   <IconButton
     style={{
       backgroundColor: '#E91E63',
@@ -22,6 +22,7 @@ const CircleIconButton = ({ icon, href }) => (
     }}
     component='a'
     href={href}
+    onClick={onClick}
   >
     {icon}
   </IconButton>
@@ -67,46 +68,55 @@ const styles = {
   },
 };
 
-const HeroImage = () => (
-  <Box sx={styles.hero}>
-    <Container maxWidth='md'>
-      <Grid container spacing={3}>
-        <Grid item>
-          <IconButton component='a' href='/download'>
-            <GetAppIcon style={{ color: '#FFFFFF' }} />
-          </IconButton>
-        </Grid>
-        <Grid item>
-          <IconButton component='a' href='/share'>
-            <ShareIcon style={{ color: '#FFFFFF' }} />
-          </IconButton>
-        </Grid>
-        <Grid item>
-          <IconButton component='a' href='/users'>
-            <PeopleIcon style={{ color: '#FFFFFF' }} />
-          </IconButton>
-        </Grid>
-      </Grid>
+const HeroImage = ({ viajeData }) => {
+  const router = useRouter();
+  const destino = () => {
+    console.log('click boton add');
+    router.push({ pathname: '/add', query: { destino: viajeData?.destino, paisDestino: viajeData?.paisDestino } });
+  };
+  return (
+    <>
+      <Box sx={styles.hero}>
+        <Container maxWidth='md'>
+          <Grid container spacing={3}>
+            <Grid item>
+              <IconButton component='a' href='/download'>
+                <GetAppIcon style={{ color: '#FFFFFF' }} />
+              </IconButton>
+            </Grid>
+            <Grid item>
+              <IconButton component='a' href='/share'>
+                <ShareIcon style={{ color: '#FFFFFF' }} />
+              </IconButton>
+            </Grid>
+            <Grid item>
+              <IconButton component='a' href='/users'>
+                <PeopleIcon style={{ color: '#FFFFFF' }} />
+              </IconButton>
+            </Grid>
+          </Grid>
 
-      <div sx={styles.heroText}>
-        <Typography variant='h1' sx={styles.heroTitle}>
-          Cancún 2023
-        </Typography>
-        <Typography variant='h2' sx={styles.heroSubtitle}>
-          Destino y fecha
-        </Typography>
-        <Link href='/calendario'>
-          <Button variant='contained' color='secondary' sx={styles.heroButton}>
-            Calendario
-          </Button>
-        </Link>
-        <div>
-          <CircleIconButton icon={<Favorite />} href='/favorite' />
-          <CircleIconButton icon={<AddCircleIcon />} href='/add' />
-        </div>
-      </div>
-    </Container>
-  </Box>
-);
+          <div sx={styles.heroText}>
+            <Typography variant='h1' sx={styles.heroTitle}>
+              {viajeData.nombre}
+            </Typography>
+            <Typography variant='h2' sx={styles.heroSubtitle}>
+              {`${viajeData.destino} - ${viajeData.fechaInicio}`}
+            </Typography>
+            <Link href='/calendario'>
+              <Button variant='contained' color='secondary' sx={styles.heroButton}>
+                Calendario
+              </Button>
+            </Link>
+            <div>
+              <CircleIconButton icon={<Favorite />} href='/favorite' />
+              <CircleIconButton icon={<AddCircleIcon />} onClick={destino} />
+            </div>
+          </div>
+        </Container>
+      </Box>
+    </>
+  );
+};
 
 export default HeroImage;

@@ -23,8 +23,7 @@ export default function AddItem() {
         />
       </Head>
       <NavbarTwo />
-      <Add />
-
+     
       <Footer />
     </>
   );

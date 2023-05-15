@@ -50,7 +50,7 @@ const AddButtonGroup = styled(ButtonGroup)(() => ({
   alignItems: 'center',
 }));
 
-export default function Add() {
+export default function Add({ destino }) {
   return (
     <AddSection>
       <AddButtonGroup orientation='vertical' color='primary' aria-label='vertical outlined primary button group'>
@@ -60,7 +60,7 @@ export default function Add() {
         <Link href='/addhotel'>
           <AddButton>Hospedaje</AddButton>
         </Link>
-        <Link href='/search'>
+        <Link href={`/search?destino=${destino.ciudad}&paisDestino=${destino.pais}`}>
           <AddButton>Buscar actividades</AddButton>
         </Link>
         <Link href='/map'>

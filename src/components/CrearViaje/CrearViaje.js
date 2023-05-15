@@ -44,36 +44,17 @@ const BoardingPassCard = () => {
     flightNumber: '',
     origen: '',
     destino: '',
+    paisDestino: '',
     fechaInicio: '',
     fechaFinal: '',
+    longitud: '',
+    latitud: '',
   });
   const router = useRouter();
 
   const { id } = router.query;
 
   console.log(id);
-  // useEffect(() => {
-  //   (async () => {
-  //     let contentViaje = [];
-  //     try {
-  //       contentViaje = await axios.get(`https://nomada-backend-production.up.railway.app/api/v1/viajes/${id}`);
-  //       console.log('statusCode', contentViaje.status);
-  //       console.log('getServer', contentViaje);
-  //       return {
-  //         props: {
-  //           contentViaje: contentViaje.data,
-  //         },
-  //       };
-  //     } catch (error) {
-  //       console.log(error);
-  //       return {
-  //         props: {
-  //           contentViaje: {},
-  //         },
-  //       };
-  //     }
-  //   })();
-  // }, [id]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -89,12 +70,15 @@ const BoardingPassCard = () => {
 
     console.log(formData);
     event.preventDefault();
-    const { origen, destino, fechaInicio, fechaFinal } = formData;
+    const { origen, destino, paisDestino, fechaInicio, fechaFinal, longitud, latitud } = formData;
     const modelViaje = {
       origen,
       destino,
+      paisDestino,
       fechaInicio,
       fechaFinal,
+      longitud,
+      latitud,
     };
     const viajePost = await axios.patch(
       `https://nomada-backend-production.up.railway.app/api/v1/viajes/${id}`,
@@ -110,8 +94,11 @@ const BoardingPassCard = () => {
         flightNumber: '',
         origen: '',
         destino: '',
+        paisDestino: '',
         fechaInicio: '',
         fechaFinal: '',
+        longitud: '',
+        latitud: '',
       });
     }
   };
@@ -136,8 +123,11 @@ const BoardingPassCard = () => {
           flightNumber: dataApi.flight_iata,
           origen: dataApi.dep_city,
           destino: dataApi.arr_city,
+          paisDestino: dataApi.arr_country,
           fechaInicio: dataApi.dep_time,
           fechaFinal: dataApi.arr_time,
+          longitud: dataApi.lng,
+          latitud: dataApi.lat,
         });
       } else {
         console.log('Error al insertar');

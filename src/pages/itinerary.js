@@ -8,7 +8,7 @@ import ActivityCard from '@/components/Itinerary/ActivityCard';
 import axios from 'axios';
 import Footer from '@/components/Footer/Footer';
 import { useRouter } from 'next/router';
-
+import Add from '@/components/Add/Add';
 import { flightData } from '@/components/Itinerary/flightData';
 import { hotelData } from '@/components/Itinerary/hotelData';
 import { activityData } from '@/components/Itinerary/activityData';
@@ -49,7 +49,8 @@ export default function Itinerary({ contentViaje = [] }) {
     <>
       <NavbarTwo />
 
-      <HeroImage />
+      <HeroImage viajeData={tripData} />
+      <Add destino={{ ciudad: tripData.destino, pais: tripData.paisDestino }} />
 
       <Box
         sx={{
