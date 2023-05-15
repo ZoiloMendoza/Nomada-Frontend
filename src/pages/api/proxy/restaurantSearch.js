@@ -1,8 +1,5 @@
 import axios from 'axios';
 const apiKey = process.env.NEXT_PUBLIC_API_TRIPADVISOR_KEY;
-//res.status(500).json({ error: 'No data received from the TripAdvisor API' });
-//res.status(200).json(exampleData);
-//res.status(500).json({ error: 'An error occurred while fetching data from the TripAdvisor API' });
 export default async function handler(req, res) {
   const data = await getData();
   if (Object.keys(data).length === 0) {
@@ -39,10 +36,9 @@ export async function getData() {
       }),
     );
     return exampleData;
-    //res.status(200).json(exampleData);
   } catch (error) {
-    //console.error('api/proxy/restaurant', error);
+    
     return {};
-    //res.status(500).json({ error: 'An error occurred while fetching data from the TripAdvisor API' });
+    
   }
 }
