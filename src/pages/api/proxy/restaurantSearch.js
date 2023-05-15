@@ -16,7 +16,7 @@ export async function getData() {
   const longitude = '-86.80287'; //se obtiene de LocationDetails
   const category = 'restaurants';
   const apiUrl = `https://api.content.tripadvisor.com/api/v1/location/nearby_search?latLong=${latitude}%2C${longitude}&key=${apiKey}&category=${category}&radius=60&radiusUnit=km&language=en`;
-  console.log(longitude);
+
   try {
     const response = await axios.get(apiUrl);
     if (!response.data || !response.data.data) {
@@ -41,7 +41,7 @@ export async function getData() {
     return exampleData;
     //res.status(200).json(exampleData);
   } catch (error) {
-    console.error('api/proxy/restaurant', error);
+    //console.error('api/proxy/restaurant', error);
     return {};
     //res.status(500).json({ error: 'An error occurred while fetching data from the TripAdvisor API' });
   }

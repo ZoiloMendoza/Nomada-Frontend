@@ -52,11 +52,13 @@ export default function Search({ contentApi }) {
 }
 export const getServerSideProps = async (context) => {
   //let contentApi = [];
+  const params = context.query;
+  console.log(params);
   try {
     //const contentApi = await axios.get('./api/proxy/tripadvisor');
 
-    const contentApi = await getData();
-    console.log('response', contentApi);
+    const contentApi = await getData(params);
+    // console.log('response', contentApi);
     return {
       props: {
         contentApi: contentApi,
