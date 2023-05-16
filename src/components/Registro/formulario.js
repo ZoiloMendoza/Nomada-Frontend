@@ -145,7 +145,7 @@ function Formulario() {
                             <CheckboxFormulario />
                           </Grid>
                           <p>¿Ya tienes una cuenta?</p>
-                          <Link legacyBehavior href='/login'>
+                          <Link legacyBehavior href='/inicio'>
                             <a style={{ color: 'blue', cursor: 'pointer' }}>Inicia sesión</a>
                           </Link>
 
