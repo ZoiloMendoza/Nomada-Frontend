@@ -5,8 +5,9 @@ import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
+import Link from 'next/Link';
 
-const MyCard = ({ image, title, subtitle, paragraph, button1, button2, button3 }) => (
+const MyCard = ({ image, title, subtitle, paragraph }) => (
   <Card sx={{ display: 'flex', marginBottom: '5px' }}>
     <CardMedia sx={{ width: '200px' }} image={image} title={title} />
     <CardContent sx={{ flex: '1 0 auto' }}>
@@ -21,14 +22,16 @@ const MyCard = ({ image, title, subtitle, paragraph, button1, button2, button3 }
       </Typography>
     </CardContent>
     <Grid container direction='column' justify='flex-start' alignItems='center'>
-      <Button variant='contained' color='primary' sx={{ marginTop: '5px' }}>
-        {button1} Ver viaje
-      </Button>
+      <Link href='/itinerary'>
+        <Button variant='contained' color='primary' sx={{ marginTop: '5px' }}>
+          Ver viaje
+        </Button>
+      </Link>
       <Button variant='contained' color='secondary' sx={{ marginTop: '5px' }}>
-        {button2} Compartir viaje
+        Compartir viaje
       </Button>
       <Button variant='contained' sx={{ marginTop: '5px' }}>
-        {button3} Eliminar Viaje
+        Eliminar Viaje
       </Button>
     </Grid>
   </Card>

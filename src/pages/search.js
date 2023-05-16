@@ -1,18 +1,17 @@
 import Head from 'next/head';
-import NavbarTwo from '@/components/Navbar/NavbarTwo';
+
 import SearchBar from '@/components/Search/Search';
 import MapButton from '@/components/common/MapButton';
 import { cityData } from '@/components/Search/cityData';
 import RestaurantCard from '@/components/Search/RestaurantCard';
 import ActivityCard from '@/components/Itinerary/ActivityCard';
 import { restaurantData } from '@/components/Search/restaurantData';
-import Footer from '@/components/Footer/Footer';
+
 import { getData } from './api/proxy/restaurantSearch';
 //import Spinner from '@/components/common/Spinner';
 import axios from 'axios';
 import Box from '@mui/material/Box';
 import CityCard from '@/components/Search/cityCard';
-
 
 export default function Search({ contentApi }) {
   console.log(contentApi);
@@ -24,7 +23,6 @@ export default function Search({ contentApi }) {
         <meta name='viewport' content='width=device-width, initial-scale=1' />
         <link rel='icon' href='/img/logo1.svg' />
       </Head>
-      <NavbarTwo />
 
       <SearchBar />
 
@@ -50,19 +48,16 @@ export default function Search({ contentApi }) {
       <Box sx={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
         <MapButton />
       </Box>
-
-      <Footer />
     </>
   );
 }
 export const getServerSideProps = async (context) => {
-  
   const params = context.query;
   //console.log(params);
   try {
     //const contentApi = await axios.get('./api/proxy/tripadvisor');
 
-    const contentApi = await getData({params});
+    const contentApi = await getData({ params });
 
     // console.log('response', contentApi);
     return {

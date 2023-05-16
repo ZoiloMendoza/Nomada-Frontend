@@ -12,10 +12,9 @@ const ButtonNuevoViaje = () => {
           backgroundColor: customColor,
           borderRadius: '10px',
           padding: '10px 20px',
+          margin: '10px',
           textTransform: 'none',
-          color: 'black',
-          fontFamily: 'Inter, sans-serif',
-          fontSize: '20px',
+          color: '#FFFFFF',
         }}
       >
         Agregar un nuevo viaje

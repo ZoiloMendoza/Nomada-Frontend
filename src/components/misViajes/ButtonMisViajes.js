@@ -12,9 +12,6 @@ const ButtonMisViajes = () => (
         padding: '10px 40px',
         textTransform: 'none',
         alignItems: 'center',
-
-        fontFamily: 'Inter, sans-serif',
-        fontSize: '24px',
       }}
     >
       Mis Viajes

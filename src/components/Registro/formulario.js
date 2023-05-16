@@ -4,7 +4,7 @@ import ButtonForm from './ButtonForm';
 import BoxRegistro from './BoxRegistro';
 import { useState } from 'react';
 import axios from 'axios';
-//import Link from 'next/link';
+import Link from 'next/link';
 //import theme from './TemaConfig';
 import { useRouter } from 'next/router';
 
@@ -141,10 +141,11 @@ function Formulario() {
                           <Grid item xs={12} style={{ textAlign: 'center' }}>
                             <CheckboxFormulario />
                           </Grid>
-
-                          <p>
-                            ¿Ya tienes una cuenta? <a style={{ color: 'blue', cursor: 'pointer' }}>Inicia sesión</a>
-                          </p>
+                          <Link href='/login'>
+                            <p>
+                              ¿Ya tienes una cuenta? <a style={{ color: 'blue', cursor: 'pointer' }}>Inicia sesión</a>
+                            </p>
+                          </Link>
 
                           <Grid my={4} justifyContent='center' direction='row' container>
                             <ButtonForm size='medium' onClick={() => handleSubmit(name, email, password)} />

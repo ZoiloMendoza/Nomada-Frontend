@@ -1,6 +1,4 @@
 import Head from 'next/head';
-import NavbarTwo from '@/components/Navbar/NavbarTwo';
-import Footer from '@/components/Footer/Footer';
 
 import AddHotel from '@/components/AddHotel/AddHotel';
 
@@ -13,11 +11,8 @@ export default function AddNewHotel() {
         <meta name='viewport' content='width=device-width, initial-scale=1' />
         <link rel='icon' href='/img/logo1.svg' />
       </Head>
-      <NavbarTwo />
 
       <AddHotel />
-
-      <Footer />
     </>
   );
 }
