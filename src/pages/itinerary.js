@@ -15,36 +15,13 @@ import { activityData } from '@/components/Itinerary/activityData';
 import { getData } from './api/proxy/findSearch';
 import Box from '@mui/material/Box';
 
-export default function Itinerary({ contentApi }) {
+export default function Itinerary({ contentApi, contentViaje }) {
   const router = useRouter();
   const [tripData, setTripData] = useState({});
-  console.log('search location', contentApi);
-
-  const { id } = router.query;
-  console.log(tripData, 'tripData');
-  console.log(router, 'se armooooooo');
-  useEffect(() => {
-    getIntineraryData(id);
-  }, [id]);
-
-  const getIntineraryData = async (tripId) => {
-    console.log(tripId, 'tripIdtripIdtripId');
-    try {
-      const response = await axios.get(`https://nomada-backend-production.up.railway.app/api/v1/viajes/${tripId}`);
-
-      if (response.status === 200) {
-        setTripData(response.data);
-      }
-    } catch (error) {
-      console.log(error);
-      return {
-        props: {
-          contentViaje: [],
-        },
-      };
-    }
-  };
-
+  console.log('contentApi', contentApi);
+  console.log('contentViaje', contentViaje);
+  setTripData(contentViaje);
+  console.log(tripData);
   return (
     <>
       <NavbarTwo />
@@ -82,13 +59,16 @@ export const getServerSideProps = async (context) => {
       return {
         props: {
           contentApi: contentApi,
+          contentViaje: tripData,
         },
       };
     }
   } catch (error) {
     return {
       props: {
-        contentApi: { error: JSON.stringify(error) },
+        contentApi: null,
+        contentViaje: null,
+
       },
     };
   }
