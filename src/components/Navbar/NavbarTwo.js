@@ -49,16 +49,10 @@ function NavbarTwo() {
         </Link>
 
         {!isMobile && (
-          <Typography variant='h6' style={{ flexGrow: 1 }}>
-            NomadApp
+          <Typography variant='h6' style={{ flexGrow: 1, justifyContent: 'center' }}>
+            <Image src='/img/logo2.svg' alt='Logo' height='30' width='120' sx={{ color: '#FFFFFF' }} />
           </Typography>
         )}
-        <Link legacyBehavior href='/search'>
-          <Button color='inherit'>search</Button>
-        </Link>
-        <Link legacyBehavior href='/itinerary'>
-          <Button color='inherit'>itinerario</Button>
-        </Link>
 
         {isLoggedIn ? (
           <>
@@ -110,18 +104,23 @@ function NavbarTwo() {
               </>
             ) : (
               <>
-                <Button color='inherit'>Mis viajes</Button>
+                <Button color='inherit'>Dashboard</Button>
                 <Button color='inherit'>Configurar Cuenta</Button>
                 <Button color='inherit' onClick={handleLogout}>
-                  Cerrar sesión
+                  Log Out
                 </Button>
               </>
             )}
           </>
         ) : (
-          <Link href='/login'>
-            <Button color='inherit'>Log In</Button>
-          </Link>
+          <>
+            <Link href='/registro'>
+              <Button sx={{ color: '#FFFFFF' }}>Regístrate</Button>
+            </Link>
+            <Link href='/login'>
+              <Button sx={{ color: '#FFFFFF' }}>Log In</Button>
+            </Link>
+          </>
         )}
       </Toolbar>
     </AppBar>
