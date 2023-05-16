@@ -80,10 +80,7 @@ const BoardingPassCard = () => {
       longitud,
       latitud,
     };
-    const modelRuta = {
-      viajeid: id,
-
-    }
+    
     const viajePost = await axios.patch(
       `https://nomada-backend-production.up.railway.app/api/v1/viajes/${id}`,
       modelViaje,
