@@ -66,7 +66,7 @@ const CityCard = ({ contentApi }) => {
     <>
       <h2 style={{ marginLeft: '30px' }}>Destinos</h2>
       <Carrusel>
-        {contentApi.map((item) => (
+        {contentApi?.map((item) => (
           <RootCard key={item.location_id} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
             <Media component='img' image={item.data[0].images.small.url} title={item.name} />
             {hovered && (

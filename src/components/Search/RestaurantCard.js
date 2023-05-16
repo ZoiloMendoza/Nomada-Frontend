@@ -66,8 +66,8 @@ function RestaurantCard({ restaurantData }) {
           <Card sx={styles.card} key={restaurant.location_id}>
             <CardMedia
               sx={styles.media}
-              image={restaurant.data[0].images.original.url}
-              title={restaurant.data[0].user.username}
+              image={restaurant?.data[0]?.images.original.url}
+              title={restaurant?.data[0]?.user.username}
             />
             <CardContent>
               <Typography gutterBottom variant='h5' component='h2'>

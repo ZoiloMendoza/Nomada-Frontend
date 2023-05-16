@@ -10,23 +10,33 @@ export default async function handler(req, res) {
   return res.status(200).json(data);
 }
 export async function getData({ params }) {
-  const location = `${params.destino} ${params.paisDestino}`;
-  console.log(location, 'getData');
-  const apiUrl = `https://api.content.tripadvisor.com/api/v1/location/search?key=${apiKey}&searchQuery=Mexico%20city%20Mx&category=geos&language=en`;
+  const replaceSpace = (data) => {
+    return Object.entries(data).reduce((newData, [key, value])=>{
+      newData[key] = typeof value === 'string' ? value.replace(/ /g,'%20') : value;
+      return newData;
+    },{});
+  };
+  const newParams = replaceSpace(params);
+  const location = `${newParams.destino}%20${newParams.paisDestino}`;
+  //console.log(location, 'getData');
+  const apiUrl = `https://api.content.tripadvisor.com/api/v1/location/search?key=${apiKey}&searchQuery=${location}&category=geos&language=en`;
   try {
     const response = await axios.get(apiUrl);
     if (!response.data || !response.data.data) {
       return {};
     }
     const locationId = response?.data?.data[0];
-    
-      const responseDetalle = await axios.get(
-        `https://api.content.tripadvisor.com/api/v1/location/${locationId.location_id}/details?key=${apiKey}&language=en&currency=USD`
-      )
-      const infoDeralle = responseDetalle?.data
-      console.log('infodetalle',infoDeralle)
+    const responseDetalle = await axios.get(
+      `https://api.content.tripadvisor.com/api/v1/location/${locationId.location_id}/details?key=${apiKey}&language=en&currency=USD`
+    )
+    const responsePhoto = await axios.get(
+      `https://api.content.tripadvisor.com/api/v1/location/${locationId.location_id}/photos?key=${apiKey}&language=en`
+    )
+    const infoDeralle = responseDetalle?.data
+    const infoPhoto = responsePhoto?.data || { data: [] };
+     // console.log('infodetalle',infoDeralle)
     //console.log('destinoooooo',locationId)
-    return infoDeralle;
+    return {...infoDeralle, ...infoPhoto};
   } catch (error) {
     console.error(error);
   }

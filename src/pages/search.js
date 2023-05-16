@@ -11,27 +11,26 @@ import axios from 'axios';
 import Box from '@mui/material/Box';
 import CityCard from '@/components/Search/cityCard';
 
-export default function Search({ contentApi }) {
-  console.log(contentApi);
+export default function Search({ contentRestaurant, contentDestino }) {
+  console.log(contentRestaurant);
+  console.log(contentDestino)
   return (
     <>
       <SearchBar />
 
       <Box>
         {
-          /*contentApi === undefined || contentApi.lengh === 0 ? <Spinner/> :*/
-          <CityCard contentApi={cityData} />
+          <CityCard contentApi={contentDestino} />
         }
       </Box>
       <Box>
         {
-          /*contentApi === undefined || contentApi.lengh === 0 ? <Spinner/> :*/
-          <RestaurantCard restaurantData={restaurantData.data} />
+          <RestaurantCard restaurantData={contentRestaurant} />
         }
       </Box>
       <Box>
         {
-          /*contentApi === undefined || contentApi.lengh === 0 ? <Spinner/> :*/
+          /*contentRestaurant === undefined || contentRestaurant.lengh === 0 ? <Spinner/> :*/
           <ActivityCard />
         }
       </Box>
@@ -44,22 +43,21 @@ export default function Search({ contentApi }) {
 }
 export const getServerSideProps = async (context) => {
   const params = context.query;
-  //console.log(params);
+  
   try {
-    //const contentApi = await axios.get('./api/proxy/tripadvisor');
-
-    const contentApi = await getData({ params });
-
-    // console.log('response', contentApi);
+    const contentRestaurant = await getData({...params, category: 'restaurants'});
+    const contentDestino = await getData({...params, category: 'geos'})
     return {
       props: {
-        contentApi: contentApi,
+        contentRestaurant: contentRestaurant,
+        contentDestino: contentDestino,
       },
     };
   } catch (error) {
     return {
       props: {
-        contentApi: { error: JSON.stringify(error) },
+        contentRestaurant: null,
+        contentDestino: null,
       },
     };
   }

@@ -54,7 +54,7 @@ const BoardingPassCard = () => {
 
   const { id } = router.query;
 
-  console.log(id);
+  //console.log(id);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -80,10 +80,15 @@ const BoardingPassCard = () => {
       longitud,
       latitud,
     };
+    const modelRuta = {
+      viajeid: id,
+
+    }
     const viajePost = await axios.patch(
       `https://nomada-backend-production.up.railway.app/api/v1/viajes/${id}`,
       modelViaje,
     );
+   
     console.log('statusCode', viajePost.status);
     if (viajePost.status !== 201) {
       console.log('error al insertar');
@@ -104,7 +109,7 @@ const BoardingPassCard = () => {
   };
   const searchClick = async (e) => {
     e.preventDefault();
-    console.log('lupa', apiKey);
+    //console.log('lupa', apiKey);
     try {
       //flight_iata: 'VB1353';
       //flight_icao: 'AFL1478';
