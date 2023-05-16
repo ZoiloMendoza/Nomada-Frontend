@@ -1,5 +1,6 @@
 import axios from 'axios';
 const apiKey = process.env.NEXT_PUBLIC_API_TRIPADVISOR_KEY;
+
 export default async function handler(req, res) {
   const data = await getData();
   if (Object.keys(data).length === 0) {
@@ -8,7 +9,8 @@ export default async function handler(req, res) {
   return res.status(200).json(data);
 }
 
-export async function getData() {
+export async function getData({params}) {
+  console.log('params de proxy',params)
   const latitude = '21.14967'; //se obtiene de LocationDetails
   const longitude = '-86.80287'; //se obtiene de LocationDetails
   const category = 'restaurants';

@@ -9,11 +9,9 @@ import Footer from '@/components/Footer/Footer';
 import { getData } from './api/proxy/restaurantSearch';
 //import Spinner from '@/components/common/Spinner';
 import axios from 'axios';
-//import React, { useEffect, useState } from 'react';
-
 import Box from '@mui/material/Box';
 import CityCard from '@/components/Search/cityCard';
-//import axios from 'axios';
+
 
 export default function Search({ contentApi }) {
   console.log(contentApi);
@@ -51,13 +49,14 @@ export default function Search({ contentApi }) {
   );
 }
 export const getServerSideProps = async (context) => {
-  //let contentApi = [];
+  
   const params = context.query;
-  console.log(params);
+  //console.log(params);
   try {
     //const contentApi = await axios.get('./api/proxy/tripadvisor');
 
-    const contentApi = await getData(params);
+    const contentApi = await getData({params});
+
     // console.log('response', contentApi);
     return {
       props: {

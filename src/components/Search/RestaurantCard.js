@@ -28,7 +28,7 @@ function RestaurantCard({ restaurantData }) {
   const handleClick = (location_id) => {
     const selectedRestaurant = restaurantData.find((restaurant) => restaurant.location_id === location_id);
     setSelectedRestaurant(selectedRestaurant);
-    console.log(selectedRestaurant);
+    //console.log(selectedRestaurant);
     setOpen(true);
   };
 

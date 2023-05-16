@@ -12,12 +12,13 @@ import Add from '@/components/Add/Add';
 import { flightData } from '@/components/Itinerary/flightData';
 import { hotelData } from '@/components/Itinerary/hotelData';
 import { activityData } from '@/components/Itinerary/activityData';
-
+import { getData } from './api/proxy/findSearch';
 import Box from '@mui/material/Box';
 
 export default function Itinerary({ contentViaje = [] }) {
   const router = useRouter();
   const [tripData, setTripData] = useState({});
+  const [findSearch, setFindSearch] = useState({});
 
   const { id } = router.query;
   console.log(tripData, 'tripData');
@@ -25,15 +26,17 @@ export default function Itinerary({ contentViaje = [] }) {
   useEffect(() => {
     getIntineraryData(id);
   }, [id]);
-
+  
   const getIntineraryData = async (tripId) => {
-    console.log(tripId, 'tripIdtripIdtripId');
+    //console.log(tripId, 'tripIdtripIdtripId');
     try {
       const response = await axios.get(`https://nomada-backend-production.up.railway.app/api/v1/viajes/${tripId}`);
       console.log('statusCode', contentViaje);
 
       if (response.status === 200) {
         setTripData(response.data);
+        const params = {destini: tripData.destino, paisDestino: tripData.paisDestino}
+        setFindSearch(async() =>  await getData({params}))
       }
     } catch (error) {
       console.log(error);
@@ -44,7 +47,7 @@ export default function Itinerary({ contentViaje = [] }) {
       };
     }
   };
-
+console.log(findSearch)
   return (
     <>
       <NavbarTwo />
