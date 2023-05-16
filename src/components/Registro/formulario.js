@@ -61,7 +61,7 @@ function Formulario() {
   return (
     <div className='Formulario'>
       <BoxRegistro />
-      <Typography align='center' variant='h4' sx={{ fontFamily: 'Inter, sans-serif', fontSize: 30 }}>
+      <Typography align='center' variant='h4' sx={{ fontFamily: 'Inter, sans-serif', fontSize: 20 }}>
         {' '}
         Por favor, ingresa los siguientes datos para crear tu cuenta en Nomadapp{' '}
       </Typography>
