@@ -19,12 +19,12 @@ export default function Itinerary({ contentApi, contentViaje }) {
   const [tripData, setTripData] = useState({});
   console.log('contentApi', contentApi);
   console.log('contentViaje', contentViaje);
-  setTripData(contentViaje);
-  console.log(tripData);
+  //setTripData(contentViaje);
+  //console.log(contentApi);
   return (
     <>
-      <HeroImage viajeData={tripData} />
-      <Add destino={{ ciudad: tripData.destino, pais: tripData.paisDestino }} />
+      <HeroImage viajeData={contentViaje} />
+      <Add destino={{ latitude: contentApi?.latitude, longitude: contentApi?.longitude }} />
 
       <Box
         sx={{
@@ -43,7 +43,7 @@ export default function Itinerary({ contentApi, contentViaje }) {
 
 export const getServerSideProps = async (context) => {
   const tripId = context.query.id;
-  console.log(tripId, 'tripIdtripIdtripId');
+  
   try {
     const response = await axios.get(`https://nomada-backend-production.up.railway.app/api/v1/viajes/${tripId}`);
 
