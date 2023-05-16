@@ -1,5 +1,4 @@
 import Head from 'next/head';
-import PopupForm from '@/components/common/PopupForm';
 
 export default function Prueba() {
   return (
@@ -10,8 +9,6 @@ export default function Prueba() {
         <meta name='viewport' content='width=device-width, initial-scale=1' />
         <link rel='icon' href='/img/logo1.svg' />
       </Head>
-
-      <PopupForm />
     </>
   );
 }
