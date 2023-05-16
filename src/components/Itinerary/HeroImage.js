@@ -30,7 +30,7 @@ const CircleIconButton = ({ icon, href, onClick }) => (
 
 const styles = {
   hero: {
-    backgroundImage: `url('https://prod-be-palace-brand.s3.amazonaws.com/pb_Mod_Dest_hero_3600x1800_CANCUN_b4996f5d6d.jpg')`,
+    backgroundImage: `url('https://github.com/ZoiloMendoza/Nomada-Frontend/blob/dev/public/img/background_Mesa%20de%20trabajo%201.jpg')`,
     height: 'calc(50vh - 64px)',
     backgroundSize: 'cover',
     backgroundPosition: 'center',
