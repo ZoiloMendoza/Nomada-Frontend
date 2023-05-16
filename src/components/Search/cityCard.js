@@ -4,7 +4,7 @@ import { Card, CardMedia, CardContent, Typography, IconButton } from '@mui/mater
 import { Favorite, Add, FavoriteBorder } from '@mui/icons-material';
 import Carrusel from '../common/Carrusel';
 
-const RootCard = styled(Card)(({ theme }) => ({
+const RootCard = styled(Card)(({}) => ({
   maxWidth: 345,
   margin: '1rem',
   position: 'relative',
@@ -14,7 +14,7 @@ const RootCard = styled(Card)(({ theme }) => ({
   },
 }));
 
-const Media = styled(CardMedia)(({ theme }) => ({
+const Media = styled(CardMedia)(({}) => ({
   width: '100%',
   margin: 'auto',
   transition: 'width 0.3s',
@@ -23,7 +23,7 @@ const Media = styled(CardMedia)(({ theme }) => ({
   },
 }));
 
-const Content = styled(CardContent)(({ theme }) => ({
+const Content = styled(CardContent)(({}) => ({
   position: 'absolute',
   bottom: 0,
   backgroundColor: 'rgba(0,0,0,0.6)',
@@ -37,7 +37,7 @@ const Content = styled(CardContent)(({ theme }) => ({
   },
 }));
 
-const IconButtonStyled = styled(IconButton)(({ theme }) => ({
+const IconButtonStyled = styled(IconButton)(({}) => ({
   color: '#FFF',
 }));
 

@@ -1,10 +1,9 @@
-import React, { useState } from 'react';
+//import React, { useState } from 'react';
 import PopupBox from '../common/PopupBox';
 import { styled } from '@mui/system';
 
-import { Grid, Typography, CardMedia, CardContent, Box, IconButton } from '@mui/material';
+import { Grid, Typography, CardMedia, CardContent, Box } from '@mui/material';
 import { Rating } from '@mui/lab';
-import { Add, Favorite, FavoriteBorder } from '@mui/icons-material';
 
 const GridItem = styled(Grid)(({ theme }) => ({
   padding: '5px',
@@ -28,18 +27,12 @@ const styles = {
     height: 0,
     paddingTop: '56.25%', // 16:9
   },
-  addIcon: {
-    fontSize: '2rem',
-    color: '#FFFFFF',
-  },
-  favoriteIcon: {
-    fontSize: '2rem',
-    color: '#FFFFFF',
-  },
+
   closeButton: {
     position: 'absolute',
     top: '10px',
     right: '10px',
+    color: '#FFFFF',
   },
   reviewsContainer: {
     marginTop: '10px',
@@ -51,15 +44,9 @@ const styles = {
 
 const CardDetalle = ({ data, open, closeCard }) => {
   // const [open, setOpen] = useState(false);
-  const [isFavorite, setIsFavorite] = useState(false);
 
   const handleClose = () => {
     closeCard();
-  };
-
-  const handleFavoriteClick = () => {
-    setIsFavorite(!isFavorite);
-    console.log('Favorite button clicked!');
   };
 
   console.log(data);
@@ -71,7 +58,7 @@ const CardDetalle = ({ data, open, closeCard }) => {
           {data &&
             data.map((item) => (
               <GridItem item key={item.location_id}>
-                <CardMedia sx={styles.media} image={item.images.small.url} />
+                <CardMedia sx={styles.media} image={item.images.original.url} />
                 <CardContent>
                   <Typography variant='h6' gutterBottom>
                     {item.name}
@@ -85,12 +72,6 @@ const CardDetalle = ({ data, open, closeCard }) => {
                   <Typography variant='body1' gutterBottom>
                     {item.address}
                   </Typography>
-                  <IconButton sx={styles.addIcon} aria-label='Add to itinerary'>
-                    <Add />
-                  </IconButton>
-                  <IconButton sx={styles.iconButton} aria-label='favorite' onClick={handleFavoriteClick}>
-                    {isFavorite ? <Favorite /> : <FavoriteBorder />}
-                  </IconButton>
                 </CardContent>
 
                 <Box sx={styles.reviewsContainer}>

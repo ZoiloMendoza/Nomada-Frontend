@@ -1,19 +1,15 @@
 import React, { useState } from 'react';
 import { Button, Dialog, DialogTitle, DialogContent, DialogContentText, TextField, DialogActions } from '@mui/material';
 
-const PopupForm = () => {
-  const [open, setOpen] = useState(false);
-  const [name, setName] = useState('');
+const PopupForm = ({ data, openForm, closeForm }) => {
+  // const [openForm, setOpenForm] = useState(false);
+  const [name, setName] = useState(data.name);
   const [category, setCategory] = useState('');
   const [date, setDate] = useState('');
   const [time, setTime] = useState('');
 
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-
   const handleClose = () => {
-    setOpen(false);
+    closeForm();
   };
 
   const handleSubmit = () => {
@@ -25,12 +21,11 @@ const PopupForm = () => {
     handleClose();
   };
 
+  console.log(data);
+
   return (
     <>
-      <Button variant='outlined' color='primary' onClick={handleClickOpen}>
-        Open Form
-      </Button>
-      <Dialog open={open} onClose={handleClose}>
+      <Dialog open={openForm} onClose={handleClose}>
         <DialogTitle>Ingresa información</DialogTitle>
         <DialogContent>
           <DialogContentText>Por favor, ingresa los siguientes datos para agregarlos a tu itinerario</DialogContentText>
