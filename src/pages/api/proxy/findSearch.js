@@ -22,7 +22,7 @@ export async function getData({ params }) {
     const exampleData = await Promise.all(async()=> {
       try{
         const responseDetalle = await axios.get(
-          `https://api.content.tripadvisor.com/api/v1/location/${item.location_id}/details?key=${apiKey}&language=en&currency=USD`
+          `https://api.content.tripadvisor.com/api/v1/location/${locationId.location_id}/details?key=${apiKey}&language=en&currency=USD`
         )
         return {...responseDetalle.data}
       } catch (error) {
