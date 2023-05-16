@@ -66,6 +66,12 @@ function FormLogin() {
             <Grid item xs={50} style={{ textAlign: 'center' }}>
               <CheckboxLogin />
             </Grid>
+            <Grid item xs={50} style={{ textAlign: 'center' }}>
+              <p>¿Aún no tienes una cuenta?</p>
+              <Link legacyBehavior href='/registro'>
+                <a style={{ color: 'blue', cursor: 'pointer' }}>Regístrate aquí</a>
+              </Link>
+            </Grid>
           </Card>
         </Grid>
       </Box>
