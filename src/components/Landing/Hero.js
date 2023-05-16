@@ -52,7 +52,7 @@ const Hero = () => (
         <HeroTitle variant='h1'>Planea El Viaje De Tus Sueños</HeroTitle>
         <HeroSubtitle variant='h2'>Déjanos ayudarte a llevar al máximo tu próxima aventura</HeroSubtitle>
         <Link legacyBehavior href='/registro'>
-          <HeroButton variant='contained' color='secondary'>
+          <HeroButton variant='contained' color='primary'>
             Regístrate
           </HeroButton>
         </Link>

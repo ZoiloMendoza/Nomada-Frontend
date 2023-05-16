@@ -10,14 +10,14 @@ const ButtonNuevoViaje = () => {
         variant='contained'
         style={{
           backgroundColor: customColor,
-          borderRadius: '10px',
+          borderRadius: '5px',
           padding: '10px 20px',
           margin: '10px',
           textTransform: 'none',
           color: '#FFFFFF',
         }}
       >
-        Agregar un nuevo viaje
+        + NUEVO VIAJE
       </Button>
     </Link>
   );

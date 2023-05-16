@@ -8,10 +8,10 @@ config.autoAddCss = false;
 const theme = createTheme({
   palette: {
     primary: {
-      main: '#2B2E4A', // Coloca aquí el color principal que desees
+      main: '#E91E63', // Coloca aquí el color principal que desees
     },
     secondary: {
-      main: '#FFC107', // Coloca aquí el color secundario que desees
+      main: '#2B2E4A', // Coloca aquí el color secundario que desees
     },
   },
 });
