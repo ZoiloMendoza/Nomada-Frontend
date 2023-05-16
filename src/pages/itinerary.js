@@ -1,12 +1,11 @@
 import { useEffect, useState } from 'react';
-import Head from 'next/head';
-import NavbarTwo from '@/components/Navbar/NavbarTwo';
+//import Head from 'next/head';
+
 import HeroImage from '@/components/Itinerary/HeroImage';
 import FlightCard from '@/components/Itinerary/FlightCard';
 import HotelCard from '@/components/Itinerary/HotelCard';
 import ActivityCard from '@/components/Itinerary/ActivityCard';
 import axios from 'axios';
-import Footer from '@/components/Footer/Footer';
 import { useRouter } from 'next/router';
 import Add from '@/components/Add/Add';
 import { flightData } from '@/components/Itinerary/flightData';
@@ -47,8 +46,6 @@ export default function Itinerary({ contentApi }) {
 
   return (
     <>
-      <NavbarTwo />
-
       <HeroImage viajeData={tripData} />
       <Add destino={{ ciudad: tripData.destino, pais: tripData.paisDestino }} />
 
@@ -63,8 +60,6 @@ export default function Itinerary({ contentApi }) {
 
         <ActivityCard activityData={activityData} />
       </Box>
-
-      <Footer />
     </>
   );
 }
