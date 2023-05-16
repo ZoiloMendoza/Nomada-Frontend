@@ -68,6 +68,7 @@ export default function Itinerary({ contentApi }) {
     </>
   );
 }
+
 export const getServerSideProps = async (context) => {
   const tripId = context.query.id;
   console.log(tripId, 'tripIdtripIdtripId');
@@ -80,7 +81,7 @@ export const getServerSideProps = async (context) => {
       const contentApi = await getData({ params });
       return {
         props: {
-          contentApi: {},
+          contentApi: contentApi,
         },
       };
     }
