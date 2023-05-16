@@ -1,12 +1,23 @@
 import { Box, TextField, Grid, Card, CardContent, Typography } from '@mui/material';
 import CheckboxFormulario from './CheckboxFormulario';
 import ButtonForm from './ButtonForm';
-import BoxRegistro from './BoxRegistro';
 import { useState } from 'react';
 import axios from 'axios';
 import Link from 'next/link';
 //import theme from './TemaConfig';
 import { useRouter } from 'next/router';
+
+const style = {
+  formulario: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    margin: '0 auto',
+    padding: '5vh 0',
+    width: '50vw',
+    textAlign: 'center',
+  },
+};
 
 function Formulario() {
   const router = useRouter();
@@ -60,19 +71,11 @@ function Formulario() {
 
   return (
     <div className='Formulario'>
-      <BoxRegistro />
-      <Typography align='center' variant='h4' sx={{ fontFamily: 'Inter, sans-serif', fontSize: 20 }}>
+      <Typography align='center' variant='h5' sx={{ paddingTop: '5vh' }}>
         {' '}
         Por favor, ingresa los siguientes datos para crear tu cuenta en Nomadapp{' '}
       </Typography>
-      <Box
-        my={1}
-        style={{
-          margin: '10px',
-          width: '50vw',
-          textAlign: 'center',
-        }}
-      >
+      <Box sx={style.formulario}>
         <Grid container direction='row' spacing={5}>
           <Grid item xs={18} sm={18} md={18} lg={18} xl={18}>
             <Card>
@@ -141,10 +144,9 @@ function Formulario() {
                           <Grid item xs={12} style={{ textAlign: 'center' }}>
                             <CheckboxFormulario />
                           </Grid>
-                          <Link href='/login'>
-                            <p>
-                              ¿Ya tienes una cuenta? <a style={{ color: 'blue', cursor: 'pointer' }}>Inicia sesión</a>
-                            </p>
+                          <p>¿Ya tienes una cuenta?</p>
+                          <Link legacyBehavior href='/login'>
+                            <a style={{ color: 'blue', cursor: 'pointer' }}>Inicia sesión</a>
                           </Link>
 
                           <Grid my={4} justifyContent='center' direction='row' container>
