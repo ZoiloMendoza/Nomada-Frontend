@@ -19,7 +19,7 @@ const PopupForm = () => {
   const handleSubmit = () => {
     // handle form submission logic here
     console.log('Nombre: ', name);
-    console.log('Categoría: ', name);
+    console.log('Categoría: ', category);
     console.log('Fecha: ', date);
     console.log('Horario: ', time);
     handleClose();
@@ -35,17 +35,18 @@ const PopupForm = () => {
         <DialogContent>
           <DialogContentText>Por favor, ingresa los siguientes datos para agregarlos a tu itinerario</DialogContentText>
           <TextField
+            variant='filled'
             autoFocus
             margin='dense'
             id='name'
-            label='Nombre'
+            label='Nombre de actividad'
             type='text'
             value={name}
             onChange={(e) => setName(e.target.value)}
             fullWidth
           />
           <TextField
-            autoFocus
+            variant='filled'
             margin='dense'
             id='category'
             label='Categoría'
@@ -55,6 +56,7 @@ const PopupForm = () => {
             fullWidth
           />
           <TextField
+            variant='filled'
             margin='dense'
             id='date'
             label=''
@@ -64,6 +66,7 @@ const PopupForm = () => {
             fullWidth
           />
           <TextField
+            variant='filled'
             margin='dense'
             id='time'
             label=''

@@ -3,6 +3,17 @@ import MisViajes from '@/components/BoxCrearViaje/MisViajes';
 import { Box } from '@mui/material';
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';
+
+const styles = {
+  root: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexDirection: 'column',
+    margin: '5vh 0',
+  },
+};
+
 export default function Inicio() {
   const router = useRouter();
 
@@ -16,7 +27,7 @@ export default function Inicio() {
   }, []);
   return (
     <>
-      <Box>
+      <Box sx={styles.root}>
         <CrearViaje />
         <MisViajes />
       </Box>

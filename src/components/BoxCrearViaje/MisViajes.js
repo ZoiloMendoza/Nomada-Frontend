@@ -7,8 +7,8 @@ function MisViajes() {
   //const customColor3 = '#FFFFFF';
 
   return (
-    <Card bgcolor='gray' variant='soft' sx={{ backgroundColor: "'#BABCBE'", minWidth: '100px', width: '300px' }}>
-      <Box my={4} ml={7} justifyContent='center' direction='row' bgcolor='gray' container>
+    <Card variant='soft' sx={{ minWidth: '100px', width: '300px' }}>
+      <Box my={4} ml={7} justifyContent='center' direction='row' container>
         <Link legacyBehavior href='/misviajes'>
           <Button
             variant='contained'
@@ -18,7 +18,6 @@ function MisViajes() {
               borderRadius: '40px',
               padding: '15px 40px',
               textTransform: 'none',
-              fontFamily: 'Inter, sans-serif',
             }}
           >
             MIS VIAJES

@@ -34,10 +34,9 @@ export default function CrearViaje() {
   console.log(viajeName);
   return (
     <Card
-      bgcolor='gray'
       variant='soft'
       sx={{
-        backgroundColor: '#BABCBE',
+        backgroundColor: '#EDEDED',
         minHeight: '100px',
         width: '300px',
       }}
@@ -49,9 +48,8 @@ export default function CrearViaje() {
         alignItems='center'
         textAlign='center'
         justifyContent='center'
-        sx={{ display: 'flex', fontFamily: 'Inter, sans-serif', fontSize: '25px', fontWeight: 'bold' }}
+        sx={{ display: 'flex', fontSize: '25px', fontWeight: 'bold' }}
       >
-        {' '}
         Comienza por crear un viaje aquí abajo.
       </Typography>
       <Typography
@@ -60,7 +58,7 @@ export default function CrearViaje() {
         alignItems='center'
         textAlign='center'
         justifyContent='center'
-        sx={{ display: 'flex', fontFamily: 'Inter, sans-serif', fontSize: '18px', fontWeight: 'light' }}
+        sx={{ display: 'flex', fontSize: '18px', fontWeight: 'light' }}
       >
         Nombre del Viaje
       </Typography>
