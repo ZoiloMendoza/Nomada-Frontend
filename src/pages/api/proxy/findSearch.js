@@ -18,20 +18,15 @@ export async function getData({ params }) {
     if (!response.data || !response.data.data) {
       return {};
     }
-    const locationId = response.data.data[0];
-    /*const exampleData = await Promise.all(async()=> {
-      const locationId = response.data.data[0];
-      try{
-        const responseDetalle = await axios.get(
-          `https://api.content.tripadvisor.com/api/v1/location/${locationId.location_id}/details?key=${apiKey}&language=en&currency=USD`
-        )
-        return responseDetalle.data
-      } catch (error) {
-        return item;
-      }
-    });*/
-    console.log('destinoooooo',locationId)
-    return locationId;
+    const locationId = response?.data?.data[0];
+    
+      const responseDetalle = await axios.get(
+        `https://api.content.tripadvisor.com/api/v1/location/${locationId.location_id}/details?key=${apiKey}&language=en&currency=USD`
+      )
+      const infoDeralle = responseDetalle?.data
+      console.log('infodetalle',infoDeralle)
+    //console.log('destinoooooo',locationId)
+    return infoDeralle;
   } catch (error) {
     console.error(error);
   }

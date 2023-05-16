@@ -14,40 +14,17 @@ import { activityData } from '@/components/Itinerary/activityData';
 import { getData } from './api/proxy/findSearch';
 import Box from '@mui/material/Box';
 
-export default function Itinerary({ contentApi }) {
+export default function Itinerary({ contentApi, contentViaje }) {
   const router = useRouter();
   const [tripData, setTripData] = useState({});
-  console.log('search location', contentApi);
-
-  const { id } = router.query;
-  console.log(tripData, 'tripData');
-  console.log(router, 'se armooooooo');
-  useEffect(() => {
-    getIntineraryData(id);
-  }, [id]);
-
-  const getIntineraryData = async (tripId) => {
-    console.log(tripId, 'tripIdtripIdtripId');
-    try {
-      const response = await axios.get(`https://nomada-backend-production.up.railway.app/api/v1/viajes/${tripId}`);
-
-      if (response.status === 200) {
-        setTripData(response.data);
-      }
-    } catch (error) {
-      console.log(error);
-      return {
-        props: {
-          contentViaje: [],
-        },
-      };
-    }
-  };
-
+  console.log('contentApi', contentApi);
+  console.log('contentViaje', contentViaje);
+  //setTripData(contentViaje);
+  //console.log(contentApi);
   return (
     <>
-      <HeroImage viajeData={tripData} />
-      <Add destino={{ ciudad: tripData.destino, pais: tripData.paisDestino }} />
+      <HeroImage viajeData={contentViaje} />
+      <Add destino={{ latitude: contentApi?.latitude, longitude: contentApi?.longitude }} />
 
       <Box
         sx={{
@@ -66,7 +43,7 @@ export default function Itinerary({ contentApi }) {
 
 export const getServerSideProps = async (context) => {
   const tripId = context.query.id;
-  console.log(tripId, 'tripIdtripIdtripId');
+  
   try {
     const response = await axios.get(`https://nomada-backend-production.up.railway.app/api/v1/viajes/${tripId}`);
 
@@ -77,13 +54,16 @@ export const getServerSideProps = async (context) => {
       return {
         props: {
           contentApi: contentApi,
+          contentViaje: tripData,
         },
       };
     }
   } catch (error) {
     return {
       props: {
-        contentApi: { error: JSON.stringify(error) },
+        contentApi: null,
+        contentViaje: null,
+
       },
     };
   }

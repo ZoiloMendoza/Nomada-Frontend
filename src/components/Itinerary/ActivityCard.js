@@ -33,7 +33,7 @@ const ActivityCard = ({ activityData, handleEdit, handleDelete }) => {
 
   return (
     <>
-      {activityData.map((activityData) => (
+      {activityData?.map((activityData) => (
         <Card sx={styles.card} key={activityData.id}>
           <IconButton aria-label='edit' onClick={() => handleEdit(activityInfo)}>
             <EditIcon />
