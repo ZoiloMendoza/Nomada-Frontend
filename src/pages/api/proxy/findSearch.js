@@ -19,22 +19,19 @@ export async function getData({ params }) {
       return {};
     }
     const locationId = response.data.data[0];
-    const exampleData = await Promise.all(async()=> {
+    /*const exampleData = await Promise.all(async()=> {
+      const locationId = response.data.data[0];
       try{
         const responseDetalle = await axios.get(
           `https://api.content.tripadvisor.com/api/v1/location/${locationId.location_id}/details?key=${apiKey}&language=en&currency=USD`
         )
-        return {...responseDetalle.data}
+        return responseDetalle.data
       } catch (error) {
         return item;
       }
-    }
-      
-        
-    
-    );
-    console.log('destinoooooo',exampleData)
-    return exampleData;
+    });*/
+    console.log('destinoooooo',locationId)
+    return locationId;
   } catch (error) {
     console.error(error);
   }
