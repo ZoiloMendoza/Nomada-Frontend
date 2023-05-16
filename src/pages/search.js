@@ -4,6 +4,7 @@ import SearchBar from '@/components/Search/Search';
 import MapButton from '@/components/common/MapButton';
 import { cityData } from '@/components/Search/cityData';
 import RestaurantCard from '@/components/Search/RestaurantCard';
+import ActivityCard from '@/components/Itinerary/ActivityCard';
 import { restaurantData } from '@/components/Search/restaurantData';
 import Footer from '@/components/Footer/Footer';
 import { getData } from './api/proxy/restaurantSearch';
@@ -39,6 +40,12 @@ export default function Search({ contentApi }) {
         {
           /*contentApi === undefined || contentApi.lengh === 0 ? <Spinner/> :*/
           <RestaurantCard restaurantData={restaurantData.data} />
+        }
+      </Box>
+      <Box>
+        {
+          /*contentApi === undefined || contentApi.lengh === 0 ? <Spinner/> :*/
+          <ActivityCard />
         }
       </Box>
 
