@@ -1,6 +1,7 @@
 
 import axios from 'axios';
 const apiKey = process.env.NEXT_PUBLIC_API_TRIPADVISOR_KEY;
+
 export default async function handler(req, res) {
   const data = await getData();
   if (Object.keys(data).length === 0) {
@@ -17,8 +18,21 @@ export async function getData({ params }) {
     if (!response.data || !response.data.data) {
       return {};
     }
-    console.log('destinoooooo',response.data)
-    return response.data.data[0];
+    const locationId = response.data.data[0];
+    const exampleData = await Promise.all(
+      locationId.map(async (item) => {
+        try{
+          const responseDetalle = await axios.get(
+            `https://api.content.tripadvisor.com/api/v1/location/${item.location_id}/details?key=${apiKey}&language=en&currency=USD`
+          )
+          return {...responseDetalle.data}
+        } catch (error) {
+          return item;
+        }
+      }),
+    );
+    console.log('destinoooooo',exampleData)
+    return exampleData;
   } catch (error) {
     console.error(error);
   }
