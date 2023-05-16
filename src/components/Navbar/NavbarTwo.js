@@ -44,13 +44,13 @@ function NavbarTwo() {
         </IconButton>
         <Link legacyBehavior href='/'>
           <a>
-            <Image src='/img/logo1.svg' alt='Logo' height='30' width='30' sx={{ color: '#FFFFFF' }} />
+            <Image src='/img/logo3.svg' alt='Logo' height='40' width='40' sx={{ color: '#FFFFFF' }} />
           </a>
         </Link>
 
         {!isMobile && (
           <Typography variant='h6' style={{ flexGrow: 1, justifyContent: 'center' }}>
-            <Image src='/img/logo2.svg' alt='Logo' height='30' width='120' sx={{ color: '#FFFFFF' }} />
+            <Image src='/img/logo2.svg' alt='Logo' height='40' width='130' sx={{ color: '#FFFFFF' }} />
           </Typography>
         )}
 

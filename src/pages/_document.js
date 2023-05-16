@@ -1,4 +1,4 @@
-import { Html, Head, Main, NextScript } from 'next/document';
+import { Html, Main, Head, NextScript } from 'next/document';
 import NavbarTwo from '@/components/Navbar/NavbarTwo';
 import Footer from '@/components/Footer/Footer';
 

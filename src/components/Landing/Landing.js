@@ -9,7 +9,8 @@ const Landing = () => (
     <Hero />
     <Box
       sx={{
-        margin: 5,
+        margin: '10vh',
+        height: '100%',
       }}
     >
       <Steps />
