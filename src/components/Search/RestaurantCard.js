@@ -66,8 +66,8 @@ function RestaurantCard({ restaurantData }) {
           <Card sx={styles.card} key={restaurant.location_id}>
             <CardMedia
               sx={styles.media}
-              image={restaurant.data[0].images.original.url}
-              title={restaurant.data[0].user.username}
+              image={restaurant?.data[0]?.images.original.url}
+              title={restaurant?.data[0]?.user.username}
             />
             <CardContent>
               <Typography gutterBottom variant='h5' component='h2'>
@@ -109,7 +109,7 @@ function RestaurantCard({ restaurantData }) {
         <CardDetalle data={selectedRestaurant.data} open={open} closeCard={closeCard} />
       )}
       {openForm && selectedRestaurant !== null && (
-        <PopupForm data={selectedRestaurant.data} openForm={openForm} closeForm={closeForm} />
+        <PopupForm data={selectedRestaurant} openForm={openForm} closeForm={closeForm} />
       )}
     </>
   );

@@ -9,11 +9,12 @@ export default async function handler(req, res) {
   return res.status(200).json(data);
 }
 
-export async function getData({params}) {
+export async function getData(params) {
   console.log('params de proxy',params)
-  const latitude = '21.14967'; //se obtiene de LocationDetails
-  const longitude = '-86.80287'; //se obtiene de LocationDetails
-  const category = 'restaurants';
+  const { latitude, longitude, category} = params
+  //const latitude = params.latitude; //se obtiene de LocationDetails
+  //const longitude = params.longitude; //se obtiene de LocationDetails
+  //const category = 'restaurants';
   const apiUrl = `https://api.content.tripadvisor.com/api/v1/location/nearby_search?latLong=${latitude}%2C${longitude}&key=${apiKey}&category=${category}&radius=60&radiusUnit=km&language=en`;
 
   try {

@@ -4,7 +4,7 @@ import { Button, Dialog, DialogTitle, DialogContent, DialogContentText, TextFiel
 const PopupForm = ({ data, openForm, closeForm }) => {
   // const [openForm, setOpenForm] = useState(false);
   const [name, setName] = useState(data.name);
-  const [category, setCategory] = useState('');
+  const [category, setCategory] = useState('restaurant');
   const [date, setDate] = useState('');
   const [time, setTime] = useState('');
 
