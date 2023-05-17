@@ -4,7 +4,6 @@ import { Button, Dialog, DialogTitle, DialogContent, DialogContentText, TextFiel
 const PopupForm = ({ data, openForm, closeForm }) => {
   // const [openForm, setOpenForm] = useState(false);
   const [name, setName] = useState(data.name);
-  const [category, setCategory] = useState('restaurant');
   const [date, setDate] = useState('');
   const [time, setTime] = useState('');
 
@@ -15,7 +14,6 @@ const PopupForm = ({ data, openForm, closeForm }) => {
   const handleSubmit = () => {
     // handle form submission logic here
     console.log('Nombre: ', name);
-    console.log('Categoría: ', category);
     console.log('Fecha: ', date);
     console.log('Horario: ', time);
     handleClose();
@@ -40,16 +38,7 @@ const PopupForm = ({ data, openForm, closeForm }) => {
             onChange={(e) => setName(e.target.value)}
             fullWidth
           />
-          <TextField
-            variant='filled'
-            margin='dense'
-            id='category'
-            label='Categoría'
-            type='text'
-            value={category}
-            onChange={(e) => setCategory(e.target.value)}
-            fullWidth
-          />
+
           <TextField
             variant='filled'
             margin='dense'

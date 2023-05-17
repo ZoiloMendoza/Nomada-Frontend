@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { Button, Dialog, DialogTitle, DialogContent, DialogContentText, TextField, DialogActions } from '@mui/material';
 
-const PopupDestino = ({ item, open, closeDestino }) => {
+const PopupDestino = ({ data, open, closeDestino }) => {
   // const [openForm, setOpenForm] = useState(false);
-  const [name, setName] = useState(item.name);
+  const [name, setName] = useState(data.name);
   const [date, setDate] = useState('');
   const [time, setTime] = useState('');
 
@@ -19,7 +19,7 @@ const PopupDestino = ({ item, open, closeDestino }) => {
     handleClose();
   };
 
-  console.log(item);
+  console.log(data);
 
   return (
     <>

@@ -59,8 +59,8 @@ const CityCard = ({ contentApi }) => {
     setHovered(false);
   };
 
-  const handleClick = () => {
-    const selectedDestino = item.find((item) => item.location_id === location_id);
+  const handleClick = (location_id) => {
+    const selectedDestino = contentApi.find((item) => item.location_id === location_id);
     setSelectedDestino(selectedDestino);
     setOpen(true);
     console.log('Add button clicked!');
