@@ -8,8 +8,8 @@ const ButtonCustom = ({ text, onClick }) => (
     //  href='/itinerary'
     variant='contained'
     style={{
-      backgroundColor: 'red',
-      borderRadius: '50px',
+      backgroundColor: '#E91E63',
+      borderRadius: '10px',
       padding: '10px 10px',
       width: '50%',
       textTransform: 'none',

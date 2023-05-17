@@ -124,8 +124,9 @@ const BoardingPassCard = () => {
       const flightGet = await axios.get(url, { params });
       console.log('statusCode', flightGet.status);
       console.log(flightGet.data.response);
-      const dataApi = flightGet.data.response;
+      //const dataApi = flightGet.data.response;
       if (flightGet.status == 200) {
+        const dataApi = flightGet.data.response;
         console.log('Vuelo encontrado');
         setFormData({
           flightNumber: dataApi.flight_iata,
@@ -157,7 +158,7 @@ const BoardingPassCard = () => {
             <TextField
               name='flightNumber'
               label='Número de vuelo'
-              variant='outlined'
+              variant='filled'
               color='primary'
               size='small'
               value={formData.flightNumber}
@@ -174,7 +175,7 @@ const BoardingPassCard = () => {
           <TextField
             name='origen'
             label='Origen'
-            variant='outlined'
+            variant='filled'
             color='primary'
             size='small'
             fullWidth
@@ -186,7 +187,7 @@ const BoardingPassCard = () => {
           <TextField
             name='destino'
             label='Destino'
-            variant='outlined'
+            variant='filled'
             color='primary'
             size='small'
             fullWidth
@@ -199,7 +200,7 @@ const BoardingPassCard = () => {
           <TextField
             name='fechaInicio'
             label='Fecha Ida'
-            variant='outlined'
+            variant='filled'
             color='primary'
             size='small'
             value={formData.fechaInicio}
@@ -209,7 +210,7 @@ const BoardingPassCard = () => {
           <TextField
             name='fechaFinal'
             label='Hora de salida'
-            variant='outlined'
+            variant='filled'
             color='primary'
             size='small'
             value={formData.fechaFinal}
