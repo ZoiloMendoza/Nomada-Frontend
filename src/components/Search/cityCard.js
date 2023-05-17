@@ -3,6 +3,7 @@ import { styled } from '@mui/system';
 import { Card, CardMedia, CardContent, Typography, IconButton } from '@mui/material';
 import { Favorite, Add, FavoriteBorder } from '@mui/icons-material';
 import Carrusel from '../common/Carrusel';
+import PopupDestino from './PopupDestino';
 
 const RootCard = styled(Card)(({}) => ({
   maxWidth: 345,
@@ -42,6 +43,8 @@ const IconButtonStyled = styled(IconButton)(({}) => ({
 }));
 
 const CityCard = ({ contentApi }) => {
+  const [open, setOpen] = useState(false);
+  const [selectedDestino, setSelectedDestino] = useState(null);
   const [isFavorite, setIsFavorite] = useState(false);
   const [hovered, setHovered] = useState(false);
 
@@ -54,7 +57,14 @@ const CityCard = ({ contentApi }) => {
   };
 
   const handleClick = () => {
+    const selectedDestino = item.find((item) => item.location_id === location_id);
+    setSelectedDestino(selectedDestino);
+    setOpen(true);
     console.log('Add button clicked!');
+  };
+
+  const closeDestino = () => {
+    setOpen(false);
   };
 
   const handleFavoriteClick = () => {
@@ -77,7 +87,12 @@ const CityCard = ({ contentApi }) => {
                 <Typography variant='subtitle1' gutterBottom>
                   {item.address_obj.addres_string}
                 </Typography>
-                <IconButtonStyled aria-label='add' onClick={handleClick}>
+                <IconButtonStyled
+                  aria-label='add'
+                  onClick={() => {
+                    handleClick(item.location_id);
+                  }}
+                >
                   <Add />
                 </IconButtonStyled>
                 <IconButtonStyled aria-label='favorite' onClick={handleFavoriteClick}>
@@ -88,6 +103,9 @@ const CityCard = ({ contentApi }) => {
           </RootCard>
         ))}
       </Carrusel>
+      {open && selectedDestino !== null && (
+        <PopupDestino data={selectedDestino} open={open} closeDestino={closeDestino} />
+      )}
     </>
   );
 };
