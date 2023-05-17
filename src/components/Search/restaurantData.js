@@ -1,5 +1,4 @@
-export const restaurantData = {
-  data: [
+export const restaurantData = [
     {
       location_id: '24064537',
       name: 'In-n-out Coffee',
@@ -842,5 +841,4 @@ export const restaurantData = {
         },
       ],
     },
-  ],
-};
+  ];

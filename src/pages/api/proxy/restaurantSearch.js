@@ -11,9 +11,9 @@ export default async function handler(req, res) {
 
 export async function getData(params) {
   console.log('params de proxy',params)
-  const { latitude, longitude, category} = params
-  const apiUrl = `https://api.content.tripadvisor.com/api/v1/location/nearby_search?latLong=${latitude}%2C${longitude}&key=${apiKey}&category=${category}&radius=60&radiusUnit=km&language=en`;
-
+  //const { latitude, longitude, category} = params
+  //const apiUrl = `https://api.content.tripadvisor.com/api/v1/location/nearby_search?latLong=${latitude}%2C${longitude}&key=${apiKey}&category=${category}&radius=60&radiusUnit=km&language=en`;
+/*
   try {
     const response = await axios.get(apiUrl);
     if (!response.data || !response.data.data) {
@@ -41,4 +41,6 @@ export async function getData(params) {
     return {};
     
   }
+  */
+ return { category: params.category}
 }
