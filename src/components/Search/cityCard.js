@@ -17,7 +17,10 @@ const RootCard = styled(Card)(({}) => ({
 
 const Media = styled(CardMedia)(({}) => ({
   width: '100%',
+  maxHeight: '30vh',
   margin: 'auto',
+  objectFit: 'cover',
+  overflow: 'hidden',
   transition: 'width 0.3s',
   '&:hover': {
     width: '100%',
@@ -78,7 +81,7 @@ const CityCard = ({ contentApi }) => {
       <Carrusel>
         {contentApi?.map((item) => (
           <RootCard key={item.location_id} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
-            <Media component='img' image={item.data[0].images.small.url} title={item.name} />
+            <Media component='img' image={item.data[0].images.original.url} title={item.name} />
             {hovered && (
               <Content>
                 <Typography variant='h5' gutterBottom>
