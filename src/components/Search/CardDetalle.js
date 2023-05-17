@@ -56,8 +56,8 @@ const CardDetalle = ({ data, open, closeCard }) => {
       <PopupBox open={open} onClose={handleClose}>
         <Grid container>
           {data &&
-            data.map((item) => (
-              <GridItem item key={item.location_id}>
+            data?.map((item) => (
+              <GridItem key={item.location_id}>
                 <CardMedia sx={styles.media} image={item.images.original.url} />
                 <CardContent>
                   <Typography variant='h6' gutterBottom>

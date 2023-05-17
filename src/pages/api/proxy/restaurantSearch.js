@@ -12,9 +12,6 @@ export default async function handler(req, res) {
 export async function getData(params) {
   console.log('params de proxy',params)
   const { latitude, longitude, category} = params
-  //const latitude = params.latitude; //se obtiene de LocationDetails
-  //const longitude = params.longitude; //se obtiene de LocationDetails
-  //const category = 'restaurants';
   const apiUrl = `https://api.content.tripadvisor.com/api/v1/location/nearby_search?latLong=${latitude}%2C${longitude}&key=${apiKey}&category=${category}&radius=60&radiusUnit=km&language=en`;
 
   try {
@@ -23,7 +20,7 @@ export async function getData(params) {
       return {};
     }
 
-    const locationData = response.data.data.slice(0, 4);
+    const locationData = response.data.data.slice(0, 2);
     const exampleData = await Promise.all(
       locationData.map(async (item) => {
         try {

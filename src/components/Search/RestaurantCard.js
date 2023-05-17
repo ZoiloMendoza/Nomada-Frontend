@@ -34,7 +34,6 @@ function RestaurantCard({ restaurantData }) {
   const handleClick = (location_id) => {
     const selectedRestaurant = restaurantData.find((restaurant) => restaurant.location_id === location_id);
     setSelectedRestaurant(selectedRestaurant);
-    //console.log(selectedRestaurant);
     setOpen(true);
   };
 
@@ -62,7 +61,7 @@ function RestaurantCard({ restaurantData }) {
     <>
       <h2 style={{ marginLeft: '30px' }}>Restaurantes</h2>
       <Carrusel>
-        {restaurantData.map((restaurant) => (
+        {restaurantData?.map((restaurant) => (
           <Card sx={styles.card} key={restaurant.location_id}>
             <CardMedia
               sx={styles.media}

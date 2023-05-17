@@ -107,7 +107,7 @@ const BoardingPassCard = () => {
       console.log('error al insertar');
     } else {
       console.log('Viaje actualizado');
-      // router.push(`/itinerary?id=${id}`);
+      router.push(`/itinerary?id=${id}`);
     }
   };
   const searchClick = async (e) => {
