@@ -30,7 +30,7 @@ const CircleIconButton = ({ icon, href, onClick }) => (
 
 const styles = {
   hero: {
-    backgroundImage: `url('https://github.com/ZoiloMendoza/Nomada-Frontend/blob/dev/public/img/background_Mesa%20de%20trabajo%201.jpg')`,
+    backgroundImage: 'url("background1.jpg")',
     height: 'calc(50vh - 64px)',
     backgroundSize: 'cover',
     backgroundPosition: 'center',
