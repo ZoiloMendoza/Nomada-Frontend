@@ -5,7 +5,7 @@ import { createTheme, ThemeProvider } from '@mui/material';
 import FlightIcon from '@mui/icons-material/Flight';
 import LuggageOutlinedIcon from '@mui/icons-material/LuggageOutlined';
 import ButtonCustom from './ButtonCustom';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import SearchIcon from '@mui/icons-material/Search';
 import axios from 'axios';
 
@@ -40,6 +40,7 @@ const FlightInfoContainer = styled(Card)(({ theme }) => ({
 }));
 
 const BoardingPassCard = () => {
+  const [idRuta, setIdRuta] = useState('');
   const [formData, setFormData] = useState({
     flightNumber: '',
     origen: '',
@@ -53,7 +54,21 @@ const BoardingPassCard = () => {
   const router = useRouter();
 
   const { id } = router.query;
-
+  const ejemplo = async () => {
+    try {
+      const nuevaRuta = {
+        viajeId: id,
+      };
+      const crearRutaPost = await axios.post(
+        `https://nomada-backend-production.up.railway.app/api/v1/rutas`,
+        nuevaRuta,
+      );
+      setIdRuta(crearRutaPost.data._id);
+      console.log('ruta', crearRutaPost);
+    } catch (error) {
+      console.log(error);
+    }
+  };
   //console.log(id);
 
   const handleChange = (e) => {
@@ -79,34 +94,25 @@ const BoardingPassCard = () => {
       fechaFinal,
       longitud,
       latitud,
+      rutas: idRuta,
     };
-    
+
     const viajePost = await axios.patch(
       `https://nomada-backend-production.up.railway.app/api/v1/viajes/${id}`,
       modelViaje,
     );
-   
+
     console.log('statusCode', viajePost.status);
     if (viajePost.status !== 201) {
       console.log('error al insertar');
     } else {
       console.log('Viaje actualizado');
-      router.push(`/itinerary?id=${id}`);
-      setFormData({
-        flightNumber: '',
-        origen: '',
-        destino: '',
-        paisDestino: '',
-        fechaInicio: '',
-        fechaFinal: '',
-        longitud: '',
-        latitud: '',
-      });
+      // router.push(`/itinerary?id=${id}`);
     }
   };
   const searchClick = async (e) => {
     e.preventDefault();
-    //console.log('lupa', apiKey);
+    ejemplo();
     try {
       //flight_iata: 'VB1353';
       //flight_icao: 'AFL1478';
