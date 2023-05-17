@@ -30,6 +30,7 @@ const CircleIconButton = ({ icon, href, onClick }) => (
 
 const styles = {
   hero: {
+    backgroundImage: 'url("background1.jpg")',
     height: 'calc(50vh - 64px)',
     backgroundSize: 'cover',
     backgroundPosition: 'center',
@@ -75,7 +76,7 @@ const HeroImage = (props) => {
   };
   return (
     <>
-      <Box sx={{...styles.hero, backgroundImage: `url(${props.imagenFondo})`}}>
+      <Box sx={{ ...styles.hero, backgroundImage: `url(${props.imagenFondo})` }}>
         <Container maxWidth='md'>
           <Grid container spacing={3}>
             <Grid item>
