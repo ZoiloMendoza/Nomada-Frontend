@@ -80,12 +80,12 @@ const BoardingPassCard = () => {
       longitud,
       latitud,
     };
-    
+
     const viajePost = await axios.patch(
       `https://nomada-backend-production.up.railway.app/api/v1/viajes/${id}`,
       modelViaje,
     );
-   
+
     console.log('statusCode', viajePost.status);
     if (viajePost.status !== 201) {
       console.log('error al insertar');
