@@ -18,7 +18,7 @@ const apiKey = process.env.NEXT_PUBLIC_API_VUELOS_KEY;
 const theme = createTheme({
   palette: {
     primary: {
-      main: '#2B2E4A',
+      main: '#E91E63',
     },
     secondary: {
       main: '#FFFFFF',
