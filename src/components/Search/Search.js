@@ -27,7 +27,7 @@ export default function SearchBar() {
   return (
     <Paper sx={styles.root} elevation={2}>
       <Toolbar sx={styles.toolbar}>
-        <Link href='/'>
+        <Link href='/itinerary'>
           <IconButton edge='start' color='inherit' aria-label='back'>
             <ArrowBack />
           </IconButton>
