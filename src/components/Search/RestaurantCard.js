@@ -109,7 +109,7 @@ function RestaurantCard({ restaurantData }) {
         <CardDetalle data={selectedRestaurant.data} open={open} closeCard={closeCard} />
       )}
       {openForm && selectedRestaurant !== null && (
-        <PopupForm data={selectedRestaurant.data} openForm={openForm} closeForm={closeForm} />
+        <PopupForm data={selectedRestaurant} openForm={openForm} closeForm={closeForm} />
       )}
     </>
   );

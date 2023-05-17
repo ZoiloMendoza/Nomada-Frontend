@@ -30,7 +30,6 @@ const CircleIconButton = ({ icon, href, onClick }) => (
 
 const styles = {
   hero: {
-    backgroundImage: `url('https://github.com/ZoiloMendoza/Nomada-Frontend/blob/dev/public/img/background_Mesa%20de%20trabajo%201.jpg')`,
     height: 'calc(50vh - 64px)',
     backgroundSize: 'cover',
     backgroundPosition: 'center',
@@ -68,7 +67,7 @@ const styles = {
   },
 };
 
-const HeroImage = ({ viajeData }) => {
+const HeroImage = (props) => {
   const router = useRouter();
   const destino = () => {
     console.log('click boton add');
@@ -76,7 +75,7 @@ const HeroImage = ({ viajeData }) => {
   };
   return (
     <>
-      <Box sx={styles.hero}>
+      <Box sx={{...styles.hero, backgroundImage: `url(${props.imagenFondo})`}}>
         <Container maxWidth='md'>
           <Grid container spacing={3}>
             <Grid item>
@@ -98,10 +97,10 @@ const HeroImage = ({ viajeData }) => {
 
           <div sx={styles.heroText}>
             <Typography variant='h1' sx={styles.heroTitle}>
-              {viajeData.nombre}
+              {props.viajeData.nombre}
             </Typography>
             <Typography variant='h2' sx={styles.heroSubtitle}>
-              {`${viajeData.destino} - ${viajeData.fechaInicio}`}
+              {`${props.viajeData.destino} - ${props.viajeData.fechaInicio}`}
             </Typography>
             <Link href='/calendario'>
               <Button variant='contained' color='secondary' sx={styles.heroButton}>
