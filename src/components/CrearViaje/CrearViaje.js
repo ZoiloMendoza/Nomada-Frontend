@@ -8,9 +8,7 @@ import ButtonCustom from './ButtonCustom';
 import { useState } from 'react';
 import SearchIcon from '@mui/icons-material/Search';
 import axios from 'axios';
-
 //import Link from 'next/Link';
-
 import { useRouter } from 'next/router';
 
 const apiKey = process.env.NEXT_PUBLIC_API_VUELOS_KEY;
@@ -69,7 +67,6 @@ const BoardingPassCard = () => {
       console.log(error);
     }
   };
-  //console.log(id);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -96,12 +93,10 @@ const BoardingPassCard = () => {
       latitud,
       rutas: idRuta,
     };
-
     const viajePost = await axios.patch(
       `https://nomada-backend-production.up.railway.app/api/v1/viajes/${id}`,
       modelViaje,
     );
-
     console.log('statusCode', viajePost.status);
     if (viajePost.status !== 201) {
       console.log('error al insertar');
@@ -124,7 +119,6 @@ const BoardingPassCard = () => {
       const flightGet = await axios.get(url, { params });
       console.log('statusCode', flightGet.status);
       console.log(flightGet.data.response);
-      //const dataApi = flightGet.data.response;
       if (flightGet.status == 200) {
         const dataApi = flightGet.data.response;
         console.log('Vuelo encontrado');

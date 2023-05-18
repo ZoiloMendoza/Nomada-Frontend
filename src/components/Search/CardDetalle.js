@@ -4,8 +4,12 @@ import { styled } from '@mui/system';
 import axios from 'axios';
 import { Grid, Typography, CardMedia, CardContent, Box } from '@mui/material';
 import { Rating } from '@mui/lab';
-import { getData } from '@/pages/api/proxy/tripadvisor';
+import { getData } from '@/pages/api/proxy/tripadvisor/[id]';
 import { useState, useEffect } from 'react';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import ListItemText from '@mui/material/ListItemText';
+import CircularProgress from '@mui/material/CircularProgress';
 const GridItem = styled(Grid)(({ theme }) => ({
   padding: '5px',
   [theme.breakpoints.down('sm')]: {
@@ -46,30 +50,45 @@ const styles = {
 const CardDetalle = ({ data, open, closeCard }) => {
   // const [open, setOpen] = useState(false);
   const [item, setItem] = useState({});
+  const [loading, setLoading] = useState(true);
+
   const handleClose = () => {
     closeCard();
   };
   useEffect(()=> {
-    detallesRestaurant({data})
-  }, [])
-  const detallesRestaurant = async ({data}) => {
-    try {
-      const response = await getData({data})
-      setItem(response.data)
-    } catch (error) {
-      console.log(error)
-    }
-  }
+    const fetchDetalles = async () => {
+      const response = await axios.get(`/api/proxy/tripadvisor/${data.location_id}`)
+      setItem(response.data);
+      setLoading(false);
+    };
+    fetchDetalles();
+  },[data.locarion_id]);
 
   console.log('cardetalle info',data);
   console.log('detalles de la card',item);
+  if(loading){
+    return (
+      <Box
+        sx={{
+          display: 'flex',
+          position: 'fixed',
+          top: '50%',
+          left: '50%',
+          transform: 'translate(-50%, -50%)',
+        }}
+      >
+        <CircularProgress />
+      </Box>
+    );
+  }
+
   return (
     <>
       <PopupBox open={open} onClose={handleClose}>
         <Grid container>
-          {data &&
+          {item &&
               <GridItem>
-                <CardMedia sx={styles.media} image={data?.data[0].images.original.url} />
+                <CardMedia sx={styles.media} image={data?.data[0]?.images?.original?.url} />
                 <CardContent>
                   <Typography variant='h6' gutterBottom>
                     {item?.name}
@@ -81,10 +100,9 @@ const CardDetalle = ({ data, open, closeCard }) => {
                     </Typography>
                   </Box>
                   <Typography variant='body1' gutterBottom>
-                    {/*item?.address_obj.address_string*/}
+                    {item?.address_obj?.address_string}
                   </Typography>
                 </CardContent>
-
                 <Box sx={styles.reviewsContainer}>
                   {/*item?.reviews?.map((review) => (
                     <Box key={review._id} sx={styles.review}>

@@ -16,7 +16,6 @@ import { Menu as MenuIcon, AccountCircle, Dashboard, Settings, ExitToApp } from 
 import Link from 'next/link';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
-
 function NavbarTwo() {
   const [anchorEl, setAnchorEl] = useState(null);
   const [isLoggedIn, setIsLoggedIn] = useState(false); // Replace with your login state
