@@ -17,8 +17,12 @@ import { Menu as MenuIcon, AccountCircle, Dashboard, ExitToAppIcon, ExitToApp } 
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import Link from 'next/link';
 import Image from 'next/image';
+<<<<<<< HEAD
 //import { useRouter } from 'next/router';
 
+=======
+import { useRouter } from 'next/router';
+>>>>>>> 03ed7d064772c9d009d17bc3fc6a0cf9cb6fceb7
 function NavbarTwo() {
   const [anchorEl, setAnchorEl] = useState(null);
   const [isLoggedIn, setIsLoggedIn] = useState(false); // Replace with your login state

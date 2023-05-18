@@ -72,7 +72,7 @@ export default function CrearViaje() {
           onChange={handleOnChange}
         />
       </Box>
-      <Box my={4} ml={7} justifyContent='center' direction='row' container>
+      <Box my={4} ml={7} justifyContent='center' direction='row'>
         <Link href='/crear-viaje'>
           <Button
             variant='contained'

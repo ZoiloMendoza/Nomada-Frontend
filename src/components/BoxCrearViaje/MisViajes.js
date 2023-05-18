@@ -8,7 +8,7 @@ function MisViajes() {
 
   return (
     <Card variant='soft' sx={{ minWidth: '100px', width: '300px' }}>
-      <Box my={4} ml={7} justifyContent='center' direction='row' container>
+      <Box my={4} ml={7} justifyContent='center' direction='row'>
         <Link legacyBehavior href='/misviajes'>
           <Button
             variant='contained'
