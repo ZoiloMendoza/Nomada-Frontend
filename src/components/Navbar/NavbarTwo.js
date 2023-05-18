@@ -10,18 +10,23 @@ import {
   ListItemIcon,
   ListItemText,
   useMediaQuery,
-  useTheme,
+  //useTheme,
+  Divider,
 } from '@mui/material';
-import { Menu as MenuIcon, AccountCircle, Dashboard, Settings, ExitToApp } from '@mui/icons-material';
+import { Menu as MenuIcon, AccountCircle, Dashboard, ExitToAppIcon, ExitToApp } from '@mui/icons-material';
+import DashboardIcon from '@mui/icons-material/Dashboard';
 import Link from 'next/link';
 import Image from 'next/image';
-import { useRouter } from 'next/router';
+//import { useRouter } from 'next/router';
 
 function NavbarTwo() {
   const [anchorEl, setAnchorEl] = useState(null);
   const [isLoggedIn, setIsLoggedIn] = useState(false); // Replace with your login state
-  const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+  const [mobileAnchorEl, setMobileAnchorEl] = useState(null);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  //const theme = useTheme();
+  //const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+  const isMobile = useMediaQuery((theme) => (theme ? theme.breakpoints.down('sm') : '(max-width:600px)'));
   //const router = useRouter();
 
   useEffect(() => {
@@ -31,7 +36,7 @@ function NavbarTwo() {
     if (!usuario) {
       //router.push('/login');
     }
-    setIsLoggedIn(true)
+    setIsLoggedIn(true);
   }, []);
 
   const handleMenu = (event) => {
@@ -48,10 +53,62 @@ function NavbarTwo() {
     handleClose();
   };
 
+  const handleMobileMenuOpen = (event) => {
+    setMobileAnchorEl(event.currentTarget);
+    setIsMobileMenuOpen(true);
+  };
+
+  const handleMobileMenuClose = () => {
+    setMobileAnchorEl(null);
+    setIsMobileMenuOpen(false);
+  };
+
+  const mobileMenu = (
+    <Menu
+      anchorEl={mobileAnchorEl}
+      anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+      transformOrigin={{ vertical: 'top', horizontal: 'right' }}
+      open={isMobileMenuOpen}
+      onClose={handleMobileMenuClose}
+    >
+      {isLoggedIn ? (
+        <>
+          <MenuItem onClick={handleMobileMenuClose}>
+            <ListItemIcon>
+              <DashboardIcon />
+            </ListItemIcon>
+            <ListItemText primary='Mis Viajes' />
+          </MenuItem>
+          <Divider />
+          <MenuItem onClick={handleMobileMenuClose}>
+            <ListItemIcon>
+              <ExitToAppIcon />
+            </ListItemIcon>
+            <ListItemText primary='Logout' />
+          </MenuItem>
+        </>
+      ) : (
+        <>
+          <MenuItem onClick={handleMobileMenuClose}>
+            <Button component={Link} href='/login' color='inherit'>
+              Login
+            </Button>
+          </MenuItem>
+          <Divider />
+          <MenuItem onClick={handleMobileMenuClose}>
+            <Button component={Link} href='/register' color='inherit'>
+              Register
+            </Button>
+          </MenuItem>
+        </>
+      )}
+    </Menu>
+  );
+
   return (
     <AppBar position='static' sx={{ backgroundColor: '#2B2E4A' }}>
       <Toolbar>
-        <IconButton edge='start' color='inherit' aria-label='menu'>
+        <IconButton edge='start' color='inherit' aria-label='menu' onClick={handleMobileMenuOpen}>
           <MenuIcon />
         </IconButton>
         <Link legacyBehavior href='/'>
@@ -60,11 +117,9 @@ function NavbarTwo() {
           </a>
         </Link>
 
-        {!isMobile && (
-          <Typography variant='h6' style={{ flexGrow: 1, justifyContent: 'center' }}>
-            <Image src='/img/logo2.svg' alt='Logo' height='40' width='130' sx={{ color: '#FFFFFF' }} />
-          </Typography>
-        )}
+        <Typography variant='h6' style={{ flexGrow: 1, justifyContent: 'center' }}>
+          <Image src='/img/logo2.svg' alt='Logo' height='40' width='130' sx={{ color: '#FFFFFF' }} />
+        </Typography>
 
         {isLoggedIn ? (
           <>
@@ -98,14 +153,9 @@ function NavbarTwo() {
                     <ListItemIcon>
                       <Dashboard />
                     </ListItemIcon>
-                    <ListItemText primary='Dashboard' />
+                    <ListItemText primary='Mis Viajes' />
                   </MenuItem>
-                  <MenuItem onClick={handleClose}>
-                    <ListItemIcon>
-                      <Settings />
-                    </ListItemIcon>
-                    <ListItemText primary='Account Settings' />
-                  </MenuItem>
+
                   <MenuItem onClick={handleLogout}>
                     <ListItemIcon>
                       <ExitToApp />
@@ -116,9 +166,11 @@ function NavbarTwo() {
               </>
             ) : (
               <>
-                <Button color='inherit'>Dashboard</Button>
-                <Button color='inherit'>Configurar Cuenta</Button>
-                <Button color='inherit' onClick={handleLogout}>
+                <Link href='/misviajes'>
+                  <Button sx={{ color: '#FFFFFF' }}>Mis Viajes</Button>
+                </Link>
+
+                <Button sx={{ color: '#FFFFFF' }} onClick={handleLogout}>
                   Log Out
                 </Button>
               </>
@@ -135,6 +187,7 @@ function NavbarTwo() {
           </>
         )}
       </Toolbar>
+      {mobileMenu}
     </AppBar>
   );
 }
