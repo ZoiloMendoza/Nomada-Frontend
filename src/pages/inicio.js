@@ -24,7 +24,7 @@ export default function Inicio() {
     if (!usuario) {
       router.push('/login');
     }
-  }, []);
+  }, [router]);
   return (
     <>
       <Box sx={styles.root}>

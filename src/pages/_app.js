@@ -5,6 +5,8 @@ import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 config.autoAddCss = false;
 
+import Layout from '@/components/Layout';
+
 //import '@/styles/globals.css';
 
 const theme = createTheme({
@@ -28,8 +30,10 @@ export default function App({ Component, pageProps }) {
         <link rel='icon' href='/img/logo3.svg' />
       </Head>
       <ThemeProvider theme={theme}>
-        <CssBaseline />
-        <Component {...pageProps} />
+        <Layout>
+          <CssBaseline />
+          <Component {...pageProps} />
+        </Layout>
       </ThemeProvider>
     </>
   );
