@@ -58,9 +58,16 @@ function NavbarTwo() {
     setIsMobileMenuOpen(true);
   };
 
-  const handleMobileMenuClose = () => {
+  const handleDashboardClick = () => {
     setMobileAnchorEl(null);
     setIsMobileMenuOpen(false);
+    router.push('/misviajes');
+  };
+
+  const handleLogoutClick = () => {
+    setMobileAnchorEl(null);
+    setIsMobileMenuOpen(false);
+    router.push('/');
   };
 
   const mobileMenu = (
@@ -73,14 +80,14 @@ function NavbarTwo() {
     >
       {isLoggedIn ? (
         <>
-          <MenuItem onClick={handleMobileMenuClose}>
+          <MenuItem onClick={handleDashboardClick}>
             <ListItemIcon>
               <DashboardIcon />
             </ListItemIcon>
             <ListItemText primary='Mis Viajes' />
           </MenuItem>
           <Divider />
-          <MenuItem onClick={handleMobileMenuClose}>
+          <MenuItem onClick={handleLogoutClick}>
             <ListItemIcon>
               <ExitToAppIcon />
             </ListItemIcon>

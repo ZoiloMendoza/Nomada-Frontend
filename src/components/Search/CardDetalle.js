@@ -3,17 +3,19 @@ import PopupBox from '../common/PopupBox';
 import { styled } from '@mui/system';
 import axios from 'axios';
 import { Grid, Typography, CardMedia, CardContent, Box } from '@mui/material';
-import { Rating } from '@mui/lab';
-import { getData } from '@/pages/api/proxy/tripadvisor/[id]';
+//import { Rating } from '@mui/lab';
+//import { getData } from '@/pages/api/proxy/tripadvisor/[id]';
 import { useState, useEffect } from 'react';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemText from '@mui/material/ListItemText';
+//import List from '@mui/material/List';
+//import ListItem from '@mui/material/ListItem';
+//import ListItemText from '@mui/material/ListItemText';
 import CircularProgress from '@mui/material/CircularProgress';
+
 const GridItem = styled(Grid)(({ theme }) => ({
   padding: '5px',
   [theme.breakpoints.down('sm')]: {
     maxHeight: '50vh',
+    maxWidth: '90vh',
     overflow: 'scroll',
     position: 'absolute',
     bottom: 0,
@@ -55,18 +57,18 @@ const CardDetalle = ({ data, open, closeCard }) => {
   const handleClose = () => {
     closeCard();
   };
-  useEffect(()=> {
+  useEffect(() => {
     const fetchDetalles = async () => {
-      const response = await axios.get(`/api/proxy/tripadvisor/${data.location_id}`)
+      const response = await axios.get(`/api/proxy/tripadvisor/${data.location_id}`);
       setItem(response.data);
       setLoading(false);
     };
     fetchDetalles();
-  },[data.locarion_id]);
+  }, [data.location_id]);
 
-  console.log('cardetalle info',data);
-  console.log('detalles de la card',item);
-  if(loading){
+  console.log('cardetalle info', data);
+  console.log('detalles de la card', item);
+  if (loading) {
     return (
       <Box
         sx={{
@@ -86,25 +88,25 @@ const CardDetalle = ({ data, open, closeCard }) => {
     <>
       <PopupBox open={open} onClose={handleClose}>
         <Grid container>
-          {item &&
-              <GridItem>
-                <CardMedia sx={styles.media} image={data?.data[0]?.images?.original?.url} />
-                <CardContent>
-                  <Typography variant='h6' gutterBottom>
-                    {item?.name}
+          {item && (
+            <GridItem>
+              <CardMedia sx={styles.media} image={data?.data[0]?.images?.original?.url} />
+              <CardContent>
+                <Typography variant='h6' gutterBottom>
+                  {item?.name}
+                </Typography>
+                <Box display='flex' alignItems='center' mb={1}>
+                  {/*<Rating value={item.rating} precision={0.5} readOnly />*/}
+                  <Typography variant='body2' color='textSecondary' ml={1}>
+                    ({item?.num_reviews} reviews)
                   </Typography>
-                  <Box display='flex' alignItems='center' mb={1}>
-                   {/*<Rating value={item.rating} precision={0.5} readOnly />*/}
-                    <Typography variant='body2' color='textSecondary' ml={1}>
-                      ({item?.num_reviews} reviews)
-                    </Typography>
-                  </Box>
-                  <Typography variant='body1' gutterBottom>
-                    {item?.address_obj?.address_string}
-                  </Typography>
-                </CardContent>
-                <Box sx={styles.reviewsContainer}>
-                  {/*item?.reviews?.map((review) => (
+                </Box>
+                <Typography variant='body1' gutterBottom>
+                  {item?.address_obj?.address_string}
+                </Typography>
+              </CardContent>
+              <Box sx={styles.reviewsContainer}>
+                {/*item?.reviews?.map((review) => (
                     <Box key={review._id} sx={styles.review}>
                       <Typography variant='body1' gutterBottom>
                         {review.name}
@@ -118,9 +120,9 @@ const CardDetalle = ({ data, open, closeCard }) => {
                       </Typography>
                     </Box>
                   ))*/}
-                </Box>
-              </GridItem>
-            }
+              </Box>
+            </GridItem>
+          )}
         </Grid>
       </PopupBox>
     </>
