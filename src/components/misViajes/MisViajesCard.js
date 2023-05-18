@@ -23,14 +23,14 @@ const MisViajesCard = ({ image, title, subtitle, paragraph }) => (
     </CardContent>
     <Grid container direction='column' justify='flex-start' alignItems='center' sx={{ maxWidth: '200px' }}>
       <Link href='/itinerary'>
-        <Button variant='contained' color='primary' sx={{ margin: '5px' }}>
+        <Button size='small' variant='contained' color='primary' sx={{ margin: '3px', padding: '1px', width: '130px' }}>
           Ver viaje
         </Button>
       </Link>
-      <Button variant='outlined' color='primary' sx={{ margin: '5px' }}>
+      <Button size='small' variant='outlined' color='primary' sx={{ margin: '3px', padding: '1px', width: '130px' }}>
         Compartir viaje
       </Button>
-      <Button variant='outlined' color='primary' sx={{ margin: '5px' }}>
+      <Button size='small' variant='outlined' color='primary' sx={{ margin: '3px', padding: '1px', width: '130px' }}>
         Eliminar Viaje
       </Button>
     </Grid>
