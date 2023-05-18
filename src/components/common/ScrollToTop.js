@@ -4,10 +4,13 @@ import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 
 const styles = {
   root: {
+    display: 'block',
     position: 'fixed',
-    bottom: '5px',
-    right: '5px',
-    zIndex: 1000,
+    bottom: '20px',
+    right: '20px',
+    display: 'inlineFlex',
+    margin: '0 0 3em 3em',
+    zIndex: 99,
     transition: 'opacity 0.3s',
     opacity: 0,
     '&.show': {

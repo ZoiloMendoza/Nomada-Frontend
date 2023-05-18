@@ -36,10 +36,20 @@ const ActivityCard = ({ activityData, handleEdit, handleDelete }) => {
       {activityData?.map((activityData) => (
         <Card sx={styles.card} key={activityData.id}>
           <IconButton aria-label='edit' onClick={() => handleEdit(activityInfo)}>
-            <EditIcon />
+            <EditIcon
+              sx={{
+                width: '20px',
+                color: '#D2D2D2',
+              }}
+            />
           </IconButton>
           <IconButton aria-label='delete' onClick={() => handleDelete(activityInfo)}>
-            <DeleteIcon />
+            <DeleteIcon
+              sx={{
+                width: '20px',
+                color: '#D2D2D2',
+              }}
+            />
           </IconButton>
           <Grid container spacing={2}>
             <Grid item xs={4}>

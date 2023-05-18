@@ -1,6 +1,6 @@
 //import { useEffect, useState } from 'react';
 //import Head from 'next/head';
-
+import ScrollToTop from '@/components/common/ScrollToTop';
 import HeroImage from '@/components/Itinerary/HeroImage';
 import FlightCard from '@/components/Itinerary/FlightCard';
 import HotelCard from '@/components/Itinerary/HotelCard';
@@ -43,6 +43,7 @@ export default function Itinerary({ contentApi, contentViaje }) {
 
         <ActivityCard activityData={activityData} />
       </Box>
+      <ScrollToTop />
     </Box>
   );
 }
