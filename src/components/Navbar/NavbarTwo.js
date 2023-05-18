@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import {
   AppBar,
   Toolbar,
@@ -15,12 +15,24 @@ import {
 import { Menu as MenuIcon, AccountCircle, Dashboard, Settings, ExitToApp } from '@mui/icons-material';
 import Link from 'next/link';
 import Image from 'next/image';
+import { useRouter } from 'next/router';
 
 function NavbarTwo() {
   const [anchorEl, setAnchorEl] = useState(null);
   const [isLoggedIn, setIsLoggedIn] = useState(false); // Replace with your login state
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+  //const router = useRouter();
+
+  useEffect(() => {
+    const usuario = JSON.parse(localStorage.getItem('usuarioLogeado'));
+    console.log(localStorage);
+
+    if (!usuario) {
+      //router.push('/login');
+    }
+    setIsLoggedIn(true)
+  }, []);
 
   const handleMenu = (event) => {
     setAnchorEl(event.currentTarget);

@@ -24,7 +24,7 @@ export default function Itinerary({ contentApi, contentViaje }) {
   return (
     <>
       <HeroImage viajeData={contentViaje} imagenFondo={contentApi.data[0].images.original.url} />
-      <Add destino={{ latitude: contentApi?.latitude, longitude: contentApi?.longitude }} />
+      <Add destino={{ latitude: contentApi?.latitude, longitude: contentApi?.longitude, idRuta: contentViaje?.rutas[0]?._id }} />
 
       <Box
         sx={{

@@ -56,7 +56,7 @@ export default function Add({ destino }) {
         <Link href='/addhotel'>
           <AddButton>Hospedaje</AddButton>
         </Link>
-        <Link href={`/search?latitude=${destino?.latitude}&longitude=${destino?.longitude}`}>
+        <Link href={`/search?latitude=${destino?.latitude}&longitude=${destino?.longitude}&idRuta=${destino?.idRuta}`}>
           <AddButton>Buscar actividades</AddButton>
         </Link>
         <Link href='/map'>

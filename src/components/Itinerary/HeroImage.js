@@ -72,7 +72,7 @@ const HeroImage = (props) => {
   const router = useRouter();
   const destino = () => {
     console.log('click boton add');
-    router.push({ pathname: '/add', query: { destino: viajeData?.destino, paisDestino: viajeData?.paisDestino } });
+    router.push({ pathname: '/add', query: { destino: viajeData?.destino, paisDestino: viajeData?.paisDestino, idRuta: viajeData?.rutas[0]?._id } });
   };
   return (
     <>
