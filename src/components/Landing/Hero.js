@@ -25,6 +25,7 @@ const HeroText = styled('div')(({ theme }) => ({
 const HeroTitle = styled(Typography)(({ theme }) => ({
   fontSize: '3rem',
   fontWeight: 'bold',
+
   marginBottom: theme.spacing(2),
   [theme.breakpoints.down('sm')]: {
     fontSize: '2.5rem',
