@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import { Button, Dialog, DialogTitle, DialogContent, DialogContentText, TextField, DialogActions } from '@mui/material';
-
-const PopupForm = ({ data, openForm, closeForm }) => {
+import { useRouter } from 'next/router';
+const PopupForm = ({ data, openForm, closeForm, categoria }) => {
+  const router = useRouter();
+  const { idRuta } = router.query;
   // const [openForm, setOpenForm] = useState(false);
   const [name, setName] = useState(data.name);
   const [date, setDate] = useState('');
@@ -10,7 +12,21 @@ const PopupForm = ({ data, openForm, closeForm }) => {
   const handleClose = () => {
     closeForm();
   };
-
+  const agregarActividad = async () => {
+    try {
+      const nuevaActividad = {
+        rutaId: idRuta,
+      };
+      const crearRutaPost = await axios.post(
+        `https://nomada-backend-production.up.railway.app/api/v1/rutas`,
+        nuevaRuta,
+      );
+      setIdRuta(crearRutaPost.data._id);
+      console.log('ruta', crearRutaPost);
+    } catch (error) {
+      console.log(error);
+    }
+  };
   const handleSubmit = () => {
     // handle form submission logic here
     console.log('Nombre: ', name);

@@ -105,7 +105,7 @@ function RestaurantCard({ restaurantData }) {
         ))}
       </Carrusel>
       {open && selectedRestaurant !== null && (
-        <CardDetalle data={selectedRestaurant} open={open} closeCard={closeCard} />
+        <CardDetalle data={selectedRestaurant} open={open} closeCard={closeCard} categoria={'restaurant'} />
       )}
       {openForm && selectedRestaurant !== null && (
         <PopupForm data={selectedRestaurant} openForm={openForm} closeForm={closeForm} />
