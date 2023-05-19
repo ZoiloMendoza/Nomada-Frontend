@@ -59,7 +59,7 @@ function ActivityCard({ activityData }) {
 
   return (
     <>
-      <h2 style={{ marginLeft: '30px' }}>Restaurantes</h2>
+      <h2 style={{ marginLeft: '30px' }}>Actividades</h2>
       <Carrusel>
         {activityData?.map((activity) => (
           <Card sx={styles.card} key={activity.location_id}>

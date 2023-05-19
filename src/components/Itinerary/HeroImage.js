@@ -50,18 +50,21 @@ const styles = {
     fontSize: '3rem',
     fontWeight: 'bold',
     marginBottom: '10px',
+    textShadow: '2px 2px 1px gray',
     /* [theme.breakpoints.down('sm')]: {
       fontSize: '2.5rem',
     }, */
   },
   heroSubtitle: {
     fontSize: '1.5rem',
+    textShadow: '2px 2px 1px gray',
     /*  [theme.breakpoints.down('sm')]: {
       fontSize: '1.2rem',
     }, */
   },
   heroButton: {
     marginTop: '10px',
+
     /* [theme.breakpoints.down('sm')]: {
       marginTop: theme.spacing(2),
     }, */
@@ -72,7 +75,10 @@ const HeroImage = (props) => {
   const router = useRouter();
   const destino = () => {
     console.log('click boton add');
-    router.push({ pathname: '/add', query: { destino: viajeData?.destino, paisDestino: viajeData?.paisDestino } });
+    router.push({
+      pathname: '/add',
+      query: { destino: viajeData?.destino, paisDestino: viajeData?.paisDestino, idRuta: viajeData?.rutas[0]?._id },
+    });
   };
   return (
     <>

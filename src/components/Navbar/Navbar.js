@@ -11,19 +11,23 @@ import {
   ListItemText,
   useMediaQuery,
   //useTheme,
+  Divider,
 } from '@mui/material';
-import { AccountCircle, Dashboard, ExitToApp } from '@mui/icons-material';
+import { Menu as MenuIcon, AccountCircle, Dashboard, ExitToAppIcon, ExitToApp } from '@mui/icons-material';
+import DashboardIcon from '@mui/icons-material/Dashboard';
 import Link from 'next/link';
 import Image from 'next/image';
-import { useRouter } from 'next/router';
+//import { useRouter } from 'next/router';
 
 function NavbarTwo() {
   const [anchorEl, setAnchorEl] = useState(null);
   const [isLoggedIn, setIsLoggedIn] = useState(false); // Replace with your login state
+  const [mobileAnchorEl, setMobileAnchorEl] = useState(null);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   //const theme = useTheme();
   //const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const isMobile = useMediaQuery((theme) => (theme ? theme.breakpoints.down('sm') : '(max-width:600px)'));
-  const router = useRouter();
+  //const router = useRouter();
 
   useEffect(() => {
     const usuario = JSON.parse(localStorage.getItem('usuarioLogeado'));
@@ -43,17 +47,70 @@ function NavbarTwo() {
     setAnchorEl(null);
   };
 
+  const handleLogout = () => {
+    // Add your logout logic here
+    setIsLoggedIn(false);
+    handleClose();
+  };
+
+  const handleMobileMenuOpen = (event) => {
+    setMobileAnchorEl(event.currentTarget);
+    setIsMobileMenuOpen(true);
+  };
+
   const handleDashboardClick = () => {
-    setAnchorEl(null);
+    setMobileAnchorEl(null);
+    setIsMobileMenuOpen(false);
     router.push('/misviajes');
   };
 
-  const handleLogout = () => {
-    localStorage.removeItem('usuarioLogeado');
-    setIsLoggedIn(false);
-    handleClose();
+  const handleLogoutClick = () => {
+    setMobileAnchorEl(null);
+    setIsMobileMenuOpen(false);
     router.push('/');
   };
+
+  const mobileMenu = (
+    <Menu
+      anchorEl={mobileAnchorEl}
+      anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+      transformOrigin={{ vertical: 'top', horizontal: 'right' }}
+      open={isMobileMenuOpen}
+      onClose={handleMobileMenuClose}
+    >
+      {isLoggedIn ? (
+        <>
+          <MenuItem onClick={handleDashboardClick}>
+            <ListItemIcon>
+              <DashboardIcon />
+            </ListItemIcon>
+            <ListItemText primary='Mis Viajes' />
+          </MenuItem>
+          <Divider />
+          <MenuItem onClick={handleLogoutClick}>
+            <ListItemIcon>
+              <ExitToAppIcon />
+            </ListItemIcon>
+            <ListItemText primary='Logout' />
+          </MenuItem>
+        </>
+      ) : (
+        <>
+          <MenuItem onClick={handleMobileMenuClose}>
+            <Button component={Link} href='/login' color='inherit'>
+              Login
+            </Button>
+          </MenuItem>
+          <Divider />
+          <MenuItem onClick={handleMobileMenuClose}>
+            <Button component={Link} href='/register' color='inherit'>
+              Register
+            </Button>
+          </MenuItem>
+        </>
+      )}
+    </Menu>
+  );
 
   return (
     <AppBar position='static' sx={{ backgroundColor: '#2B2E4A' }}>
@@ -72,6 +129,9 @@ function NavbarTwo() {
           <>
             {isMobile ? (
               <>
+                <IconButton edge='start' color='inherit' aria-label='menu' onClick={handleMobileMenuOpen}>
+                  <MenuIcon />
+                </IconButton>
                 <IconButton
                   edge='end'
                   aria-label='account of current user'
@@ -96,7 +156,7 @@ function NavbarTwo() {
                   open={Boolean(anchorEl)}
                   onClose={handleClose}
                 >
-                  <MenuItem onClick={handleDashboardClick}>
+                  <MenuItem onClick={handleClose}>
                     <ListItemIcon>
                       <Dashboard />
                     </ListItemIcon>
@@ -134,6 +194,7 @@ function NavbarTwo() {
           </>
         )}
       </Toolbar>
+      {mobileMenu}
     </AppBar>
   );
 }

@@ -8,9 +8,7 @@ import ButtonCustom from './ButtonCustom';
 import { useState } from 'react';
 import SearchIcon from '@mui/icons-material/Search';
 import axios from 'axios';
-
 //import Link from 'next/Link';
-
 import { useRouter } from 'next/router';
 
 const apiKey = process.env.NEXT_PUBLIC_API_VUELOS_KEY;
@@ -31,12 +29,12 @@ const FlightInfoContainer = styled(Card)(({ theme }) => ({
   flexDirection: 'column',
   justifyContent: 'space-between',
   alignItems: 'stretch',
-  width: '40vw',
-  minWidth: '400px',
+  width: '60vw',
+  minWidth: '300px',
   backgroundColor: '#FFFFFF',
   padding: theme.spacing(2),
   borderRadius: theme.spacing(1),
-  boxShadow: theme.shadows[5],
+  boxShadow: theme.shadows[4],
 }));
 
 const BoardingPassCard = () => {
@@ -69,7 +67,6 @@ const BoardingPassCard = () => {
       console.log(error);
     }
   };
-  //console.log(id);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -96,12 +93,10 @@ const BoardingPassCard = () => {
       latitud,
       rutas: idRuta,
     };
-
     const viajePost = await axios.patch(
       `https://nomada-backend-production.up.railway.app/api/v1/viajes/${id}`,
       modelViaje,
     );
-
     console.log('statusCode', viajePost.status);
     if (viajePost.status !== 201) {
       console.log('error al insertar');
@@ -124,7 +119,6 @@ const BoardingPassCard = () => {
       const flightGet = await axios.get(url, { params });
       console.log('statusCode', flightGet.status);
       console.log(flightGet.data.response);
-      //const dataApi = flightGet.data.response;
       if (flightGet.status == 200) {
         const dataApi = flightGet.data.response;
         console.log('Vuelo encontrado');
@@ -149,7 +143,7 @@ const BoardingPassCard = () => {
 
   return (
     <Box display='flex' flexDirection='column' alignItems='center' mt={5} maxWidth='100%'>
-      <Typography variant='h5' sx={{ marginBottom: 2 }}>
+      <Typography variant='h5' sx={{ marginBottom: 2, textAlign: 'center' }}>
         Si tienes número de vuelo ingrésalo, si no, agrega manualmente tu Destino.
       </Typography>
       <FlightInfoContainer>

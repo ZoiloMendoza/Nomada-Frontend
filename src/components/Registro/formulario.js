@@ -60,7 +60,8 @@ function Formulario() {
         };
         localStorage.setItem('usuarioLogeado', JSON.stringify(usuario));
         router.push('/inicio');
-        alert('Usuario creado correctamente', name, email, password);
+
+        //alert('Usuario creado correctamente', name, email, password);
       } else {
         console.log('Error al insertar');
       }

@@ -33,10 +33,20 @@ const FlightCard = ({ flightData, handleEdit, handleDelete }) => {
         <Card sx={styles.card} key={flightData.id}>
           <div sx={styles.editDeleteIcons}>
             <IconButton aria-label='edit' onClick={() => handleEdit(flightInfo)}>
-              <EditIcon />
+              <EditIcon
+                sx={{
+                  width: '20px',
+                  color: '#D2D2D2',
+                }}
+              />
             </IconButton>
             <IconButton aria-label='delete' onClick={() => handleDelete(flightInfo)}>
-              <DeleteIcon />
+              <DeleteIcon
+                sx={{
+                  width: '20px',
+                  color: '#D2D2D2',
+                }}
+              />
             </IconButton>
           </div>
           <Grid container spacing={2}>

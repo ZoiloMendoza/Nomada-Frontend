@@ -4,7 +4,7 @@ import ButtonLogin from './ButtonLogin';
 import CheckboxLogin from './CheckboxLogin';
 import axios from 'axios';
 import Link from 'next/link';
-
+import { useRouter } from 'next/router';
 const style = {
   formulario: {
     display: 'flex',
@@ -18,6 +18,7 @@ const style = {
 };
 
 function FormLogin() {
+  const router = useRouter();
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -33,11 +34,13 @@ function FormLogin() {
       console.log('error al insertar');
     } else {
       console.log('Logeado');
-      setFormData({
-        email: '',
-        password: '',
-      });
-      alert('Usuario logeado correctamente');
+      const usuario = {
+        ...userPost.data,
+      };
+      localStorage.setItem('usuarioLogeado', JSON.stringify(usuario));
+      router.push('/inicio');
+
+      //alert('Usuario logeado correctamente');
     }
   };
   console.log(formData);
@@ -94,9 +97,7 @@ function FormLogin() {
         </Grid>
       </Box>
       <Grid my={4} justifyContent='center' direction='row' container>
-        <Link href='/misviajes'>
-          <ButtonLogin sx={{ fontSize: 24 }} onClick={addUser} />
-        </Link>
+        <ButtonLogin sx={{ fontSize: 24 }} onClick={addUser} />
       </Grid>
     </Grid>
   );
