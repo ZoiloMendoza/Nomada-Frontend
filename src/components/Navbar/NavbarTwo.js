@@ -26,9 +26,8 @@ function NavbarTwo() {
   const router = useRouter();
 
   useEffect(() => {
-    const usuario = JSON.parse(localStorage.getItem('usuarioLogeado'));
     console.log(localStorage);
-
+    const usuario = JSON.parse(localStorage?.getItem('usuarioLogeado'));
     if (!usuario) {
       //router.push('/login');
     }

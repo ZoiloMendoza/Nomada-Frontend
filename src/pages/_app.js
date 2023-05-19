@@ -3,6 +3,7 @@ import { config } from '@fortawesome/fontawesome-svg-core';
 import '@fortawesome/fontawesome-svg-core/styles.css';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
+import { UseContextProvider } from '@/context/userLogin';
 config.autoAddCss = false;
 
 import Layout from '@/components/Layout';
@@ -30,10 +31,12 @@ export default function App({ Component, pageProps }) {
         <link rel='icon' href='/img/logo3.svg' />
       </Head>
       <ThemeProvider theme={theme}>
-        <Layout>
-          <CssBaseline />
-          <Component {...pageProps} />
-        </Layout>
+        <UseContextProvider>
+          <Layout>
+            <CssBaseline />
+            <Component {...pageProps} />
+          </Layout>
+        </UseContextProvider>
       </ThemeProvider>
     </>
   );

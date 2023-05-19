@@ -1,10 +1,12 @@
 import { Box, TextField, Grid, Card, CardContent, Typography } from '@mui/material';
-import { useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import ButtonLogin from './ButtonLogin';
 import CheckboxLogin from './CheckboxLogin';
 import axios from 'axios';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import { useUserContext, UserContext } from '@/context/userLogin';
+
 const style = {
   formulario: {
     display: 'flex',
@@ -18,6 +20,8 @@ const style = {
 };
 
 function FormLogin() {
+  const variableState = useContext(UserContext);
+  console.log(variableState);
   const router = useRouter();
   const [formData, setFormData] = useState({
     email: '',
@@ -27,8 +31,10 @@ function FormLogin() {
     console.log([e.target.name], e.target.value);
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
+
   const addUser = async () => {
     const userPost = await axios.post('https://nomada-backend-production.up.railway.app/api/v1/login', formData);
+
     console.log('statusCode', userPost.status);
     if (userPost.status !== 200) {
       console.log('error al insertar');
@@ -37,6 +43,7 @@ function FormLogin() {
       const usuario = {
         ...userPost.data,
       };
+      setVariableState(usuario);
       localStorage.setItem('usuarioLogeado', JSON.stringify(usuario));
       router.push('/inicio');
 
