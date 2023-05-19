@@ -1,4 +1,4 @@
-import { Box, TextField, Grid, Card, CardContent, Typography } from '@mui/material';
+import { Box, TextField, Grid, Card, CardContent, Typography, FormControlLabel, Checkbox } from '@mui/material';
 import CheckboxFormulario from './CheckboxFormulario';
 import ButtonForm from './ButtonForm';
 import { useState } from 'react';
@@ -20,6 +20,7 @@ const style = {
 };
 
 function Formulario() {
+  const [isChecked, setIsChecked] = useState(false);
   const router = useRouter();
   const [confirmarPassword, setConfirmarPaswordd] = useState({
     confirmar: '',
@@ -59,7 +60,7 @@ function Formulario() {
         };
         localStorage.setItem('usuarioLogeado', JSON.stringify(usuario));
         router.push('/inicio');
-        //alert('Usuario creado correctamente', name, email, password);
+        alert('Usuario creado correctamente', name, email, password);
       } else {
         console.log('Error al insertar');
       }
@@ -67,6 +68,9 @@ function Formulario() {
       console.error('Error en la petición:', error);
       alert('Error al crear el usuario. Por favor, inténtalo de nuevo.');
     }
+    const handleCheckboxChange = (event) => {
+      setIsChecked(event.target.checked);
+    };
   };
 
   return (
@@ -141,16 +145,21 @@ function Formulario() {
                               fullWidth
                             />
                           </CardContent>
+
                           <Grid item xs={12} style={{ textAlign: 'center' }}>
-                            <CheckboxFormulario />
+                            <CheckboxFormulario checked={isChecked} name='checkboxFormulario' />
                           </Grid>
                           <p>¿Ya tienes una cuenta?</p>
-                          <Link legacyBehavior href='/inicio'>
+                          <Link legacyBehavior href='/login'>
                             <a style={{ color: 'blue', cursor: 'pointer' }}>Inicia sesión</a>
                           </Link>
 
                           <Grid my={4} justifyContent='center' direction='row' container>
-                            <ButtonForm size='medium' onClick={() => handleSubmit(name, email, password)} />
+                            <ButtonForm
+                              size='medium'
+                              onClick={() => handleSubmit(name, email, password)}
+                              disabled={!isChecked}
+                            />
                           </Grid>
                         </Card>
                       </Grid>
@@ -165,4 +174,5 @@ function Formulario() {
     </div>
   );
 }
+
 export default Formulario;
