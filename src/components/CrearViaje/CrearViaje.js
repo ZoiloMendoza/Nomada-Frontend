@@ -79,7 +79,7 @@ const BoardingPassCard = () => {
   };
 
   const handleClick = async () => {
-    console.log(id, 'buttonn');
+    console.log(id, 'button');
     console.log(formData);
     const { origen, destino, paisDestino, fechaInicio, fechaFinal, longitud, latitud } = formData;
     const modelViaje = {
