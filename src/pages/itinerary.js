@@ -13,6 +13,7 @@ import { hotelData } from '@/components/Itinerary/hotelData';
 import { activityData } from '@/components/Itinerary/activityData';
 import { getData } from './api/proxy/findSearch';
 import Box from '@mui/material/Box';
+import TabDestinos from '@/components/Itinerary/TabsDestinos';
 
 export default function Itinerary({ contentApi, contentViaje }) {
   //const router = useRouter();
@@ -37,6 +38,7 @@ export default function Itinerary({ contentApi, contentViaje }) {
           margin: 5,
         }}
       >
+        <TabDestinos />
         <FlightCard flightData={flightData} />
 
         <HotelCard hotelData={hotelData} />
