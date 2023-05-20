@@ -26,11 +26,28 @@ const styles = {
 };
 
 function ActivityCard({ activityData }) {
+  const actividades = activityData.rutas[0].actividades
   const [open, setOpen] = useState(false);
   const [openForm, setOpenForm] = useState(false);
   const [selectedActivity, setSelectedActivity] = useState(null);
   const [isFavorite, setIsFavorite] = useState(false);
-
+  const [infoRuta, setinfoRuta] = useState([]);
+  useEffect(() => {
+    const getRuta = async () => {
+      try {
+        const get = await axios.get(
+          `https://nomada-backend-production.up.railway.app/api/v1/actividades/${'6469267dbbcdff8d071aaa06'}`,
+        );
+        if (get) {
+          console.log(get.status);
+          setinfoRuta(get.data);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getRuta();
+  }, []);
   const handleClick = (location_id) => {
     const selectedActivity = activityData.find((activity) => activity.location_id === location_id);
     setSelectedRestaurant(selectedActivity);
