@@ -9,6 +9,8 @@ import ShareIcon from '@mui/icons-material/Share';
 import PeopleIcon from '@mui/icons-material/People';
 import { Favorite } from '@mui/icons-material';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
+import AddToGroup from './AddToGroup';
+import { useState } from 'react';
 
 const CircleIconButton = ({ icon, href, onClick }) => (
   <IconButton
@@ -72,6 +74,7 @@ const styles = {
 };
 
 const HeroImage = (props) => {
+  const [openModal, setOpenModal] = useState(false);
   const router = useRouter();
   const destino = () => {
     console.log('click boton add');
@@ -80,8 +83,19 @@ const HeroImage = (props) => {
       query: { destino: viajeData?.destino, paisDestino: viajeData?.paisDestino, idRuta: viajeData?.rutas[0]?._id },
     });
   };
+
+  const handleOpenModal = () => {
+    setOpenModal(true);
+    console.log('Add to Group clicked!');
+  };
+
+  const closeModal = () => {
+    setOpenModal(false);
+  };
+
   return (
     <>
+      {openModal && <AddToGroup openModal={openModal} closeModal={closeModal} />}
       <Box sx={{ ...styles.hero, backgroundImage: `url(${props.imagenFondo})` }}>
         <Container maxWidth='md'>
           <Grid container spacing={3}>
@@ -96,7 +110,7 @@ const HeroImage = (props) => {
               </IconButton>
             </Grid>
             <Grid item>
-              <IconButton component='a' href='/users'>
+              <IconButton component='a' onClick={handleOpenModal}>
                 <PeopleIcon style={{ color: '#FFFFFF' }} />
               </IconButton>
             </Grid>

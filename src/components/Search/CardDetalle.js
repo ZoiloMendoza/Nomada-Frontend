@@ -57,6 +57,7 @@ const CardDetalle = ({ data, open, closeCard }) => {
   const handleClose = () => {
     closeCard();
   };
+
   useEffect(() => {
     const fetchDetalles = async () => {
       const response = await axios.get(`/api/proxy/tripadvisor/${data.location_id}`);
