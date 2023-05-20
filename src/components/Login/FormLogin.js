@@ -20,7 +20,8 @@ const style = {
 };
 
 function FormLogin() {
-  const variableState = useContext(UserContext);
+  const userContextValues = useContext(UserContext);
+  const { variableState, setVariableState } = userContextValues;
   console.log(variableState);
   const router = useRouter();
   const [formData, setFormData] = useState({

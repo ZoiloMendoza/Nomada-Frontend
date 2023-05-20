@@ -16,8 +16,10 @@ import { AccountCircle, Dashboard, ExitToApp } from '@mui/icons-material';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
+import { useUserContext } from '@/context/userLogin';
 
 function NavbarTwo() {
+  const { variableState } = useUserContext();
   const [anchorEl, setAnchorEl] = useState(null);
   const [isLoggedIn, setIsLoggedIn] = useState(false); // Replace with your login state
   //const theme = useTheme();
@@ -26,13 +28,13 @@ function NavbarTwo() {
   const router = useRouter();
 
   useEffect(() => {
-    console.log(localStorage);
-    const usuario = JSON.parse(localStorage?.getItem('usuarioLogeado'));
-    if (!usuario) {
-      //router.push('/login');
+    console.log(variableState);
+    const usuario = variableState;
+    if (usuario == false) {
+      return; //router.push('/login');
     }
     setIsLoggedIn(true);
-  }, []);
+  }, [variableState]);
 
   const handleMenu = (event) => {
     setAnchorEl(event.currentTarget);
