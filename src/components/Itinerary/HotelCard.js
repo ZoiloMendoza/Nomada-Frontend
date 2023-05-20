@@ -38,10 +38,20 @@ const HotelCard = ({ hotelData, handleEdit, handleDelete }) => {
           <CardContent>
             <div>
               <IconButton aria-label='edit' onClick={() => handleEdit(hotelInfo)}>
-                <EditIcon />
+                <EditIcon
+                  sx={{
+                    width: '20px',
+                    color: '#D2D2D2',
+                  }}
+                />
               </IconButton>
               <IconButton aria-label='delete' onClick={() => handleDelete(hotelInfo)}>
-                <DeleteIcon />
+                <DeleteIcon
+                  sx={{
+                    width: '20px',
+                    color: '#D2D2D2',
+                  }}
+                />
               </IconButton>
             </div>
             <Grid container spacing={2}>

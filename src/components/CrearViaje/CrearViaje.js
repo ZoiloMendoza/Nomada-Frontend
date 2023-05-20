@@ -29,12 +29,12 @@ const FlightInfoContainer = styled(Card)(({ theme }) => ({
   flexDirection: 'column',
   justifyContent: 'space-between',
   alignItems: 'stretch',
-  width: '40vw',
-  minWidth: '400px',
+  width: '60vw',
+  minWidth: '300px',
   backgroundColor: '#FFFFFF',
   padding: theme.spacing(2),
   borderRadius: theme.spacing(1),
-  boxShadow: theme.shadows[5],
+  boxShadow: theme.shadows[4],
 }));
 
 const BoardingPassCard = () => {
@@ -143,7 +143,7 @@ const BoardingPassCard = () => {
 
   return (
     <Box display='flex' flexDirection='column' alignItems='center' mt={5} maxWidth='100%'>
-      <Typography variant='h5' sx={{ marginBottom: 2 }}>
+      <Typography variant='h5' sx={{ marginBottom: 2, textAlign: 'center' }}>
         Si tienes número de vuelo ingrésalo, si no, agrega manualmente tu Destino.
       </Typography>
       <FlightInfoContainer>

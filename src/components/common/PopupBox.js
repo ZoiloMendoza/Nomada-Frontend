@@ -1,6 +1,31 @@
 import React from 'react';
-import { Box, IconButton } from '@mui/material';
+import { Box, IconButton, Grid } from '@mui/material';
+import { styled } from '@mui/system';
 import CloseIcon from '@mui/icons-material/Close';
+
+const GridItem = styled(Grid)(({ theme }) => ({
+  position: 'relative',
+  display: 'flex',
+  maxWidth: '50%',
+  minWidth: '50%',
+  maxHeight: '70vh',
+  minHeight: '50vh',
+  overflow: 'scroll',
+  flexDirection: 'column',
+  justifyContent: 'center',
+  alignItems: 'center',
+  backgroundColor: '#fff',
+  borderRadius: '5px',
+  boxShadow: '0px 3px 12px rgba(0, 0, 0, 0.3)',
+  [theme.breakpoints.down('sm')]: {
+    maxHeight: '70%',
+    minHeight: '55%',
+    maxWidth: '90%',
+    minWidth: '85%',
+    overflow: 'scroll',
+    zIndex: 100,
+  },
+}));
 
 const styles = {
   root: {
@@ -15,17 +40,7 @@ const styles = {
     backgroundColor: 'rgba(0, 0, 0, 0.5)',
     zIndex: 9999,
   },
-  content: {
-    position: 'relative',
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#fff',
-    padding: '10px',
-    borderRadius: '5px',
-    boxShadow: '0px 3px 12px rgba(0, 0, 0, 0.3)',
-  },
+  content: {},
   closeIcon: {
     position: 'absolute',
     top: '5px',
@@ -36,12 +51,12 @@ const styles = {
 const PopupBox = ({ open, onClose, children }) =>
   open && (
     <Box sx={styles.root}>
-      <Box sx={styles.content}>
+      <GridItem>
         <IconButton sx={styles.closeIcon} onClick={onClose}>
           <CloseIcon />
         </IconButton>
         {children}
-      </Box>
+      </GridItem>
     </Box>
   );
 

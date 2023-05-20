@@ -15,7 +15,7 @@ import {
 import { AccountCircle, Dashboard, ExitToApp } from '@mui/icons-material';
 import Link from 'next/link';
 import Image from 'next/image';
-//import { useRouter } from 'next/router';
+import { useRouter } from 'next/router';
 
 function NavbarTwo() {
   const [anchorEl, setAnchorEl] = useState(null);
@@ -23,7 +23,7 @@ function NavbarTwo() {
   //const theme = useTheme();
   //const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const isMobile = useMediaQuery((theme) => (theme ? theme.breakpoints.down('sm') : '(max-width:600px)'));
-  //const router = useRouter();
+  const router = useRouter();
 
   useEffect(() => {
     const usuario = JSON.parse(localStorage.getItem('usuarioLogeado'));
@@ -43,10 +43,16 @@ function NavbarTwo() {
     setAnchorEl(null);
   };
 
+  const handleDashboardClick = () => {
+    setAnchorEl(null);
+    router.push('/misviajes');
+  };
+
   const handleLogout = () => {
-    // Add your logout logic here
+    localStorage.removeItem('usuarioLogeado');
     setIsLoggedIn(false);
     handleClose();
+    router.push('/');
   };
 
   return (
@@ -90,7 +96,7 @@ function NavbarTwo() {
                   open={Boolean(anchorEl)}
                   onClose={handleClose}
                 >
-                  <MenuItem onClick={handleClose}>
+                  <MenuItem onClick={handleDashboardClick}>
                     <ListItemIcon>
                       <Dashboard />
                     </ListItemIcon>

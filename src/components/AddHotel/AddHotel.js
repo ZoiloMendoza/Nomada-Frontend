@@ -4,8 +4,8 @@ import Link from 'next/Link';
 
 const styles = {
   box: {
-    margin: '10px',
-    width: '40vw',
+    margin: '30px',
+    width: '50vw',
     height: '50vh',
     display: 'flex',
     alignItems: 'center',
@@ -83,6 +83,7 @@ const AddHotel = () => {
             value={hotelData.name}
             onChange={handleChange}
             fullWidth
+            variant='filled'
           />
           <TextField
             sx={styles.input}
@@ -92,6 +93,7 @@ const AddHotel = () => {
             value={hotelData.address}
             onChange={handleChange}
             fullWidth
+            variant='filled'
           />
           <TextField
             sx={styles.input}
@@ -105,6 +107,7 @@ const AddHotel = () => {
               shrink: true,
             }}
             fullWidth
+            variant='filled'
           />
           <TextField
             sx={styles.input}
@@ -118,6 +121,7 @@ const AddHotel = () => {
               shrink: true,
             }}
             fullWidth
+            variant='filled'
           />
           <TextField
             sx={styles.input}
@@ -126,6 +130,7 @@ const AddHotel = () => {
             value={hotelData.reservation}
             onChange={handleChange}
             fullWidth
+            variant='filled'
           />
           <Link href='/itinerary'>
             <Button type='submit' variant='contained' color='primary' sx={styles.button}>

@@ -36,9 +36,10 @@ function FormLogin() {
       console.log('Logeado');
       const usuario = {
         ...userPost.data,
-      }
+      };
       localStorage.setItem('usuarioLogeado', JSON.stringify(usuario));
       router.push('/inicio');
+
       //alert('Usuario logeado correctamente');
     }
   };
@@ -96,9 +97,7 @@ function FormLogin() {
         </Grid>
       </Box>
       <Grid my={4} justifyContent='center' direction='row' container>
-        
-          <ButtonLogin sx={{ fontSize: 24 }} onClick={addUser} />
-        
+        <ButtonLogin sx={{ fontSize: 24 }} onClick={addUser} />
       </Grid>
     </Grid>
   );
