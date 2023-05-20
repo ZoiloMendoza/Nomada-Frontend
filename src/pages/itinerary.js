@@ -13,13 +13,16 @@ import { hotelData } from '@/components/Itinerary/hotelData';
 import { activityData } from '@/components/Itinerary/activityData';
 import { getData } from './api/proxy/findSearch';
 import Box from '@mui/material/Box';
+import { useMediaQuery } from '@mui/material';
 import TabDestinos from '@/components/Itinerary/TabsDestinos';
+import TabsDestinosMobile from '@/components/Itinerary/TabsDestinosMobile';
 
 export default function Itinerary({ contentApi, contentViaje }) {
   //const router = useRouter();
   // const [tripData, setTripData] = useState({});
   console.log('contentApi', contentApi);
   console.log('contentViaje', contentViaje);
+  const isMobile = useMediaQuery((theme) => (theme ? theme.breakpoints.down('sm') : '(max-width:600px)'));
   //setTripData(contentViaje);
   //console.log(contentApi);
   return (
@@ -32,19 +35,29 @@ export default function Itinerary({ contentApi, contentViaje }) {
           idRuta: contentViaje?.rutas[0]?._id,
         }}
       />
+      {isMobile ? (
+        <Box
+          sx={{
+            margin: 2,
+          }}
+        >
+          <TabsDestinosMobile />
+        </Box>
+      ) : (
+        <Box
+          sx={{
+            margin: 5,
+          }}
+        >
+          <TabDestinos />
+          <FlightCard flightData={flightData} />
 
-      <Box
-        sx={{
-          margin: 5,
-        }}
-      >
-        <TabDestinos />
-        <FlightCard flightData={flightData} />
+          <HotelCard hotelData={hotelData} />
 
-        <HotelCard hotelData={hotelData} />
+          <ActivityCard activityData={activityData} />
+        </Box>
+      )}
 
-        <ActivityCard activityData={activityData} />
-      </Box>
       <ScrollToTop />
     </Box>
   );
