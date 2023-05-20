@@ -13,12 +13,31 @@ import { hotelData } from '@/components/Itinerary/hotelData';
 import { activityData } from '@/components/Itinerary/activityData';
 import { getData } from './api/proxy/findSearch';
 import Box from '@mui/material/Box';
+//import { useEffect, useState } from 'react';
 
 export default function Itinerary({ contentApi, contentViaje }) {
+  //const [infoRuta, setinfoRuta] = useState([]);
+  /* useEffect(() => {
+    const getRuta = async () => {
+      try {
+        const get = await axios.get(
+          `https://nomada-backend-production.up.railway.app/api/v1/actividades/${'6469267dbbcdff8d071aaa06'}`,
+        );
+        if (get) {
+          console.log(get.status);
+          setinfoRuta(get.data);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getRuta();
+  }, [contentViaje]); */
   //const router = useRouter();
   // const [tripData, setTripData] = useState({});
   console.log('contentApi', contentApi);
   console.log('contentViaje', contentViaje);
+
   //setTripData(contentViaje);
   //console.log(contentApi);
   return (
