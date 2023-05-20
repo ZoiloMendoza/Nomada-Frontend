@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Button, Dialog, DialogTitle, DialogContent, DialogContentText, TextField, DialogActions } from '@mui/material';
 import { useRouter } from 'next/router';
-import axios from 'axios'
+import axios from 'axios';
 const PopupForm = ({ data, openForm, closeForm, categoria }) => {
   const router = useRouter();
   const { idRuta } = router.query;
@@ -18,16 +18,18 @@ const PopupForm = ({ data, openForm, closeForm, categoria }) => {
       const nuevaActividad = {
         rutaId: idRuta,
         categoria: categoria,
-        nombre: name,
-        fechaInicio: time
-
+        nombre: data.name,
+        direccion: data.address_obj.address_string,
+        fotos: data.data[0].images.large.url,
+        fechaInicio: time,
+        fechaFinal: time,
       };
       const crearRutaPost = await axios.post(
         `https://nomada-backend-production.up.railway.app/api/v1/actividades`,
         nuevaActividad,
       );
-      console.log(crearRutaPost, 'crearRuta')
-      alert('se agrego actividad')
+      console.log(crearRutaPost, 'crearRuta');
+      alert('se agrego actividad');
     } catch (error) {
       console.log(error);
     }

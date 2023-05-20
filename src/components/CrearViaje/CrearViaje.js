@@ -8,9 +8,7 @@ import ButtonCustom from './ButtonCustom';
 import { useState } from 'react';
 import SearchIcon from '@mui/icons-material/Search';
 import axios from 'axios';
-//import Link from 'next/Link';
 import { useRouter } from 'next/router';
-
 const apiKey = process.env.NEXT_PUBLIC_API_VUELOS_KEY;
 
 const theme = createTheme({
@@ -38,6 +36,7 @@ const FlightInfoContainer = styled(Card)(({ theme }) => ({
 }));
 
 const BoardingPassCard = () => {
+  const [error, setError] = useState(false);
   const [idRuta, setIdRuta] = useState('');
   const [formData, setFormData] = useState({
     flightNumber: '',
@@ -50,8 +49,9 @@ const BoardingPassCard = () => {
     latitud: '',
   });
   const router = useRouter();
-
   const { id } = router.query;
+  const regexPattern = /^[A-Za-z]{2}\d{4}$/;
+
   const ejemplo = async () => {
     try {
       const nuevaRuta = {
@@ -74,14 +74,13 @@ const BoardingPassCard = () => {
       ...prevState,
       [name]: value,
     }));
+    setError(!regexPattern.test(e.target.value));
     console.log(formData);
   };
 
   const handleClick = async () => {
     console.log(id, 'buttonn');
-
     console.log(formData);
-    event.preventDefault();
     const { origen, destino, paisDestino, fechaInicio, fechaFinal, longitud, latitud } = formData;
     const modelViaje = {
       origen,
@@ -157,6 +156,8 @@ const BoardingPassCard = () => {
               size='small'
               value={formData.flightNumber}
               onChange={handleChange}
+              error={error}
+              helperText={error && 'El formato debe ser: dos letras seguidas de cuatro números'}
               sx={{ marginBottom: 2 }}
             />
             <IconButton aria-label='Buscar' onClick={searchClick}>
