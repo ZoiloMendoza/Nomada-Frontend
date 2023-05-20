@@ -6,6 +6,8 @@ import axios from 'axios';
 import Link from 'next/link';
 //import theme from './TemaConfig';
 import { useRouter } from 'next/router';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const style = {
   formulario: {
@@ -59,7 +61,8 @@ function Formulario() {
           ...userPost.data,
         };
         localStorage.setItem('usuarioLogeado', JSON.stringify(usuario));
-        router.push('/inicio');
+        notify();
+        //router.push('/inicio');
 
         //alert('Usuario creado correctamente', name, email, password);
       } else {
@@ -69,11 +72,16 @@ function Formulario() {
       console.error('Error en la petición:', error);
       alert('Error al crear el usuario. Por favor, inténtalo de nuevo.');
     }
+
     const handleCheckboxChange = (event) => {
       setIsChecked(event.target.checked);
     };
   };
-
+  const notify = () => {
+    toast.success('Cuenta registrada correctamente!', {
+      position: toast.POSITION.TOP_CENTER,
+    });
+  };
   return (
     <div className='Formulario'>
       <Typography align='center' variant='h5' sx={{ paddingTop: '5vh' }}>
@@ -161,6 +169,7 @@ function Formulario() {
                               onClick={() => handleSubmit(name, email, password)}
                               disabled={!isChecked}
                             />
+                            <ToastContainer />
                           </Grid>
                         </Card>
                       </Grid>
