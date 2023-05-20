@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Button, Dialog, DialogTitle, DialogContent, DialogContentText, TextField, DialogActions } from '@mui/material';
 import { useRouter } from 'next/router';
 import axios from 'axios';
+
 const PopupForm = ({ data, openForm, closeForm, categoria }) => {
   const router = useRouter();
   const { idRuta } = router.query;

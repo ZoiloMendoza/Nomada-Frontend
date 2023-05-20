@@ -14,6 +14,7 @@ import { activityData } from '@/components/Itinerary/activityData';
 import { getData } from './api/proxy/findSearch';
 import Box from '@mui/material/Box';
 //import { useEffect, useState } from 'react';
+import TabDestinos from '@/components/Itinerary/TabsDestinos';
 
 export default function Itinerary({ contentApi, contentViaje }) {
   //const [infoRuta, setinfoRuta] = useState([]);
@@ -56,6 +57,7 @@ export default function Itinerary({ contentApi, contentViaje }) {
           margin: 5,
         }}
       >
+        <TabDestinos />
         <FlightCard flightData={flightData} />
 
         <HotelCard hotelData={hotelData} />
