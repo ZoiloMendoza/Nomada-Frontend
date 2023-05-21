@@ -14,7 +14,6 @@ import { activityData } from '@/components/Itinerary/activityData';
 import { getData } from './api/proxy/findSearch';
 import Box from '@mui/material/Box';
 import { useMediaQuery } from '@mui/material';
-//import { useEffect, useState } from 'react';
 import TabDestinos from '@/components/Itinerary/TabsDestinos';
 import TabsDestinosMobile from '@/components/Itinerary/TabsDestinosMobile';
 
@@ -41,7 +40,6 @@ export default function Itinerary({ contentApi, contentViaje }) {
   console.log('contentApi', contentApi);
   console.log('contentViaje', contentViaje);
   const isMobile = useMediaQuery((theme) => (theme ? theme.breakpoints.down('sm') : '(max-width:600px)'));
-
   //setTripData(contentViaje);
   //console.log(contentApi);
   return (
