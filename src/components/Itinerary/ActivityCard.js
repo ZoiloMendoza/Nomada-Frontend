@@ -10,6 +10,7 @@ const styles = {
   card: {
     marginBottom: '10px',
     margin: 2,
+    backgroundColor: '#F6F6F6',
   },
   media: {
     maxHeight: 300,
