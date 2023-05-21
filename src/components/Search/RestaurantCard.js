@@ -57,6 +57,10 @@ function RestaurantCard({ restaurantData }) {
     console.log('Favorite button clicked!');
   };
 
+  const funcionOpen = () => {
+    setOpenForm(true);
+    setOpen(false);
+  }
   return (
     <>
       <h2 style={{ marginLeft: '30px' }}>Restaurantes</h2>
@@ -105,7 +109,7 @@ function RestaurantCard({ restaurantData }) {
         ))}
       </Carrusel>
       {open && selectedRestaurant !== null && (
-        <CardDetalle data={selectedRestaurant} open={open} closeCard={closeCard} categoria={'restaurant'} />
+        <CardDetalle data={selectedRestaurant} open={open} closeCard={closeCard} categoria={'restaurant'} openForm={funcionOpen} />
       )}
       {openForm && selectedRestaurant !== null && (
         <PopupForm data={selectedRestaurant} openForm={openForm} closeForm={closeForm} />

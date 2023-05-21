@@ -10,6 +10,10 @@ import { useState, useEffect } from 'react';
 //import ListItem from '@mui/material/ListItem';
 //import ListItemText from '@mui/material/ListItemText';
 import CircularProgress from '@mui/material/CircularProgress';
+import { IconButton, Button } from '@mui/material';
+
+import { Add, Favorite, FavoriteBorder } from '@mui/icons-material';
+
 
 const GridItem = styled(Grid)(({ theme }) => ({
   padding: '5px',
@@ -49,15 +53,18 @@ const styles = {
   },
 };
 
-const CardDetalle = ({ data, open, closeCard }) => {
+const CardDetalle = ({ data, open, closeCard, openForm }) => {
   // const [open, setOpen] = useState(false);
   const [item, setItem] = useState({});
   const [loading, setLoading] = useState(true);
-
+  const [isFavorite, setIsFavorite] = useState(false);
   const handleClose = () => {
     closeCard();
   };
-
+  const handleFavoriteClick = () => {
+    setIsFavorite(!isFavorite);
+    console.log('Favorite button clicked!');
+  };
   useEffect(() => {
     const fetchDetalles = async () => {
       const response = await axios.get(`/api/proxy/tripadvisor/${data.location_id}`);
@@ -106,6 +113,16 @@ const CardDetalle = ({ data, open, closeCard }) => {
                   {item?.address_obj?.address_string}
                 </Typography>
               </CardContent>
+              <IconButton
+              sx={styles.addIcon}
+              aria-label='Add to itinerary'
+              onClick={openForm}
+            >
+              <Add />
+            </IconButton>
+            <IconButton sx={styles.iconButton} aria-label='favorite' onClick={handleFavoriteClick}>
+              {isFavorite ? <Favorite /> : <FavoriteBorder />}
+            </IconButton>
               <Box sx={styles.reviewsContainer}>
                 {/*item?.reviews?.map((review) => (
                     <Box key={review._id} sx={styles.review}>

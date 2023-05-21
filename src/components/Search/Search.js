@@ -2,7 +2,7 @@ import React from 'react';
 import { IconButton, InputBase, Paper, Toolbar } from '@mui/material';
 import { ArrowBack, Search } from '@mui/icons-material';
 import Link from 'next/link';
-
+import { useRouter } from 'next/router';
 const styles = {
   root: {
     flexGrow: 1,
@@ -19,6 +19,8 @@ const styles = {
 };
 
 export default function SearchBar() {
+  const router = useRouter();
+  const { id } = router.query;
   const handleSearch = (event) => {
     event.preventDefault();
     // Add code to handle search
@@ -27,7 +29,7 @@ export default function SearchBar() {
   return (
     <Paper sx={styles.root} elevation={2}>
       <Toolbar sx={styles.toolbar}>
-        <Link href='/itinerary'>
+        <Link href={`/itinerary?id=${id}`}>
           <IconButton edge='start' color='inherit' aria-label='back'>
             <ArrowBack />
           </IconButton>
