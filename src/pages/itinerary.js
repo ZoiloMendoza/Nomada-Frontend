@@ -18,25 +18,9 @@ import TabDestinos from '@/components/Itinerary/TabsDestinos';
 import TabsDestinosMobile from '@/components/Itinerary/TabsDestinosMobile';
 
 export default function Itinerary({ contentApi, contentViaje }) {
-  //const [infoRuta, setinfoRuta] = useState([]);
-  /* useEffect(() => {
-    const getRuta = async () => {
-      try {
-        const get = await axios.get(
-          `https://nomada-backend-production.up.railway.app/api/v1/actividades/${'6469267dbbcdff8d071aaa06'}`,
-        );
-        if (get) {
-          console.log(get.status);
-          setinfoRuta(get.data);
-        }
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    getRuta();
-  }, [contentViaje]); */
-  //const router = useRouter();
-  // const [tripData, setTripData] = useState({});
+  if(!contentApi){
+    return <div>Intentalo más tarde</div>
+  }
   console.log('contentApi', contentApi);
   console.log('contentViaje', contentViaje);
   const isMobile = useMediaQuery((theme) => (theme ? theme.breakpoints.down('sm') : '(max-width:600px)'));
@@ -66,12 +50,12 @@ export default function Itinerary({ contentApi, contentViaje }) {
             margin: 5,
           }}
         >
-          <TabDestinos />
-          <FlightCard flightData={flightData} />
+          <TabDestinos dataDestino={contentViaje}/>
+          {/*<FlightCard flightData={flightData} />+/}
 
-          <HotelCard hotelData={hotelData} />
+          {/*<HotelCard hotelData={hotelData} />*/}
 
-          <ActivityCard activityData={contentViaje.rutas[0].actividades} />
+          {/*<ActivityCard activityData={contentViaje.rutas[0].actividades} />*/}
         </Box>
       )}
 

@@ -5,7 +5,9 @@ import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
 import FlightCard from './FlightCard';
 import { flightData } from '@/components/Itinerary/flightData';
-
+import ActivityCard from '@/components/Itinerary/ActivityCard';
+import HotelCard from '@/components/Itinerary/HotelCard';
+import { hotelData } from '@/components/Itinerary/hotelData';
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -39,7 +41,10 @@ function a11yProps(index) {
   };
 }
 
-export default function TabsDestinos() {
+export default function TabsDestinos({dataDestino}) {
+  if(!dataDestino){
+    return <div>Intentalo más tarde TabsDestinos</div>
+  }
   const [value, setValue] = React.useState(0);
 
   const handleChange = (event, newValue) => {
@@ -66,6 +71,8 @@ export default function TabsDestinos() {
       </Tabs>
       <TabPanel value={value} index={0}>
         <FlightCard flightData={flightData} />
+        <HotelCard hotelData={hotelData} />
+        <ActivityCard activityData={dataDestino.rutas[0].actividades}/>
       </TabPanel>
       <TabPanel value={value} index={1}>
         Item Two

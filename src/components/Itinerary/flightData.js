@@ -15,7 +15,7 @@ export const flightData = [
     gate: 'B-21',
     class: 'Economy',
   },
-  {
+ /* {
     id: 2,
     origin: 'Cancún',
     destination: 'Ciudad de Mexico',
@@ -30,5 +30,5 @@ export const flightData = [
     terminal: 'T1',
     gate: '07',
     class: 'Economy',
-  },
+  },*/
 ];
