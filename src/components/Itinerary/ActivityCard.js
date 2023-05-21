@@ -26,7 +26,7 @@ const styles = {
 
 const ActivityCard = ({ activityData, handleEdit, handleDelete }) => {
   const [expanded, setExpanded] = useState(false);
-
+  console.log(activityData)
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
@@ -34,7 +34,7 @@ const ActivityCard = ({ activityData, handleEdit, handleDelete }) => {
   return (
     <>
       {activityData?.map((activityData) => (
-        <Card sx={styles.card} key={activityData.id}>
+        <Card sx={styles.card} key={activityData?._id}>
           <IconButton aria-label='edit' onClick={() => handleEdit(activityInfo)}>
             <EditIcon
               sx={{
@@ -53,13 +53,13 @@ const ActivityCard = ({ activityData, handleEdit, handleDelete }) => {
           </IconButton>
           <Grid container spacing={2}>
             <Grid item xs={4}>
-              <CardMedia sx={styles.media} image={activityData.image} title={activityData.title} />
+              <CardMedia sx={styles.media} image={activityData?.fotos} title={activityData?.nombre} />
             </Grid>
             <Grid item xs={6}>
-              <CardHeader title={activityData.title} subheader={activityData.subtitle} />
+              <CardHeader title={activityData?.nombre} subheader={activityData?.direccion} />
               <CardContent>
                 <Typography variant='body2' color='textSecondary' component='p'>
-                  {activityData.time}
+                  {activityData?.fechaInicio}
                 </Typography>
               </CardContent>
             </Grid>
@@ -78,7 +78,7 @@ const ActivityCard = ({ activityData, handleEdit, handleDelete }) => {
           </IconButton>
           <Collapse in={expanded} timeout='auto' unmountOnExit>
             <CardContent>
-              <Typography paragraph>{activityData.description}</Typography>
+              <Typography paragraph>{activityData?.direccion}</Typography>
             </CardContent>
           </Collapse>
         </Card>

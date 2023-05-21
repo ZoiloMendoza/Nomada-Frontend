@@ -17,9 +17,7 @@ export default function Search({ contentRestaurant, contentDestino }) {
 
       <Box>{<CityCard contentApi={cityData} />}</Box>
       <Box>{<RestaurantCard restaurantData={restaurantData} />}</Box>
-      <Box>
-        
-      </Box>
+      <Box></Box>
 
       <Box sx={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
         <MapButton />
