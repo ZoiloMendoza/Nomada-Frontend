@@ -10,10 +10,9 @@ import { useState, useEffect } from 'react';
 //import ListItem from '@mui/material/ListItem';
 //import ListItemText from '@mui/material/ListItemText';
 import CircularProgress from '@mui/material/CircularProgress';
-import { IconButton, Button } from '@mui/material';
+import { IconButton } from '@mui/material';
 
 import { Add, Favorite, FavoriteBorder } from '@mui/icons-material';
-
 
 const GridItem = styled(Grid)(({ theme }) => ({
   padding: '5px',
@@ -113,16 +112,12 @@ const CardDetalle = ({ data, open, closeCard, openForm }) => {
                   {item?.address_obj?.address_string}
                 </Typography>
               </CardContent>
-              <IconButton
-              sx={styles.addIcon}
-              aria-label='Add to itinerary'
-              onClick={openForm}
-            >
-              <Add />
-            </IconButton>
-            <IconButton sx={styles.iconButton} aria-label='favorite' onClick={handleFavoriteClick}>
-              {isFavorite ? <Favorite /> : <FavoriteBorder />}
-            </IconButton>
+              <IconButton sx={styles.addIcon} aria-label='Add to itinerary' onClick={openForm}>
+                <Add />
+              </IconButton>
+              <IconButton sx={styles.iconButton} aria-label='favorite' onClick={handleFavoriteClick}>
+                {isFavorite ? <Favorite /> : <FavoriteBorder />}
+              </IconButton>
               <Box sx={styles.reviewsContainer}>
                 {/*item?.reviews?.map((review) => (
                     <Box key={review._id} sx={styles.review}>

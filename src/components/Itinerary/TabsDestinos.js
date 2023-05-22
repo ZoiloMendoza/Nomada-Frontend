@@ -41,9 +41,9 @@ function a11yProps(index) {
   };
 }
 
-export default function TabsDestinos({dataDestino}) {
-  if(!dataDestino){
-    return <div>Intentalo más tarde TabsDestinos</div>
+export default function TabsDestinos({ dataDestino }) {
+  if (!dataDestino) {
+    return <div>Intentalo más tarde TabsDestinos</div>;
   }
   const [value, setValue] = React.useState(0);
 
@@ -52,7 +52,16 @@ export default function TabsDestinos({dataDestino}) {
   };
 
   return (
-    <Box sx={{ flexGrow: 1, bgcolor: 'background.paper', display: 'flex', height: '100vh', width: '100%' }}>
+    <Box
+      sx={{
+        flexGrow: 1,
+        bgcolor: 'background.paper',
+        display: 'flex',
+        height: '100vh',
+        width: '100%',
+        overflow: 'scroll',
+      }}
+    >
       <Tabs
         orientation='vertical'
         variant='scrollable'
