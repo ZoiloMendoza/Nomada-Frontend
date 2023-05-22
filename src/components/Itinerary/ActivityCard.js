@@ -1,11 +1,11 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Card, CardHeader, CardMedia, CardContent, Typography, IconButton, Collapse } from '@mui/material';
 import { ExpandMore } from '@mui/icons-material';
 import { Edit as EditIcon, Delete as DeleteIcon } from '@mui/icons-material';
 import LocalActivityIcon from '@mui/icons-material/LocalActivity';
-
+import axios from 'axios'
 import Grid from '@mui/material/Grid';
-
+const URLRAILWAY = process.env.NEXT_PUBLIC_BACKEND;
 const styles = {
   card: {
     marginBottom: '10px',
@@ -25,16 +25,29 @@ const styles = {
   },
 };
 
-const ActivityCard = ({ activityData, handleEdit, handleDelete }) => {
+const ActivityCard = ({ activityData, handleEdit }) => {
   const [expanded, setExpanded] = useState(false);
-  console.log(activityData)
+  const [activities, setActivities] = useState(activityData);
+  useEffect(() => {
+    setActivities(activityData);
+  }, [activityData]);
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
-
+  const handleDelete = async (idActividad) => {
+    try {
+      if(idActividad){
+        const borrarCardActividades = await axios.delete(`${URLRAILWAY}/api/v1/actividades/${idActividad}`)
+        setActivities(activities.filter(activity => activity._id !== idActividad));
+        alert('Card eliminada')
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
   return (
     <>
-      {activityData?.map((activityData) => (
+      {activities ? activities?.map((activityData) => (
         <Card sx={styles.card} key={activityData?._id}>
           <IconButton aria-label='edit' onClick={() => handleEdit(activityInfo)}>
             <EditIcon
@@ -44,7 +57,7 @@ const ActivityCard = ({ activityData, handleEdit, handleDelete }) => {
               }}
             />
           </IconButton>
-          <IconButton aria-label='delete' onClick={() => handleDelete(activityInfo)}>
+          <IconButton aria-label='delete' onClick={() => handleDelete(activityData._id)}>
             <DeleteIcon
               sx={{
                 width: '20px',
@@ -83,7 +96,7 @@ const ActivityCard = ({ activityData, handleEdit, handleDelete }) => {
             </CardContent>
           </Collapse>
         </Card>
-      ))}
+      )): 'Sin actividades'}
     </>
   );
 };
