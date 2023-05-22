@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { useState } from 'react';
 import axios from 'axios';
 import { useRouter } from 'next/router';
-
+const URLRAILWAY = process.env.NEXT_PUBLIC_BACKEND;
 export default function CrearViaje() {
   const customColor2 = '#E91E63';
   const router = useRouter();
@@ -18,7 +18,7 @@ export default function CrearViaje() {
   const addViaje = async () => {
     const usuario = JSON.parse(localStorage.getItem('usuarioLogeado'));
     const viajeBody = { nombre: viajeName.nombre, administradorViaje: usuario.idUser };
-    const viajePost = await axios.post('https://nomada-backend-production.up.railway.app/api/v1/viajes', viajeBody);
+    const viajePost = await axios.post(`${URLRAILWAY}/api/v1/viajes`, viajeBody);
     console.log('statusCode', viajePost.status);
     if (viajePost.status !== 201) {
       console.log('error al insertar');

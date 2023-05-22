@@ -28,7 +28,7 @@ function NavbarTwo() {
   const router = useRouter();
 
   useEffect(() => {
-    console.log(variableState);
+    //console.log(variableState);
     const usuario = variableState;
     if (usuario == false) {
       return; //router.push('/login');

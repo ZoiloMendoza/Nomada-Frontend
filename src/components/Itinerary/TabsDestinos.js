@@ -61,37 +61,20 @@ export default function TabsDestinos({dataDestino}) {
         aria-label='Vertical tabs example'
         sx={{ borderRight: 1, borderColor: 'divider' }}
       >
-        <Tab label='Destino Uno' {...a11yProps(0)} />
-        <Tab label='Destino Dos' {...a11yProps(1)} />
-        <Tab label='Destino Tres' {...a11yProps(2)} />
-        <Tab label='Destino Cuatro' {...a11yProps(3)} />
-        <Tab label='Destino Cinco' {...a11yProps(4)} />
-        <Tab label='Destino Seis' {...a11yProps(5)} />
-        <Tab label='Destino Siete' {...a11yProps(6)} />
+        {dataDestino.rutas ? dataDestino.rutas.map((ruta, index) => {
+          return <Tab key={ruta._id} label={`${ruta.transporte.destino}`} {...a11yProps(index)} />
+        }) : <Tab label='Destino Uno' {...a11yProps(0)} />}
       </Tabs>
-      <TabPanel value={value} index={0}>
-        <FlightCard flightData={flightData} />
-        <HotelCard hotelData={hotelData} />
-        <ActivityCard activityData={dataDestino.rutas[0].actividades}/>
-      </TabPanel>
-      <TabPanel value={value} index={1}>
+      {dataDestino.rutas ? dataDestino.rutas.map((ruta, index) => {
+          return <TabPanel key={index} value={value} index={index}>
+          <FlightCard flightData={ruta.transporte} />
+          <HotelCard hotelData={[]} />
+          <ActivityCard activityData={dataDestino.rutas[index].actividades}/>
+        </TabPanel>
+        }) : <TabPanel value={value} index={1}>
         Item Two
-      </TabPanel>
-      <TabPanel value={value} index={2}>
-        Item Three
-      </TabPanel>
-      <TabPanel value={value} index={3}>
-        Item Four
-      </TabPanel>
-      <TabPanel value={value} index={4}>
-        Item Five
-      </TabPanel>
-      <TabPanel value={value} index={5}>
-        Item Six
-      </TabPanel>
-      <TabPanel value={value} index={6}>
-        Item Seven
-      </TabPanel>
+      </TabPanel>}
+     
     </Box>
   );
 }

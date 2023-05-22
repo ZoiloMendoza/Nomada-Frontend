@@ -1,7 +1,7 @@
 import { styled } from '@mui/system';
 import { Button, ButtonGroup } from '@mui/material';
 import { Link } from '@mui/material';
-
+import { useRouter } from 'next/router';
 const AddSection = styled('div')(({ theme }) => ({
   backgroundColor: '#EAEDED',
   borderRadius: '5px',
@@ -47,10 +47,13 @@ const AddButtonGroup = styled(ButtonGroup)(() => ({
 }));
 
 export default function Add({ destino }) {
+  const router = useRouter();
+  const { id } = router.query; 
+
   return (
     <AddSection>
       <AddButtonGroup aria-label='button group'>
-        <Link href='/crear-viaje'>
+        <Link href={`/crear-viaje?id=${id}`}>
           <AddButton>Nuevo destino</AddButton>
         </Link>
         <Link href='/addhotel'>

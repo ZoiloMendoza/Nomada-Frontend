@@ -4,6 +4,7 @@ import { useState } from 'react';
 import CardDetalleActivity from './cardDetalleActivity';
 import PopupActivity from './PopupActivity';
 import { Add, Favorite, FavoriteBorder } from '@mui/icons-material';
+const URLRAILWAY = process.env.NEXT_PUBLIC_BACKEND;
 
 const styles = {
   card: {
@@ -36,7 +37,7 @@ function ActivityCard({ activityData }) {
     const getRuta = async () => {
       try {
         const get = await axios.get(
-          `https://nomada-backend-production.up.railway.app/api/v1/actividades/${'6469267dbbcdff8d071aaa06'}`,
+          `${URLRAILWAY}/api/v1/actividades/${'6469267dbbcdff8d071aaa06'}`,
         );
         if (get) {
           console.log(get.status);

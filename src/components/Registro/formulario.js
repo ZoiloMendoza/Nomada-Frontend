@@ -6,7 +6,7 @@ import axios from 'axios';
 import Link from 'next/link';
 //import theme from './TemaConfig';
 import { useRouter } from 'next/router';
-
+const URLRAILWAY = process.env.NEXT_PUBLIC_BACKEND;
 const style = {
   formulario: {
     display: 'flex',
@@ -49,7 +49,7 @@ function Formulario() {
     }
     console.log('enviado', formData);
     try {
-      const userPost = await axios.post('https://nomada-backend-production.up.railway.app/api/v1/signup', formData);
+      const userPost = await axios.post(`${URLRAILWAY}/api/v1/signup`, formData);
       console.log('statusCode', userPost.status);
       console;
       if (userPost.status == 201) {

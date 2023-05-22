@@ -6,7 +6,7 @@ import axios from 'axios';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useUserContext, UserContext } from '@/context/userLogin';
-
+const URLRAILWAY = process.env.NEXT_PUBLIC_BACKEND;
 const style = {
   formulario: {
     display: 'flex',
@@ -34,7 +34,7 @@ function FormLogin() {
   };
 
   const addUser = async () => {
-    const userPost = await axios.post('https://nomada-backend-production.up.railway.app/api/v1/login', formData);
+    const userPost = await axios.post(`${URLRAILWAY}/api/v1/login`, formData);
 
     console.log('statusCode', userPost.status);
     if (userPost.status !== 200) {

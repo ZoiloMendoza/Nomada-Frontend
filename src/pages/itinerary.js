@@ -16,6 +16,7 @@ import Box from '@mui/material/Box';
 import { useMediaQuery } from '@mui/material';
 import TabDestinos from '@/components/Itinerary/TabsDestinos';
 import TabsDestinosMobile from '@/components/Itinerary/TabsDestinosMobile';
+const URLRAILWAY = process.env.NEXT_PUBLIC_BACKEND;
 
 export default function Itinerary({ contentApi, contentViaje }) {
   if(!contentApi){
@@ -28,7 +29,7 @@ export default function Itinerary({ contentApi, contentViaje }) {
   //console.log(contentApi);
   return (
     <Box sx={{ backgroundColor: '#EAEDED' }}>
-      <HeroImage viajeData={contentViaje} imagenFondo={contentApi.data[0].images.original.url} />
+      <HeroImage viajeData={contentViaje} imagenFondo={contentApi?.data[0]?.images?.original?.url} />
       <Add
         destino={{
           latitude: contentApi?.latitude,
@@ -68,7 +69,7 @@ export const getServerSideProps = async (context) => {
   const tripId = context.query.id;
 
   try {
-    const response = await axios.get(`https://nomada-backend-production.up.railway.app/api/v1/viajes/${tripId}`);
+    const response = await axios.get(`${URLRAILWAY}/api/v1/viajes/${tripId}`);
 
     if (response.status === 200) {
       const tripData = response.data;

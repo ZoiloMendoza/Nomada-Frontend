@@ -5,12 +5,12 @@ import { createTheme, ThemeProvider } from '@mui/material';
 import FlightIcon from '@mui/icons-material/Flight';
 import LuggageOutlinedIcon from '@mui/icons-material/LuggageOutlined';
 import ButtonCustom from './ButtonCustom';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import SearchIcon from '@mui/icons-material/Search';
 import axios from 'axios';
 import { useRouter } from 'next/router';
 const apiKey = process.env.NEXT_PUBLIC_API_VUELOS_KEY;
-
+const URLRAILWAY = process.env.NEXT_PUBLIC_BACKEND;
 const theme = createTheme({
   palette: {
     primary: {
@@ -51,23 +51,45 @@ const BoardingPassCard = () => {
   const router = useRouter();
   const { id } = router.query;
   const regexPattern = /^[A-Za-z]{2}\d{4}$/;
-
-  const ejemplo = async () => {
-    try {
-      const nuevaRuta = {
-        viajeId: id,
+  useEffect(()=> {
+    if(id){
+      const creandoRuta = async () => {
+        try {
+          const nuevaRuta = {
+            viajeId: id,
+          };
+          const crearRutaPost = await axios.post(
+            `${URLRAILWAY}/api/v1/rutas`,
+            nuevaRuta,
+          );
+          setIdRuta(crearRutaPost.data._id);
+          console.log('ruta', crearRutaPost);
+        } catch (error) {
+          console.log(error);
+        }
       };
-      const crearRutaPost = await axios.post(
-        `https://nomada-backend-production.up.railway.app/api/v1/rutas`,
-        nuevaRuta,
+      creandoRuta();
+    }
+  }, [id])
+  const creandoTransporte = async (datosDelVuelo) => {
+    try {
+      const nuevoTransporte = {
+        rutaId: idRuta,
+        numeroVuelo: datosDelVuelo?.flightNumber,
+        origen: datosDelVuelo?.origen,
+        destino: datosDelVuelo?.destino,
+        fechaIda: datosDelVuelo?.fechaInicio,
+        fechaRegreso: datosDelVuelo?.fechaFinal
+      };
+      const crearTransportePost = await axios.post(
+       `${URLRAILWAY}/api/v1/transportes`,
+        nuevoTransporte,
       );
-      setIdRuta(crearRutaPost.data._id);
-      console.log('ruta', crearRutaPost);
+      console.log('transporte', crearTransportePost);
     } catch (error) {
       console.log(error);
     }
   };
-
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevState) => ({
@@ -79,8 +101,7 @@ const BoardingPassCard = () => {
   };
 
   const handleClick = async () => {
-    console.log(id, 'button');
-    console.log(formData);
+    //await creandoRuta();
     const { origen, destino, paisDestino, fechaInicio, fechaFinal, longitud, latitud } = formData;
     const modelViaje = {
       origen,
@@ -89,14 +110,16 @@ const BoardingPassCard = () => {
       fechaInicio,
       fechaFinal,
       longitud,
-      latitud,
-      rutas: idRuta,
+      latitud
     };
     const viajePost = await axios.patch(
-      `https://nomada-backend-production.up.railway.app/api/v1/viajes/${id}`,
+      `${URLRAILWAY}/api/v1/viajes/${id}`,
       modelViaje,
     );
     console.log('statusCode', viajePost.status);
+    if (idRuta !== '') {
+      await creandoTransporte(formData);
+    }
     if (viajePost.status !== 201) {
       console.log('error al insertar');
     } else {
@@ -106,7 +129,6 @@ const BoardingPassCard = () => {
   };
   const searchClick = async (e) => {
     e.preventDefault();
-    ejemplo();
     try {
       //flight_iata: 'VB1353';
       //flight_icao: 'AFL1478';
@@ -122,14 +144,14 @@ const BoardingPassCard = () => {
         const dataApi = flightGet.data.response;
         console.log('Vuelo encontrado');
         setFormData({
-          flightNumber: dataApi.flight_iata,
-          origen: dataApi.dep_city,
-          destino: dataApi.arr_city,
-          paisDestino: dataApi.arr_country,
-          fechaInicio: dataApi.dep_time,
-          fechaFinal: dataApi.arr_time,
-          longitud: dataApi.lng,
-          latitud: dataApi.lat,
+          flightNumber: dataApi?.flight_iata || '',
+          origen: dataApi?.dep_city || 'No encontrado',
+          destino: dataApi?.arr_city || 'No encontrado',
+          paisDestino: dataApi?.arr_country || 'No encontrado',
+          fechaInicio: dataApi?.dep_time || '',
+          fechaFinal: dataApi?.arr_time || '',
+          longitud: dataApi?.lng || '',
+          latitud: dataApi?.lat || '',
         });
       } else {
         console.log('Error al insertar');

@@ -34,7 +34,7 @@ const HotelCard = ({ hotelData, handleEdit, handleDelete }) => {
 
   return (
     <>
-      {hotelData.map((hotelData) => (
+      {hotelData ? hotelData.map((hotelData) => (
         <Card sx={styles.card} key={hotelData.id}>
           <CardContent>
             <div>
@@ -87,7 +87,7 @@ const HotelCard = ({ hotelData, handleEdit, handleDelete }) => {
             </Collapse>
           </CardContent>
         </Card>
-      ))}
+      )) : 'No hay Hoteles'}
     </>
   );
 };

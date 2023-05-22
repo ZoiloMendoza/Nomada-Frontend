@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { TextField, Button, Box, Grid } from '@mui/material';
-import Link from 'next/Link';
+import Link from 'next/link';
 
 const styles = {
   box: {
