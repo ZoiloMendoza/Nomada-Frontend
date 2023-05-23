@@ -107,7 +107,7 @@ const CityCard = ({ contentApi }) => {
         ))}
       </Carrusel>
       {open && selectedDestino !== null && (
-        <PopupDestino data={selectedDestino} open={open} closeDestino={closeDestino} />
+        <PopupDestino data={selectedDestino} open={open} closeDestino={closeDestino} categoria={'geos'} />
       )}
     </>
   );
