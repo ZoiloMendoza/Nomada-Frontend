@@ -4,10 +4,10 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
 import FlightCard from './FlightCard';
-import { flightData } from '@/components/Itinerary/flightData';
+//import { flightData } from '@/components/Itinerary/flightData';
 import ActivityCard from '@/components/Itinerary/ActivityCard';
 import HotelCard from '@/components/Itinerary/HotelCard';
-import { hotelData } from '@/components/Itinerary/hotelData';
+//import { hotelData } from '@/components/Itinerary/hotelData';
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -70,20 +70,27 @@ export default function TabsDestinos({ dataDestino }) {
         aria-label='Vertical tabs example'
         sx={{ borderRight: 1, borderColor: 'divider' }}
       >
-        {dataDestino.rutas ? dataDestino.rutas.map((ruta, index) => {
-          return <Tab key={ruta._id} label={`${ruta.transporte.destino}`} {...a11yProps(index)} />
-        }) : <Tab label='Destino Uno' {...a11yProps(0)} />}
+        {dataDestino.rutas ? (
+          dataDestino.rutas.map((ruta, index) => (
+            <Tab key={ruta._id} label={`${ruta?.transporte?.destino}`} {...a11yProps(index)} />
+          ))
+        ) : (
+          <Tab label='Destino Uno' {...a11yProps(0)} />
+        )}
       </Tabs>
-      {dataDestino.rutas ? dataDestino.rutas.map((ruta, index) => {
-          return <TabPanel key={index} value={value} index={index}>
-          <FlightCard flightData={ruta.transporte} />
-          <HotelCard hotelData={[]} />
-          <ActivityCard activityData={dataDestino.rutas[index].actividades}/>
+      {dataDestino.rutas ? (
+        dataDestino.rutas.map((ruta, index) => (
+          <TabPanel key={index} value={value} index={index}>
+            <FlightCard flightData={ruta.transporte} />
+            <HotelCard hotelData={[]} />
+            <ActivityCard activityData={dataDestino.rutas[index].actividades} />
+          </TabPanel>
+        ))
+      ) : (
+        <TabPanel value={value} index={1}>
+          Item Two
         </TabPanel>
-        }) : <TabPanel value={value} index={1}>
-        Item Two
-      </TabPanel>}
-     
+      )}
     </Box>
   );
 }

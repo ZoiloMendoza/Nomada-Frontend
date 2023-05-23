@@ -31,7 +31,7 @@ const eventStyleGetter = () => {
   const style = {
     backgroundColor,
     color: textColor,
-    borderRadius: '5px',
+    borderRadius: '2px',
     opacity: 0.8,
     height: '110%',
   };
