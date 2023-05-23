@@ -40,7 +40,7 @@ const PopupForm = ({ data, openForm, closeForm, categoria }) => {
     console.log('Nombre: ', name);
     console.log('Fecha: ', date);
     console.log('Horario: ', time);
-    //handleClose();
+    handleClose();
   };
 
   console.log(data);
