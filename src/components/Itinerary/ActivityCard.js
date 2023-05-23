@@ -45,6 +45,7 @@ const ActivityCard = ({ activityData, handleEdit }) => {
       console.log(error)
     }
   }
+  console.log(activityData, 'activitiData')
   return (
     <>
       {activities ? activities?.map((activityData) => (

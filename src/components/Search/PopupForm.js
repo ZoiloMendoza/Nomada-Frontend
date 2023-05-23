@@ -22,7 +22,7 @@ const PopupForm = ({ data, openForm, closeForm, categoria }) => {
         nombre: data.name,
         direccion: data.address_obj.address_string,
         fotos: data.data[0].images.large.url,
-        fechaInicio: time,
+        fechaInicio: date,
         fechaFinal: time,
       };
       const crearRutaPost = await axios.post(
