@@ -41,14 +41,18 @@ function a11yProps(index) {
   };
 }
 
-export default function TabsDestinos({ dataDestino }) {
+export default function TabsDestinos({ dataDestino, updateDestinoCallback }) {
+  const [value, setValue] = React.useState(0);
   if (!dataDestino) {
     return <div>Intentalo más tarde TabsDestinos</div>;
   }
-  const [value, setValue] = React.useState(0);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
+    const destinoSeleccionado = dataDestino.rutas[newValue].transporte.destino;
+    updateDestinoCallback(destinoSeleccionado);
+    console.log(newValue);
+    console.log(destinoSeleccionado);
   };
 
   return (

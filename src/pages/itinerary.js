@@ -1,4 +1,4 @@
-//import { useEffect, useState } from 'react';
+import { useState } from 'react';
 //import Head from 'next/head';
 import ScrollToTop from '@/components/common/ScrollToTop';
 import HeroImage from '@/components/Itinerary/HeroImage';
@@ -19,18 +19,25 @@ import TabsDestinosMobile from '@/components/Itinerary/TabsDestinosMobile';
 const URLRAILWAY = process.env.NEXT_PUBLIC_BACKEND;
 
 export default function Itinerary({ contentApi, contentViaje }) {
-  if(!contentApi){
-    return <div>Intentalo más tarde</div>
+  const [destinoSeleccionado, setDestinoSeleccionado] = useState('');
+  const isMobile = useMediaQuery((theme) => (theme ? theme.breakpoints.down('sm') : '(max-width:600px)'));
+  if (!contentApi) {
+    return <div>Intentalo más tarde</div>;
   }
   console.log('contentApi', contentApi);
   console.log('contentViaje', contentViaje);
-  const isMobile = useMediaQuery((theme) => (theme ? theme.breakpoints.down('sm') : '(max-width:600px)'));
   //setTripData(contentViaje);
   //console.log(contentApi);
+
+  const updateDestinoSeleccionado = (destino) => {
+    setDestinoSeleccionado(destino);
+  };
+
   return (
     <Box sx={{ backgroundColor: '#EAEDED' }}>
       <HeroImage viajeData={contentViaje} imagenFondo={contentApi?.data[0]?.images?.original?.url} />
       <Add
+        destinoSeleccionado={destinoSeleccionado}
         destino={{
           latitude: contentApi?.latitude,
           longitude: contentApi?.longitude,
@@ -51,7 +58,7 @@ export default function Itinerary({ contentApi, contentViaje }) {
             margin: 5,
           }}
         >
-          <TabDestinos dataDestino={contentViaje}/>
+          <TabDestinos dataDestino={contentViaje} updateDestinoCallback={updateDestinoSeleccionado} />
           {/*<FlightCard flightData={flightData} />+/}
 
           {/*<HotelCard hotelData={hotelData} />*/}
