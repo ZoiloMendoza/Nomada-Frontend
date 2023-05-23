@@ -46,9 +46,10 @@ const AddButtonGroup = styled(ButtonGroup)(() => ({
   alignItems: 'center',
 }));
 
-export default function Add({ destino }) {
+export default function Add({ destino, destinoSeleccionado }) {
   const router = useRouter();
-  const { id } = router.query; 
+  const { id } = router.query;
+  console.log(destino);
 
   return (
     <AddSection>
@@ -56,7 +57,7 @@ export default function Add({ destino }) {
         <Link href={`/crear-viaje?id=${id}`}>
           <AddButton>Nuevo destino</AddButton>
         </Link>
-        <Link href='/addhotel'>
+        <Link href={`/addhotel?destino=${destinoSeleccionado}`}>
           <AddButton>Hospedaje</AddButton>
         </Link>
         <Link href={`/search?latitude=${destino?.latitude}&longitude=${destino?.longitude}&idRuta=${destino?.idRuta}`}>

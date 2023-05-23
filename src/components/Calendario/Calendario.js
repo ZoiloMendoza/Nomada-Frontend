@@ -18,9 +18,9 @@ const localTheme = createTheme();
 const StyledCalendarContainer = styled('div')(({ theme }) => ({
   height: '310px',
   marginTop: '20px',
-  backgroundColor: theme.palette.background.paper,
-  borderRadius: theme.shape.borderRadius,
-  boxShadow: theme.shadows[1],
+  backgroundColor: '#FFFFFF',
+  borderRadius: '5px',
+  boxShadow: theme.shadows[0],
   margin: '20px auto',
   overflow: 'hidden',
 }));
@@ -31,7 +31,7 @@ const eventStyleGetter = () => {
   const style = {
     backgroundColor,
     color: textColor,
-    borderRadius: '5px',
+    borderRadius: '2px',
     opacity: 0.8,
     height: '110%',
   };
