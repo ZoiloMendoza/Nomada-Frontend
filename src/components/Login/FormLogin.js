@@ -6,6 +6,8 @@ import axios from 'axios';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useUserContext, UserContext } from '@/context/userLogin';
+import Alert from '@mui/material/Alert';
+import Stack from '@mui/material/Stack';
 const URLRAILWAY = process.env.NEXT_PUBLIC_BACKEND;
 
 const style = {
@@ -23,6 +25,7 @@ const style = {
 function FormLogin() {
   const userContextValues = useContext(UserContext);
   const { variableState, setVariableState } = userContextValues;
+  const [status, setStatus] = useState('');
   console.log(variableState);
   const router = useRouter();
   const [formData, setFormData] = useState({
@@ -39,8 +42,9 @@ function FormLogin() {
 
     console.log('statusCode', userPost.status);
     if (userPost.status !== 200) {
-      console.log('error al insertar');
+      setStatus('error'); //console.log('error al insertar');
     } else {
+      setStatus('seccess');
       console.log('Logeado');
       const usuario = {
         ...userPost.data,
@@ -62,6 +66,10 @@ function FormLogin() {
       </Typography>
       <Box my={8} sx={style.formulario}>
         <Grid container justifyContent='center' direction='row'>
+          <Stack sx={{ width: '100%' }} spacing={2}>
+            {status == 'success' && <Alert severity='success'>Usuario correcto!</Alert>}
+            {status == 'error' && <Alert severity='error'>Error </Alert>}
+          </Stack>
           <Grid item xs={18} sm={18} md={18} lg={18} xl={18}>
             <Card sx={{ padding: '3vh' }}>
               <CardContent>
