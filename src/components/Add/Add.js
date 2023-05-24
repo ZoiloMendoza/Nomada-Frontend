@@ -12,20 +12,6 @@ const AddSection = styled('div')(({ theme }) => ({
 }));
 
 const AddButton = styled(Button)(() => ({
-  backgroundColor: '#6C6D7F',
-  border: 'none',
-  color: '#FFFFFF',
-  cursor: 'pointer',
-  fontSize: '16px',
-  fontWeight: 'bold',
-  margin: '10px',
-  padding: '10px 20px',
-  transition: 'all 0.3s ease',
-  textAlign: 'center',
-  width: '100%;',
-}));
-
-const AddButtonTwo = styled(Button)(() => ({
   backgroundColor: '#E91E63',
   border: 'none',
   color: '#FFFFFF',
@@ -37,6 +23,34 @@ const AddButtonTwo = styled(Button)(() => ({
   transition: 'all 0.3s ease',
   textAlign: 'center',
   width: '100%;',
+  '&:hover': {
+    backgroundColor: '#6C6D7F',
+    color: '#FFFFFF',
+    border: '#6C6D7F',
+    transform: 'scale(0.9)',
+    transitionDuration: '0.3s ease',
+  },
+}));
+
+const AddButtonTwo = styled(Button)(() => ({
+  backgroundColor: '#2B2E4A',
+  border: 'none',
+  color: '#FFFFFF',
+  cursor: 'pointer',
+  fontSize: '16px',
+  fontWeight: 'bold',
+  margin: '10px',
+  padding: '10px 20px',
+  transition: 'all 0.3s ease',
+  textAlign: 'center',
+  width: '100%;',
+  '&:hover': {
+    backgroundColor: '#6C6D7F',
+    color: '#FFFFFF',
+    border: '#6C6D7F',
+    transform: 'scale(0.9)',
+    transitionDuration: '0.3s ease',
+  },
 }));
 const AddButtonGroup = styled(ButtonGroup)(() => ({
   display: 'flex',
