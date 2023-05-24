@@ -23,9 +23,10 @@ function NavbarTwo() {
   const [anchorEl, setAnchorEl] = useState(null);
   const [isLoggedIn, setIsLoggedIn] = useState(false); // Replace with your login state
   //const theme = useTheme();
-  //const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const isMobile = useMediaQuery((theme) => (theme ? theme.breakpoints.down('sm') : '(max-width:600px)'));
   const router = useRouter();
+
+  console.log('soy el variable state', variableState);
 
   useEffect(() => {
     //console.log(variableState);
@@ -114,6 +115,9 @@ function NavbarTwo() {
               </>
             ) : (
               <>
+                <Typography sx={{ fontWeight: 'bolder', color: '#E91E63', textTransform: 'uppercase' }}>
+                  ¡Hola, {variableState?.name}! 😎 👉{' '}
+                </Typography>
                 <Link href='/misviajes'>
                   <Button sx={{ color: '#FFFFFF' }}>Mis Viajes</Button>
                 </Link>

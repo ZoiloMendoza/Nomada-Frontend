@@ -7,6 +7,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useUserContext, UserContext } from '@/context/userLogin';
 const URLRAILWAY = process.env.NEXT_PUBLIC_BACKEND;
+
 const style = {
   formulario: {
     display: 'flex',
