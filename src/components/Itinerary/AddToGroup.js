@@ -44,7 +44,7 @@ const AddToGroup = ({ openModal, closeModal }) => {
   const handleFormSubmit = async (e) => {
     e.preventDefault();
     try {
-      const resultado = await axios.post('/fgher', { coreos: emailsList });
+      const resultado = await axios.post('/', { coreos: emailsList });
       if (resultado.status == 200) {
         setStatus('success');
       } else setStatus('error');
