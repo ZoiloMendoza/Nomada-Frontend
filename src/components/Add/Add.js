@@ -49,7 +49,9 @@ const AddButtonGroup = styled(ButtonGroup)(() => ({
 export default function Add({ destino, destinoSeleccionado }) {
   const router = useRouter();
   const { id } = router.query;
-  console.log(destino);
+  const encodedDestino = encodeURIComponent(destinoSeleccionado);
+  console.log(destino,'DESTINO');
+  console.log(encodedDestino,'ENCODEDESTINO')
 
   return (
     <AddSection>
@@ -60,7 +62,8 @@ export default function Add({ destino, destinoSeleccionado }) {
         <Link href={`/addhotel?destino=${destinoSeleccionado}`}>
           <AddButton>Hospedaje</AddButton>
         </Link>
-        <Link href={`/search?latitude=${destino?.latitude}&longitude=${destino?.longitude}&idRuta=${destino?.idRuta}`}>
+        <Link href={`/search?destino=${encodedDestino}`}>
+        {/*`/search?latitude=${destino?.latitude}&longitude=${destino?.longitude}&idRuta=${destino?.idRuta}`*/}
           <AddButton>Buscar actividades</AddButton>
         </Link>
         <Link href='/map'>

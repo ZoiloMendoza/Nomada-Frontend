@@ -2,12 +2,10 @@ import { useState } from 'react';
 //import Head from 'next/head';
 import ScrollToTop from '@/components/common/ScrollToTop';
 import HeroImage from '@/components/Itinerary/HeroImage';
-
 import axios from 'axios';
 //import { useRouter } from 'next/router';
 import Add from '@/components/Add/Add';
-
-import { getData } from './api/proxy/findSearch';
+import { getDataFindSearch } from './api/proxy/findSearch';
 import Box from '@mui/material/Box';
 import { useMediaQuery } from '@mui/material';
 import TabDestinos from '@/components/Itinerary/TabsDestinos';
@@ -72,7 +70,7 @@ export const getServerSideProps = async (context) => {
     if (response.status === 200) {
       const tripData = response.data;
       const params = { destino: tripData.destino, paisDestino: tripData.paisDestino };
-      const contentApi = await getData({ params });
+      const contentApi = await getDataFindSearch({ params });
       return {
         props: {
           contentApi: contentApi,

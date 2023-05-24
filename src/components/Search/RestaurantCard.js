@@ -68,6 +68,7 @@ function RestaurantCard({ restaurantData }) {
         {restaurantData?.map((restaurant) => (
           <Card sx={styles.card} key={restaurant.location_id}>
             <CardMedia
+              component="img"
               sx={styles.media}
               image={restaurant?.data[0]?.images.original.url}
               title={restaurant?.data[0]?.user.username}

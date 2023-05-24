@@ -79,9 +79,9 @@ const CityCard = ({ contentApi }) => {
     <>
       <h2 style={{ marginLeft: '30px' }}>Destinos</h2>
       <Carrusel>
-        {contentApi?.map((item) => (
+        {contentApi ? contentApi?.map((item) => (
           <RootCard key={item.location_id} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
-            <Media component='img' image={item.data[0].images.original.url} title={item.name} />
+            <Media component='img' image={item?.data[0]?.images?.original?.url} title={item.name} />
             {hovered && (
               <Content>
                 <Typography variant='h5' gutterBottom>
@@ -104,7 +104,7 @@ const CityCard = ({ contentApi }) => {
               </Content>
             )}
           </RootCard>
-        ))}
+        )) : ''}
       </Carrusel>
       {open && selectedDestino !== null && (
         <PopupDestino data={selectedDestino} open={open} closeDestino={closeDestino} categoria={'geos'} />
