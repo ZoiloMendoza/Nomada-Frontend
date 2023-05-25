@@ -111,42 +111,44 @@ const HeroImage = (props) => {
     <>
       {openModal && <AddToGroup openModal={openModal} closeModal={closeModal} />}
       <Box sx={{ ...styles.hero, backgroundImage: `url(${props.imagenFondo})` }}>
-        <Container sx={styles.overlay}>
-          <Grid container spacing={3}>
-            <Grid item>
-              <IconButton component='a' href='/download'>
-                <GetAppIcon style={{ color: '#FFFFFF' }} />
-              </IconButton>
+        <Container maxWidth={false} sx={styles.overlay}>
+          <Container maxWidth={'lg'}>
+            <Grid container spacing={3}>
+              <Grid item>
+                <IconButton component='a' href='/download'>
+                  <GetAppIcon style={{ color: '#FFFFFF' }} />
+                </IconButton>
+              </Grid>
+              <Grid item>
+                <IconButton component='a' href='/share'>
+                  <ShareIcon style={{ color: '#FFFFFF' }} />
+                </IconButton>
+              </Grid>
+              <Grid item>
+                <IconButton component='a' onClick={handleOpenModal}>
+                  <PeopleIcon style={{ color: '#FFFFFF' }} />
+                </IconButton>
+              </Grid>
             </Grid>
-            <Grid item>
-              <IconButton component='a' href='/share'>
-                <ShareIcon style={{ color: '#FFFFFF' }} />
-              </IconButton>
-            </Grid>
-            <Grid item>
-              <IconButton component='a' onClick={handleOpenModal}>
-                <PeopleIcon style={{ color: '#FFFFFF' }} />
-              </IconButton>
-            </Grid>
-          </Grid>
 
-          <div sx={styles.heroText}>
-            <Typography variant='h1' sx={styles.heroTitle}>
-              {props.viajeData.nombre}
-            </Typography>
-            <Typography variant='h2' sx={styles.heroSubtitle}>
-              {`${props.viajeData.destino} - ${props.viajeData.fechaInicio}`}
-            </Typography>
-            <Link href='/calendario'>
-              <Button variant='contained' color='secondary' sx={styles.heroButton}>
-                Calendario
-              </Button>
-            </Link>
-            <div>
-              <CircleIconButton icon={<Favorite />} href='/favorite' />
-              <CircleIconButton icon={<AddCircleIcon />} onClick={destino} />
+            <div sx={styles.heroText}>
+              <Typography variant='h1' sx={styles.heroTitle}>
+                {props.viajeData.nombre}
+              </Typography>
+              <Typography variant='h2' sx={styles.heroSubtitle}>
+                {`${props.viajeData.destino} - ${props.viajeData.fechaInicio}`}
+              </Typography>
+              <Link href='/calendario'>
+                <Button variant='contained' color='secondary' sx={styles.heroButton}>
+                  Calendario
+                </Button>
+              </Link>
+              <div>
+                <CircleIconButton icon={<Favorite />} href='/favorite' />
+                <CircleIconButton icon={<AddCircleIcon />} onClick={destino} />
+              </div>
             </div>
-          </div>
+          </Container>
         </Container>
       </Box>
     </>
