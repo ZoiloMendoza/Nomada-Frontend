@@ -17,7 +17,8 @@ const RootCard = styled(Card)(({}) => ({
 
 const Media = styled(CardMedia)(({}) => ({
   width: '100%',
-  maxHeight: '30vh',
+  //maxHeight: '30vh',
+  maxHeight: '180px',
   margin: 'auto',
   objectFit: 'cover',
   overflow: 'hidden',
@@ -79,32 +80,34 @@ const CityCard = ({ contentApi }) => {
     <>
       <h2 style={{ marginLeft: '30px' }}>Destinos</h2>
       <Carrusel>
-        {contentApi ? contentApi?.map((item) => (
-          <RootCard key={item.location_id} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
-            <Media component='img' image={item?.data[0]?.images?.original?.url} title={item.name} />
-            {hovered && (
-              <Content>
-                <Typography variant='h5' gutterBottom>
-                  {item.name}
-                </Typography>
-                <Typography variant='subtitle1' gutterBottom>
-                  {item.address_obj.addres_string}
-                </Typography>
-                <IconButtonStyled
-                  aria-label='add'
-                  onClick={() => {
-                    handleClick(item.location_id);
-                  }}
-                >
-                  <Add />
-                </IconButtonStyled>
-                <IconButtonStyled aria-label='favorite' onClick={handleFavoriteClick}>
-                  {isFavorite ? <Favorite /> : <FavoriteBorder />}
-                </IconButtonStyled>
-              </Content>
-            )}
-          </RootCard>
-        )) : ''}
+        {contentApi
+          ? contentApi?.map((item) => (
+              <RootCard key={item.location_id} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
+                <Media component='img' image={item?.data[0]?.images?.original?.url} title={item.name} />
+                {hovered && (
+                  <Content>
+                    <Typography variant='h5' gutterBottom>
+                      {item.name}
+                    </Typography>
+                    <Typography variant='subtitle1' gutterBottom>
+                      {item.address_obj.addres_string}
+                    </Typography>
+                    <IconButtonStyled
+                      aria-label='add'
+                      onClick={() => {
+                        handleClick(item.location_id);
+                      }}
+                    >
+                      <Add />
+                    </IconButtonStyled>
+                    <IconButtonStyled aria-label='favorite' onClick={handleFavoriteClick}>
+                      {isFavorite ? <Favorite /> : <FavoriteBorder />}
+                    </IconButtonStyled>
+                  </Content>
+                )}
+              </RootCard>
+            ))
+          : ''}
       </Carrusel>
       {open && selectedDestino !== null && (
         <PopupDestino data={selectedDestino} open={open} closeDestino={closeDestino} categoria={'geos'} />

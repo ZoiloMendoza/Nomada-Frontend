@@ -1,4 +1,4 @@
-import { Card, CardContent, CardMedia, Typography, IconButton, Button } from '@mui/material';
+import { Card, CardContent, CardMedia, Typography, IconButton, Button, Box } from '@mui/material';
 import Carrusel from '../common/Carrusel';
 import { useState } from 'react';
 import CardDetalle from './CardDetalle';
@@ -8,7 +8,8 @@ import { Add, Favorite, FavoriteBorder } from '@mui/icons-material';
 const styles = {
   card: {
     maxWidth: 345,
-    margin: '0 80px',
+    minHeight: 196,
+    margin: '80px 80px',
   },
   media: {
     height: 140,
@@ -56,61 +57,87 @@ function RestaurantCard({ restaurantData }) {
     setIsFavorite(!isFavorite);
     console.log('Favorite button clicked!');
   };
-
+  console.log(restaurantData, 'mensaje por nosotros');
   const funcionOpen = () => {
     setOpenForm(true);
     setOpen(false);
-  }
+  };
+  const getImage = (restaurantImage) => {
+    if (restaurantImage.data !== null && restaurantImage.data.length > 0) {
+      return restaurantImage?.data[0]?.images.small.url;
+    }
+    return '/img/placeholder.jpeg';
+  };
+  const getAdress = (restaurantAdress) => {
+    let address = '';
+    if (restaurantAdress.street1 != undefined && restaurantAdress.street1 != '') {
+      address = restaurantAdress.street1;
+    } else if (restaurantAdress.address_string != undefined && restaurantAdress.address_string != '') {
+      address = restaurantAdress.address_string;
+    } else return '';
+
+    const formatoRestaurant = address?.length < 40 ? address : `${address?.slice(0, 37)}...`;
+    return formatoRestaurant;
+  };
   return (
     <>
       <h2 style={{ marginLeft: '30px' }}>Restaurantes</h2>
       <Carrusel>
         {restaurantData?.map((restaurant) => (
-          <Card sx={styles.card} key={restaurant.location_id}>
-            <CardMedia
-              component="img"
-              sx={styles.media}
-              image={restaurant?.data[0]?.images.small.url}
-              title={restaurant?.data[0]?.user.username}
-            />
-            <CardContent>
-              <Typography gutterBottom variant='h5' component='h2'>
-                {restaurant.name}
-              </Typography>
-              <Typography variant='body2' color='textSecondary' component='p'>
-                {restaurant.address_obj.street1}
-              </Typography>
-            </CardContent>
+          <Box sx={styles.card} key={restaurant.location_id}>
+            <Card>
+              <CardMedia
+                component='img'
+                sx={styles.media}
+                image={getImage(restaurant)}
+                //image={restaurant?.data[0]?.images.small.url}
+                title={restaurant?.data[0]?.user.username}
+              />
+              <CardContent>
+                <Typography gutterBottom variant='h5' component='h2'>
+                  {restaurant.name}
+                </Typography>
+                <Typography variant='body2' color='textSecondary' component='p'>
+                  {getAdress(restaurant.address_obj)}
+                </Typography>
+              </CardContent>
 
-            <Button
-              sx={styles.button}
-              size='small'
-              variant='outlined'
-              color='primary'
-              onClick={() => {
-                handleClick(restaurant.location_id);
-              }}
-            >
-              Ver detalles
-            </Button>
+              <Button
+                sx={styles.button}
+                size='small'
+                variant='outlined'
+                color='primary'
+                onClick={() => {
+                  handleClick(restaurant.location_id);
+                }}
+              >
+                Ver detalles
+              </Button>
 
-            <IconButton
-              sx={styles.addIcon}
-              aria-label='Add to itinerary'
-              onClick={() => {
-                handleAddClick(restaurant.location_id);
-              }}
-            >
-              <Add />
-            </IconButton>
-            <IconButton sx={styles.iconButton} aria-label='favorite' onClick={handleFavoriteClick}>
-              {isFavorite ? <Favorite /> : <FavoriteBorder />}
-            </IconButton>
-          </Card>
+              <IconButton
+                sx={styles.addIcon}
+                aria-label='Add to itinerary'
+                onClick={() => {
+                  handleAddClick(restaurant.location_id);
+                }}
+              >
+                <Add />
+              </IconButton>
+              <IconButton sx={styles.iconButton} aria-label='favorite' onClick={handleFavoriteClick}>
+                {isFavorite ? <Favorite /> : <FavoriteBorder />}
+              </IconButton>
+            </Card>
+          </Box>
         ))}
       </Carrusel>
       {open && selectedRestaurant !== null && (
-        <CardDetalle data={selectedRestaurant} open={open} closeCard={closeCard} categoria={'restaurant'} openForm={funcionOpen} />
+        <CardDetalle
+          data={selectedRestaurant}
+          open={open}
+          closeCard={closeCard}
+          categoria={'restaurant'}
+          openForm={funcionOpen}
+        />
       )}
       {openForm && selectedRestaurant !== null && (
         <PopupForm data={selectedRestaurant} openForm={openForm} closeForm={closeForm} />
