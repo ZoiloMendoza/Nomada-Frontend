@@ -70,7 +70,7 @@ function RestaurantCard({ restaurantData }) {
             <CardMedia
               component="img"
               sx={styles.media}
-              image={restaurant?.data[0]?.images.original.url}
+              image={restaurant?.data[0]?.images.small.url}
               title={restaurant?.data[0]?.user.username}
             />
             <CardContent>

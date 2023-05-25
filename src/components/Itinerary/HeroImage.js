@@ -33,33 +33,47 @@ const CircleIconButton = ({ icon, href, onClick }) => (
 const styles = {
   hero: {
     backgroundImage: 'url("background1.jpg")',
-    height: 'calc(50vh - 64px)',
-    backgroundSize: 'cover',
+    position: 'relative',
+    width: '100%',
+    height: '300px',
     backgroundPosition: 'center',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    color: '#fff',
+    backgroundSize: 'cover',
     /*[theme.breakpoints.down('sm')]: {
       height: 'calc(100vh - 56px)',
     }, */
   },
+  overlay: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    width: '100%',
+    height: '100%',
+    background: 'rgba(0, 0, 0, 0.5)',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    // alignItems: 'center',
+    color: '#fff',
+    padding: '20px',
+  },
+
   heroText: {
     textAlign: 'left',
-    marginBottom: '10px',
+
+    //marginBottom: '10px',
   },
   heroTitle: {
     fontSize: '3rem',
     fontWeight: 'bold',
-    marginBottom: '10px',
-    textShadow: '2px 2px 1px gray',
+    //marginBottom: '10px',
+    //textShadow: '2px 2px 1px gray',
     /* [theme.breakpoints.down('sm')]: {
       fontSize: '2.5rem',
     }, */
   },
   heroSubtitle: {
     fontSize: '1.5rem',
-    textShadow: '2px 2px 1px gray',
+    //textShadow: '2px 2px 1px gray',
     /*  [theme.breakpoints.down('sm')]: {
       fontSize: '1.2rem',
     }, */
@@ -97,7 +111,7 @@ const HeroImage = (props) => {
     <>
       {openModal && <AddToGroup openModal={openModal} closeModal={closeModal} />}
       <Box sx={{ ...styles.hero, backgroundImage: `url(${props.imagenFondo})` }}>
-        <Container maxWidth='md'>
+        <Container sx={styles.overlay}>
           <Grid container spacing={3}>
             <Grid item>
               <IconButton component='a' href='/download'>

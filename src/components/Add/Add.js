@@ -2,6 +2,11 @@ import { styled } from '@mui/system';
 import { Button, ButtonGroup } from '@mui/material';
 import { Link } from '@mui/material';
 import { useRouter } from 'next/router';
+import FlightIcon from '@mui/icons-material/Flight';
+import HotelIcon from '@mui/icons-material/Hotel';
+import LocalActivityIcon from '@mui/icons-material/LocalActivity';
+import MapIcon from '@mui/icons-material/Map';
+
 const AddSection = styled('div')(({ theme }) => ({
   backgroundColor: '#EAEDED',
   borderRadius: '5px',
@@ -71,17 +76,26 @@ export default function Add({ destino, destinoSeleccionado }) {
     <AddSection>
       <AddButtonGroup aria-label='button group'>
         <Link href={`/crear-viaje?id=${id}`}>
-          <AddButton>Nuevo destino</AddButton>
+          <AddButton>
+            <FlightIcon />
+            &nbsp; Nuevo destino
+          </AddButton>
         </Link>
         <Link href={`/addhotel?destino=${destinoSeleccionado}`}>
-          <AddButton>Hospedaje</AddButton>
+          <AddButton>
+            <HotelIcon />
+            &nbsp; Hospedaje
+          </AddButton>
         </Link>
         <Link href={`/search?destino=${encodedDestino}`}>
         {/*`/search?latitude=${destino?.latitude}&longitude=${destino?.longitude}&idRuta=${destino?.idRuta}`*/}
           <AddButton>Buscar actividades</AddButton>
         </Link>
         <Link href='/map'>
-          <AddButtonTwo>Mapa</AddButtonTwo>
+          <AddButtonTwo>
+            <MapIcon />
+            &nbsp; Mapa
+          </AddButtonTwo>
         </Link>
       </AddButtonGroup>
     </AddSection>
