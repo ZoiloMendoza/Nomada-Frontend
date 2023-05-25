@@ -115,8 +115,8 @@ function NavbarTwo() {
               </>
             ) : (
               <>
-                <Typography sx={{ fontWeight: 'bolder', color: '#E91E63', textTransform: 'uppercase' }}>
-                  ¡Hola, {variableState?.name}! 😎 👉{' '}
+                <Typography sx={{ fontWeight: 'bolder', color: '#FFFFFF', textTransform: 'uppercase' }}>
+                  ¡Hola, {variableState?.name}! &nbsp; 😎 👉 &nbsp; &nbsp;
                 </Typography>
                 <Link href='/misviajes'>
                   <Button sx={{ color: '#FFFFFF' }}>Mis Viajes</Button>

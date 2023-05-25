@@ -69,8 +69,8 @@ export default function Add({ destino, destinoSeleccionado }) {
   const router = useRouter();
   const { id } = router.query;
   const encodedDestino = encodeURIComponent(destinoSeleccionado);
-  console.log(destino,'DESTINO');
-  console.log(encodedDestino,'ENCODEDESTINO')
+  console.log(destino, 'DESTINO');
+  console.log(encodedDestino, 'ENCODEDESTINO');
 
   return (
     <AddSection>
@@ -88,8 +88,11 @@ export default function Add({ destino, destinoSeleccionado }) {
           </AddButton>
         </Link>
         <Link href={`/search?destino=${encodedDestino}`}>
-        {/*`/search?latitude=${destino?.latitude}&longitude=${destino?.longitude}&idRuta=${destino?.idRuta}`*/}
-          <AddButton>Buscar actividades</AddButton>
+          {/*`/search?latitude=${destino?.latitude}&longitude=${destino?.longitude}&idRuta=${destino?.idRuta}`*/}
+          <AddButton>
+            <LocalActivityIcon />
+            &nbsp; Buscar actividades
+          </AddButton>
         </Link>
         <Link href='/map'>
           <AddButtonTwo>
