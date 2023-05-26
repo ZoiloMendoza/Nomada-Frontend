@@ -20,7 +20,7 @@ export async function getData(params) {
       return {};
     }
 
-    const locationData = response.data.data.slice(0, 6);
+    const locationData = response.data.data.slice(0, 3);
     const exampleData = await Promise.all(
       locationData.map(async (item) => {
         try {
