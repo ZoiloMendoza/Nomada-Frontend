@@ -1,10 +1,9 @@
 import React from 'react';
-import { makeStyles } from '@mui/styles';
 import { IconButton, InputBase, Paper, Toolbar } from '@mui/material';
 import { ArrowBack, Search } from '@mui/icons-material';
 import Link from 'next/link';
-
-const useStyles = makeStyles((theme) => ({
+import { useRouter } from 'next/router';
+const styles = {
   root: {
     flexGrow: 1,
     height: 64,
@@ -14,30 +13,30 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'space-between',
   },
   input: {
-    marginLeft: theme.spacing(1),
+    marginLeft: '10px',
     flex: 1,
   },
-}));
+};
 
 export default function SearchBar() {
-  const classes = useStyles();
-
+  const router = useRouter();
+  const { id } = router.query;
   const handleSearch = (event) => {
     event.preventDefault();
     // Add code to handle search
   };
 
   return (
-    <Paper className={classes.root} elevation={2}>
-      <Toolbar className={classes.toolbar}>
-        <Link href='/'>
+    <Paper sx={styles.root} elevation={2}>
+      <Toolbar sx={styles.toolbar}>
+        <Link href={`/itinerary?id=${id}`}>
           <IconButton edge='start' color='inherit' aria-label='back'>
             <ArrowBack />
           </IconButton>
         </Link>
 
         <form onSubmit={handleSearch}>
-          <InputBase className={classes.input} placeholder='Search…' inputProps={{ 'aria-label': 'search' }} />
+          <InputBase sx={styles.input} placeholder='Search…' inputProps={{ 'aria-label': 'search' }} />
           <IconButton type='submit' aria-label='search'>
             <Search />
           </IconButton>

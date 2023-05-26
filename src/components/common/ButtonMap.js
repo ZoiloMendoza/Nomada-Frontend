@@ -1,21 +1,21 @@
-import Button from '@mui/material/Button';
+import React from 'react';
+import Button from '@material-ui/core/Button';
 
-const ButtonAdd = () => {
+const ButtonMap = () => {
   const customColor = '#E91E63';
-
   return (
     <Button
       variant='contained'
       sx={{
         backgroundColor: customColor,
-        borderRadius: '50px',
+        borderRadius: '10px',
         padding: '10px 20px',
         textTransform: 'none',
       }}
+      disableElevation
     >
-      Agregar
+      Map
     </Button>
   );
 };
-
-export default ButtonAdd;
+export default ButtonMap;

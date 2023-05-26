@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { makeStyles } from '@mui/styles';
 import { Card, CardContent, CardMedia, Typography, IconButton, Collapse } from '@mui/material';
 import { Edit as EditIcon, Delete as DeleteIcon } from '@mui/icons-material';
 import { ExpandMore } from '@mui/icons-material';
@@ -7,10 +6,11 @@ import HotelIcon from '@mui/icons-material/Hotel';
 
 import Grid from '@mui/material/Grid';
 
-const useStyles = makeStyles((theme) => ({
+const styles = {
   card: {
-    marginBottom: theme.spacing(2),
+    marginBottom: '5px',
     margin: 2,
+    backgroundColor: '#F6F6F6',
   },
   media: {
     maxHeight: 300,
@@ -18,17 +18,14 @@ const useStyles = makeStyles((theme) => ({
   },
   expandIcon: {
     transform: 'rotate(0deg)',
-    transition: theme.transitions.create('transform', {
-      duration: theme.transitions.duration.shortest,
-    }),
+    transition: 'ease 0.3s',
   },
   expandIconOpen: {
     transform: 'rotate(180deg)',
   },
-}));
+};
 
 const HotelCard = ({ hotelData, handleEdit, handleDelete }) => {
-  const classes = useStyles();
   const [expanded, setExpanded] = useState(false);
 
   const handleExpandClick = () => {
@@ -37,20 +34,30 @@ const HotelCard = ({ hotelData, handleEdit, handleDelete }) => {
 
   return (
     <>
-      {hotelData.map((hotelData) => (
-        <Card className={classes.card} key={hotelData.id}>
+      {hotelData ? hotelData.map((hotelData) => (
+        <Card sx={styles.card} key={hotelData.id}>
           <CardContent>
             <div>
               <IconButton aria-label='edit' onClick={() => handleEdit(hotelInfo)}>
-                <EditIcon />
+                <EditIcon
+                  sx={{
+                    width: '20px',
+                    color: '#D2D2D2',
+                  }}
+                />
               </IconButton>
               <IconButton aria-label='delete' onClick={() => handleDelete(hotelInfo)}>
-                <DeleteIcon />
+                <DeleteIcon
+                  sx={{
+                    width: '20px',
+                    color: '#D2D2D2',
+                  }}
+                />
               </IconButton>
             </div>
             <Grid container spacing={2}>
               <Grid item xs={4}>
-                <CardMedia className={classes.media} image={hotelData.image} title={hotelData.title} />
+                <CardMedia sx={styles.media} image={hotelData.image} title={hotelData.title} />
               </Grid>
               <Grid item xs={6}>
                 <Typography variant='h5'>{hotelData.name}</Typography>
@@ -64,7 +71,7 @@ const HotelCard = ({ hotelData, handleEdit, handleDelete }) => {
             </Grid>
 
             <IconButton
-              className={`${classes.expandIcon} ${expanded ? classes.expandIconOpen : ''}`}
+              className={`${styles.expandIcon} ${expanded ? styles.expandIconOpen : ''}`}
               onClick={handleExpandClick}
               aria-expanded={expanded}
               aria-label='mostrar más'
@@ -80,7 +87,7 @@ const HotelCard = ({ hotelData, handleEdit, handleDelete }) => {
             </Collapse>
           </CardContent>
         </Card>
-      ))}
+      )) : 'No hay Hoteles'}
     </>
   );
 };

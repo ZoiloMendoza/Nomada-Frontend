@@ -1,51 +1,55 @@
 import React, { useState } from 'react';
-import { makeStyles } from '@mui/styles';
+import { styled } from '@mui/system';
 import { Card, CardMedia, CardContent, Typography, IconButton } from '@mui/material';
 import { Favorite, Add, FavoriteBorder } from '@mui/icons-material';
 import Carrusel from '../common/Carrusel';
-//import Slider from 'react-slick';
-//import 'slick-carousel/slick/slick.css';
-//import 'slick-carousel/slick/slick-theme.css';
+import PopupDestino from './PopupDestino';
 
-const useStyles = makeStyles({
-  root: {
-    maxWidth: 345,
-    margin: '1rem',
-    position: 'relative',
-    transition: 'transform 0.3s',
-    '&:hover': {
-      transform: 'scale(1.05)',
-    },
+const RootCard = styled(Card)(({}) => ({
+  maxWidth: 345,
+  margin: '1rem',
+  position: 'relative',
+  transition: 'transform 0.3s',
+  '&:hover': {
+    transform: 'scale(1.05)',
   },
-  media: {
-    width: '100%',
-    margin: 'auto',
-    transition: 'width 0.3s',
-    '&:hover': {
-      width: '100%',
-    },
-  },
-  content: {
-    position: 'absolute',
-    bottom: 0,
-    backgroundColor: 'rgba(0,0,0,0.6)',
-    color: 'white',
-    width: '100%',
-    padding: '1rem',
-    transition: 'opacity 0.3s',
-    opacity: 0,
-    '&:hover': {
-      opacity: 1,
-    },
-  },
-  iconButton: {
-    color: '#FFF',
-  },
-});
+}));
 
-const CityCard = ({ cityData }) => {
+const Media = styled(CardMedia)(({}) => ({
+  width: '100%',
+  //maxHeight: '30vh',
+  maxHeight: '180px',
+  margin: 'auto',
+  objectFit: 'cover',
+  overflow: 'hidden',
+  transition: 'width 0.3s',
+  '&:hover': {
+    width: '100%',
+  },
+}));
+
+const Content = styled(CardContent)(({}) => ({
+  position: 'absolute',
+  bottom: 0,
+  backgroundColor: 'rgba(0,0,0,0.6)',
+  color: 'white',
+  width: '100%',
+  padding: '1rem',
+  transition: 'opacity 0.3s',
+  opacity: 0,
+  '&:hover': {
+    opacity: 1,
+  },
+}));
+
+const IconButtonStyled = styled(IconButton)(({}) => ({
+  color: '#FFF',
+}));
+
+const CityCard = ({ contentApi }) => {
+  const [open, setOpen] = useState(false);
+  const [selectedDestino, setSelectedDestino] = useState(null);
   const [isFavorite, setIsFavorite] = useState(false);
-  const classes = useStyles();
   const [hovered, setHovered] = useState(false);
 
   const handleMouseEnter = () => {
@@ -56,8 +60,15 @@ const CityCard = ({ cityData }) => {
     setHovered(false);
   };
 
-  const handleClick = () => {
+  const handleClick = (location_id) => {
+    const selectedDestino = contentApi.find((item) => item.location_id === location_id);
+    setSelectedDestino(selectedDestino);
+    setOpen(true);
     console.log('Add button clicked!');
+  };
+
+  const closeDestino = () => {
+    setOpen(false);
   };
 
   const handleFavoriteClick = () => {
@@ -67,38 +78,40 @@ const CityCard = ({ cityData }) => {
 
   return (
     <>
-      <h2>Destinos</h2>
+      <h2 style={{ marginLeft: '30px' }}>Destinos</h2>
       <Carrusel>
-        {cityData.map((cityData) => (
-          <Card
-            className={classes.root}
-            key={cityData.id}
-            onMouseEnter={handleMouseEnter}
-            onMouseLeave={handleMouseLeave}
-          >
-            <CardMedia component='img' className={classes.media} image={cityData.image} title={cityData.title} />
-            <CardContent className={classes.content}>
-              {hovered && (
-                <>
-                  <Typography className={classes.title} variant='h5' gutterBottom>
-                    {cityData.title}
-                  </Typography>
-                  <Typography className={classes.subtitle} variant='subtitle1' gutterBottom>
-                    {cityData.subtitle}
-                  </Typography>
-
-                  <IconButton className={classes.iconButton} aria-label='add' onClick={handleClick}>
-                    <Add />
-                  </IconButton>
-                  <IconButton className={classes.iconButton} aria-label='favorite' onClick={handleFavoriteClick}>
-                    {isFavorite ? <Favorite /> : <FavoriteBorder />}
-                  </IconButton>
-                </>
-              )}
-            </CardContent>
-          </Card>
-        ))}
+        {contentApi
+          ? contentApi?.map((item) => (
+              <RootCard key={item.location_id} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
+                <Media component='img' image={item?.data[0]?.images?.original?.url} title={item.name} />
+                {hovered && (
+                  <Content>
+                    <Typography variant='h5' gutterBottom>
+                      {item.name}
+                    </Typography>
+                    <Typography variant='subtitle1' gutterBottom>
+                      {item.address_obj.addres_string}
+                    </Typography>
+                    <IconButtonStyled
+                      aria-label='add'
+                      onClick={() => {
+                        handleClick(item.location_id);
+                      }}
+                    >
+                      <Add />
+                    </IconButtonStyled>
+                    <IconButtonStyled aria-label='favorite' onClick={handleFavoriteClick}>
+                      {isFavorite ? <Favorite /> : <FavoriteBorder />}
+                    </IconButtonStyled>
+                  </Content>
+                )}
+              </RootCard>
+            ))
+          : ''}
       </Carrusel>
+      {open && selectedDestino !== null && (
+        <PopupDestino data={selectedDestino} open={open} closeDestino={closeDestino} categoria={'geos'} />
+      )}
     </>
   );
 };

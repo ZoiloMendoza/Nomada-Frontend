@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { TextField, Button, Box, Grid } from '@mui/material';
-import { makeStyles } from '@mui/styles';
+import Link from 'next/link';
 
-const useStyles = makeStyles(() => ({
+const styles = {
   box: {
-    margin: '10px',
-    width: '40vw',
+    margin: '30px',
+    width: '50vw',
     height: '50vh',
     display: 'flex',
     alignItems: 'center',
@@ -18,11 +18,9 @@ const useStyles = makeStyles(() => ({
     margin: '7px',
     backgroundColor: '#E91E63',
   },
-}));
+};
 
 const AddHotel = () => {
-  const classes = useStyles();
-
   const [hotelData, setHotelData] = useState({
     name: '',
     address: '',
@@ -75,28 +73,30 @@ const AddHotel = () => {
       style={{ minHeight: '100vh' }}
     >
       <h1>Hospedaje</h1>
-      <Box className={classes.box}>
+      <Box sx={styles.box}>
         <form onSubmit={handleSubmit}>
           <TextField
-            className={classes.input}
+            sx={styles.input}
             required
             label='Nombre del Hotel'
             name='name'
             value={hotelData.name}
             onChange={handleChange}
             fullWidth
+            variant='filled'
           />
           <TextField
-            className={classes.input}
+            sx={styles.input}
             required
             label='Dirección'
             name='address'
             value={hotelData.address}
             onChange={handleChange}
             fullWidth
+            variant='filled'
           />
           <TextField
-            className={classes.input}
+            sx={styles.input}
             required
             label='Check-in'
             name='checkIn'
@@ -107,9 +107,10 @@ const AddHotel = () => {
               shrink: true,
             }}
             fullWidth
+            variant='filled'
           />
           <TextField
-            className={classes.input}
+            sx={styles.input}
             required
             label='Check-out'
             name='checkOut'
@@ -120,18 +121,22 @@ const AddHotel = () => {
               shrink: true,
             }}
             fullWidth
+            variant='filled'
           />
           <TextField
-            className={classes.input}
+            sx={styles.input}
             label='Número de Reservación'
             name='reservation'
             value={hotelData.reservation}
             onChange={handleChange}
             fullWidth
+            variant='filled'
           />
-          <Button type='submit' variant='contained' color='primary' className={classes.button}>
-            Agregar
-          </Button>
+          <Link href='/itinerary'>
+            <Button type='submit' variant='contained' color='primary' sx={styles.button}>
+              Agregar
+            </Button>
+          </Link>
           <Button type='button' variant='contained' color='primary' onClick={resetData}>
             Cancelar
           </Button>

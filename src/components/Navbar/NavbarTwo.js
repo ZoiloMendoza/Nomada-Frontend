@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import {
   AppBar,
   Toolbar,
@@ -10,17 +10,32 @@ import {
   ListItemIcon,
   ListItemText,
   useMediaQuery,
-  useTheme,
+  //useTheme,
 } from '@mui/material';
-import { Menu as MenuIcon, AccountCircle, Dashboard, Settings, ExitToApp } from '@mui/icons-material';
+import { AccountCircle, Dashboard, ExitToApp } from '@mui/icons-material';
 import Link from 'next/link';
 import Image from 'next/image';
+import { useRouter } from 'next/router';
+import { useUserContext } from '@/context/userLogin';
 
 function NavbarTwo() {
+  const { variableState } = useUserContext();
   const [anchorEl, setAnchorEl] = useState(null);
   const [isLoggedIn, setIsLoggedIn] = useState(false); // Replace with your login state
-  const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+  //const theme = useTheme();
+  const isMobile = useMediaQuery((theme) => (theme ? theme.breakpoints.down('sm') : '(max-width:600px)'));
+  const router = useRouter();
+
+  console.log('soy el variable state', variableState);
+
+  useEffect(() => {
+    //console.log(variableState);
+    const usuario = variableState;
+    if (usuario == false) {
+      return; //router.push('/login');
+    }
+    setIsLoggedIn(true);
+  }, [variableState]);
 
   const handleMenu = (event) => {
     setAnchorEl(event.currentTarget);
@@ -30,38 +45,31 @@ function NavbarTwo() {
     setAnchorEl(null);
   };
 
+  const handleDashboardClick = () => {
+    setAnchorEl(null);
+    router.push('/misviajes');
+  };
+
   const handleLogout = () => {
-    // Add your logout logic here
+    localStorage.removeItem('usuarioLogeado');
     setIsLoggedIn(false);
     handleClose();
+    router.push('/');
   };
 
   return (
-    <AppBar position='static' sx={{ backgroundColor: '#333333' }}>
+    <AppBar position='static' sx={{ backgroundColor: '#2B2E4A' }}>
       <Toolbar>
-        <IconButton edge='start' color='inherit' aria-label='menu'>
-          <MenuIcon />
-        </IconButton>
         <Link legacyBehavior href='/'>
           <a>
-            <Image src='/img/logo1.svg' alt='Logo' height='30' width='30' sx={{ color: '#FFFFFF' }} />
+            <Image src='/img/logo3.svg' alt='Logo' height='40' width='40' sx={{ color: '#FFFFFF' }} />
           </a>
         </Link>
 
-        {!isMobile && (
-          <Typography variant='h6' style={{ flexGrow: 1 }}>
-            NomadApp
-          </Typography>
-        )}
-        <Link legacyBehavior href='/search'>
-          <Button color='inherit'>search</Button>
-        </Link>
-        <Link legacyBehavior href='/itinerary'>
-          <Button color='inherit'>itinerario</Button>
-        </Link>
-        <Link legacyBehavior href='/add'>
-          <Button color='inherit'>add</Button>
-        </Link>
+        <Typography variant='h6' style={{ flexGrow: 1, justifyContent: 'center' }}>
+          <Image src='/img/logo2.svg' alt='Logo' height='40' width='130' sx={{ color: '#FFFFFF' }} />
+        </Typography>
+
         {isLoggedIn ? (
           <>
             {isMobile ? (
@@ -90,18 +98,13 @@ function NavbarTwo() {
                   open={Boolean(anchorEl)}
                   onClose={handleClose}
                 >
-                  <MenuItem onClick={handleClose}>
+                  <MenuItem onClick={handleDashboardClick}>
                     <ListItemIcon>
                       <Dashboard />
                     </ListItemIcon>
-                    <ListItemText primary='Dashboard' />
+                    <ListItemText primary='Mis Viajes' />
                   </MenuItem>
-                  <MenuItem onClick={handleClose}>
-                    <ListItemIcon>
-                      <Settings />
-                    </ListItemIcon>
-                    <ListItemText primary='Account Settings' />
-                  </MenuItem>
+
                   <MenuItem onClick={handleLogout}>
                     <ListItemIcon>
                       <ExitToApp />
@@ -112,18 +115,28 @@ function NavbarTwo() {
               </>
             ) : (
               <>
-                <Button color='inherit'>Dashboard</Button>
-                <Button color='inherit'>Configurar Cuenta</Button>
-                <Button color='inherit' onClick={handleLogout}>
+                <Typography sx={{ fontWeight: 'bolder', color: '#FFFFFF', textTransform: 'uppercase' }}>
+                  ¡Hola, {variableState?.name}! &nbsp; 😎 👉 &nbsp; &nbsp;
+                </Typography>
+                <Link href='/misviajes'>
+                  <Button sx={{ color: '#FFFFFF' }}>Mis Viajes</Button>
+                </Link>
+
+                <Button sx={{ color: '#FFFFFF' }} onClick={handleLogout}>
                   Log Out
                 </Button>
               </>
             )}
           </>
         ) : (
-          <Link href='/login'>
-            <Button color='inherit'>Log In</Button>
-          </Link>
+          <>
+            <Link href='/registro'>
+              <Button sx={{ color: '#FFFFFF' }}>Regístrate</Button>
+            </Link>
+            <Link href='/login'>
+              <Button sx={{ color: '#FFFFFF' }}>Log In</Button>
+            </Link>
+          </>
         )}
       </Toolbar>
     </AppBar>
