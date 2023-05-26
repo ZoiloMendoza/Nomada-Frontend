@@ -13,7 +13,7 @@ import TabsDestinosMobile from '@/components/Itinerary/TabsDestinosMobile';
 const URLRAILWAY = process.env.NEXT_PUBLIC_BACKEND;
 
 export default function Itinerary({ contentApi, contentViaje }) {
-  const [destinoSeleccionado, setDestinoSeleccionado] = useState('');
+  const [destinoSeleccionado, setDestinoSeleccionado] = useState(contentViaje.rutas[0].transporte.destino ?? '');
   const isMobile = useMediaQuery((theme) => (theme ? theme.breakpoints.down('sm') : '(max-width:600px)'));
   if (!contentApi) {
     return <div>Intentalo más tarde</div>;
@@ -25,18 +25,19 @@ export default function Itinerary({ contentApi, contentViaje }) {
 
   const updateDestinoSeleccionado = (destino) => {
     setDestinoSeleccionado(destino);
+    //const indice = contentViaje.rutas.indexOf(destino);
   };
 
+  const arregloDestinos = contentViaje.rutas.map((transporte) => transporte.transporte.destino);
+  const idRutaElegida = arregloDestinos.indexOf(destinoSeleccionado);
+  //console.log(arregloDestinos)
+  //console.log(contentViaje.rutas)
   return (
     <Box sx={{ backgroundColor: '#EAEDED' }}>
       <HeroImage viajeData={contentViaje} imagenFondo={contentApi?.data[0]?.images?.original?.url} />
       <Add
         destinoSeleccionado={destinoSeleccionado}
-        destino={{
-          latitude: contentApi?.latitude,
-          longitude: contentApi?.longitude,
-          idRuta: contentViaje?.rutas[0]?._id,
-        }}
+        destino={contentViaje.rutas[idRutaElegida]._id}
       />
       {isMobile ? (
         <Box

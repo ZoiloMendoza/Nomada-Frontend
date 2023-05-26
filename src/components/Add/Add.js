@@ -6,6 +6,7 @@ import FlightIcon from '@mui/icons-material/Flight';
 import HotelIcon from '@mui/icons-material/Hotel';
 import LocalActivityIcon from '@mui/icons-material/LocalActivity';
 import MapIcon from '@mui/icons-material/Map';
+import { useState } from 'react';
 
 const AddSection = styled('div')(({ theme }) => ({
   backgroundColor: '#EAEDED',
@@ -66,12 +67,14 @@ const AddButtonGroup = styled(ButtonGroup)(() => ({
 }));
 
 export default function Add({ destino, destinoSeleccionado }) {
+  //const [idRuta, setIdRuta] = useState('')
   const router = useRouter();
   const { id } = router.query;
   const encodedDestino = encodeURIComponent(destinoSeleccionado);
   console.log(destino,'DESTINO');
   console.log(encodedDestino,'ENCODEDESTINO')
-
+  //setIdRuta(destino.rutas[0]._id)
+  //console.log(idRuta, 'idRuda de destino')
   return (
     <AddSection>
       <AddButtonGroup aria-label='button group'>
@@ -81,13 +84,13 @@ export default function Add({ destino, destinoSeleccionado }) {
             &nbsp; Nuevo destino
           </AddButton>
         </Link>
-        <Link href={`/addhotel?destino=${destinoSeleccionado}`}>
+        <Link href={`/addhotel?destino=${destinoSeleccionado}&idRuta=${destino}`}>
           <AddButton>
             <HotelIcon />
             &nbsp; Hospedaje
           </AddButton>
         </Link>
-        <Link href={`/search?destino=${encodedDestino}`}>
+        <Link href={`/search?destino=${encodedDestino}&idRuta=${destino}`}>
         {/*`/search?latitude=${destino?.latitude}&longitude=${destino?.longitude}&idRuta=${destino?.idRuta}`*/}
           <AddButton>Buscar actividades</AddButton>
         </Link>

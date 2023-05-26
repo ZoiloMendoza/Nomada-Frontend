@@ -9,6 +9,7 @@ import { useEffect, useState } from 'react';
 import SearchIcon from '@mui/icons-material/Search';
 import axios from 'axios';
 import { useRouter } from 'next/router';
+import { getDataFindSearch } from '@/pages/api/proxy/findSearch';
 const apiKey = process.env.NEXT_PUBLIC_API_VUELOS_KEY;
 const URLRAILWAY = process.env.NEXT_PUBLIC_BACKEND;
 const theme = createTheme({
@@ -51,6 +52,7 @@ const BoardingPassCard = () => {
   const router = useRouter();
   const { id } = router.query;
   const regexPattern = /^[A-Za-z]{2}\d{4}$/;
+
   useEffect(()=> {
     if(id){
       const creandoRuta = async () => {
@@ -62,6 +64,8 @@ const BoardingPassCard = () => {
             `${URLRAILWAY}/api/v1/rutas`,
             nuevaRuta,
           );
+          //const params = { destino:'Chiapas', paisDestino: 'mx'}
+          //const imagenTransporte = await getDataFindSearch({params})
           setIdRuta(crearRutaPost.data._id);
           console.log('ruta', crearRutaPost);
         } catch (error) {
@@ -79,7 +83,8 @@ const BoardingPassCard = () => {
         origen: datosDelVuelo?.origen,
         destino: datosDelVuelo?.destino,
         fechaIda: datosDelVuelo?.fechaInicio,
-        fechaRegreso: datosDelVuelo?.fechaFinal
+        fechaRegreso: datosDelVuelo?.fechaFinal,
+        imagen: datosDelVuelo.imagen,
       };
       const crearTransportePost = await axios.post(
        `${URLRAILWAY}/api/v1/transportes`,
@@ -118,7 +123,7 @@ const BoardingPassCard = () => {
     );
     console.log('statusCode', viajePost.status);
     if (idRuta !== '') {
-      await creandoTransporte(formData);
+      await creandoTransporte({...formData, imagen:'hghjgjhg'});
     }
     if (viajePost.status !== 201) {
       console.log('error al insertar');

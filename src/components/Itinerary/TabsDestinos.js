@@ -4,6 +4,7 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
 import FlightCard from './FlightCard';
+import { useEffect } from 'react';
 //import { flightData } from '@/components/Itinerary/flightData';
 import ActivityCard from '@/components/Itinerary/ActivityCard';
 import HotelCard from '@/components/Itinerary/HotelCard';
@@ -46,9 +47,9 @@ export default function TabsDestinos({ dataDestino, updateDestinoCallback }) {
   if (!dataDestino) {
     return <div>Intentalo más tarde TabsDestinos</div>;
   }
-  
-  updateDestinoCallback(dataDestino.rutas[0].transporte.destino)
 
+  //updateDestinoCallback(dataDestino.rutas[0].transporte.destino)
+  
   const handleChange = (event, newValue) => {
     setValue(newValue);
     const destinoSeleccionado = dataDestino.rutas[newValue].transporte.destino;
@@ -56,7 +57,6 @@ export default function TabsDestinos({ dataDestino, updateDestinoCallback }) {
     console.log(newValue, 'newValue');
     console.log(destinoSeleccionado, 'destinoSeleccionado');
   };
-
   return (
     <Box
       sx={{
