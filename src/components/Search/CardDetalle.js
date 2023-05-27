@@ -57,6 +57,7 @@ const CardDetalle = ({ data, open, closeCard, openForm }) => {
   const [item, setItem] = useState({});
   const [loading, setLoading] = useState(true);
   const [isFavorite, setIsFavorite] = useState(false);
+
   const handleClose = () => {
     closeCard();
   };

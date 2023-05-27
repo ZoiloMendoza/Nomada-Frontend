@@ -52,7 +52,7 @@ function ActivityCard() {
   }, []);
   const handleClick = (location_id) => {
     const selectedActivity = activityData.find((activity) => activity.location_id === location_id);
-    setSelectedRestaurant(selectedActivity);
+    setSelectedActivity(selectedActivity);
     setOpen(true);
   };
 
@@ -85,7 +85,7 @@ function ActivityCard() {
             <CardMedia
               sx={styles.media}
               image={activity?.data[0]?.images.original.url}
-              title={activity?.data[0]?.user.username}
+              //  title={activity?.data[0]?.user.username}
             />
             <CardContent>
               <Typography gutterBottom variant='h5' component='h2'>
