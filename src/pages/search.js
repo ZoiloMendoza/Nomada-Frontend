@@ -6,9 +6,10 @@ import { searchLocation } from './api/proxy/opencage';
 import Box from '@mui/material/Box';
 import CityCard from '@/components/Search/cityCard';
 
-export default function Search({ contentRestaurant, contentDestino }) {
-  console.log(contentRestaurant);
-  console.log(contentDestino);
+export default function Search({ contentRestaurant, contentDestino, contentActividades }) {
+  //console.log(contentRestaurant);
+  //console.log(contentDestino);
+  console.log(contentActividades, 'contentActividades')
   return (
     <>
       <SearchBar />
@@ -32,10 +33,12 @@ export const getServerSideProps = async (context) => {
     //const test = await getDataFindSearchSinPhoto({ params })
     const contentRestaurant = await getData({ ...datosGeo, category: 'restaurants' });
     const contentDestino = await getData({ ...datosGeo, category: 'geos' });
+    const contentActividades = await getData({ ...datosGeo, category: 'attractions' })
     return {
       props: {
         contentRestaurant: contentRestaurant,
         contentDestino: contentDestino,
+        contentActividades: contentActividades,
       },
     };
   } catch (error) {
