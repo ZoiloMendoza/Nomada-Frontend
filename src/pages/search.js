@@ -1,15 +1,10 @@
 import SearchBar from '@/components/Search/Search';
 import MapButton from '@/components/common/MapButton';
 import RestaurantCard from '@/components/Search/RestaurantCard';
-import { cityData } from '@/components/Search/cityData';
-import { restaurantData } from '@/components/Search/restaurantData';
 import { getData } from './api/proxy/restaurantSearch';
-import { getDataFindSearchSinPhoto } from './api/proxy/findSearchSinPhoto';
 import { searchLocation } from './api/proxy/opencage';
-import axios from 'axios';
 import Box from '@mui/material/Box';
 import CityCard from '@/components/Search/cityCard';
-import { data } from '@/components/Add/data';
 
 export default function Search({ contentRestaurant, contentDestino }) {
   console.log(contentRestaurant);

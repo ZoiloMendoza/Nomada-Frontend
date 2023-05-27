@@ -31,7 +31,7 @@ export async function searchLocation(destino) {
 
     const results = response.data.results;
     const firstResult = results[0];
-    const { formatted, geometry } = firstResult;
+    const { geometry } = firstResult;
     const latitude = geometry.lat;
     const longitude = geometry.lng;
     return { latitude, longitude };

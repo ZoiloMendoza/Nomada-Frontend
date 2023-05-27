@@ -9,12 +9,10 @@ export default async function handler(req, res) {
   return res.status(200).json(data);
 }
 export async function getDataFindSearch({ params }) {
-  const replaceSpace = (data) => {
-    return Object.entries(data).reduce((newData, [key, value]) => {
+  const replaceSpace = (data) => Object.entries(data).reduce((newData, [key, value]) => {
       newData[key] = typeof value === 'string' ? value.replace(/ /g, '%20') : value;
       return newData;
     }, {});
-  };
   const newParams = replaceSpace(params);
   const location = `${newParams.destino}%20${newParams.paisDestino}`;
   //console.log(location, 'getDataFindSearch');

@@ -27,12 +27,12 @@ const styles = {
 };
 
 function ActivityCard({ activityData }) {
-  const actividades = activityData.rutas[0].actividades;
+  //const actividades = activityData.rutas[0].actividades;
   const [open, setOpen] = useState(false);
   const [openForm, setOpenForm] = useState(false);
   const [selectedActivity, setSelectedActivity] = useState(null);
   const [isFavorite, setIsFavorite] = useState(false);
-  const [infoRuta, setinfoRuta] = useState([]);
+  //const [infoRuta, setinfoRuta] = useState([]);
   useEffect(() => {
     const getRuta = async () => {
       try {

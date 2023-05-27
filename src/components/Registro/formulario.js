@@ -1,4 +1,4 @@
-import { Box, TextField, Grid, Card, CardContent, Typography, FormControlLabel, Checkbox } from '@mui/material';
+import { Box, TextField, Grid, Card, CardContent, Typography} from '@mui/material';
 import CheckboxFormulario from './CheckboxFormulario';
 import ButtonForm from './ButtonForm';
 import { useState } from 'react';
@@ -70,7 +70,7 @@ function Formulario() {
       alert('Error al crear el usuario. Por favor, inténtalo de nuevo.');
     }
     const handleCheckboxChange = (event) => {
-      setIsChecked(event.target.checked);
+     setIsChecked(event.target.checked);
     };
   };
 

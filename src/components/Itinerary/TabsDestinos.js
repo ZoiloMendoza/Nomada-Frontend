@@ -4,7 +4,7 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
 import FlightCard from './FlightCard';
-import { useEffect } from 'react';
+//import { useEffect } from 'react';
 //import { flightData } from '@/components/Itinerary/flightData';
 import ActivityCard from '@/components/Itinerary/ActivityCard';
 import HotelCard from '@/components/Itinerary/HotelCard';

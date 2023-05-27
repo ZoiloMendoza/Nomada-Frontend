@@ -9,7 +9,7 @@ import { useEffect, useState } from 'react';
 import SearchIcon from '@mui/icons-material/Search';
 import axios from 'axios';
 import { useRouter } from 'next/router';
-import { getDataFindSearch } from '@/pages/api/proxy/findSearch';
+//import { getDataFindSearch } from '@/pages/api/proxy/findSearch';
 const apiKey = process.env.NEXT_PUBLIC_API_VUELOS_KEY;
 const URLRAILWAY = process.env.NEXT_PUBLIC_BACKEND;
 const theme = createTheme({

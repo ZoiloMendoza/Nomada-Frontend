@@ -37,7 +37,7 @@ const ActivityCard = ({ activityData, handleEdit }) => {
   const handleDelete = async (idActividad) => {
     try {
       if(idActividad){
-        const borrarCardActividades = await axios.delete(`${URLRAILWAY}/api/v1/actividades/${idActividad}`)
+        await axios.delete(`${URLRAILWAY}/api/v1/actividades/${idActividad}`)
         setActivities(activities.filter(activity => activity._id !== idActividad));
         alert('Card eliminada')
       }

@@ -4,9 +4,7 @@ import { Link } from '@mui/material';
 import { useRouter } from 'next/router';
 import FlightIcon from '@mui/icons-material/Flight';
 import HotelIcon from '@mui/icons-material/Hotel';
-import LocalActivityIcon from '@mui/icons-material/LocalActivity';
 import MapIcon from '@mui/icons-material/Map';
-import { useState } from 'react';
 
 const AddSection = styled('div')(({ theme }) => ({
   backgroundColor: '#EAEDED',
