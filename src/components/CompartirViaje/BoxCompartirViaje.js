@@ -19,7 +19,7 @@ export default function CompartirViaje() {
           sx={{ fontFamily: 'Inter, sans-serif', fontSize: '25px', fontWeight: 'bold' }}
         >
           {' '}
-          Paola te ha compartido a el viaje "Navidad en Bélgica"
+          Paola te ha compartido a el viaje Navidad en Bélgica
         </Box>
         <Box
           color={customColor3}
@@ -41,7 +41,7 @@ export default function CompartirViaje() {
                 width: '300px',
                 backgroundColor: customColor2,
                 borderRadius: '10px',
-                padding: '10px 10px',
+                padding: '10px, 10px',
                 textTransform: 'none',
                 fontSize: '20px',
                 fontFamily: 'Inter, sans-serif',

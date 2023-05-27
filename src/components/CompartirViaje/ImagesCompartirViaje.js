@@ -4,6 +4,7 @@ import ImageListItem from '@mui/material/ImageListItem';
 import ImageListItemBar from '@mui/material/ImageListItemBar';
 import IconButton from '@mui/material/IconButton';
 import InfoIcon from '@mui/icons-material/Info';
+import Image from 'next/image';
 
 export default function ImagesCompartirViaje() {
   return (
@@ -11,7 +12,7 @@ export default function ImagesCompartirViaje() {
       <ImageListItem key='Subheader' cols={2}></ImageListItem>
       {itemData.map((item) => (
         <ImageListItem key={item.img}>
-          <img
+          <Image
             src={`${item.img}?w=248&fit=crop&auto=format`}
             srcSet={`${item.img}?w=248&fit=crop&auto=format&dpr=2 2x`}
             alt={item.title}

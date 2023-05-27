@@ -1,4 +1,4 @@
-import { Box, TextField, Grid, Card, CardContent, Typography} from '@mui/material';
+import { Box, TextField, Grid, Card, CardContent, Typography } from '@mui/material';
 import CheckboxFormulario from './CheckboxFormulario';
 import ButtonForm from './ButtonForm';
 import { useState } from 'react';
@@ -20,7 +20,7 @@ const style = {
 };
 
 function Formulario() {
-  const [isChecked, setIsChecked] = useState(false);
+  //const [isChecked, setIsChecked] = useState(false);
   const router = useRouter();
   const [confirmarPassword, setConfirmarPaswordd] = useState({
     confirmar: '',
@@ -69,9 +69,6 @@ function Formulario() {
       console.error('Error en la petición:', error);
       alert('Error al crear el usuario. Por favor, inténtalo de nuevo.');
     }
-    const handleCheckboxChange = (event) => {
-     setIsChecked(event.target.checked);
-    };
   };
 
   return (
