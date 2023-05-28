@@ -47,7 +47,7 @@ export default function TabsDestinos({ dataDestino, updateDestinoCallback }) {
   if (!dataDestino) {
     return <div>Intentalo más tarde TabsDestinos</div>;
   }
-
+  //console.log(dataDestino.rutas[2].hospedajes, 'hospedajes')
   //updateDestinoCallback(dataDestino.rutas[0].transporte.destino)
   
   const handleChange = (event, newValue) => {
@@ -88,7 +88,7 @@ export default function TabsDestinos({ dataDestino, updateDestinoCallback }) {
         dataDestino.rutas.map((ruta, index) => (
           <TabPanel key={index} value={value} index={index}>
             <FlightCard flightData={ruta.transporte} />
-            <HotelCard hotelData={[]} />
+            <HotelCard hotelData={ruta.hospedajes} />
             <ActivityCard activityData={dataDestino.rutas[index].actividades} />
           </TabPanel>
         ))

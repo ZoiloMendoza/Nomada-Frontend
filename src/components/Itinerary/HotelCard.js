@@ -34,8 +34,8 @@ const HotelCard = ({ hotelData, handleEdit, handleDelete }) => {
 
   return (
     <>
-      {hotelData ? hotelData.map((hotelData) => (
-        <Card sx={styles.card} key={hotelData.id}>
+      {hotelData ? hotelData.map((hotelData, index) => (
+        <Card sx={styles.card} key={index}>
           <CardContent>
             <div>
               <IconButton aria-label='edit' onClick={() => handleEdit(hotelInfo)}>
@@ -57,13 +57,13 @@ const HotelCard = ({ hotelData, handleEdit, handleDelete }) => {
             </div>
             <Grid container spacing={2}>
               <Grid item xs={4}>
-                <CardMedia sx={styles.media} image={hotelData.image} title={hotelData.title} />
+                <CardMedia sx={styles.media} image={hotelData?.image} title={hotelData.nombreHospedaje} />
               </Grid>
               <Grid item xs={6}>
-                <Typography variant='h5'>{hotelData.name}</Typography>
-                <Typography variant='subtitle1'>{hotelData.address}</Typography>
-                <Typography variant='body1'>Check-in: {hotelData.checkIn}</Typography>
-                <Typography variant='body1'>Check-out: {hotelData.checkOut}</Typography>
+                <Typography variant='h5'>{hotelData?.name}</Typography>
+                <Typography variant='subtitle1'>{hotelData?.direccion}</Typography>
+                <Typography variant='body1'>Check-in: {hotelData?.fechaInicio}</Typography>
+                <Typography variant='body1'>Check-out: {hotelData?.fechaFinal}</Typography>
               </Grid>
               <Grid item xs={2}>
                 <HotelIcon />
@@ -80,9 +80,9 @@ const HotelCard = ({ hotelData, handleEdit, handleDelete }) => {
             </IconButton>
             <Collapse in={expanded} timeout='auto' unmountOnExit>
               <CardContent>
-                <Typography variant='h6'>Precio Total: ${hotelData.totalPrice}</Typography>
+                <Typography variant='h6'>Precio Total: ${hotelData?.totalPrice}</Typography>
                 <Typography variant='h6'>Número de reservación:</Typography>
-                <Typography variant='body1'>{hotelData.reservation}</Typography>
+                <Typography variant='body1'>{hotelData?.reservation}</Typography>
               </CardContent>
             </Collapse>
           </CardContent>
