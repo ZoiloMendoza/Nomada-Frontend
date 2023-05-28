@@ -122,7 +122,11 @@ function NavbarTwo() {
                   <Button sx={{ color: '#FFFFFF' }}>Mis Viajes</Button>
                 </Link>
 
-                <Button sx={{ color: '#FFFFFF' }} onClick={handleLogout}>
+                <Link href='/inicio'>
+                  <Button sx={{ color: '#FFFFFF' }}>Nuevo Viaje</Button>
+                </Link>
+
+                <Button sx={{ color: '#FFFFFF', backgroundColor: '#E91E63' }} onClick={handleLogout}>
                   Log Out
                 </Button>
               </>
