@@ -3,14 +3,15 @@ import { Card, CardHeader, CardMedia, CardContent, Typography, IconButton, Colla
 import { ExpandMore } from '@mui/icons-material';
 import { Edit as EditIcon, Delete as DeleteIcon } from '@mui/icons-material';
 import LocalActivityIcon from '@mui/icons-material/LocalActivity';
-import axios from 'axios'
+import axios from 'axios';
 import Grid from '@mui/material/Grid';
 const URLRAILWAY = process.env.NEXT_PUBLIC_BACKEND;
 const styles = {
   card: {
     marginBottom: '10px',
     margin: 2,
-    backgroundColor: '#F6F6F6',
+    backgroundColor: '#FFFFFF',
+    border: '1px solid #2B2E4A',
   },
   media: {
     maxHeight: 300,
@@ -36,68 +37,70 @@ const ActivityCard = ({ activityData, handleEdit }) => {
   };
   const handleDelete = async (idActividad) => {
     try {
-      if(idActividad){
-        await axios.delete(`${URLRAILWAY}/api/v1/actividades/${idActividad}`)
-        setActivities(activities.filter(activity => activity._id !== idActividad));
-        alert('Card eliminada')
+      if (idActividad) {
+        await axios.delete(`${URLRAILWAY}/api/v1/actividades/${idActividad}`);
+        setActivities(activities.filter((activity) => activity._id !== idActividad));
+        alert('Card eliminada');
       }
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-  }
-  console.log(activityData, 'activitiData')
+  };
+  console.log(activityData, 'activitiData');
   return (
     <>
-      {activities ? activities?.map((activityData) => (
-        <Card sx={styles.card} key={activityData?._id}>
-          <IconButton aria-label='edit' onClick={() => handleEdit(activityInfo)}>
-            <EditIcon
-              sx={{
-                width: '20px',
-                color: '#D2D2D2',
-              }}
-            />
-          </IconButton>
-          <IconButton aria-label='delete' onClick={() => handleDelete(activityData._id)}>
-            <DeleteIcon
-              sx={{
-                width: '20px',
-                color: '#D2D2D2',
-              }}
-            />
-          </IconButton>
-          <Grid container spacing={2}>
-            <Grid item xs={4}>
-              <CardMedia sx={styles.media} image={activityData?.fotos} title={activityData?.nombre} />
-            </Grid>
-            <Grid item xs={6}>
-              <CardHeader title={activityData?.nombre} subheader={activityData?.direccion} />
-              <CardContent>
-                <Typography variant='body2' color='textSecondary' component='p'>
-                  {activityData?.fechaInicio}
-                </Typography>
-              </CardContent>
-            </Grid>
-            <Grid item xs={2}>
-              <LocalActivityIcon />
-            </Grid>
-          </Grid>
+      {activities
+        ? activities?.map((activityData) => (
+            <Card sx={styles.card} key={activityData?._id}>
+              <IconButton aria-label='edit' onClick={() => handleEdit(activityInfo)}>
+                <EditIcon
+                  sx={{
+                    width: '20px',
+                    color: '#D2D2D2',
+                  }}
+                />
+              </IconButton>
+              <IconButton aria-label='delete' onClick={() => handleDelete(activityData._id)}>
+                <DeleteIcon
+                  sx={{
+                    width: '20px',
+                    color: '#D2D2D2',
+                  }}
+                />
+              </IconButton>
+              <Grid container spacing={2}>
+                <Grid item xs={4}>
+                  <CardMedia sx={styles.media} image={activityData?.fotos} title={activityData?.nombre} />
+                </Grid>
+                <Grid item xs={6}>
+                  <CardHeader title={activityData?.nombre} subheader={activityData?.direccion} />
+                  <CardContent>
+                    <Typography variant='body2' color='textSecondary' component='p'>
+                      {activityData?.fechaInicio}
+                    </Typography>
+                  </CardContent>
+                </Grid>
+                <Grid item xs={2}>
+                  <LocalActivityIcon />
+                </Grid>
+              </Grid>
 
-          <IconButton
-            className={`${styles.expandIcon} ${expanded ? styles.expandIconOpen : ''}`}
-            onClick={handleExpandClick}
-            aria-expanded={expanded}
-            aria-label='mostrar más'
-          >
-            <ExpandMore />
-          </IconButton>
-          <Collapse in={expanded} timeout='auto' unmountOnExit>
-            <CardContent>
-              <Typography paragraph>{activityData?.direccion}</Typography>
-            </CardContent>
-          </Collapse>
-        </Card>
-      )): 'Sin actividades'}
+              <IconButton
+                className={`${styles.expandIcon} ${expanded ? styles.expandIconOpen : ''}`}
+                onClick={handleExpandClick}
+                aria-expanded={expanded}
+                aria-label='mostrar más'
+              >
+                <ExpandMore />
+              </IconButton>
+              <Collapse in={expanded} timeout='auto' unmountOnExit>
+                <CardContent>
+                  <Typography paragraph>{activityData?.direccion}</Typography>
+                </CardContent>
+              </Collapse>
+            </Card>
+          ))
+        : 'Sin actividades'}
     </>
   );
 };

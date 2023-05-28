@@ -11,6 +11,7 @@ const styles = {
     marginBottom: '10px',
     margin: 2,
     backgroundColor: '#F6F6F6',
+    border: '1px solid #FFFFFF',
   },
   expandIcon: {
     transform: 'rotate(0deg)',
@@ -27,10 +28,10 @@ const FlightCard = ({ flightData, handleEdit, handleDelete }) => {
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
-console.log(flightData, 'flightData')
+  console.log(flightData, 'flightData');
   return (
     <>
-      {flightData ?
+      {flightData ? (
         <Card sx={styles.card}>
           <div sx={styles.editDeleteIcons}>
             <IconButton aria-label='edit' onClick={() => handleEdit(flightInfo)}>
@@ -97,7 +98,9 @@ console.log(flightData, 'flightData')
             </CardContent>
           </Collapse>
         </Card>
-      : 'skeleton'}
+      ) : (
+        'skeleton'
+      )}
     </>
   );
 };
