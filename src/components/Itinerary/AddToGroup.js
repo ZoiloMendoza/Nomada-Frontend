@@ -5,6 +5,7 @@ import Alert from '@mui/material/Alert';
 import Stack from '@mui/material/Stack';
 import { useRouter } from 'next/router';
 import { Delete as DeleteIcon } from '@mui/icons-material';
+import IconButton from '@mui/material/IconButton';
 
 const URLRAILWAY = process.env.NEXT_PUBLIC_BACKEND;
 const styles = {
@@ -125,13 +126,15 @@ const AddToGroup = ({ openModal, closeModal }) => {
               {emailsList.map((email, index) => (
                 <ListItem key={index}>
                   <ListItemText primary={email} />
-                  <DeleteIcon
-                    sx={{
-                      width: '20px',
-                      color: '#E91E63',
-                      opacity: '0.5',
-                    }}
-                  />
+                  <IconButton>
+                    <DeleteIcon
+                      sx={{
+                        width: '20px',
+                        color: '#E91E63',
+                        opacity: '0.5',
+                      }}
+                    />
+                  </IconButton>
                 </ListItem>
               ))}
             </List>
