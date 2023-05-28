@@ -6,38 +6,61 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
 import Link from 'next/link';
+import IconButton from '@mui/material/IconButton';
+import Box from '@mui/material/Box';
+import { Delete as DeleteIcon } from '@mui/icons-material';
+import IosShareIcon from '@mui/icons-material/IosShare';
 
-const MisViajesCard = ({ datosViajes, image, title, subtitle, paragraph }) => {
-  console.log(datosViajes,'MisvIAJES')
+const MisViajesCard = ({ datosViajes, image, title }) => {
+  console.log(datosViajes, 'MisvIAJES');
   return (
-  <Card sx={{ display: 'flex', marginBottom: '5vh', alignItems: 'center', flexWrap: 'wrap' }}>
-    <CardMedia sx={{ width: '250px' }} image={image} title={title} />
-    <CardContent sx={{ flex: '1 0 auto' }}>
-      <Typography variant='h5' component='h2'>
-        {datosViajes?.nombre}
-      </Typography>
-      <Typography gutterBottom variant='subtitle1'>
-        {`${datosViajes.rutas.length}`} Destinos
-      </Typography>
-      <Typography variant='body2' color='textSecondary' component='p'>
-        {`Inicio ${datosViajes.fechaInicio} final ${datosViajes.fechaFinal}`} Fechas
-      </Typography>
-    </CardContent>
-    <Grid container direction='column' justify='flex-start' alignItems='center' sx={{ maxWidth: '200px' }}>
-      <Link href='/itinerary'>
-        <Button size='small' variant='contained' color='primary' sx={{ margin: '3px', padding: '1px', width: '130px' }}>
-          Ver viaje
-        </Button>
-      </Link>
-      <Button size='small' variant='outlined' color='primary' sx={{ margin: '3px', padding: '1px', width: '130px' }}>
-        Compartir viaje
-      </Button>
-      <Button size='small' variant='outlined' color='primary' sx={{ margin: '3px', padding: '1px', width: '130px' }}>
-        Eliminar Viaje
-      </Button>
-    </Grid>
-  </Card>
-  )
+    <Card sx={{ display: 'flex', marginBottom: '5vh', alignItems: 'center', flexWrap: 'wrap' }}>
+      <CardMedia sx={{ width: '250px' }} image={image} title={title} />
+      <CardContent sx={{ flex: '1 0 auto' }}>
+        <Typography variant='h5' component='h2'>
+          {datosViajes?.nombre}
+        </Typography>
+        <Typography gutterBottom variant='subtitle1'>
+          {`${datosViajes.rutas.length}`} Destinos
+        </Typography>
+        <Typography variant='body2' color='textSecondary' component='p'>
+          {`Inicio ${datosViajes.fechaInicio} final ${datosViajes.fechaFinal}`} Fechas
+        </Typography>
+      </CardContent>
+      <Grid container direction='column' justify='flex-start' alignItems='center' sx={{ maxWidth: '200px' }}>
+        <Link href='/itinerary'>
+          <Button
+            size='small'
+            variant='contained'
+            color='primary'
+            sx={{ margin: '3px', padding: '1px', width: '130px' }}
+          >
+            Ver viaje
+          </Button>
+        </Link>
+        <Box>
+          <IconButton aria-label='edit' onClick={() => handleEdit(flightInfo)}>
+            <IosShareIcon
+              sx={{
+                width: '30px',
+                color: '#E91E63',
+                opacity: '0.5',
+              }}
+            />
+          </IconButton>
+          <IconButton aria-label='delete' onClick={() => handleDelete(flightInfo)}>
+            <DeleteIcon
+              sx={{
+                width: '30px',
+                color: '#E91E63',
+                opacity: '0.5',
+              }}
+            />
+          </IconButton>
+        </Box>
+      </Grid>
+    </Card>
+  );
 };
 
 export default MisViajesCard;

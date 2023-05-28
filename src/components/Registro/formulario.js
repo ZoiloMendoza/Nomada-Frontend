@@ -20,7 +20,7 @@ const style = {
 };
 
 function Formulario() {
-  //const [isChecked, setIsChecked] = useState(false);
+  const [isChecked, setIsChecked] = useState(false);
   const router = useRouter();
   const [confirmarPassword, setConfirmarPaswordd] = useState({
     confirmar: '',
