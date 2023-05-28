@@ -126,9 +126,9 @@ const AddToGroup = ({ openModal, closeModal }) => {
                 </ListItem>
               ))}
             </List>
-            <Button type='submit' variant='contained' color='primary'>
+            {/*<Button type='submit' variant='contained' color='primary'>
               Guardar
-            </Button>
+            </Button>*/}
           </form>
         </Box>
       </Modal>
