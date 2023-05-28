@@ -5,6 +5,7 @@ import { useRouter } from 'next/router';
 import FlightIcon from '@mui/icons-material/Flight';
 import HotelIcon from '@mui/icons-material/Hotel';
 import MapIcon from '@mui/icons-material/Map';
+import LocalActivityIcon from '@mui/icons-material/LocalActivity';
 
 const AddSection = styled('div')(({ theme }) => ({
   backgroundColor: '#EAEDED',
@@ -69,8 +70,8 @@ export default function Add({ destino, destinoSeleccionado }) {
   const router = useRouter();
   const { id } = router.query;
   const encodedDestino = encodeURIComponent(destinoSeleccionado);
-  console.log(destino,'DESTINO');
-  console.log(encodedDestino,'ENCODEDESTINO')
+  console.log(destino, 'DESTINO');
+  console.log(encodedDestino, 'ENCODEDESTINO');
   //setIdRuta(destino.rutas[0]._id)
   //console.log(idRuta, 'idRuda de destino')
   return (
@@ -89,8 +90,12 @@ export default function Add({ destino, destinoSeleccionado }) {
           </AddButton>
         </Link>
         <Link href={`/search?destino=${encodedDestino}&idRuta=${destino}`}>
-        {/*`/search?latitude=${destino?.latitude}&longitude=${destino?.longitude}&idRuta=${destino?.idRuta}`*/}
-          <AddButton>Buscar actividades</AddButton>
+          {/*`/search?latitude=${destino?.latitude}&longitude=${destino?.longitude}&idRuta=${destino?.idRuta}`*/}
+
+          <AddButton>
+            <LocalActivityIcon />
+            &nbsp; Buscar actividades
+          </AddButton>
         </Link>
         <Link href='/map'>
           <AddButtonTwo>
