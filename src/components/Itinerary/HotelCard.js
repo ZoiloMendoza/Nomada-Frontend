@@ -11,7 +11,7 @@ const styles = {
     marginBottom: '5px',
     margin: 2,
     backgroundColor: '#FFFFFF',
-    border: '1px solid #E91E63',
+    borderRight: '10px solid #E91E63',
   },
   media: {
     maxHeight: 300,

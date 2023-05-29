@@ -92,7 +92,7 @@ const CardDetalleActivity = ({ data, open, closeCard, openForm }) => {
       <PopupBox open={open} onClose={handleClose}>
         <Grid container>
           {item && (
-            <GridItem>
+            <GridItem key={item.location_id}>
               <CardMedia sx={styles.media} image={data?.data[0]?.images?.original?.url} />
               <CardContent>
                 <Typography variant='h6' gutterBottom>
