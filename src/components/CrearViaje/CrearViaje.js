@@ -1,3 +1,4 @@
+import ReactGoogleAutocomplete from 'react-google-autocomplete';
 import { Box, Card, TextField, Typography } from '@mui/material';
 import { styled } from '@mui/system';
 import IconButton from '@mui/material/IconButton';
@@ -9,9 +10,10 @@ import { useEffect, useState } from 'react';
 import SearchIcon from '@mui/icons-material/Search';
 import axios from 'axios';
 import { useRouter } from 'next/router';
-//import { getDataFindSearch } from '@/pages/api/proxy/findSearch';
+
 const apiKey = process.env.NEXT_PUBLIC_API_VUELOS_KEY;
 const URLRAILWAY = process.env.NEXT_PUBLIC_BACKEND;
+const API_GOOGLE = process.env.NEXT_PUBLIC_API_GOOGLE;
 const theme = createTheme({
   palette: {
     primary: {
@@ -39,6 +41,8 @@ const FlightInfoContainer = styled(Card)(({ theme }) => ({
 const BoardingPassCard = () => {
   const [error, setError] = useState(false);
   const [idRuta, setIdRuta] = useState('');
+  const [placeId, setPlaceId] = useState(null);
+  const [photoUrl, setPhotoUrl] = useState('');
   const [formData, setFormData] = useState({
     flightNumber: '',
     origen: '',
@@ -64,8 +68,6 @@ const BoardingPassCard = () => {
             `${URLRAILWAY}/api/v1/rutas`,
             nuevaRuta,
           );
-          //const params = { destino:'Chiapas', paisDestino: 'mx'}
-          //const imagenTransporte = await getDataFindSearch({params})
           setIdRuta(crearRutaPost.data._id);
           console.log('ruta', crearRutaPost);
         } catch (error) {
@@ -73,8 +75,27 @@ const BoardingPassCard = () => {
         }
       };
       creandoRuta();
+
     }
-  }, [id])
+  }, [id]);
+  
+  const fetchPlaceDetails = async () => {
+   console.log('hola')
+      try {
+        console.log('hola2',placeId)
+        const response = await axios.get(
+          `https://maps.googleapis.com/maps/api/place/details/json?place_id=${placeId}&fields=photo&key=${API_GOOGLE}`
+        );
+        console.log('blabal')
+        const photoReference = response.data.result.photos[0].photo_reference;
+        const photoUrl = `https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${photoReference}&key=${API_GOOGLE}`;
+        console.log(photoUrl, 'dentro')
+        setPhotoUrl(photoUrl);
+      } catch (error) {
+        console.error("Error fetching place photo:", error);
+      }
+    
+  };
   const creandoTransporte = async (datosDelVuelo) => {
     try {
       const nuevoTransporte = {
@@ -84,7 +105,9 @@ const BoardingPassCard = () => {
         destino: datosDelVuelo?.destino,
         fechaIda: datosDelVuelo?.fechaInicio,
         fechaRegreso: datosDelVuelo?.fechaFinal,
-        imagen: datosDelVuelo.imagen,
+        imagen: datosDelVuelo?.imagen,
+        latitud: datosDelVuelo?.latitud,
+        longitud: datosDelVuelo?.longitud,
       };
       const crearTransportePost = await axios.post(
        `${URLRAILWAY}/api/v1/transportes`,
@@ -107,6 +130,7 @@ const BoardingPassCard = () => {
 
   const handleClick = async () => {
     //await creandoRuta();
+    
     const { origen, destino, paisDestino, fechaInicio, fechaFinal, longitud, latitud } = formData;
     const modelViaje = {
       origen,
@@ -123,13 +147,15 @@ const BoardingPassCard = () => {
     );
     console.log('statusCode', viajePost.status);
     if (idRuta !== '') {
-      await creandoTransporte({...formData, imagen:'hghjgjhg'});
+      await creandoTransporte({...formData, imagen: photoUrl});
     }
     if (viajePost.status !== 201) {
       console.log('error al insertar');
     } else {
+      await fetchPlaceDetails();
       console.log('Viaje actualizado');
-      router.push(`/itinerary?id=${id}`);
+      console.log('viaje', viajePost.data)
+      //router.push(`/itinerary?id=${id}`);
     }
   };
   const searchClick = async (e) => {
@@ -145,9 +171,10 @@ const BoardingPassCard = () => {
       const flightGet = await axios.get(url, { params });
       console.log('statusCode', flightGet.status);
       console.log(flightGet.data.response);
+
       if (flightGet.status == 200) {
         const dataApi = flightGet.data.response;
-        console.log('Vuelo encontrado');
+        //console.log('Vuelo encontrado');
         setFormData({
           flightNumber: dataApi?.flight_iata || '',
           origen: dataApi?.dep_city || 'No encontrado',
@@ -166,7 +193,25 @@ const BoardingPassCard = () => {
       alert('Error al crear al buscar el vuelo. Por favor, inténtalo de nuevo.');
     }
   };
-
+  const handlePlaceSelect = (place) => {
+    if (place && place.geometry && place.geometry.location) {
+      console.log("Place selected:", place.name);
+      console.log("Formatted Address:", place.formatted_address);
+      console.log("Latitude:", place.geometry.location.lat());
+      console.log("Longitude:", place.geometry.location.lng());
+      console.log("Place_id", place.place_id)
+      const selectedDestino = place.formatted_address;
+      setPlaceId(place.place_id);
+      setFormData((prevState) => ({
+        ...prevState,
+        destino: selectedDestino,
+        latitud: place.geometry.location.lat(),
+        longitud: place.geometry.location.lng(),
+      }));
+     
+    }
+  };
+ console.log(photoUrl,'foto')
   return (
     <Box display='flex' flexDirection='column' alignItems='center' mt={5} maxWidth='100%'>
       <Typography variant='h5' sx={{ marginBottom: 2, textAlign: 'center' }}>
@@ -207,16 +252,24 @@ const BoardingPassCard = () => {
           />
           <LuggageOutlinedIcon sx={{ marginBottom: 2 }} />
           <TextField
-            name='destino'
-            label='Destino'
-            variant='filled'
-            color='primary'
-            size='small'
+            variant="filled"
+            color="primary"
+            size="small"
             fullWidth
+            name="destino"
+            label="Destino"
             value={formData.destino}
             onChange={handleChange}
             sx={{ marginBottom: 2 }}
-          />
+            InputProps={{
+            inputComponent: ReactGoogleAutocomplete,
+            inputProps: {
+            apiKey: API_GOOGLE,
+            onPlaceSelected: (place) => handlePlaceSelect(place),
+        },
+      }}
+    />
+          
         </Box>
         <Box display='flex' justifyContent='space-between' alignItems='center'>
           <TextField
