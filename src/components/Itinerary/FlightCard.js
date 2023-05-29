@@ -11,7 +11,7 @@ const styles = {
     marginBottom: '10px',
     margin: 2,
     backgroundColor: '#F6F6F6',
-    border: '1px solid #FFFFFF',
+    borderRight: '10px solid #2B2E4A',
   },
   expandIcon: {
     transform: 'rotate(0deg)',
