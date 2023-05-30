@@ -5,6 +5,7 @@ import CardDetalleActivity from './cardDetalleActivity';
 import PopupActivity from './PopupActivity';
 import { Add, Favorite, FavoriteBorder } from '@mui/icons-material';
 import { activityData } from './activityData';
+import axios from 'axios';
 
 const URLRAILWAY = process.env.NEXT_PUBLIC_BACKEND;
 
@@ -55,6 +56,8 @@ function ActivityCard() {
     setSelectedActivity(selectedActivity);
     setOpen(true);
   };
+
+  console.log(activityData);
 
   const handleAddClick = (location_id) => {
     const selectedActivity = activityData.find((activity) => activity.location_id === location_id);
@@ -124,7 +127,7 @@ function ActivityCard() {
         ))}
       </Carrusel>
       {open && selectedActivity !== null && (
-        <CardDetalleActivity data={selectedActivity.data} open={open} closeCard={closeCard} />
+        <CardDetalleActivity data={selectedActivity} open={open} closeCard={closeCard} />
       )}
       {openForm && selectedActivity !== null && (
         <PopupActivity data={selectedActivity} openForm={openForm} closeForm={closeForm} />

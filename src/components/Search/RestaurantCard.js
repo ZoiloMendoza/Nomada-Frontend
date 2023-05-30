@@ -63,7 +63,7 @@ function RestaurantCard({ restaurantData }) {
     setOpen(false);
   };
   const getImage = (restaurantImage) => {
-    if (restaurantImage.data !== null && restaurantImage.data.length > 0) {
+    if (restaurantImage.data !== null && restaurantImage?.data?.length > 0) {
       return restaurantImage?.data[0]?.images.small.url;
     }
     return '/img/placeholder.jpeg';
