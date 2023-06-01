@@ -69,7 +69,7 @@ const BoardingPassCard = () => {
             nuevaRuta,
           );
           setIdRuta(crearRutaPost.data._id);
-          console.log('ruta', crearRutaPost);
+          //console.log('ruta', crearRutaPost);
         } catch (error) {
           console.log(error);
         }
@@ -79,23 +79,6 @@ const BoardingPassCard = () => {
     }
   }, [id]);
   
-  const fetchPlaceDetails = async () => {
-   console.log('hola')
-      try {
-        console.log('hola2',placeId)
-        const response = await axios.get(
-          `https://maps.googleapis.com/maps/api/place/details/json?place_id=${placeId}&fields=photo&key=${API_GOOGLE}`
-        );
-        console.log('blabal')
-        const photoReference = response.data.result.photos[0].photo_reference;
-        const photoUrl = `https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${photoReference}&key=${API_GOOGLE}`;
-        console.log(photoUrl, 'dentro')
-        setPhotoUrl(photoUrl);
-      } catch (error) {
-        console.error("Error fetching place photo:", error);
-      }
-    
-  };
   const creandoTransporte = async (datosDelVuelo) => {
     try {
       const nuevoTransporte = {
@@ -152,10 +135,9 @@ const BoardingPassCard = () => {
     if (viajePost.status !== 201) {
       console.log('error al insertar');
     } else {
-      await fetchPlaceDetails();
       console.log('Viaje actualizado');
       console.log('viaje', viajePost.data)
-      //router.push(`/itinerary?id=${id}`);
+      router.push(`/itinerary?id=${id}`);
     }
   };
   const searchClick = async (e) => {
@@ -195,13 +177,15 @@ const BoardingPassCard = () => {
   };
   const handlePlaceSelect = (place) => {
     if (place && place.geometry && place.geometry.location) {
-      console.log("Place selected:", place.name);
+      console.log("Place selected:", place);
+      console.log("Place photos:", place.photos[0].getUrl());
       console.log("Formatted Address:", place.formatted_address);
       console.log("Latitude:", place.geometry.location.lat());
       console.log("Longitude:", place.geometry.location.lng());
       console.log("Place_id", place.place_id)
       const selectedDestino = place.formatted_address;
       setPlaceId(place.place_id);
+      setPhotoUrl(place.photos[0].getUrl())
       setFormData((prevState) => ({
         ...prevState,
         destino: selectedDestino,
@@ -262,10 +246,21 @@ const BoardingPassCard = () => {
             onChange={handleChange}
             sx={{ marginBottom: 2 }}
             InputProps={{
-            inputComponent: ReactGoogleAutocomplete,
-            inputProps: {
-            apiKey: API_GOOGLE,
-            onPlaceSelected: (place) => handlePlaceSelect(place),
+              inputComponent: ReactGoogleAutocomplete,
+              inputProps: {
+              apiKey: API_GOOGLE,
+              //options: {fields: ['photos']},
+              options: {
+                types: [],
+                fields: [
+                  "photos",
+                  "formatted_address",
+                  "geometry.location",
+                  "place_id",
+                ],
+              },
+              onPlaceSelected: (place) => handlePlaceSelect(place),
+
         },
       }}
     />

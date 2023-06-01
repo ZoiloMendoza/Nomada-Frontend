@@ -13,31 +13,31 @@ import TabsDestinosMobile from '@/components/Itinerary/TabsDestinosMobile';
 const URLRAILWAY = process.env.NEXT_PUBLIC_BACKEND;
 
 export default function Itinerary({ contentApi, contentViaje }) {
-  const [destinoSeleccionado, setDestinoSeleccionado] = useState(contentViaje.rutas[0].transporte.destino ?? '');
+  const [destinoSeleccionado, setDestinoSeleccionado] = useState(contentViaje?.rutas[0]?.transporte.destino ?? '');
   const isMobile = useMediaQuery((theme) => (theme ? theme.breakpoints.down('sm') : '(max-width:600px)'));
-  if (!contentApi) {
-    return <div>Intentalo más tarde</div>;
-  }
-  console.log('contentApi', contentApi);
+ 
+  //console.log('contentApi', contentApi);
   console.log('contentViaje', contentViaje);
   //setTripData(contentViaje);
   //console.log(contentApi);
-
+if(!contentViaje){
+  return <div>Intentalo más tarde</div>
+}
   const updateDestinoSeleccionado = (destino) => {
     setDestinoSeleccionado(destino);
     //const indice = contentViaje.rutas.indexOf(destino);
   };
 
-  const arregloDestinos = contentViaje.rutas.map((transporte) => transporte.transporte.destino);
-  const idRutaElegida = arregloDestinos.indexOf(destinoSeleccionado);
+  const arregloDestinos = contentViaje?.rutas.map((transporte) => transporte.transporte.destino);
+  const idRutaElegida = arregloDestinos?.indexOf(destinoSeleccionado);
   //console.log(arregloDestinos)
   //console.log(contentViaje.rutas)
   return (
     <Box sx={{ backgroundColor: '#EAEDED' }}>
-      <HeroImage viajeData={contentViaje} imagenFondo={contentApi?.data[0]?.images?.original?.url} />
+      <HeroImage viajeData={contentViaje} imagenFondo={contentViaje?.rutas[idRutaElegida]?.transporte?.imagen} />
       <Add
         destinoSeleccionado={destinoSeleccionado}
-        destino={contentViaje.rutas[idRutaElegida]._id}
+        destino={contentViaje?.rutas[idRutaElegida]._id}
       />
       {isMobile ? (
         <Box
@@ -71,10 +71,10 @@ export const getServerSideProps = async (context) => {
     if (response.status === 200) {
       const tripData = response.data;
       const params = { destino: tripData.destino, paisDestino: tripData.paisDestino };
-      const contentApi = await getDataFindSearch({ params });
+      //const contentApi = await getDataFindSearch({ params });
       return {
         props: {
-          contentApi: contentApi,
+          contentApi: null,
           contentViaje: tripData,
         },
       };
