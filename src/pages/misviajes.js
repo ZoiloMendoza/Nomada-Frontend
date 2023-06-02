@@ -15,7 +15,7 @@ const NoViajesMessage = () => (
       display: 'flex',
       justifyContent: 'center',
       alignItems: 'center',
-      maxHeight: '100vh',
+      height: '100vh',
       backgroundColor: '#f5f5f5',
     }}
   >

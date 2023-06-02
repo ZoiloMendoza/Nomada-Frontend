@@ -13,9 +13,11 @@ import IosShareIcon from '@mui/icons-material/IosShare';
 
 const MisViajesCard = ({ datosViajes, image, title }) => {
   console.log(datosViajes, 'MisvIAJES');
+  console.log(datosViajes.rutas[0].transporte.imagen, 'espero url')
   return (
+    <Box >
     <Card sx={{ display: 'flex', marginBottom: '5vh', alignItems: 'center', flexWrap: 'wrap' }}>
-      <CardMedia sx={{ width: '250px' }} image={image} title={title} />
+      <CardMedia component='img' sx={{ width: '250px' }} title={title} image={datosViajes.rutas[0].transporte.imagen}/>
       <CardContent sx={{ flex: '1 0 auto' }}>
         <Typography variant='h5' component='h2'>
           {datosViajes?.nombre}
@@ -60,6 +62,7 @@ const MisViajesCard = ({ datosViajes, image, title }) => {
         </Box>
       </Grid>
     </Card>
+    </Box>
   );
 };
 
