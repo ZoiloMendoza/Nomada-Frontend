@@ -15,7 +15,6 @@ const NoViajesMessage = () => (
       display: 'flex',
       justifyContent: 'center',
       alignItems: 'center',
-      height: '100vh',
       backgroundColor: '#f5f5f5',
     }}
   >
@@ -63,7 +62,7 @@ export default function MisViajes() {
   }
   //console.log(viajesDelUsuario, 'viajesDelUsuario')
   return (
-    <Box sx={{ width: '100%', padding: '5px', backgroundColor: '#EAEDED' }}>
+    <Box sx={{ width: '100%', height: '100vh', padding: '5px', backgroundColor: '#EAEDED' }}>
       <ButtonNuevoViaje />
       <Grid sx={{ padding: '15px' }} container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
         {viajesDelUsuario.length > 0 ? (

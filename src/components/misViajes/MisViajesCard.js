@@ -15,7 +15,6 @@ const MisViajesCard = ({ datosViajes, image, title }) => {
   console.log(datosViajes, 'MisvIAJES');
   console.log(datosViajes.rutas[0].transporte.imagen, 'espero url')
   return (
-    <Box >
     <Card sx={{ display: 'flex', marginBottom: '5vh', alignItems: 'center', flexWrap: 'wrap' }}>
       <CardMedia component='img' sx={{ width: '250px' }} title={title} image={datosViajes.rutas[0].transporte.imagen}/>
       <CardContent sx={{ flex: '1 0 auto' }}>
@@ -62,7 +61,6 @@ const MisViajesCard = ({ datosViajes, image, title }) => {
         </Box>
       </Grid>
     </Card>
-    </Box>
   );
 };
 
