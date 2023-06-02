@@ -29,7 +29,7 @@ const MisViajesCard = ({ datosViajes, image, title }) => {
         </Typography>
       </CardContent>
       <Grid container direction='column' justify='flex-start' alignItems='center' sx={{ maxWidth: '200px' }}>
-        <Link href='/itinerary'>
+        <Link href={`/itinerary?id=${datosViajes._id}`}>
           <Button
             size='small'
             variant='contained'
