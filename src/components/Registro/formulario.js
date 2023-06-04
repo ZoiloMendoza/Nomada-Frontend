@@ -6,6 +6,9 @@ import axios from 'axios';
 import Link from 'next/link';
 //import theme from './TemaConfig';
 import { useRouter } from 'next/router';
+import Alert from '@mui/material/Alert';
+import Stack from '@mui/material/Stack';
+
 const URLRAILWAY = process.env.NEXT_PUBLIC_BACKEND;
 const style = {
   formulario: {
@@ -59,7 +62,8 @@ function Formulario() {
           ...userPost.data,
         };
         localStorage.setItem('usuarioLogeado', JSON.stringify(usuario));
-        router.push('/inicio');
+
+        //router.push('/inicio');
 
         //alert('Usuario creado correctamente', name, email, password);
       } else {
