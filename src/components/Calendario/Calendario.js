@@ -16,7 +16,8 @@ const customFormats = {
 const localTheme = createTheme();
 
 const StyledCalendarContainer = styled('div')(({ theme }) => ({
-  height: '310px',
+  height: '65vh',
+  width: '60vw',
   marginTop: '20px',
   backgroundColor: '#FFFFFF',
   borderRadius: '5px',
