@@ -6,9 +6,9 @@ import { IconButton } from '@mui/material';
 import { Add, Favorite, FavoriteBorder } from '@mui/icons-material';
 import CircularProgress from '@mui/material/CircularProgress';
 
-import { Grid, Typography, CardMedia, CardContent, Box } from '@mui/material';
+import { Typography, CardMedia, CardContent, Box } from '@mui/material';
 
-const GridItem = styled(Grid)(({ theme }) => ({
+const BoxItem = styled(Box)(({ theme }) => ({
   padding: '5px',
   [theme.breakpoints.down('sm')]: {
     maxHeight: '50vh',
@@ -29,6 +29,7 @@ const styles = {
   media: {
     height: 0,
     paddingTop: '56.25%', // 16:9
+    width: '90%',
   },
 
   closeButton: {
@@ -90,32 +91,31 @@ const CardDetalleActivity = ({ data, open, closeCard, openForm }) => {
   return (
     <>
       <PopupBox open={open} onClose={handleClose}>
-        <Grid container>
-          {item && (
-            <GridItem key={item.location_id}>
-              <CardMedia sx={styles.media} image={data?.data[0]?.images?.original?.url} />
-              <CardContent>
-                <Typography variant='h6' gutterBottom>
-                  {item?.name}
+        {item && (
+          <BoxItem key={item.location_id}>
+            <CardMedia sx={styles.media} image={data?.data[0]?.images?.original?.url} />
+            <CardContent>
+              <Typography variant='h6' gutterBottom>
+                {item?.name}
+              </Typography>
+              <Box display='flex' alignItems='center' mb={1}>
+                {/*<Rating value={item.rating} precision={0.5} readOnly />*/}
+                <Typography variant='body2' color='textSecondary' ml={1}>
+                  ({item?.num_reviews} reviews)
                 </Typography>
-                <Box display='flex' alignItems='center' mb={1}>
-                  {/*<Rating value={item.rating} precision={0.5} readOnly />*/}
-                  <Typography variant='body2' color='textSecondary' ml={1}>
-                    ({item?.num_reviews} reviews)
-                  </Typography>
-                </Box>
-                <Typography variant='body1' gutterBottom>
-                  {item?.address_obj?.address_string}
-                </Typography>
-              </CardContent>
-              <IconButton sx={styles.addIcon} aria-label='Add to itinerary' onClick={openForm}>
-                <Add />
-              </IconButton>
-              <IconButton sx={styles.iconButton} aria-label='favorite' onClick={handleFavoriteClick}>
-                {isFavorite ? <Favorite /> : <FavoriteBorder />}
-              </IconButton>
-              <Box sx={styles.reviewsContainer}>
-                {/*item?.reviews?.map((review) => (
+              </Box>
+              <Typography variant='body1' gutterBottom>
+                {item?.address_obj?.address_string}
+              </Typography>
+            </CardContent>
+            <IconButton sx={styles.addIcon} aria-label='Add to itinerary' onClick={openForm}>
+              <Add />
+            </IconButton>
+            <IconButton sx={styles.iconButton} aria-label='favorite' onClick={handleFavoriteClick}>
+              {isFavorite ? <Favorite /> : <FavoriteBorder />}
+            </IconButton>
+            <Box sx={styles.reviewsContainer}>
+              {/*item?.reviews?.map((review) => (
                     <Box key={review._id} sx={styles.review}>
                       <Typography variant='body1' gutterBottom>
                         {review.name}
@@ -129,10 +129,9 @@ const CardDetalleActivity = ({ data, open, closeCard, openForm }) => {
                       </Typography>
                     </Box>
                   ))*/}
-              </Box>
-            </GridItem>
-          )}
-        </Grid>
+            </Box>
+          </BoxItem>
+        )}
       </PopupBox>
     </>
   );
