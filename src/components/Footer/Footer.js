@@ -7,11 +7,13 @@ import InstagramIcon from '@mui/icons-material/Instagram';
 const RootSection = styled('div')(({ theme }) => ({
   backgroundColor: '#2B2E4A',
   color: '#fff',
-  padding: theme.spacing(4),
+  padding: theme.spacing(1),
   position: 'relative',
   left: '0',
   bottom: '0',
   width: '100%',
+  height: '70px',
+  marginTop: 'auto',
 }));
 
 const IconButtonIcon = styled(IconButton)(() => ({
@@ -26,22 +28,15 @@ const Footer = () => (
   <RootSection>
     <Container maxWidth='md'>
       <Grid container justifyContent='center' alignItems='center'>
-        <Grid item xs={12} md={6}>
-          <p>Síguenos en nuestras Redes Sociales:</p>
-        </Grid>
-        <Grid item xs={12} md={6}>
-          <Grid container justifyContent='flex-end' alignItems='center'>
-            <IconButtonIcon href='https://www.facebook.com' target='_blank' rel='noopener'>
-              <FacebookIcon />
-            </IconButtonIcon>
-            <IconButtonIcon href='https://www.twitter.com' target='_blank' rel='noopener'>
-              <TwitterIcon />
-            </IconButtonIcon>
-            <IconButtonIcon href='https://www.instagram.com' target='_blank' rel='noopener'>
-              <InstagramIcon />
-            </IconButtonIcon>
-          </Grid>
-        </Grid>
+        <IconButtonIcon href='https://www.facebook.com' target='_blank' rel='noopener'>
+          <FacebookIcon />
+        </IconButtonIcon>
+        <IconButtonIcon href='https://www.twitter.com' target='_blank' rel='noopener'>
+          <TwitterIcon />
+        </IconButtonIcon>
+        <IconButtonIcon href='https://www.instagram.com' target='_blank' rel='noopener'>
+          <InstagramIcon />
+        </IconButtonIcon>
       </Grid>
     </Container>
   </RootSection>
