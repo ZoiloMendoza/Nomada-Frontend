@@ -8,10 +8,11 @@ import Box from '@mui/material/Box';
 import { useMediaQuery } from '@mui/material';
 import TabDestinos from '@/components/Itinerary/TabsDestinos';
 import TabsDestinosMobile from '@/components/Itinerary/TabsDestinosMobile';
+import { useRouter } from 'next/router';
 const URLRAILWAY = process.env.NEXT_PUBLIC_BACKEND;
 
 export default function Itinerary({ contentViaje }) {
-
+  const router = useRouter();
   const [loading, setLoading] = useState(true);
   const [roleInvitado, setRoleInvitado] = useState(null);
   const [roleUsuario, setRoleUsiario] = useState(null)
@@ -37,7 +38,7 @@ export default function Itinerary({ contentViaje }) {
                 setRoleInvitado(invitado.role)
               }
             } else {
-              router.replace('/misviajes');
+              //router.replace('/misviajes');
               return;
             }
         } catch (error) {
@@ -53,7 +54,7 @@ export default function Itinerary({ contentViaje }) {
   const updateDestinoSeleccionado = (destino) => {
     setDestinoSeleccionado(destino);
   };
-  const arregloDestinos = contentViaje?.rutas.map((transporte) => transporte.transporte.destino);
+  const arregloDestinos = contentViaje?.rutas.map((transporte) => transporte?.transporte?.destino);
   const idRutaElegida = arregloDestinos?.indexOf(destinoSeleccionado);
 
 
