@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
 import { TextField, Button, Box, Grid } from '@mui/material';
-import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { data } from '../Add/data';
 import axios from 'axios';
 
 const URLRAILWAY = process.env.NEXT_PUBLIC_BACKEND;
@@ -27,8 +25,8 @@ const styles = {
 const AddHotel = () => {
   const router = useRouter();
   const { destino, idRuta } = router.query;
-  console.log(idRuta, 'idRuta-desde-Agregar-Hotel')
-  console.log(destino, 'destino-desde-agrega-hotel')
+  console.log(idRuta, 'idRuta-desde-Agregar-Hotel');
+  console.log(destino, 'destino-desde-agrega-hotel');
   const [hotelData, setHotelData] = useState({
     name: '',
     address: '',
@@ -66,7 +64,7 @@ const AddHotel = () => {
       reservation: '',
     });
   };
-  
+
   const hotelAddClick = async (e) => {
     e.preventDefault();
     try {
@@ -75,14 +73,14 @@ const AddHotel = () => {
         nombreHospedaje: hotelData.name,
         direccion: hotelData.address,
         fechaInicio: hotelData.checkIn,
-        fechaFinal: hotelData.checkOut
+        fechaFinal: hotelData.checkOut,
       };
       const hotelAdd = await axios.post(`${URLRAILWAY}/api/v1/hospedajes`, nuevoHospedaje);
       if (hotelAdd.status == 201) {
         const dataApi = hotelAdd.data;
         console.log('Hospedaje creado', dataApi);
-        alert('Hotel agregado correctamente')
-        router.push(`/itinerary?id=${dataApi.viajeId}`)
+        alert('Hotel agregado correctamente');
+        router.push(`/itinerary?id=${dataApi.viajeId}`);
       } else {
         console.log('Error al insertar');
       }
@@ -161,11 +159,11 @@ const AddHotel = () => {
             fullWidth
             variant='filled'
           />
-          
-            <Button type='submit' variant='contained' color='primary' sx={styles.button} onClick={hotelAddClick}>
-              Agregar
-            </Button>
-          
+
+          <Button type='submit' variant='contained' color='primary' sx={styles.button} onClick={hotelAddClick}>
+            Agregar
+          </Button>
+
           <Button type='button' variant='contained' color='primary' onClick={resetData}>
             Cancelar
           </Button>
