@@ -58,7 +58,7 @@ function NavbarTwo() {
   };
 
   return (
-    <AppBar position='static' sx={{ backgroundColor: '#2B2E4A' }}>
+    <AppBar position='sticky' sx={{ backgroundColor: '#2B2E4A' }}>
       <Toolbar>
         <Link legacyBehavior href='/'>
           <a>
