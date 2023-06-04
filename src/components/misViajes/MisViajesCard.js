@@ -12,8 +12,8 @@ import { Delete as DeleteIcon } from '@mui/icons-material';
 import IosShareIcon from '@mui/icons-material/IosShare';
 
 const MisViajesCard = ({ datosViajes, image, title }) => {
-  console.log(datosViajes, 'MisvIAJES');
-  console.log(datosViajes.rutas[0].transporte.imagen, 'espero url');
+  //console.log(datosViajes, 'MisvIAJES');
+  //console.log(datosViajes.rutas[0].transporte.imagen, 'espero url')
   return (
     <Card sx={{ display: 'flex', marginBottom: '5vh', alignItems: 'center', flexWrap: 'wrap' }}>
       <CardMedia component='img' sx={{ width: '250px' }} title={title} image={datosViajes.rutas[0].transporte.imagen} />

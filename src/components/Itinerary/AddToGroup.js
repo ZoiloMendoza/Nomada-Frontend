@@ -1,6 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { Modal, Box, Typography, TextField, Button, List, ListItem, ListItemText } from '@mui/material';
 import axios from 'axios';
+import Radio from '@mui/material/Radio';
+import RadioGroup from '@mui/material/RadioGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import FormControl from '@mui/material/FormControl';
+import FormLabel from '@mui/material/FormLabel';
 import Alert from '@mui/material/Alert';
 import Stack from '@mui/material/Stack';
 import { useRouter } from 'next/router';
@@ -33,70 +38,74 @@ const styles = {
   },
 };
 
-const AddToGroup = ({ openModal, closeModal }) => {
+const AddToGroup = ({ viajeData, openModal, closeModal }) => {
   const router = useRouter();
   const { id } = router.query;
   const [email, setEmail] = useState('');
-  const [emailsList, setEmailsList] = useState([]);
+  const [collaborators, setCollaborators] = useState([]);
   const [status, setStatus] = useState('');
+  const [roleInvitado, setRoleInvitado] = useState('staff')
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
   };
+ 
   useEffect(() => {
-    try {
-      const consultaDeColaboradores = async () => {
-        const listaDeColaboradores = await axios.get(`${URLRAILWAY}/api/v1/colaboradores`);
-        if (listaDeColaboradores.status == 200) {
-          console.log(listaDeColaboradores.data, 'get de colaboradores');
-          const listaDeSoloCorreos = listaDeColaboradores.data.map((colaborador) => colaborador.email);
-          setEmailsList(listaDeSoloCorreos);
+    if (id) {
+      const fetchCollaborators = async () => {
+        try {
+          const response = await axios.get(`${URLRAILWAY}/api/v1/viajes/${id}`);
+          setCollaborators(response.data.colaboradores);
+        } catch (error) {
+          console.error(error);
         }
-        //setEmailsList();
       };
-      consultaDeColaboradores();
-    } catch (error) {
-      console.log(error);
-    }
-  }, []);
+      fetchCollaborators();
+    }  
+}, [openModal]);
+
   const handleClose = () => {
     closeModal();
   };
-
-  /*const handleFormSubmit = async (e) => {
+ 
+  const guardarCorreo = async (e) => {
     e.preventDefault();
     try {
-      const resultado = await axios.post(`/`,{email: emailsList});
-      if (resultado.status == 200) {
-        setStatus('success');
-        console.log(resultado.data, 'respuesta api colaboradores')
-      } else setStatus('error'); 
-    } catch (error) {
-      console.log(error);
-      setStatus('error');
-    }
-  };*/
-
-  const guardarCorreos = async (e) => {
-    e.preventDefault();
-    try {
-      if (email.trim() !== '' && !emailsList.includes(email)) {
+      if (email.trim() !== '' && !collaborators.some(collaborator => collaborator.email === email)) {
+        console.log(email, ' validacion ultima')
         const buscarCorreo = await axios.post(`${URLRAILWAY}/api/v1/colaboradores/search`, { email: email });
         if (buscarCorreo.status == 200) {
           setStatus('success');
-          console.log(buscarCorreo.data, 'respuesta api colaboradores');
           const { idUser, name, email } = buscarCorreo.data;
-          const nuevoColaborador = { viajeId: id, usuarioId: idUser, nombre: name, email: email, role: 'staff' };
-          console.log(nuevoColaborador, 'nuevoColaborador');
+          console.log(buscarCorreo.data, 'buscar correo')
+          const nuevoColaborador = { viajeId: id, usuarioId: idUser, nombre: name, email: email, role: roleInvitado };
+          console.log(nuevoColaborador, 'nuevo colaborador')
           const registroColaborador = await axios.post(`${URLRAILWAY}/api/v1/colaboradores`, nuevoColaborador);
-          setEmailsList([...emailsList, email]);
+          console.log(registroColaborador.data, 'validacion del post')
+          const nuevoColaboradorConId = registroColaborador.data;
+          setCollaborators([...collaborators, nuevoColaboradorConId]);
           setEmail('');
+          return
         }
       }
     } catch (error) {
-      console.log(error);
       setStatus('error');
     }
   };
+  
+  
+
+
+
+  const borrarColaborador = async (idColaborador) => {
+    try {
+      const colaboradorEliminado = await axios.delete(`${URLRAILWAY}/api/v1/colaboradores/${idColaborador}`)
+      if (colaboradorEliminado.status === 200) {
+        setCollaborators((prevCollaborators) => prevCollaborators.filter((colaborador) => colaborador._id !== idColaborador));
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
 
   return (
     <>
@@ -117,16 +126,29 @@ const AddToGroup = ({ openModal, closeModal }) => {
               margin='normal'
               variant='filled'
             />
-            <Button type='button' variant='contained' color='primary' onClick={guardarCorreos} role='button'>
+            <FormControl sx={{ display: 'block'}}>
+              <FormLabel id="demo-row-radio-buttons-group-label">Permisos</FormLabel>
+                <RadioGroup
+                row
+                 aria-labelledby="demo-row-radio-buttons-group-label"
+                name="row-radio-buttons-group"
+                value={roleInvitado}
+                onChange={(e) => setRoleInvitado(e.target.value)}
+                >
+                <FormControlLabel value="admin" control={<Radio />} label="Editar" />
+                <FormControlLabel value="staff" control={<Radio />} label="Lectura" />
+                </RadioGroup>
+            </FormControl>
+            <Button type='button' variant='contained' color='primary' onClick={guardarCorreo} role='button'>
               Agregar
             </Button>
 
             <List sx={styles.emailList}>
               <Typography variant='h5'>Viajeros:</Typography>
-              {emailsList.map((email, index) => (
-                <ListItem key={index}>
-                  <ListItemText primary={email} />
-                  <IconButton>
+              {collaborators.map((collaborator, index) => (
+                <ListItem key={collaborator._id}>
+                  <ListItemText primary={collaborator.email} />
+                  <IconButton onClick={() => borrarColaborador(collaborator._id)}>
                     <DeleteIcon
                       sx={{
                         width: '20px',

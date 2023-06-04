@@ -109,7 +109,7 @@ const HeroImage = (props) => {
 
   return (
     <>
-      {openModal && <AddToGroup openModal={openModal} closeModal={closeModal} />}
+      {openModal && <AddToGroup viajeData={props.viajeData} openModal={openModal} closeModal={closeModal} />}
       <Box sx={{ ...styles.hero, backgroundImage: `url(${props.imagenFondo})` }}>
         <Container maxWidth={false} sx={styles.overlay}>
           <Container maxWidth={'lg'}>

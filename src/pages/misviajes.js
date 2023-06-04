@@ -26,24 +26,34 @@ export default function MisViajes() {
   const router = useRouter();
   const [loading, setLoading] = useState(true);
   const [viajesDelUsuario, setViajesDelUsuario] = useState([]);
+  const [viajesInvidatos, setViajesInvitados] = useState([])
+
   useEffect(() => {
-    try {
-      const getViajesdelUsuario = async () => {
-        const usuario = await JSON.parse(localStorage.getItem('usuarioLogeado'));
-        if (!usuario) {
-          router.push('/login');
+    const fetchData = async () => {
+        try {
+            const usuario = JSON.parse(localStorage.getItem('usuarioLogeado'));
+            if (!usuario) {
+                router.push('/login');
+                return;
+            }
+            const viajesDelUsuario = await axios.get(`${URLRAILWAY}/api/v1/users/${usuario.idUser}`);
+            if (viajesDelUsuario.status === 200) {
+                setViajesDelUsuario(viajesDelUsuario.data.viajes);
+                console.log(viajesDelUsuario.data.viajes, 'viajes del usuario')
+                setLoading(false);
+            }
+            const viajesColaborativos = await axios.get(`${URLRAILWAY}/api/v1/colaboradores/search/${usuario.idUser}`);
+            if (viajesColaborativos.status === 200) {
+                setViajesInvitados(viajesColaborativos.data);
+                console.log(viajesColaborativos.data, 'viajes JUNTOS')
+            }
+
+        } catch (error) {
+            console.error("Error fetching data", error);
         }
-        const viajesDelUsuario = await axios.get(`${URLRAILWAY}/api/v1/users/${usuario.idUser}`);
-        if (viajesDelUsuario.status == 200) {
-          setViajesDelUsuario(viajesDelUsuario.data.viajes);
-          setLoading(false);
-        }
-      };
-      getViajesdelUsuario();
-    } catch (error) {
-      console.log(error);
-    }
-  }, [router]);
+    };
+    fetchData();
+}, [router]);
 
   if (loading) {
     return (
@@ -60,15 +70,25 @@ export default function MisViajes() {
       </Box>
     );
   }
-  //console.log(viajesDelUsuario, 'viajesDelUsuario')
+
   return (
     <Box sx={{ width: '100%', height: '100vh', padding: '5px', backgroundColor: '#EAEDED' }}>
       <ButtonNuevoViaje />
       <Grid sx={{ padding: '15px' }} container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
         {viajesDelUsuario.length > 0 ? (
-          viajesDelUsuario.map((viajes, index) => (
-            <Grid item xs={12} md={6} key={index}>
+          viajesDelUsuario.map((viajes) => (
+            <Grid item xs={12} md={6} key={viajes._id}>
               <MisViajesCard datosViajes={viajes} />
+            </Grid>
+          ))
+        ) : (
+          <NoViajesMessage />
+        )}
+        {viajesInvidatos.length > 0 ? (
+          viajesInvidatos.map((viaje) => (
+            <Grid item xs={12} md={6} key={viaje._id}>
+              <h2>{`Viaje compartido por ${viaje.administradorViaje.name}`}</h2>
+              <MisViajesCard datosViajes={viaje} />
             </Grid>
           ))
         ) : (

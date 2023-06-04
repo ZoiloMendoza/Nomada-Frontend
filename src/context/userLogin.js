@@ -17,7 +17,6 @@ export const UseContextProvider = ({ children }) => {
     }),
     [variableState],
   );
-  console.log(variableState);
   return <UserContext.Provider value={value}>{children}</UserContext.Provider>;
 };
 export const useUserContext = () => {
