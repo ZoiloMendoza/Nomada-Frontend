@@ -26,7 +26,7 @@ function NavbarTwo() {
   const isMobile = useMediaQuery((theme) => (theme ? theme.breakpoints.down('sm') : '(max-width:600px)'));
   const router = useRouter();
 
-  console.log('soy el variable state', variableState);
+  //console.log('soy el variable state', variableState);
 
   useEffect(() => {
     //console.log(variableState);
