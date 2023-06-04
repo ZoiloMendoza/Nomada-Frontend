@@ -28,7 +28,7 @@ const FlightCard = ({ flightData, handleEdit, handleDelete }) => {
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
-  console.log(flightData, 'flightData');
+  //console.log(flightData, 'flightData');
   return (
     <>
       {flightData ? (
