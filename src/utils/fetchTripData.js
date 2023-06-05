@@ -14,3 +14,4 @@ export async function fetchTripData(tripId) {
     return null;
   }
 }
+
