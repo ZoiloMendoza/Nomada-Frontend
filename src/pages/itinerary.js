@@ -12,10 +12,6 @@ import { fetchTripData } from '@/utils/fetchTripData';
 
 export default function Itinerary({ contentViaje }) {
   const router = useRouter();
-  if(!contentViaje){
-    return <div>PROBANDO</div>
-    
-  }
   //const [loading, setLoading] = useState(true);
   const [roleInvitado, setRoleInvitado] = useState(null);
   const [roleUsuario, setRoleUsiario] = useState(null);
@@ -24,6 +20,7 @@ export default function Itinerary({ contentViaje }) {
   const isMobile = useMediaQuery((theme) => (theme ? theme.breakpoints.down('sm') : '(max-width:600px)'));
 
   useEffect(() => {
+    if(contentViaje){
     const validacionViaje = () => {
       try {
         const usuario = JSON.parse(localStorage.getItem('usuarioLogeado'));
@@ -50,8 +47,12 @@ export default function Itinerary({ contentViaje }) {
       }
     };
     validacionViaje();
+    } else {
+      return <div>PROBANDO</div>
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
   if (error) {
     return <p>Error: {error.message}</p>;
   }
