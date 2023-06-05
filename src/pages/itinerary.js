@@ -1,14 +1,14 @@
 import { useState, useEffect } from 'react';
 import ScrollToTop from '@/components/common/ScrollToTop';
 import HeroImage from '@/components/Itinerary/HeroImage';
+import axios from 'axios';
 import Add from '@/components/Add/Add';
 import Box from '@mui/material/Box';
 import { useMediaQuery } from '@mui/material';
 import TabDestinos from '@/components/Itinerary/TabsDestinos';
 import TabsDestinosMobile from '@/components/Itinerary/TabsDestinosMobile';
 import { useRouter } from 'next/router';
-import { fetchTripData } from '@/utils/fetchTripData';
-//const URLRAILWAY = process.env.NEXT_PUBLIC_BACKEND;
+const URLRAILWAY = process.env.NEXT_PUBLIC_BACKEND;
 
 export default function Itinerary({ contentViaje }) {
   const router = useRouter();
@@ -20,7 +20,6 @@ export default function Itinerary({ contentViaje }) {
   const isMobile = useMediaQuery((theme) => (theme ? theme.breakpoints.down('sm') : '(max-width:600px)'));
 
   useEffect(() => {
-    if(contentViaje){
     const validacionViaje = () => {
       try {
         const usuario = JSON.parse(localStorage.getItem('usuarioLogeado'));
@@ -47,12 +46,8 @@ export default function Itinerary({ contentViaje }) {
       }
     };
     validacionViaje();
-    } else {
-      return <div>PROBANDO</div>
-    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
   if (error) {
     return <p>Error: {error.message}</p>;
   }
@@ -95,10 +90,21 @@ export default function Itinerary({ contentViaje }) {
 
 export const getServerSideProps = async (context) => {
   const tripId = context.query.id;
-  const tripData = await fetchTripData(tripId);
-  return {
-    props: {
-      contentViaje: tripData,
-    },
-  };
+  try {
+    const response = await axios.get(`${URLRAILWAY}/api/v1/viajes/${tripId}`);
+    if (response.status === 200) {
+      const tripData = response.data;
+      return {
+        props: {
+          contentViaje: tripData,
+        },
+      };
+    }
+  } catch (error) {
+    return {
+      props: {
+        contentViaje: null,
+      },
+    };
+  }
 };
