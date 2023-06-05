@@ -8,17 +8,36 @@ import { useMediaQuery } from '@mui/material';
 import TabDestinos from '@/components/Itinerary/TabsDestinos';
 import TabsDestinosMobile from '@/components/Itinerary/TabsDestinosMobile';
 import { useAuth } from '@/utils/useAuth';
+import { useRouter } from 'next/router';
 const URLRAILWAY = process.env.NEXT_PUBLIC_BACKEND;
 
-export default function Itinerary({ contentViaje }) {
+export default function Itinerary() {
   const usuario = useAuth();
-  //const [loading, setLoading] = useState(true);
+  const router = useRouter();
+  const tripId = router.query.id;
+  const [contentViaje, setContentViaje] = useState(null);
+  const [loading, setLoading] = useState(true);
   const [roleInvitado, setRoleInvitado] = useState(null);
   const [roleUsuario, setRoleUsiario] = useState(null);
   const [error, setError] = useState(null);
   const [destinoSeleccionado, setDestinoSeleccionado] = useState(contentViaje?.rutas[0]?.transporte?.destino ?? '');
   const isMobile = useMediaQuery((theme) => (theme ? theme.breakpoints.down('sm') : '(max-width:600px)'));
-  
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(`${URLRAILWAY}/api/v1/viajes/${tripId}`);
+        if (response.status === 200) {
+          setContentViaje(response.data);
+          setLoading(false);
+        }
+      } catch (error) {
+        setError(error);
+        setLoading(false);
+      }
+    };
+    
+    fetchData();
+  }, [tripId]);
   useEffect(() => {
     const validacionViaje = () => {
       try {
@@ -45,6 +64,9 @@ export default function Itinerary({ contentViaje }) {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [usuario, contentViaje]);
+  if (loading) {
+    return <p>Loading...</p>;
+  }
   if (error) {
     return <p>Error: {error.message}</p>;
   }
@@ -86,24 +108,3 @@ export default function Itinerary({ contentViaje }) {
     </Box>
   );
 }
-
-export const getServerSideProps = async (context) => {
-  const tripId = context.query.id;
-  try {
-    const response = await axios.get(`${URLRAILWAY}/api/v1/viajes/${tripId}`);
-    if (response.status === 200) {
-      const tripData = response.data;
-      return {
-        props: {
-          contentViaje: tripData,
-        },
-      };
-    }
-  } catch (error) {
-    return {
-      props: {
-        contentViaje: null,
-      },
-    };
-  }
-};
