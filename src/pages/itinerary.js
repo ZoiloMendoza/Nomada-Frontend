@@ -100,7 +100,7 @@ export default function Itinerary() {
     <Box sx={{ backgroundColor: '#EAEDED' }}>
       <HeroImage viajeData={contentViaje} imagenFondo={imagenFondo} />
       {(roleUsuario === 'admin' || roleInvitado === 'admin') && (
-        <Add destinoSeleccionado={destinoSeleccionado} destino={contentViaje?.rutas[idRutaElegida]?._id} />
+        <Add destinoSeleccionado={destinoSeleccionado} destino={contentViaje?.rutas[idRutaElegida === -1 ? 0 : idRutaElegida]?._id} />
       )}
       {isMobile ? (
         <Box

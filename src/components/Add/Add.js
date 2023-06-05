@@ -65,7 +65,7 @@ const AddButtonGroup = styled(ButtonGroup)(() => ({
   alignItems: 'center',
 }));
 
-export default function Add({ destino, destinoSeleccionado }) {
+export default function Add({ destinoSeleccionado, destino }) {
   //const [idRuta, setIdRuta] = useState('')
   const router = useRouter();
   const { id } = router.query;
