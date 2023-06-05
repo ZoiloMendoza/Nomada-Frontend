@@ -4,6 +4,8 @@ import ButtonForm from './ButtonForm';
 import { useState } from 'react';
 import axios from 'axios';
 import Link from 'next/link';
+import Alert from '@mui/material/Alert';
+import Stack from '@mui/material/Stack';
 //import theme from './TemaConfig';
 import { useRouter } from 'next/router';
 
@@ -33,6 +35,7 @@ function Formulario() {
     password: '',
   });
   const { name, email, password } = formData;
+  
 
   const handleOnChange = (e) => {
     console.log([e.target.name], e.target.value);
