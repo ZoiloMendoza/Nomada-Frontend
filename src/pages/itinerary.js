@@ -15,6 +15,7 @@ export default function Itinerary({ contentViaje }) {
   //const [loading, setLoading] = useState(true);
   const [roleInvitado, setRoleInvitado] = useState(null);
   const [roleUsuario, setRoleUsiario] = useState(null);
+  const [error, setError] = useState(null);
   const [destinoSeleccionado, setDestinoSeleccionado] = useState(contentViaje?.rutas[0]?.transporte?.destino ?? '');
   const isMobile = useMediaQuery((theme) => (theme ? theme.breakpoints.down('sm') : '(max-width:600px)'));
 
@@ -28,10 +29,10 @@ export default function Itinerary({ contentViaje }) {
         }
         if (usuario.idUser === contentViaje.administradorViaje) {
           setRoleUsiario('admin');
+          return;
         }
-        if (usuario.idUser != contentViaje.administradorViaje && contentViaje.colaboradores.length > 0) {
+        if (contentViaje.colaboradores.length > 0) {
           const invitado = contentViaje.colaboradores.find((colaborador) => colaborador.usuarioId === usuario.idUser);
-          console.log(invitado, 'testeo de invitado');
           if (invitado) {
             setRoleInvitado(invitado.role);
           }
@@ -41,11 +42,15 @@ export default function Itinerary({ contentViaje }) {
         }
       } catch (error) {
         console.error('Error fetching data', error);
+        setError(error); 
       }
     };
     validacionViaje();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+  if (error) {
+    return <p>Error: {error.message}</p>;
+  }
 
   console.log('contentViaje', contentViaje);
   const updateDestinoSeleccionado = (destino) => {
@@ -90,8 +95,6 @@ export const getServerSideProps = async (context) => {
 
     if (response.status === 200) {
       const tripData = response.data;
-      //const params = { destino: tripData.destino, paisDestino: tripData.paisDestino };
-      //const contentApi = await getDataFindSearch({ params });
       return {
         props: {
           contentViaje: tripData,

@@ -7,18 +7,24 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import axios from 'axios';
 import CircularProgress from '@mui/material/CircularProgress';
+
 const URLRAILWAY = process.env.NEXT_PUBLIC_BACKEND;
 
 const NoViajesMessage = () => (
   <Box
-    sx={{
-      display: 'flex',
-      justifyContent: 'center',
-      alignItems: 'center',
-      backgroundColor: '#f5f5f5',
-    }}
+  sx={{
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+    color: '#333', 
+    fontSize: '20px',
+    fontWeight: 'bold',
+    width: '100%', 
+    boxSizing: 'border-box',
+  }}
   >
-    Usuario no tiene viajes por el momento ...
+    No tiene más viajes por el momento ...
   </Box>
 );
 
@@ -69,6 +75,7 @@ export default function MisViajes() {
       </Box>
     );
   }
+  
 
   return (
     <Box sx={{ width: '100%', minHeight: '100vh', padding: '5px', backgroundColor: '#EAEDED' }}>
