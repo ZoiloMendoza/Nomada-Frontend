@@ -6,7 +6,7 @@ export async function fetchTripData(tripId) {
   try {
     const response = await axios.get(`${URLRAILWAY}/api/v1/viajes/${tripId}`);
     if (response.status === 200) {
-      const tripData = response.data;
+      const tripData = null;
       return tripData;
     }
   } catch (error) {

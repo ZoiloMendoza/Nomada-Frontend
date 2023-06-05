@@ -12,6 +12,10 @@ import { fetchTripData } from '@/utils/fetchTripData';
 
 export default function Itinerary({ contentViaje }) {
   const router = useRouter();
+  if(!contentViaje){
+    return <div>PROBANDO</div>
+    
+  }
   //const [loading, setLoading] = useState(true);
   const [roleInvitado, setRoleInvitado] = useState(null);
   const [roleUsuario, setRoleUsiario] = useState(null);
