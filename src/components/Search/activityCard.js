@@ -1,13 +1,9 @@
 import { Card, CardContent, CardMedia, Typography, IconButton, Button } from '@mui/material';
 import Carrusel from '../common/Carrusel';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import CardDetalleActivity from './cardDetalleActivity';
 import PopupActivity from './PopupActivity';
 import { Add, Favorite, FavoriteBorder } from '@mui/icons-material';
-import { activityData } from './activityData';
-import axios from 'axios';
-
-const URLRAILWAY = process.env.NEXT_PUBLIC_BACKEND;
 
 const styles = {
   card: {
@@ -29,7 +25,7 @@ const styles = {
   },
 };
 
-function ActivityCard() {
+function ActivityCard({ activityData }) {
   //const actividades = activityData.rutas[0].actividades;
   const [open, setOpen] = useState(false);
   const [openForm, setOpenForm] = useState(false);
@@ -37,20 +33,6 @@ function ActivityCard() {
   const [isFavorite, setIsFavorite] = useState(false);
   //const [infoRuta, setinfoRuta] = useState([]);
 
-  useEffect(() => {
-    const getRuta = async () => {
-      try {
-        const get = await axios.get(`${URLRAILWAY}/api/v1/actividades/${'6469267dbbcdff8d071aaa06'}`);
-        if (get) {
-          console.log(get.status);
-          setinfoRuta(get.data);
-        }
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    getRuta();
-  }, []);
   const handleClick = (location_id) => {
     const selectedActivity = activityData.find((activity) => activity.location_id === location_id);
     setSelectedActivity(selectedActivity);

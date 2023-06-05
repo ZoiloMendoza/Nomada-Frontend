@@ -41,7 +41,7 @@ const FlightInfoContainer = styled(Card)(({ theme }) => ({
 const BoardingPassCard = () => {
   const [error, setError] = useState(false);
   const [idRuta, setIdRuta] = useState('');
-  const [placeId, setPlaceId] = useState(null);
+  // const [placeId, setPlaceId] = useState(null);
   const [photoUrl, setPhotoUrl] = useState('');
   const [formData, setFormData] = useState({
     flightNumber: '',
@@ -57,17 +57,14 @@ const BoardingPassCard = () => {
   const { id } = router.query;
   const regexPattern = /^[A-Za-z]{2}\d{4}$/;
 
-  useEffect(()=> {
-    if(id){
+  useEffect(() => {
+    if (id) {
       const creandoRuta = async () => {
         try {
           const nuevaRuta = {
             viajeId: id,
           };
-          const crearRutaPost = await axios.post(
-            `${URLRAILWAY}/api/v1/rutas`,
-            nuevaRuta,
-          );
+          const crearRutaPost = await axios.post(`${URLRAILWAY}/api/v1/rutas`, nuevaRuta);
           setIdRuta(crearRutaPost.data._id);
           //console.log('ruta', crearRutaPost);
         } catch (error) {
@@ -75,10 +72,9 @@ const BoardingPassCard = () => {
         }
       };
       creandoRuta();
-
     }
   }, [id]);
-  
+
   const creandoTransporte = async (datosDelVuelo) => {
     try {
       const nuevoTransporte = {
@@ -92,10 +88,7 @@ const BoardingPassCard = () => {
         latitud: datosDelVuelo?.latitud,
         longitud: datosDelVuelo?.longitud,
       };
-      const crearTransportePost = await axios.post(
-       `${URLRAILWAY}/api/v1/transportes`,
-        nuevoTransporte,
-      );
+      const crearTransportePost = await axios.post(`${URLRAILWAY}/api/v1/transportes`, nuevoTransporte);
       console.log('transporte', crearTransportePost);
     } catch (error) {
       console.log(error);
@@ -113,7 +106,7 @@ const BoardingPassCard = () => {
 
   const handleClick = async () => {
     //await creandoRuta();
-    
+
     const { origen, destino, paisDestino, fechaInicio, fechaFinal, longitud, latitud } = formData;
     const modelViaje = {
       origen,
@@ -122,21 +115,18 @@ const BoardingPassCard = () => {
       fechaInicio,
       fechaFinal,
       longitud,
-      latitud
+      latitud,
     };
-    const viajePost = await axios.patch(
-      `${URLRAILWAY}/api/v1/viajes/${id}`,
-      modelViaje,
-    );
+    const viajePost = await axios.patch(`${URLRAILWAY}/api/v1/viajes/${id}`, modelViaje);
     console.log('statusCode', viajePost.status);
     if (idRuta !== '') {
-      await creandoTransporte({...formData, imagen: photoUrl});
+      await creandoTransporte({ ...formData, imagen: photoUrl });
     }
     if (viajePost.status !== 201) {
       console.log('error al insertar');
     } else {
       console.log('Viaje actualizado');
-      console.log('viaje', viajePost.data)
+      console.log('viaje', viajePost.data);
       router.push(`/itinerary?id=${id}`);
     }
   };
@@ -177,25 +167,24 @@ const BoardingPassCard = () => {
   };
   const handlePlaceSelect = (place) => {
     if (place && place.geometry && place.geometry.location) {
-      console.log("Place selected:", place);
-      console.log("Place photos:", place.photos[0].getUrl());
-      console.log("Formatted Address:", place.formatted_address);
-      console.log("Latitude:", place.geometry.location.lat());
-      console.log("Longitude:", place.geometry.location.lng());
-      console.log("Place_id", place.place_id)
+      console.log('Place selected:', place);
+      console.log('Place photos:', place.photos[0].getUrl());
+      console.log('Formatted Address:', place.formatted_address);
+      console.log('Latitude:', place.geometry.location.lat());
+      console.log('Longitude:', place.geometry.location.lng());
+      console.log('Place_id', place.place_id);
       const selectedDestino = place.formatted_address;
       setPlaceId(place.place_id);
-      setPhotoUrl(place.photos[0].getUrl())
+      setPhotoUrl(place.photos[0].getUrl());
       setFormData((prevState) => ({
         ...prevState,
         destino: selectedDestino,
         latitud: place.geometry.location.lat(),
         longitud: place.geometry.location.lng(),
       }));
-     
     }
   };
- console.log(photoUrl,'foto')
+  console.log(photoUrl, 'foto');
   return (
     <Box display='flex' flexDirection='column' alignItems='center' mt={5} maxWidth='100%'>
       <Typography variant='h5' sx={{ marginBottom: 2, textAlign: 'center' }}>
@@ -236,35 +225,28 @@ const BoardingPassCard = () => {
           />
           <LuggageOutlinedIcon sx={{ marginBottom: 2 }} />
           <TextField
-            variant="filled"
-            color="primary"
-            size="small"
+            variant='filled'
+            color='primary'
+            size='small'
             fullWidth
-            name="destino"
-            label="Destino"
+            name='destino'
+            label='Destino'
             value={formData.destino}
             onChange={handleChange}
             sx={{ marginBottom: 2 }}
             InputProps={{
               inputComponent: ReactGoogleAutocomplete,
               inputProps: {
-              apiKey: API_GOOGLE,
-              //options: {fields: ['photos']},
-              options: {
-                types: [],
-                fields: [
-                  "photos",
-                  "formatted_address",
-                  "geometry.location",
-                  "place_id",
-                ],
+                apiKey: API_GOOGLE,
+                //options: {fields: ['photos']},
+                options: {
+                  types: [],
+                  fields: ['photos', 'formatted_address', 'geometry.location', 'place_id'],
+                },
+                onPlaceSelected: (place) => handlePlaceSelect(place),
               },
-              onPlaceSelected: (place) => handlePlaceSelect(place),
-
-        },
-      }}
-    />
-          
+            }}
+          />
         </Box>
         <Box display='flex' justifyContent='space-between' alignItems='center'>
           <TextField
@@ -301,9 +283,5 @@ const BoardingPassCardWrapper = () => (
     <BoardingPassCard />
   </ThemeProvider>
 );
-
-
-
-
 
 export default BoardingPassCardWrapper;

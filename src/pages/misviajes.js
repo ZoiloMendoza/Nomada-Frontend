@@ -26,34 +26,33 @@ export default function MisViajes() {
   const router = useRouter();
   const [loading, setLoading] = useState(true);
   const [viajesDelUsuario, setViajesDelUsuario] = useState([]);
-  const [viajesInvidatos, setViajesInvitados] = useState([])
+  const [viajesInvidatos, setViajesInvitados] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
-        try {
-            const usuario = JSON.parse(localStorage.getItem('usuarioLogeado'));
-            if (!usuario) {
-                router.push('/login');
-                return;
-            }
-            const viajesDelUsuario = await axios.get(`${URLRAILWAY}/api/v1/users/${usuario.idUser}`);
-            if (viajesDelUsuario.status === 200) {
-                setViajesDelUsuario(viajesDelUsuario.data.viajes);
-                console.log(viajesDelUsuario.data.viajes, 'viajes del usuario')
-                setLoading(false);
-            }
-            const viajesColaborativos = await axios.get(`${URLRAILWAY}/api/v1/colaboradores/search/${usuario.idUser}`);
-            if (viajesColaborativos.status === 200) {
-                setViajesInvitados(viajesColaborativos.data);
-                console.log(viajesColaborativos.data, 'viajes JUNTOS')
-            }
-
-        } catch (error) {
-            console.error("Error fetching data", error);
+      try {
+        const usuario = JSON.parse(localStorage.getItem('usuarioLogeado'));
+        if (!usuario) {
+          router.push('/login');
+          return;
         }
+        const viajesDelUsuario = await axios.get(`${URLRAILWAY}/api/v1/users/${usuario.idUser}`);
+        if (viajesDelUsuario.status === 200) {
+          setViajesDelUsuario(viajesDelUsuario.data.viajes);
+          console.log(viajesDelUsuario.data.viajes, 'viajes del usuario');
+          setLoading(false);
+        }
+        const viajesColaborativos = await axios.get(`${URLRAILWAY}/api/v1/colaboradores/search/${usuario.idUser}`);
+        if (viajesColaborativos.status === 200) {
+          setViajesInvitados(viajesColaborativos.data);
+          console.log(viajesColaborativos.data, 'viajes JUNTOS');
+        }
+      } catch (error) {
+        console.error('Error fetching data', error);
+      }
     };
     fetchData();
-}, [router]);
+  }, [router]);
 
   if (loading) {
     return (
@@ -72,7 +71,7 @@ export default function MisViajes() {
   }
 
   return (
-    <Box sx={{ width: '100%', height: '100vh', padding: '5px', backgroundColor: '#EAEDED' }}>
+    <Box sx={{ width: '100%', minHeight: '100vh', padding: '5px', backgroundColor: '#EAEDED' }}>
       <ButtonNuevoViaje />
       <Grid sx={{ padding: '15px' }} container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
         {viajesDelUsuario.length > 0 ? (

@@ -38,17 +38,17 @@ const styles = {
   },
 };
 
-const AddToGroup = ({ viajeData, openModal, closeModal }) => {
+const AddToGroup = ({ openModal, closeModal }) => {
   const router = useRouter();
   const { id } = router.query;
   const [email, setEmail] = useState('');
   const [collaborators, setCollaborators] = useState([]);
   const [status, setStatus] = useState('');
-  const [roleInvitado, setRoleInvitado] = useState('staff')
+  const [roleInvitado, setRoleInvitado] = useState('staff');
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
   };
- 
+
   useEffect(() => {
     if (id) {
       const fetchCollaborators = async () => {
@@ -60,52 +60,50 @@ const AddToGroup = ({ viajeData, openModal, closeModal }) => {
         }
       };
       fetchCollaborators();
-    }  
-}, [openModal]);
+    }
+  }, [id]);
 
   const handleClose = () => {
     closeModal();
   };
- 
+
   const guardarCorreo = async (e) => {
     e.preventDefault();
     try {
-      if (email.trim() !== '' && !collaborators.some(collaborator => collaborator.email === email)) {
-        console.log(email, ' validacion ultima')
+      if (email.trim() !== '' && !collaborators.some((collaborator) => collaborator.email === email)) {
+        console.log(email, ' validacion ultima');
         const buscarCorreo = await axios.post(`${URLRAILWAY}/api/v1/colaboradores/search`, { email: email });
         if (buscarCorreo.status == 200) {
           setStatus('success');
           const { idUser, name, email } = buscarCorreo.data;
-          console.log(buscarCorreo.data, 'buscar correo')
+          console.log(buscarCorreo.data, 'buscar correo');
           const nuevoColaborador = { viajeId: id, usuarioId: idUser, nombre: name, email: email, role: roleInvitado };
-          console.log(nuevoColaborador, 'nuevo colaborador')
+          console.log(nuevoColaborador, 'nuevo colaborador');
           const registroColaborador = await axios.post(`${URLRAILWAY}/api/v1/colaboradores`, nuevoColaborador);
-          console.log(registroColaborador.data, 'validacion del post')
+          console.log(registroColaborador.data, 'validacion del post');
           const nuevoColaboradorConId = registroColaborador.data;
           setCollaborators([...collaborators, nuevoColaboradorConId]);
           setEmail('');
-          return
+          return;
         }
       }
     } catch (error) {
       setStatus('error');
     }
   };
-  
-  
-
-
 
   const borrarColaborador = async (idColaborador) => {
     try {
-      const colaboradorEliminado = await axios.delete(`${URLRAILWAY}/api/v1/colaboradores/${idColaborador}`)
+      const colaboradorEliminado = await axios.delete(`${URLRAILWAY}/api/v1/colaboradores/${idColaborador}`);
       if (colaboradorEliminado.status === 200) {
-        setCollaborators((prevCollaborators) => prevCollaborators.filter((colaborador) => colaborador._id !== idColaborador));
+        setCollaborators((prevCollaborators) =>
+          prevCollaborators.filter((colaborador) => colaborador._id !== idColaborador),
+        );
       }
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-  }
+  };
 
   return (
     <>
@@ -126,18 +124,18 @@ const AddToGroup = ({ viajeData, openModal, closeModal }) => {
               margin='normal'
               variant='filled'
             />
-            <FormControl sx={{ display: 'block'}}>
-              <FormLabel id="demo-row-radio-buttons-group-label">Permisos</FormLabel>
-                <RadioGroup
+            <FormControl sx={{ display: 'block' }}>
+              <FormLabel id='demo-row-radio-buttons-group-label'>Permisos</FormLabel>
+              <RadioGroup
                 row
-                 aria-labelledby="demo-row-radio-buttons-group-label"
-                name="row-radio-buttons-group"
+                aria-labelledby='demo-row-radio-buttons-group-label'
+                name='row-radio-buttons-group'
                 value={roleInvitado}
                 onChange={(e) => setRoleInvitado(e.target.value)}
-                >
-                <FormControlLabel value="admin" control={<Radio />} label="Editar" />
-                <FormControlLabel value="staff" control={<Radio />} label="Lectura" />
-                </RadioGroup>
+              >
+                <FormControlLabel value='admin' control={<Radio />} label='Editar' />
+                <FormControlLabel value='staff' control={<Radio />} label='Lectura' />
+              </RadioGroup>
             </FormControl>
             <Button type='button' variant='contained' color='primary' onClick={guardarCorreo} role='button'>
               Agregar
@@ -145,7 +143,7 @@ const AddToGroup = ({ viajeData, openModal, closeModal }) => {
 
             <List sx={styles.emailList}>
               <Typography variant='h5'>Viajeros:</Typography>
-              {collaborators.map((collaborator, index) => (
+              {collaborators.map((collaborator) => (
                 <ListItem key={collaborator._id}>
                   <ListItemText primary={collaborator.email} />
                   <IconButton onClick={() => borrarColaborador(collaborator._id)}>

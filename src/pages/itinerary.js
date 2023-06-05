@@ -45,7 +45,7 @@ export default function Itinerary({ contentViaje }) {
       }
     };
     validacionViaje();
-  }, []);
+  }, [contentViaje.administradorViaje, contentViaje.colaboradores, router]);
 
   console.log('contentViaje', contentViaje);
   const updateDestinoSeleccionado = (destino) => {

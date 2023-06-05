@@ -28,7 +28,7 @@ const styles = {
 
 const ActivityCard = ({ activityData, handleEdit }) => {
   const [expanded, setExpanded] = useState(false);
-  const [activities, setActivities] = useState(activityData);
+  const [activities, setActivities] = useState(null);
   useEffect(() => {
     setActivities(activityData);
   }, [activityData]);

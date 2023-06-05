@@ -3,12 +3,12 @@ import PropTypes from 'prop-types';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
+import { IconButton } from '@mui/material';
+import { Edit as EditIcon, Delete as DeleteIcon } from '@mui/icons-material';
 import FlightCard from './FlightCard';
-//import { useEffect } from 'react';
-//import { flightData } from '@/components/Itinerary/flightData';
 import ActivityCard from '@/components/Itinerary/ActivityCard';
 import HotelCard from '@/components/Itinerary/HotelCard';
-//import { hotelData } from '@/components/Itinerary/hotelData';
+
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -49,7 +49,7 @@ export default function TabsDestinos({ dataDestino, updateDestinoCallback }) {
   }
   //console.log(dataDestino.rutas[2].hospedajes, 'hospedajes')
   //updateDestinoCallback(dataDestino.rutas[0].transporte.destino)
-  
+
   const handleChange = (event, newValue) => {
     setValue(newValue);
     const destinoSeleccionado = dataDestino.rutas[newValue].transporte.destino;
@@ -84,9 +84,28 @@ export default function TabsDestinos({ dataDestino, updateDestinoCallback }) {
           <Tab label='Destino Uno' {...a11yProps(0)} />
         )}
       </Tabs>
+
       {dataDestino.rutas ? (
         dataDestino.rutas.map((ruta, index) => (
           <TabPanel key={index} value={value} index={index}>
+            <div>
+              <IconButton aria-label='edit' onClick={() => handleEdit(rutaInfo)}>
+                <EditIcon
+                  sx={{
+                    width: '20px',
+                    color: '#D2D2D2',
+                  }}
+                />
+              </IconButton>
+              <IconButton aria-label='delete' onClick={() => handleDelete(rutaInfo)}>
+                <DeleteIcon
+                  sx={{
+                    width: '20px',
+                    color: '#D2D2D2',
+                  }}
+                />
+              </IconButton>
+            </div>
             <FlightCard flightData={ruta.transporte} />
             <HotelCard hotelData={ruta.hospedajes} />
             <ActivityCard activityData={dataDestino.rutas[index].actividades} />
