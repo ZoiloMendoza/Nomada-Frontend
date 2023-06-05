@@ -173,6 +173,10 @@ const BoardingPassCard = () => {
       console.log('Longitude:', place.geometry.location.lng());
       console.log('Place_id', place.place_id);
       const selectedDestino = place.formatted_address;
+<<<<<<< HEAD
+=======
+      // setPlaceId(place.place_id);
+>>>>>>> main
       setPhotoUrl(place.photos[0].getUrl());
       setFormData((prevState) => ({
         ...prevState,
