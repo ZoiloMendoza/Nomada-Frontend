@@ -145,7 +145,7 @@ function Formulario() {
                           </CardContent>
 
                           <Grid item xs={12} style={{ textAlign: 'center' }}>
-                            <CheckboxFormulario checked={isChecked} name='checkboxFormulario' />
+                            <CheckboxFormulario name='checkboxFormulario' />
                           </Grid>
                           <p>¿Ya tienes una cuenta?</p>
                           <Link legacyBehavior href='/login'>
