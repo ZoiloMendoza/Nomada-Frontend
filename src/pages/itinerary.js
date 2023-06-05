@@ -8,66 +8,58 @@ import Box from '@mui/material/Box';
 import { useMediaQuery } from '@mui/material';
 import TabDestinos from '@/components/Itinerary/TabsDestinos';
 import TabsDestinosMobile from '@/components/Itinerary/TabsDestinosMobile';
+import { useRouter } from 'next/router';
 const URLRAILWAY = process.env.NEXT_PUBLIC_BACKEND;
 
 export default function Itinerary({ contentViaje }) {
-
   const [loading, setLoading] = useState(true);
   const [roleInvitado, setRoleInvitado] = useState(null);
-  const [roleUsuario, setRoleUsiario] = useState(null)
+  const [roleUsuario, setRoleUsiario] = useState(null);
   const [destinoSeleccionado, setDestinoSeleccionado] = useState(contentViaje?.rutas[0]?.transporte.destino ?? '');
   const isMobile = useMediaQuery((theme) => (theme ? theme.breakpoints.down('sm') : '(max-width:600px)'));
-  
-  
+  const router = useRouter();
+
   useEffect(() => {
     const validacionViaje = () => {
-        try {
-            const usuario = JSON.parse(localStorage.getItem('usuarioLogeado'));
-            if (!usuario) {
-                router.replace('/login');
-                return;
-            }
-            if(usuario.idUser === contentViaje.administradorViaje){
-              setRoleUsiario('admin')
-            }
-            if(usuario.idUser != contentViaje.administradorViaje && contentViaje.colaboradores.length > 0){
-              const invitado = contentViaje.colaboradores.find( colaborador => colaborador.usuarioId === usuario.idUser)
-              console.log(invitado, 'testeo de invitado')
-              if(invitado){
-                setRoleInvitado(invitado.role)
-              }
-            } else {
-              router.replace('/misviajes');
-              return;
-            }
-        } catch (error) {
-            console.error("Error fetching data", error);
+      try {
+        const usuario = JSON.parse(localStorage.getItem('usuarioLogeado'));
+        if (!usuario) {
+          router.replace('/login');
+          return;
         }
+        if (usuario.idUser === contentViaje.administradorViaje) {
+          setRoleUsiario('admin');
+        }
+        if (usuario.idUser != contentViaje.administradorViaje && contentViaje.colaboradores.length > 0) {
+          const invitado = contentViaje.colaboradores.find((colaborador) => colaborador.usuarioId === usuario.idUser);
+          console.log(invitado, 'testeo de invitado');
+          if (invitado) {
+            setRoleInvitado(invitado.role);
+          }
+        } else {
+          //router.replace('/misviajes');
+          return;
+        }
+      } catch (error) {
+        console.error('Error fetching data', error);
+      }
     };
     validacionViaje();
-}, []);
-  
-  
-  
+  }, []);
+
   console.log('contentViaje', contentViaje);
   const updateDestinoSeleccionado = (destino) => {
     setDestinoSeleccionado(destino);
   };
-  const arregloDestinos = contentViaje?.rutas.map((transporte) => transporte.transporte.destino);
+  const arregloDestinos = contentViaje?.rutas.map((transporte) => transporte?.transporte?.destino);
   const idRutaElegida = arregloDestinos?.indexOf(destinoSeleccionado);
-
-
-
 
   return (
     <Box sx={{ backgroundColor: '#EAEDED' }}>
       <HeroImage viajeData={contentViaje} imagenFondo={contentViaje?.rutas[idRutaElegida]?.transporte?.imagen} />
-      {(roleUsuario === 'admin' || roleInvitado === 'admin') &&
-        <Add
-          destinoSeleccionado={destinoSeleccionado}
-          destino={contentViaje?.rutas[idRutaElegida]._id}
-        />
-      }
+      {(roleUsuario === 'admin' || roleInvitado === 'admin') && (
+        <Add destinoSeleccionado={destinoSeleccionado} destino={contentViaje?.rutas[idRutaElegida]._id} />
+      )}
       {isMobile ? (
         <Box
           sx={{
