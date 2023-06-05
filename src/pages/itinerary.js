@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-//import Head from 'next/head';
 import ScrollToTop from '@/components/common/ScrollToTop';
 import HeroImage from '@/components/Itinerary/HeroImage';
 import axios from 'axios';
