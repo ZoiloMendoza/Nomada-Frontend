@@ -47,7 +47,6 @@ export default function TabsDestinos({ dataDestino, updateDestinoCallback }) {
   if (!dataDestino) {
     return <div>Intentalo más tarde TabsDestinos</div>;
   }
-  //console.log(dataDestino.rutas[2].hospedajes, 'hospedajes')
   updateDestinoCallback(dataDestino.rutas[0].transporte.destino)
 
   const handleChange = (event, newValue) => {
