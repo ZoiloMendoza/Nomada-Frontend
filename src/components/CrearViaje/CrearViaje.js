@@ -41,7 +41,7 @@ const FlightInfoContainer = styled(Card)(({ theme }) => ({
 const BoardingPassCard = () => {
   const [error, setError] = useState(false);
   const [idRuta, setIdRuta] = useState('');
-  // const [placeId, setPlaceId] = useState(null);
+  const [placeId, setPlaceId] = useState(null);
   const [photoUrl, setPhotoUrl] = useState('');
   const [formData, setFormData] = useState({
     flightNumber: '',
