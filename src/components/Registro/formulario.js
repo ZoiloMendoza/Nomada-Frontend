@@ -20,7 +20,6 @@ const style = {
 };
 
 function Formulario() {
-  //  const [isChecked, setIsChecked] = useState(false);
   const router = useRouter();
   const [confirmarPassword, setConfirmarPaswordd] = useState({
     confirmar: '',
@@ -145,7 +144,7 @@ function Formulario() {
                           </CardContent>
 
                           <Grid item xs={12} style={{ textAlign: 'center' }}>
-                            <CheckboxFormulario checked={isChecked} name='checkboxFormulario' />
+                            <CheckboxFormulario name='checkboxFormulario' />
                           </Grid>
                           <p>¿Ya tienes una cuenta?</p>
                           <Link legacyBehavior href='/login'>
@@ -156,7 +155,6 @@ function Formulario() {
                             <ButtonForm
                               size='medium'
                               onClick={() => handleSubmit(name, email, password)}
-                              disabled={!isChecked}
                             />
                           </Grid>
                         </Card>

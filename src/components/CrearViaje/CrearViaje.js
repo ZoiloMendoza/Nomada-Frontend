@@ -41,7 +41,6 @@ const FlightInfoContainer = styled(Card)(({ theme }) => ({
 const BoardingPassCard = () => {
   const [error, setError] = useState(false);
   const [idRuta, setIdRuta] = useState('');
-  const [placeId, setPlaceId] = useState(null);
   const [photoUrl, setPhotoUrl] = useState('');
   const [formData, setFormData] = useState({
     flightNumber: '',
@@ -174,7 +173,6 @@ const BoardingPassCard = () => {
       console.log('Longitude:', place.geometry.location.lng());
       console.log('Place_id', place.place_id);
       const selectedDestino = place.formatted_address;
-      setPlaceId(place.place_id);
       setPhotoUrl(place.photos[0].getUrl());
       setFormData((prevState) => ({
         ...prevState,
