@@ -150,7 +150,7 @@ function Formulario() {
                           </CardContent>
 
                           <Grid item xs={12} style={{ textAlign: 'center' }}>
-                            <CheckboxFormulario checked={isChecked} name='checkboxFormulario' />
+                            <CheckboxFormulario name='checkboxFormulario' />
                           </Grid>
                           <p>¿Ya tienes una cuenta?</p>
                           <Link legacyBehavior href='/login'>
@@ -158,11 +158,7 @@ function Formulario() {
                           </Link>
 
                           <Grid my={4} justifyContent='center' direction='row' container>
-                            <ButtonForm
-                              size='medium'
-                              onClick={() => handleSubmit(name, email, password)}
-                              disabled={!isChecked}
-                            />
+                            <ButtonForm size='medium' onClick={() => handleSubmit(name, email, password)} />
                           </Grid>
                         </Card>
                       </Grid>
