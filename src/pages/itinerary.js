@@ -35,8 +35,9 @@ export default function Itinerary() {
         setLoading(false);
       }
     };
-    
+    if(tripId){
     fetchData();
+  }
   }, [tripId]);
   useEffect(() => {
     const validacionViaje = () => {
