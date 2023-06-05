@@ -22,7 +22,6 @@ const style = {
 };
 
 function Formulario() {
-  //  const [isChecked, setIsChecked] = useState(false);
   const router = useRouter();
   const [confirmarPassword, setConfirmarPaswordd] = useState({
     confirmar: '',
@@ -160,11 +159,7 @@ function Formulario() {
                           </Link>
 
                           <Grid my={4} justifyContent='center' direction='row' container>
-                            <ButtonForm
-                              size='medium'
-                              onClick={() => handleSubmit(name, email, password)}
-                              disabled={!isChecked}
-                            />
+                            <ButtonForm size='medium' onClick={() => handleSubmit(name, email, password)} />
                           </Grid>
                         </Card>
                       </Grid>
