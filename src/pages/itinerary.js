@@ -16,7 +16,7 @@ export default function Itinerary({ contentViaje }) {
   //const [loading, setLoading] = useState(true);
   const [roleInvitado, setRoleInvitado] = useState(null);
   const [roleUsuario, setRoleUsiario] = useState(null);
-  const [destinoSeleccionado, setDestinoSeleccionado] = useState(contentViaje?.rutas[0]?.transporte.destino ?? '');
+  const [destinoSeleccionado, setDestinoSeleccionado] = useState(contentViaje?.rutas[0]?.transporte?.destino ?? '');
   const isMobile = useMediaQuery((theme) => (theme ? theme.breakpoints.down('sm') : '(max-width:600px)'));
 
   useEffect(() => {
@@ -58,7 +58,7 @@ export default function Itinerary({ contentViaje }) {
     <Box sx={{ backgroundColor: '#EAEDED' }}>
       <HeroImage viajeData={contentViaje} imagenFondo={contentViaje?.rutas[idRutaElegida]?.transporte?.imagen} />
       {(roleUsuario === 'admin' || roleInvitado === 'admin') && (
-        <Add destinoSeleccionado={destinoSeleccionado} destino={contentViaje?.rutas[idRutaElegida]._id} />
+        <Add destinoSeleccionado={destinoSeleccionado} destino={contentViaje?.rutas[idRutaElegida]?._id} />
       )}
       {isMobile ? (
         <Box
