@@ -1,14 +1,14 @@
 import { useState, useEffect } from 'react';
 import ScrollToTop from '@/components/common/ScrollToTop';
 import HeroImage from '@/components/Itinerary/HeroImage';
-import axios from 'axios';
 import Add from '@/components/Add/Add';
 import Box from '@mui/material/Box';
 import { useMediaQuery } from '@mui/material';
 import TabDestinos from '@/components/Itinerary/TabsDestinos';
 import TabsDestinosMobile from '@/components/Itinerary/TabsDestinosMobile';
 import { useRouter } from 'next/router';
-const URLRAILWAY = process.env.NEXT_PUBLIC_BACKEND;
+import { fetchTripData } from '@/utils/fetchTripData';
+//const URLRAILWAY = process.env.NEXT_PUBLIC_BACKEND;
 
 export default function Itinerary({ contentViaje }) {
   const router = useRouter();
@@ -90,22 +90,10 @@ export default function Itinerary({ contentViaje }) {
 
 export const getServerSideProps = async (context) => {
   const tripId = context.query.id;
-  try {
-    const response = await axios.get(`${URLRAILWAY}/api/v1/viajes/${tripId}`);
-
-    if (response.status === 200) {
-      const tripData = response.data;
-      return {
-        props: {
-          contentViaje: tripData,
-        },
-      };
-    }
-  } catch (error) {
-    return {
-      props: {
-        contentViaje: null,
-      },
-    };
-  }
+  const tripData = await fetchTripData(tripId);
+  return {
+    props: {
+      contentViaje: tripData,
+    },
+  };
 };
