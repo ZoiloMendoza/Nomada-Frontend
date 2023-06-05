@@ -44,7 +44,8 @@ export default function Itinerary({ contentViaje }) {
       }
     };
     validacionViaje();
-  }, [contentViaje.administradorViaje, contentViaje.colaboradores, router]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   console.log('contentViaje', contentViaje);
   const updateDestinoSeleccionado = (destino) => {
