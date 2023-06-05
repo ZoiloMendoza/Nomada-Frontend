@@ -77,10 +77,12 @@ export default function Itinerary() {
   const updateDestinoSeleccionado = (destino) => {
     setDestinoSeleccionado(destino);
   };
-
+ 
   const arregloDestinos = contentViaje?.rutas.map((transporte) => transporte?.transporte?.destino);
   const idRutaElegida = arregloDestinos?.indexOf(destinoSeleccionado);
-  const imagenFondo = contentViaje?.rutas[idRutaElegida]?.transporte?.imagen;
+  console.log(idRutaElegida, 'idRUta')
+  const imagenFondo = contentViaje?.rutas[idRutaElegida === -1 ? 0 : idRutaElegida]?.transporte?.imagen;
+  
   return (
     <Box sx={{ backgroundColor: '#EAEDED' }}>
       <HeroImage viajeData={contentViaje} imagenFondo={imagenFondo} />
