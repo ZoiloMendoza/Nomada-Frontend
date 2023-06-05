@@ -9,6 +9,7 @@ import TabDestinos from '@/components/Itinerary/TabsDestinos';
 import TabsDestinosMobile from '@/components/Itinerary/TabsDestinosMobile';
 import { useAuth } from '@/utils/useAuth';
 import { useRouter } from 'next/router';
+import CircularProgress from '@mui/material/CircularProgress';
 const URLRAILWAY = process.env.NEXT_PUBLIC_BACKEND;
 
 export default function Itinerary() {
@@ -66,7 +67,19 @@ export default function Itinerary() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [usuario, contentViaje]);
   if (loading) {
-    return <p>Loading...</p>;
+    return (
+      <Box
+        sx={{
+          display: 'flex',
+          position: 'fixed',
+          top: '50%',
+          left: '50%',
+          transform: 'translate(-50%, -50%)',
+        }}
+      >
+        <CircularProgress />
+      </Box>
+    );
   }
   if (error) {
     return <p>Error: {error.message}</p>;
