@@ -11,7 +11,7 @@ import { useRouter } from 'next/router';
 const URLRAILWAY = process.env.NEXT_PUBLIC_BACKEND;
 
 export default function Itinerary({ contentViaje }) {
-  const [loading, setLoading] = useState(true);
+  //const [loading, setLoading] = useState(true);
   const [roleInvitado, setRoleInvitado] = useState(null);
   const [roleUsuario, setRoleUsiario] = useState(null);
   const [error, setError] = useState(null);
@@ -42,7 +42,7 @@ export default function Itinerary({ contentViaje }) {
         }
       } catch (error) {
         console.error('Error fetching data', error);
-        setError(error); 
+        setError(error);
       }
     };
     validacionViaje();
