@@ -56,6 +56,29 @@ function ActivityCard({ activityData }) {
     setOpenForm(false);
   };
 
+  const funcionOpen = () => {
+    setOpenForm(true);
+    setOpen(false);
+  };
+
+  const getImage = (activityImage) => {
+    if (activityImage.data !== null && activityImage?.data?.length > 0) {
+      return activityImage?.data[0]?.images.small.url;
+    }
+    return '/img/placeholder.jpeg';
+  };
+  const getAdress = (activityAdress) => {
+    let address = '';
+    if (activityAdress.street1 != undefined && activityAdress.street1 != '') {
+      address = activityAdress.street1;
+    } else if (activityAdress.address_string != undefined && activityAdress.address_string != '') {
+      address = activityAdress.address_string;
+    } else return '';
+
+    const formatoActivity = address?.length < 40 ? address : `${address?.slice(0, 37)}...`;
+    return formatoActivity;
+  };
+
   const handleFavoriteClick = () => {
     setIsFavorite(!isFavorite);
     console.log('Favorite button clicked!');
@@ -69,7 +92,7 @@ function ActivityCard({ activityData }) {
           <Card sx={styles.card} key={activity.location_id}>
             <CardMedia
               sx={styles.media}
-              image={activity?.data[0]?.images.original.url}
+              image={getImage(activity)}
               //  title={activity?.data[0]?.user.username}
             />
             <CardContent>
@@ -77,7 +100,7 @@ function ActivityCard({ activityData }) {
                 {activity.name}
               </Typography>
               <Typography variant='body2' color='textSecondary' component='p'>
-                {activity.address_obj.street1}
+                {getAdress(activity.address_obj)}
               </Typography>
             </CardContent>
 
@@ -109,7 +132,13 @@ function ActivityCard({ activityData }) {
         ))}
       </Carrusel>
       {open && selectedActivity !== null && (
-        <CardDetalleActivity data={selectedActivity} open={open} closeCard={closeCard} />
+        <CardDetalleActivity
+          data={selectedActivity}
+          open={open}
+          openForm={funcionOpen}
+          categoria={'attraction'}
+          closeCard={closeCard}
+        />
       )}
       {openForm && selectedActivity !== null && (
         <PopupActivity data={selectedActivity} openForm={openForm} closeForm={closeForm} />

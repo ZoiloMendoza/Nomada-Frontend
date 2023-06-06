@@ -71,7 +71,7 @@ export default function Add({ destinoSeleccionado, destino }) {
   const { id } = router.query;
   const encodedDestino = encodeURIComponent(destinoSeleccionado);
   //console.log(destino, 'DESTINO');
-  //console.log(encodedDestino, 'ENCODEDESTINO');
+  console.log(encodedDestino, 'ENCODEDESTINO');
   //setIdRuta(destino.rutas[0]._id)
   //console.log(idRuta, 'idRuda de destino')
   return (
