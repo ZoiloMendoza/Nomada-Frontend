@@ -4,8 +4,11 @@ import ButtonForm from './ButtonForm';
 import { useState } from 'react';
 import axios from 'axios';
 import Link from 'next/link';
+import Alert from '@mui/material/Alert';
+import Stack from '@mui/material/Stack';
 //import theme from './TemaConfig';
 import { useRouter } from 'next/router';
+
 const URLRAILWAY = process.env.NEXT_PUBLIC_BACKEND;
 const style = {
   formulario: {
@@ -31,6 +34,7 @@ function Formulario() {
     password: '',
   });
   const { name, email, password } = formData;
+  const [status, setStatus] = useState('');
 
   const handleOnChange = (e) => {
     console.log([e.target.name], e.target.value);
@@ -43,7 +47,7 @@ function Formulario() {
 
   const handleSubmit = async (name, email, password) => {
     if (password !== confirmarPassword.confirmar) {
-      alert('Las contraseñas no coinciden.');
+      setStatus('success');
       return;
     }
     console.log('enviado', formData);
@@ -58,15 +62,16 @@ function Formulario() {
           ...userPost.data,
         };
         localStorage.setItem('usuarioLogeado', JSON.stringify(usuario));
-        router.push('/inicio');
 
+        router.push('/inicio');
+        setStatus('success');
         //alert('Usuario creado correctamente', name, email, password);
       } else {
         console.log('Error al insertar');
       }
     } catch (error) {
       console.error('Error en la petición:', error);
-      alert('Error al crear el usuario. Por favor, inténtalo de nuevo.');
+      setStatus('error');
     }
   };
 
@@ -76,6 +81,10 @@ function Formulario() {
         {' '}
         Por favor, ingresa los siguientes datos para crear tu cuenta en Nomadapp{' '}
       </Typography>
+      <Stack sx={{ width: '100%' }} autoHideDuration={4000} spacing={2}>
+        {status == 'success' && <Alert severity='success'>Usuario creado correctamente!</Alert>}
+        {status == 'error' && <Alert severity='error'>Error </Alert>}
+      </Stack>
       <Box sx={style.formulario}>
         <Grid container direction='row' spacing={5}>
           <Grid item xs={18} sm={18} md={18} lg={18} xl={18}>

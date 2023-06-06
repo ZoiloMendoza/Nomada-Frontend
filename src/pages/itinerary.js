@@ -39,7 +39,7 @@ export default function Itinerary({ contentViaje }) {
         }
       } catch (error) {
         console.error('Error fetching data', error);
-        setError(error); 
+        setError(error);
       }
     };
     if (usuario && contentViaje) {

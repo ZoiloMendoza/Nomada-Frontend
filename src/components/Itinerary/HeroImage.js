@@ -133,10 +133,10 @@ const HeroImage = (props) => {
 
             <div sx={styles.heroText}>
               <Typography variant='h1' sx={styles.heroTitle}>
-                {props.viajeData.nombre}
+                {props.viajeData?.nombre}
               </Typography>
               <Typography variant='h2' sx={styles.heroSubtitle}>
-                {`${props.viajeData.destino} - ${props.viajeData.fechaInicio}`}
+                {`${props.viajeData?.destino} - ${props.viajeData?.fechaInicio}`}
               </Typography>
               <Link href='/calendario'>
                 <Button variant='contained' color='secondary' sx={styles.heroButton}>
