@@ -7,13 +7,13 @@ import Box from '@mui/material/Box';
 import { useMediaQuery } from '@mui/material';
 import TabDestinos from '@/components/Itinerary/TabsDestinos';
 import TabsDestinosMobile from '@/components/Itinerary/TabsDestinosMobile';
-import { useRouter } from 'next/router';
+//import { useRouter } from 'next/router';
 import { useAuth } from '@/utils/useAuth';
 const URLRAILWAY = process.env.NEXT_PUBLIC_BACKEND;
 
 export default function Itinerary({ contentViaje }) {
   const usuario = useAuth();
-  const router = useRouter();
+  //const router = useRouter();
   //const [loading, setLoading] = useState(true);
   const [roleInvitado, setRoleInvitado] = useState(null);
   const [roleUsuario, setRoleUsiario] = useState(null);

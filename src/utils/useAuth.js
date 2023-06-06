@@ -13,7 +13,7 @@ export function useAuth() {
     }
 
     setUser(usuarioLogeado);
-  }, []);
+  }, [router]);
 
   return user;
 }
