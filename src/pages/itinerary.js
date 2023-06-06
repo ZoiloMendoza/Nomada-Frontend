@@ -38,8 +38,9 @@ export default function Itinerary() {
     };
     if(tripId){
     fetchData();
-  }
+    }
   }, [tripId]);
+
   useEffect(() => {
     const validacionViaje = () => {
       try {
@@ -66,6 +67,7 @@ export default function Itinerary() {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [usuario, contentViaje]);
+  
   if (loading) {
     return (
       <Box
@@ -85,10 +87,11 @@ export default function Itinerary() {
     return <p>Error: {error.message}</p>;
   }
 
-  console.log('contentViaje', contentViaje);
+  //console.log('contentViaje', contentViaje);
 
   const updateDestinoSeleccionado = (destino) => {
     setDestinoSeleccionado(destino);
+    console.log('hola', destino)
   };
  
   const arregloDestinos = contentViaje?.rutas.map((transporte) => transporte?.transporte?.destino);

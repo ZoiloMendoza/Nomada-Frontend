@@ -51,6 +51,7 @@ const BoardingPassCard = () => {
     longitud: '',
     latitud: '',
   });
+  const [inputValue, setInputValue] = useState(formData.destino);
   const router = useRouter();
   const { id } = router.query;
   const regexPattern = /^[A-Za-z]{2}\d{4}$/;
@@ -71,7 +72,6 @@ const BoardingPassCard = () => {
       creandoRuta();
     }
   }, [id]);
-
   const creandoTransporte = async (datosDelVuelo) => {
     try {
       const nuevoTransporte = {
@@ -128,6 +128,7 @@ const BoardingPassCard = () => {
 
   const searchClick = async (e) => {
     e.preventDefault();
+    
     try {
       const url = `https://airlabs.co/api/v9/flight`;
       const params = {
@@ -224,13 +225,14 @@ const BoardingPassCard = () => {
             fullWidth
             name='destino'
             label='Destino'
-            value={formData.destino}
+            value={inputValue}
             onChange={handleChange}
             sx={{ marginBottom: 2 }}
             InputProps={{
               inputComponent: ReactGoogleAutocomplete,
               inputProps: {
                 apiKey: API_GOOGLE,
+                value: inputValue,
                 options: {
                   types: [],
                   fields: ['photos', 'formatted_address', 'geometry.location', 'place_id'],
