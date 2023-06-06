@@ -65,13 +65,13 @@ const AddButtonGroup = styled(ButtonGroup)(() => ({
   alignItems: 'center',
 }));
 
-export default function Add({ destino, destinoSeleccionado }) {
+export default function Add({ destinoSeleccionado, destino }) {
   //const [idRuta, setIdRuta] = useState('')
   const router = useRouter();
   const { id } = router.query;
   const encodedDestino = encodeURIComponent(destinoSeleccionado);
   //console.log(destino, 'DESTINO');
-  //console.log(encodedDestino, 'ENCODEDESTINO');
+  console.log(encodedDestino, 'ENCODEDESTINO');
   //setIdRuta(destino.rutas[0]._id)
   //console.log(idRuta, 'idRuda de destino')
   return (

@@ -10,7 +10,6 @@ import { useEffect, useState } from 'react';
 import SearchIcon from '@mui/icons-material/Search';
 import axios from 'axios';
 import { useRouter } from 'next/router';
-
 const apiKey = process.env.NEXT_PUBLIC_API_VUELOS_KEY;
 const URLRAILWAY = process.env.NEXT_PUBLIC_BACKEND;
 const API_GOOGLE = process.env.NEXT_PUBLIC_API_GOOGLE;
@@ -41,7 +40,6 @@ const FlightInfoContainer = styled(Card)(({ theme }) => ({
 const BoardingPassCard = () => {
   const [error, setError] = useState(false);
   const [idRuta, setIdRuta] = useState('');
-  // const [placeId, setPlaceId] = useState(null);
   const [photoUrl, setPhotoUrl] = useState('');
   const [formData, setFormData] = useState({
     flightNumber: '',
@@ -66,7 +64,6 @@ const BoardingPassCard = () => {
           };
           const crearRutaPost = await axios.post(`${URLRAILWAY}/api/v1/rutas`, nuevaRuta);
           setIdRuta(crearRutaPost.data._id);
-          //console.log('ruta', crearRutaPost);
         } catch (error) {
           console.log(error);
         }
@@ -105,8 +102,6 @@ const BoardingPassCard = () => {
   };
 
   const handleClick = async () => {
-    //await creandoRuta();
-
     const { origen, destino, paisDestino, fechaInicio, fechaFinal, longitud, latitud } = formData;
     const modelViaje = {
       origen,
@@ -130,11 +125,10 @@ const BoardingPassCard = () => {
       router.push(`/itinerary?id=${id}`);
     }
   };
+
   const searchClick = async (e) => {
     e.preventDefault();
     try {
-      //flight_iata: 'VB1353';
-      //flight_icao: 'AFL1478';
       const url = `https://airlabs.co/api/v9/flight`;
       const params = {
         api_key: apiKey,
@@ -146,7 +140,6 @@ const BoardingPassCard = () => {
 
       if (flightGet.status == 200) {
         const dataApi = flightGet.data.response;
-        //console.log('Vuelo encontrado');
         setFormData({
           flightNumber: dataApi?.flight_iata || '',
           origen: dataApi?.dep_city || 'No encontrado',
@@ -165,6 +158,7 @@ const BoardingPassCard = () => {
       alert('Error al crear al buscar el vuelo. Por favor, inténtalo de nuevo.');
     }
   };
+
   const handlePlaceSelect = (place) => {
     if (place && place.geometry && place.geometry.location) {
       console.log('Place selected:', place);
@@ -174,7 +168,6 @@ const BoardingPassCard = () => {
       console.log('Longitude:', place.geometry.location.lng());
       console.log('Place_id', place.place_id);
       const selectedDestino = place.formatted_address;
-      // setPlaceId(place.place_id);
       setPhotoUrl(place.photos[0].getUrl());
       setFormData((prevState) => ({
         ...prevState,
@@ -184,7 +177,7 @@ const BoardingPassCard = () => {
       }));
     }
   };
-  console.log(photoUrl, 'foto');
+
   return (
     <Box display='flex' flexDirection='column' alignItems='center' mt={5} maxWidth='100%'>
       <Typography variant='h5' sx={{ marginBottom: 2, textAlign: 'center' }}>
@@ -238,7 +231,6 @@ const BoardingPassCard = () => {
               inputComponent: ReactGoogleAutocomplete,
               inputProps: {
                 apiKey: API_GOOGLE,
-                //options: {fields: ['photos']},
                 options: {
                   types: [],
                   fields: ['photos', 'formatted_address', 'geometry.location', 'place_id'],
