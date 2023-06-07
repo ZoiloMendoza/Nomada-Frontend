@@ -5,6 +5,7 @@ import { useState } from 'react';
 import axios from 'axios';
 import Link from 'next/link';
 import Alert from '@mui/material/Alert';
+import AlertTitle from '@mui/material/AlertTitle';
 import Stack from '@mui/material/Stack';
 //import theme from './TemaConfig';
 import { useRouter } from 'next/router';
@@ -62,9 +63,12 @@ function Formulario() {
           ...userPost.data,
         };
         localStorage.setItem('usuarioLogeado', JSON.stringify(usuario));
-
-        router.push('/inicio');
         setStatus('success');
+
+        setTimeout(() => {
+          router.push('/inicio');
+        }, 1500);
+
         //alert('Usuario creado correctamente', name, email, password);
       } else {
         console.log('Error al insertar');
@@ -81,9 +85,19 @@ function Formulario() {
         {' '}
         Por favor, ingresa los siguientes datos para crear tu cuenta en Nomadapp{' '}
       </Typography>
-      <Stack sx={{ width: '100%' }} autoHideDuration={6000} spacing={2}>
-        {status == 'success' && <Alert severity='success'>Usuario creado correctamente!</Alert>}
-        {status == 'error' && <Alert severity='error'>Error </Alert>}
+      <Stack sx={{ width: '100%' }} autoHideDuration={10000} spacing={2}>
+        {status === 'success' && (
+          <Alert severity='success'>
+            <AlertTitle>Éxito</AlertTitle>
+            Usuario creado correctamente!
+          </Alert>
+        )}
+        {status === 'error' && (
+          <Alert severity='error'>
+            <AlertTitle>Error</AlertTitle>
+            Ocurrió un error durante la creación del usuario.
+          </Alert>
+        )}
       </Stack>
       <Box sx={style.formulario}>
         <Grid container direction='row' spacing={5}>

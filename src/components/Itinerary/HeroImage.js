@@ -143,7 +143,7 @@ const HeroImage = (props) => {
                 {props.viajeData?.nombre}
               </Typography>
               <Typography variant='h2' sx={styles.heroSubtitle}>
-                {`${props.viajeData?.destino} - ${props.viajeData?.fechaInicio}`}
+                {`${props.viajeData?.destino}`.split(',')[0]} {` - ${props.viajeData?.fechaInicio}`}
               </Typography>
               <Link href='/calendario'>
                 <Button variant='contained' color='secondary' sx={styles.heroButton}>
