@@ -26,8 +26,7 @@ const styles = {
 const AddHotel = () => {
   const router = useRouter();
   const [photoUrl, setPhotoUrl] = useState('');
-  console.log(idRuta, 'idRuta-desde-Agregar-Hotel');
-  console.log(destino, 'destino-desde-agrega-hotel');
+
   const [hotelData, setHotelData] = useState({
     name: '',
     address: '',

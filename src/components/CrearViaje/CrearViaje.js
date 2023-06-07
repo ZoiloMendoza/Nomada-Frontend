@@ -11,6 +11,9 @@ import SearchIcon from '@mui/icons-material/Search';
 import axios from 'axios';
 import { useRouter } from 'next/router';
 import { useAuth } from '@/utils/useAuth';
+import Alert from '@mui/material/Alert';
+import AlertTitle from '@mui/material/AlertTitle';
+import Stack from '@mui/material/Stack';
 const apiKey = process.env.NEXT_PUBLIC_API_VUELOS_KEY;
 const URLRAILWAY = process.env.NEXT_PUBLIC_BACKEND;
 const API_GOOGLE = process.env.NEXT_PUBLIC_API_GOOGLE;
@@ -42,6 +45,7 @@ const BoardingPassCard = () => {
   const usuario = useAuth();
   const [error, setError] = useState(false);
   const [photoUrl, setPhotoUrl] = useState('');
+  const [status, setStatus] = useState('');
   const [formData, setFormData] = useState({
     flightNumber: '',
     origen: '',
@@ -62,39 +66,41 @@ const BoardingPassCard = () => {
   const router = useRouter();
   const { id } = router.query;
   const regexPattern = /^[A-Za-z]{2}\d{4}$/;
-  useEffect(()=>{
+  useEffect(() => {
     const isValidMongoId = (idAvalidar) => /^[a-f\d]{24}$/i.test(idAvalidar);
-    if(usuario && isValidMongoId(id)) {
+    if (usuario && isValidMongoId(id)) {
       const consultaViaje = async () => {
         try {
           const response = await axios.get(`${URLRAILWAY}/api/v1/viajes/${id}`);
           if (response.data && response.data.origen) {
-            setFormData(prevState => ({
+            setFormData((prevState) => ({
               ...prevState,
               origen: response.data.origen,
             }));
           }
         } catch (error) {
           console.error(error);
+          setStatus('error');
         }
       };
       consultaViaje();
     }
-  },[usuario, id])
+  }, [usuario, id]);
   const creandoRuta = async () => {
-        try {
-          const nuevaRuta = {
-            viajeId: id,
-          };
-          const crearRutaPost = await axios.post(`${URLRAILWAY}/api/v1/rutas`, nuevaRuta);
-          return crearRutaPost.data._id;
-        } catch (error) {
-          console.log(error);
-        }
+    try {
+      const nuevaRuta = {
+        viajeId: id,
+      };
+      const crearRutaPost = await axios.post(`${URLRAILWAY}/api/v1/rutas`, nuevaRuta);
+      return crearRutaPost.data._id;
+    } catch (error) {
+      console.log(error);
+      setStatus('error');
+    }
   };
   const creandoTransporte = async (datosDelVuelo) => {
     try {
-      console.log(datosDelVuelo.idRuta, 'dentrode transporte')
+      console.log(datosDelVuelo.idRuta, 'dentrode transporte');
       const nuevoTransporte = {
         rutaId: datosDelVuelo.idRuta,
         numeroVuelo: datosDelVuelo?.flightNumber,
@@ -110,6 +116,7 @@ const BoardingPassCard = () => {
       console.log('transporte', crearTransportePost);
     } catch (error) {
       console.log(error);
+      setStatus('error');
     }
   };
   const handleChange = (e) => {
@@ -121,48 +128,44 @@ const BoardingPassCard = () => {
     console.log(formData);
   };
   const estanTodosLosCamposLlenos = (obj) => {
-    const { origen, 
-            destino,
-            fechaInicio,
-            fechaFinal,
-            longitud,
-            latitud} = obj
-    return Object.values({ origen, 
-      destino,
-      fechaInicio,
-      fechaFinal,
-      longitud,
-      latitud}).every(value => value !== '');
-  }
+    const { origen, destino, fechaInicio, fechaFinal, longitud, latitud } = obj;
+    return Object.values({ origen, destino, fechaInicio, fechaFinal, longitud, latitud }).every(
+      (value) => value !== '',
+    );
+  };
   const handleClick = async () => {
     try {
       if (estanTodosLosCamposLlenos(formData)) {
-      const { origen, destino, paisDestino, fechaInicio, fechaFinal, longitud, latitud } = formData;
-      const modelViaje = {
-        origen,
-        destino,
-        paisDestino,
-        fechaInicio,
-        fechaFinal,
-        longitud,
-        latitud,
-      };
-      const viajePost = await axios.patch(`${URLRAILWAY}/api/v1/viajes/${id}`, modelViaje);
-      if (viajePost.status !== 201) {
-        console.log('error al actualizar el viaje');
-        return;
-      } 
-      const idRuta = await creandoRuta();
-      if(idRuta){
-        await creandoTransporte({ ...formData, ...origenYdestinoVuelo, imagen: photoUrl, idRuta,  });
-      } else {
-        console.log('Error al crear ruta');
-        return;
+        const { origen, destino, paisDestino, fechaInicio, fechaFinal, longitud, latitud } = formData;
+        const modelViaje = {
+          origen,
+          destino,
+          paisDestino,
+          fechaInicio,
+          fechaFinal,
+          longitud,
+          latitud,
+        };
+        const viajePost = await axios.patch(`${URLRAILWAY}/api/v1/viajes/${id}`, modelViaje);
+        if (viajePost.status !== 201) {
+          console.log('error al actualizar el viaje');
+          setStatus('error');
+          return;
+        }
+        const idRuta = await creandoRuta();
+        if (idRuta) {
+          await creandoTransporte({ ...formData, ...origenYdestinoVuelo, imagen: photoUrl, idRuta });
+        } else {
+          console.log('Error al crear ruta');
+          setStatus('error');
+          return;
+        }
+        setStatus('success');
+        console.log('Viaje y transporte actualizados');
+        router.push(`/itinerary?id=${id}`);
       }
-      console.log('Viaje y transporte actualizados')
-      router.push(`/itinerary?id=${id}`);
-    }
     } catch (error) {
+      setStatus('error');
       console.log(error);
     }
   };
@@ -170,33 +173,35 @@ const BoardingPassCard = () => {
     e.preventDefault();
     setError(!regexPattern.test(formData.flightNumber));
     try {
-    if(regexPattern.test(formData.flightNumber)){
-      const url = `https://airlabs.co/api/v9/flight`;
-      const params = {
-        api_key: apiKey,
-        flight_iata: formData.flightNumber,
-      };
-      const flightGet = await axios.get(url, { params });
-      console.log('statusCode', flightGet.status);
-      console.log(flightGet.data.response);
+      if (regexPattern.test(formData.flightNumber)) {
+        const url = `https://airlabs.co/api/v9/flight`;
+        const params = {
+          api_key: apiKey,
+          flight_iata: formData.flightNumber,
+        };
+        const flightGet = await axios.get(url, { params });
+        console.log('statusCode', flightGet.status);
+        console.log(flightGet.data.response);
 
-      if (flightGet.status == 200) {
-        const dataApi = flightGet.data.response;
-        setOrigenYdestinoVuelo({
-          origen: dataApi?.dep_city || 'No encontrado',
-          destino: dataApi?.arr_city || 'No encontrado',
-          fechaInicio: dataApi?.dep_time || '',
-          fechaFinal: dataApi?.arr_time || '',
-          flightNumber: dataApi?.flight_iata || '',
-          paisDestino: dataApi?.arr_country || 'No encontrado',
-        })
-      } else {
-        console.log('Error al insertar');
+        if (flightGet.status == 200) {
+          const dataApi = flightGet.data.response;
+          setOrigenYdestinoVuelo({
+            origen: dataApi?.dep_city || 'No encontrado',
+            destino: dataApi?.arr_city || 'No encontrado',
+            fechaInicio: dataApi?.dep_time || '',
+            fechaFinal: dataApi?.arr_time || '',
+            flightNumber: dataApi?.flight_iata || '',
+            paisDestino: dataApi?.arr_country || 'No encontrado',
+          });
+        } else {
+          setStatus('error');
+          console.log('Error al insertar');
+        }
       }
-    }
     } catch (error) {
       console.error('Error en la petición:', error);
-      alert('Error al crear al buscar el vuelo. Por favor, inténtalo de nuevo.');
+      setStatus('error');
+      //alert('Error al crear al buscar el vuelo. Por favor, inténtalo de nuevo.');
     }
   };
   const handlePlaceSelect = (place) => {
@@ -238,7 +243,21 @@ const BoardingPassCard = () => {
       <Typography variant='h5' sx={{ marginBottom: 2, textAlign: 'center' }}>
         Si tienes número de vuelo ingrésalo, si no, agrega manualmente tu Destino.
       </Typography>
-      <FlightInfoContainer >
+      <Stack sx={{ width: '100%' }} autoHideDuration={5000} spacing={2}>
+        {status === 'success' && (
+          <Alert severity='success'>
+            <AlertTitle>Éxito</AlertTitle>
+            Destino agregado correctamente!
+          </Alert>
+        )}
+        {status === 'error' && (
+          <Alert severity='error'>
+            <AlertTitle>Error</AlertTitle>
+            Ocurrió un error.
+          </Alert>
+        )}
+      </Stack>
+      <FlightInfoContainer>
         <Box display='flex' justifyContent='space-between' alignItems='center'>
           <Box display='flex' justifyContent='flex-start' alignItems='center'>
             <TextField
@@ -257,20 +276,20 @@ const BoardingPassCard = () => {
               <SearchIcon sx={{ fontSize: '2rem', marginBottom: 2, color: '#2B2E4A' }} />
             </IconButton>
           </Box>
-          {!error &&  
-            <Box 
-              sx={{ 
-              display: 'flex',
-              alignItems: 'center', 
-              justifyContent: 'center',
-              marginBottom: 2
+          {!error && (
+            <Box
+              sx={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                marginBottom: 2,
               }}
             >
               <p sx={{ margin: 0, paddingRight: 0 }}>{`${origenYdestinoVuelo.origen} •`}</p>
-                <FlightIcon sx={{ transform: 'rotate(90deg)', fontSize: '3rem',color: '#E91E63' }} />
+              <FlightIcon sx={{ transform: 'rotate(90deg)', fontSize: '3rem', color: '#E91E63' }} />
               <p sx={{ margin: 0, paddingLeft: 1 }}>{` • ${origenYdestinoVuelo.destino}`}</p>
             </Box>
-          }
+          )}
         </Box>
         <Box display='flex' justifyContent='space-between' alignItems='center'>
           <TextField

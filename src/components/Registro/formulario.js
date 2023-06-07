@@ -85,7 +85,7 @@ function Formulario() {
         {' '}
         Por favor, ingresa los siguientes datos para crear tu cuenta en Nomadapp{' '}
       </Typography>
-      <Stack sx={{ width: '100%' }} autoHideDuration={10000} spacing={2}>
+      <Stack sx={{ width: '100%' }} autoHideDuration={5000} spacing={2}>
         {status === 'success' && (
           <Alert severity='success'>
             <AlertTitle>Éxito</AlertTitle>

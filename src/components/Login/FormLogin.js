@@ -7,6 +7,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { UserContext } from '@/context/userLogin';
 import Alert from '@mui/material/Alert';
+import AlertTitle from '@mui/material/AlertTitle';
 import Stack from '@mui/material/Stack';
 const URLRAILWAY = process.env.NEXT_PUBLIC_BACKEND;
 
@@ -51,7 +52,9 @@ function FormLogin() {
       };
       setVariableState(usuario);
       localStorage.setItem('usuarioLogeado', JSON.stringify(usuario));
-      router.push('/inicio');
+      setTimeout(() => {
+        router.push('/inicio');
+      }, 1500);
 
       //alert('Usuario logeado correctamente');
     }
@@ -67,8 +70,18 @@ function FormLogin() {
       <Box my={8} sx={style.formulario}>
         <Grid container justifyContent='center' direction='row'>
           <Stack sx={{ width: '100%' }} spacing={2}>
-            {status == 'success' && <Alert severity='success'>Usuario correcto!</Alert>}
-            {status == 'error' && <Alert severity='error'>Error </Alert>}
+            {status == 'success' && (
+              <Alert severity='success'>
+                <AlertTitle>Éxito</AlertTitle>
+                Usuario correcto!
+              </Alert>
+            )}
+            {status == 'error' && (
+              <Alert severity='error'>
+                <AlertTitle>Error</AlertTitle>
+                Ocurrió un error
+              </Alert>
+            )}
           </Stack>
           <Grid item xs={18} sm={18} md={18} lg={18} xl={18}>
             <Card sx={{ padding: '3vh' }}>
