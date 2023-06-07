@@ -15,7 +15,7 @@ const RootSection = styled('div')(({ theme }) => ({
   left: '0',
   bottom: '0',
   width: '100%',
-  height: '70px',
+  height: '90px',
   marginTop: 'auto',
 }));
 
