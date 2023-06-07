@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
+import ReactGoogleAutocomplete from 'react-google-autocomplete';
 import { TextField, Button, Box, Grid } from '@mui/material';
 import { useRouter } from 'next/router';
 import axios from 'axios';
-
+import { useAuth } from '@/utils/useAuth';
 const URLRAILWAY = process.env.NEXT_PUBLIC_BACKEND;
+const API_GOOGLE = process.env.NEXT_PUBLIC_API_GOOGLE;
 const styles = {
   box: {
     margin: '30px',
@@ -23,7 +25,9 @@ const styles = {
 };
 
 const AddHotel = () => {
+  const usuario = useAuth();
   const router = useRouter();
+  const [photoUrl, setPhotoUrl] = useState('');
   const { destino, idRuta } = router.query;
   console.log(idRuta, 'idRuta-desde-Agregar-Hotel');
   console.log(destino, 'destino-desde-agrega-hotel');
@@ -33,6 +37,9 @@ const AddHotel = () => {
     checkIn: '',
     checkOut: '',
     reservation: '',
+    imagen: '',
+    latitud: '',
+    longitud: '',
   });
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -41,18 +48,7 @@ const AddHotel = () => {
       [name]: value,
     }));
   };
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // Enviar info a la base de datos aqui
-    console.log(hotelData);
-    setHotelData({
-      name: '',
-      address: '',
-      checkIn: '',
-      checkOut: '',
-      reservation: '',
-    });
-  };
+ 
 
   const resetData = (e) => {
     e.preventDefault();
@@ -74,6 +70,9 @@ const AddHotel = () => {
         direccion: hotelData.address,
         fechaInicio: hotelData.checkIn,
         fechaFinal: hotelData.checkOut,
+        Imagen: photoUrl,
+        latitud: hotelData.latitud,
+        longitud: hotelData.longitud,
       };
       const hotelAdd = await axios.post(`${URLRAILWAY}/api/v1/hospedajes`, nuevoHospedaje);
       if (hotelAdd.status == 201) {
@@ -88,7 +87,24 @@ const AddHotel = () => {
       console.error('Error en la petición:', error);
     }
   };
-
+  const handlePlaceSelect = (place) => {
+    if (place && place.geometry && place.geometry.location) {
+      console.log('Place selected:', place);
+      console.log('Place photos:', place.photos[0].getUrl());
+      console.log('Formatted Address:', place.formatted_address);
+      console.log('Latitude:', place.geometry.location.lat());
+      console.log('Longitude:', place.geometry.location.lng());
+      console.log('Place_id', place.place_id);
+      const selectedDestino = place.formatted_address;
+      setPhotoUrl(place?.photos[0]?.getUrl() || '');
+      setHotelData((prevState) => ({
+        ...prevState,
+        address: selectedDestino,
+        latitud: place.geometry.location.lat(),
+        longitud: place.geometry.location.lng(),
+      }));
+    }
+  };
   return (
     <Grid
       container
@@ -101,7 +117,7 @@ const AddHotel = () => {
       <h1>{`Destino ${destino}`}</h1>
       <h1>Hospedaje</h1>
       <Box sx={styles.box}>
-        <form onSubmit={handleSubmit}>
+        <form>
           <TextField
             sx={styles.input}
             required
@@ -111,6 +127,17 @@ const AddHotel = () => {
             onChange={handleChange}
             fullWidth
             variant='filled'
+            InputProps={{
+              inputComponent: ReactGoogleAutocomplete,
+              inputProps: {
+                apiKey: API_GOOGLE,
+                options: {
+                  types: [],
+                  fields: ['photos', 'formatted_address', 'geometry.location', 'place_id'],
+                },
+                onPlaceSelected: (place) => handlePlaceSelect(place),
+              },
+            }}
           />
           <TextField
             sx={styles.input}
@@ -160,7 +187,7 @@ const AddHotel = () => {
             variant='filled'
           />
 
-          <Button type='submit' variant='contained' color='primary' sx={styles.button} onClick={hotelAddClick}>
+          <Button type='submit' variant='contained' color='primary' sx={styles.button} onClick={()=> hotelAddClick()}>
             Agregar
           </Button>
 

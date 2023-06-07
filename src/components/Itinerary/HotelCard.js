@@ -59,7 +59,7 @@ const HotelCard = ({ hotelData, handleEdit, handleDelete }) => {
                 </div>
                 <Grid container spacing={2}>
                   <Grid item xs={4}>
-                    <CardMedia sx={styles.media} image={hotelData?.image} title={hotelData.nombreHospedaje} />
+                    <CardMedia sx={styles.media} image={hotelData?.imagen} title={hotelData.nombreHospedaje} />
                   </Grid>
                   <Grid item xs={6}>
                     <Typography variant='h5'>{hotelData?.name}</Typography>
