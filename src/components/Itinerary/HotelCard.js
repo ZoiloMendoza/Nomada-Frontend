@@ -3,6 +3,7 @@ import { Card, CardContent, CardMedia, Typography, IconButton, Collapse } from '
 import { Edit as EditIcon, Delete as DeleteIcon } from '@mui/icons-material';
 import { ExpandMore } from '@mui/icons-material';
 import HotelIcon from '@mui/icons-material/Hotel';
+import { Tooltip } from '@mui/material';
 
 import Grid from '@mui/material/Grid';
 
@@ -40,22 +41,26 @@ const HotelCard = ({ hotelData, handleEdit, handleDelete }) => {
             <Card sx={styles.card} key={index}>
               <CardContent>
                 <div>
-                  <IconButton aria-label='edit' onClick={() => handleEdit(hotelInfo)}>
-                    <EditIcon
-                      sx={{
-                        width: '20px',
-                        color: '#D2D2D2',
-                      }}
-                    />
-                  </IconButton>
-                  <IconButton aria-label='delete' onClick={() => handleDelete(hotelInfo)}>
-                    <DeleteIcon
-                      sx={{
-                        width: '20px',
-                        color: '#D2D2D2',
-                      }}
-                    />
-                  </IconButton>
+                  <Tooltip title='Editar este hospedaje'>
+                    <IconButton aria-label='edit' onClick={() => handleEdit(hotelInfo)}>
+                      <EditIcon
+                        sx={{
+                          width: '20px',
+                          color: '#D2D2D2',
+                        }}
+                      />
+                    </IconButton>
+                  </Tooltip>
+                  <Tooltip title='Eliminar este hospedaje'>
+                    <IconButton aria-label='delete' onClick={() => handleDelete(hotelInfo)}>
+                      <DeleteIcon
+                        sx={{
+                          width: '20px',
+                          color: '#D2D2D2',
+                        }}
+                      />
+                    </IconButton>
+                  </Tooltip>
                 </div>
                 <Grid container spacing={2}>
                   <Grid item xs={4}>
