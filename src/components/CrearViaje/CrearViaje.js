@@ -80,7 +80,7 @@ const BoardingPassCard = () => {
       };
       consultaViaje();
     }
-  },[id])
+  },[usuario, id])
   const creandoRuta = async () => {
         try {
           const nuevaRuta = {
