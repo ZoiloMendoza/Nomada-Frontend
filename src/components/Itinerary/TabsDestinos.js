@@ -4,7 +4,8 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
 import { IconButton } from '@mui/material';
-import { Edit as EditIcon, Delete as DeleteIcon } from '@mui/icons-material';
+import { Delete as DeleteIcon } from '@mui/icons-material';
+import Tooltip from '@mui/material/Tooltip';
 import FlightCard from './FlightCard';
 import ActivityCard from '@/components/Itinerary/ActivityCard';
 import HotelCard from '@/components/Itinerary/HotelCard';
@@ -75,7 +76,7 @@ export default function TabsDestinos({ dataDestino, updateDestinoCallback }) {
       >
         {dataDestino.rutas ? (
           dataDestino.rutas.map((ruta, index) => (
-            <Tab key={ruta._id} label={`${ruta?.transporte?.destino}`} {...a11yProps(index)} />
+            <Tab key={ruta._id} label={`${ruta?.transporte?.destino}`.split(',')[0]} {...a11yProps(index)} />
           ))
         ) : (
           <Tab label='Destino Uno' {...a11yProps(0)} />
@@ -86,23 +87,18 @@ export default function TabsDestinos({ dataDestino, updateDestinoCallback }) {
         dataDestino.rutas.map((ruta, index) => (
           <TabPanel key={index} value={value} index={index}>
             <div>
-              <IconButton aria-label='edit' onClick={() => handleEdit(rutaInfo)}>
-                <EditIcon
-                  sx={{
-                    width: '20px',
-                    color: '#D2D2D2',
-                  }}
-                />
-              </IconButton>
-              <IconButton aria-label='delete' onClick={() => handleDelete(rutaInfo)}>
-                <DeleteIcon
-                  sx={{
-                    width: '20px',
-                    color: '#D2D2D2',
-                  }}
-                />
-              </IconButton>
+              <Tooltip title='Borrar Destino Completo'>
+                <IconButton aria-label='delete' onClick={() => handleDelete(rutaInfo)}>
+                  <DeleteIcon
+                    sx={{
+                      width: '20px',
+                      color: '#D2D2D2',
+                    }}
+                  />
+                </IconButton>
+              </Tooltip>
             </div>
+
             <FlightCard flightData={ruta.transporte} />
             <HotelCard hotelData={ruta.hospedajes} />
             <ActivityCard activityData={dataDestino.rutas[index].actividades} />

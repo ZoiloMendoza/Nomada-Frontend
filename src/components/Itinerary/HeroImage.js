@@ -11,6 +11,7 @@ import { Favorite } from '@mui/icons-material';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import AddToGroup from './AddToGroup';
 import { useState } from 'react';
+import { Tooltip } from '@mui/material';
 
 const CircleIconButton = ({ icon, href, onClick }) => (
   <IconButton
@@ -115,19 +116,25 @@ const HeroImage = (props) => {
           <Container maxWidth={'lg'}>
             <Grid container spacing={3}>
               <Grid item>
-                <IconButton component='a' href='/download'>
-                  <GetAppIcon style={{ color: '#FFFFFF' }} />
-                </IconButton>
+                <Tooltip title='Pronto podrás descargar tu Itinerario'>
+                  <IconButton component='a' href='/download'>
+                    <GetAppIcon style={{ color: '#FFFFFF' }} />
+                  </IconButton>
+                </Tooltip>
               </Grid>
               <Grid item>
-                <IconButton component='a' href='/share'>
-                  <ShareIcon style={{ color: '#FFFFFF' }} />
-                </IconButton>
+                <Tooltip title='Compartir Itinerario'>
+                  <IconButton component='a' href='/share'>
+                    <ShareIcon style={{ color: '#FFFFFF' }} />
+                  </IconButton>
+                </Tooltip>
               </Grid>
               <Grid item>
-                <IconButton component='a' onClick={handleOpenModal}>
-                  <PeopleIcon style={{ color: '#FFFFFF' }} />
-                </IconButton>
+                <Tooltip title='Añadir viajeros al Itinerario'>
+                  <IconButton component='a' onClick={handleOpenModal}>
+                    <PeopleIcon style={{ color: '#FFFFFF' }} />
+                  </IconButton>
+                </Tooltip>
               </Grid>
             </Grid>
 

@@ -3,12 +3,11 @@ import ReactGoogleAutocomplete from 'react-google-autocomplete';
 import { TextField, Button, Box, Grid } from '@mui/material';
 import { useRouter } from 'next/router';
 import axios from 'axios';
-import { useAuth } from '@/utils/useAuth';
 const URLRAILWAY = process.env.NEXT_PUBLIC_BACKEND;
 const API_GOOGLE = process.env.NEXT_PUBLIC_API_GOOGLE;
 const styles = {
   box: {
-    margin: '30px',
+    margin: '20px',
     width: '50vw',
     height: '50vh',
     display: 'flex',
@@ -25,7 +24,6 @@ const styles = {
 };
 
 const AddHotel = () => {
-  const usuario = useAuth();
   const router = useRouter();
   const [photoUrl, setPhotoUrl] = useState('');
   if (!router.isReady) return null;
@@ -49,7 +47,6 @@ const AddHotel = () => {
       [name]: value,
     }));
   };
- 
 
   const resetData = (e) => {
     e.preventDefault();
@@ -113,10 +110,10 @@ const AddHotel = () => {
       direction='column'
       alignItems='center'
       justifyContent='center'
-      style={{ minHeight: '100vh' }}
+      style={{ minHeight: '50vh' }}
     >
-      <h1>{`Destino ${destino}`}</h1>
-      <h1>Hospedaje</h1>
+      <h2>{`Destino ${destino}`}</h2>
+      <h2>Hospedaje</h2>
       <Box sx={styles.box}>
         <form>
           <TextField

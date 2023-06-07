@@ -3,6 +3,7 @@ import { Card, CardContent, CardHeader, Typography, Collapse, IconButton } from 
 import { ExpandMore } from '@mui/icons-material';
 import { Edit as EditIcon, Delete as DeleteIcon } from '@mui/icons-material';
 import FlightIcon from '@mui/icons-material/Flight';
+import Tooltip from '@mui/material/Tooltip';
 
 import Grid from '@mui/material/Grid';
 
@@ -34,22 +35,27 @@ const FlightCard = ({ flightData, handleEdit, handleDelete }) => {
       {flightData ? (
         <Card sx={styles.card}>
           <div sx={styles.editDeleteIcons}>
-            <IconButton aria-label='edit' onClick={() => handleEdit(flightInfo)}>
-              <EditIcon
-                sx={{
-                  width: '20px',
-                  color: '#D2D2D2',
-                }}
-              />
-            </IconButton>
-            <IconButton aria-label='delete' onClick={() => handleDelete(flightInfo)}>
-              <DeleteIcon
-                sx={{
-                  width: '20px',
-                  color: '#D2D2D2',
-                }}
-              />
-            </IconButton>
+            <Tooltip title='Editar este vuelo'>
+              <IconButton aria-label='edit' onClick={() => handleEdit(flightInfo)}>
+                <EditIcon
+                  sx={{
+                    width: '20px',
+                    color: '#D2D2D2',
+                  }}
+                />
+              </IconButton>
+            </Tooltip>
+
+            <Tooltip title='Eliminar este vuelo'>
+              <IconButton aria-label='delete' onClick={() => handleDelete(flightInfo)}>
+                <DeleteIcon
+                  sx={{
+                    width: '20px',
+                    color: '#D2D2D2',
+                  }}
+                />
+              </IconButton>
+            </Tooltip>
           </div>
           <Grid container spacing={2}>
             <Grid item xs={10}>
