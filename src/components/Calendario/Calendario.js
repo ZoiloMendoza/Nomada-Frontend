@@ -27,8 +27,8 @@ const StyledCalendarContainer = styled('div')(({ theme }) => ({
 }));
 
 const eventStyleGetter = () => {
-  const backgroundColor = '#E91E63'; // Puedes cambiar esto al color de fondo que prefieras
-  const textColor = '#ffffff'; // Puedes cambiar esto al color de texto que prefieras
+  const backgroundColor = '#E91E63'; 
+  const textColor = '#ffffff';
   const style = {
     backgroundColor,
     color: textColor,
@@ -41,29 +41,17 @@ const eventStyleGetter = () => {
   };
 };
 
-const Calendario = () => {
+const Calendario = ({viajes}) => {
   const [events, setEvents] = useState([]);
-
+  console.log(viajes, 'componente calendario')
   useEffect(() => {
-    const apiExample = '/example.json';
-    const fetchEventos = async () => {
-      try {
-        const response = await fetch(apiExample);
-        console.log('Respuesta:', response);
-        const data = await response.json();
-
-        const formattedEvents = data.map((event) => ({
-          ...event,
-          start: new Date(event.start),
-          end: new Date(event.end),
-        }));
-        setEvents(formattedEvents);
-      } catch (error) {
-        console.error('Error al obtener eventos:', error);
-      }
-    };
-    fetchEventos();
-  }, []);
+    const formattedEvents = viajes ? viajes.map((event) => ({
+      title: event.destino,
+      start: new Date(event.fechaInicio),
+      end: new Date(event.fechaFinal),
+    })) : [];
+    setEvents(formattedEvents);
+  }, [viajes]);
 
   return (
     <ThemeProvider theme={localTheme}>
@@ -78,7 +66,7 @@ const Calendario = () => {
             endAccessor='end'
             style={{ height: '100%', width: '100%' }}
             eventPropGetter={eventStyleGetter}
-            views={['month']}
+            views={['month', 'day']}
             formats={customFormats}
           />
         </StyledCalendarContainer>
