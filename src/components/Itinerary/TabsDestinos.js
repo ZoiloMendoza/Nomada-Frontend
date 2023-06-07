@@ -76,7 +76,7 @@ export default function TabsDestinos({ dataDestino, updateDestinoCallback }) {
       >
         {dataDestino.rutas ? (
           dataDestino.rutas.map((ruta, index) => (
-            <Tab key={ruta._id} label={`${ruta?.transporte?.destino}`} {...a11yProps(index)} />
+            <Tab key={ruta._id} label={`${ruta?.transporte?.destino}`.split(',')[0]} {...a11yProps(index)} />
           ))
         ) : (
           <Tab label='Destino Uno' {...a11yProps(0)} />
