@@ -3,7 +3,6 @@ import ReactGoogleAutocomplete from 'react-google-autocomplete';
 import { TextField, Button, Box, Grid } from '@mui/material';
 import { useRouter } from 'next/router';
 import axios from 'axios';
-import { useAuth } from '@/utils/useAuth';
 const URLRAILWAY = process.env.NEXT_PUBLIC_BACKEND;
 const API_GOOGLE = process.env.NEXT_PUBLIC_API_GOOGLE;
 const styles = {
@@ -25,9 +24,9 @@ const styles = {
 };
 
 const AddHotel = () => {
-  const usuario = useAuth();
   const router = useRouter();
   const [photoUrl, setPhotoUrl] = useState('');
+  if (!router.isReady) return null;
   const { destino, idRuta } = router.query;
   console.log(idRuta, 'idRuta-desde-Agregar-Hotel');
   console.log(destino, 'destino-desde-agrega-hotel');
@@ -69,7 +68,7 @@ const AddHotel = () => {
         direccion: hotelData.address,
         fechaInicio: hotelData.checkIn,
         fechaFinal: hotelData.checkOut,
-        Imagen: photoUrl,
+        imagen: photoUrl,
         latitud: hotelData.latitud,
         longitud: hotelData.longitud,
       };
@@ -186,7 +185,7 @@ const AddHotel = () => {
             variant='filled'
           />
 
-          <Button type='submit' variant='contained' color='primary' sx={styles.button} onClick={() => hotelAddClick()}>
+          <Button type='submit' variant='contained' color='primary' sx={styles.button} onClick={hotelAddClick}>
             Agregar
           </Button>
 
