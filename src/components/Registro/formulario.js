@@ -81,7 +81,7 @@ function Formulario() {
         {' '}
         Por favor, ingresa los siguientes datos para crear tu cuenta en Nomadapp{' '}
       </Typography>
-      <Stack sx={{ width: '100%' }} autoHideDuration={4000} spacing={2}>
+      <Stack sx={{ width: '100%' }} autoHideDuration={6000} spacing={2}>
         {status == 'success' && <Alert severity='success'>Usuario creado correctamente!</Alert>}
         {status == 'error' && <Alert severity='error'>Error </Alert>}
       </Stack>
@@ -161,10 +161,7 @@ function Formulario() {
                           </Link>
 
                           <Grid my={4} justifyContent='center' direction='row' container>
-                            <ButtonForm
-                              size='medium'
-                              onClick={() => handleSubmit(name, email, password)}
-                            />
+                            <ButtonForm size='medium' onClick={() => handleSubmit(name, email, password)} />
                           </Grid>
                         </Card>
                       </Grid>
