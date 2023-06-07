@@ -8,7 +8,7 @@ const RootSection = styled('div')(({ theme }) => ({
   backgroundColor: '#2B2E4A',
   color: '#fff',
   padding: theme.spacing(1),
-  position: 'fixed',
+  position: 'relative',
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',

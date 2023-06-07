@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Card, CardHeader, CardMedia, CardContent, Typography, IconButton, Collapse } from '@mui/material';
 import { ExpandMore } from '@mui/icons-material';
 import { Edit as EditIcon, Delete as DeleteIcon } from '@mui/icons-material';
+import Tooltip from '@mui/material/Tooltip';
 import LocalActivityIcon from '@mui/icons-material/LocalActivity';
 import axios from 'axios';
 import Grid from '@mui/material/Grid';
@@ -52,22 +53,26 @@ const ActivityCard = ({ activityData, handleEdit }) => {
       {activities
         ? activities?.map((activityData) => (
             <Card sx={styles.card} key={activityData?._id}>
-              <IconButton aria-label='edit' onClick={() => handleEdit(activityInfo)}>
-                <EditIcon
-                  sx={{
-                    width: '20px',
-                    color: '#D2D2D2',
-                  }}
-                />
-              </IconButton>
-              <IconButton aria-label='delete' onClick={() => handleDelete(activityData._id)}>
-                <DeleteIcon
-                  sx={{
-                    width: '20px',
-                    color: '#D2D2D2',
-                  }}
-                />
-              </IconButton>
+              <Tooltip title='Editar esta actividad'>
+                <IconButton aria-label='edit' onClick={() => handleEdit(activityInfo)}>
+                  <EditIcon
+                    sx={{
+                      width: '20px',
+                      color: '#D2D2D2',
+                    }}
+                  />
+                </IconButton>
+              </Tooltip>
+              <Tooltip title='Eliminar esta actividad'>
+                <IconButton aria-label='delete' onClick={() => handleDelete(activityData._id)}>
+                  <DeleteIcon
+                    sx={{
+                      width: '20px',
+                      color: '#D2D2D2',
+                    }}
+                  />
+                </IconButton>
+              </Tooltip>
               <Grid container spacing={2}>
                 <Grid item xs={4}>
                   <CardMedia sx={styles.media} image={activityData?.fotos} title={activityData?.nombre} />
