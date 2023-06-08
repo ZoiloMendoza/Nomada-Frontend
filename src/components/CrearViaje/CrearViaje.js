@@ -66,6 +66,7 @@ const BoardingPassCard = () => {
   const router = useRouter();
   const { id } = router.query;
   const regexPattern = /^[A-Za-z]{2}\d{4}$/;
+  
   useEffect(() => {
     const isValidMongoId = (idAvalidar) => /^[a-f\d]{24}$/i.test(idAvalidar);
     if (usuario && isValidMongoId(id)) {

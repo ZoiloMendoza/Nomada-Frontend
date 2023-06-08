@@ -60,10 +60,16 @@ const AddHotel = () => {
       reservation: '',
     });
   };
-
+  const estanTodosLosCamposLlenos = (obj) => {
+    const { name, address, checkIn, checkOut, longitud, latitud } = obj;
+    return Object.values({ name, address, checkIn, checkOut, longitud, latitud }).every(
+      (value) => value !== '',
+    );
+  };
   const hotelAddClick = async (e) => {
     e.preventDefault();
     try {
+      if(estanTodosLosCamposLlenos(hotelData)){
       const nuevoHospedaje = {
         rutaId: idRuta,
         nombreHospedaje: hotelData.name,
@@ -85,6 +91,7 @@ const AddHotel = () => {
         setStatus('error');
         console.log('Error al insertar');
       }
+    }
     } catch (error) {
       setStatus('error');
       console.error('Error en la petición:', error);
@@ -92,8 +99,8 @@ const AddHotel = () => {
   };
   const handlePlaceSelect = (place) => {
     if (place && place.geometry && place.geometry.location) {
-      console.log('Place selected:', place);
-      console.log('Place photos:', place.photos[0].getUrl());
+      console.log('Place selected:', place.name);
+      //console.log('Place photos:', place.photos[0].getUrl());
       console.log('Formatted Address:', place.formatted_address);
       console.log('Latitude:', place.geometry.location.lat());
       console.log('Longitude:', place.geometry.location.lng());
@@ -203,8 +210,7 @@ const AddHotel = () => {
             fullWidth
             variant='filled'
           />
-
-          <Button type='submit' variant='contained' color='primary' sx={styles.button} onClick={hotelAddClick}>
+          <Button type='submit' variant='contained' color='primary' sx={styles.button} onClick={(e) => hotelAddClick(e)}>
             Agregar
           </Button>
 
