@@ -71,6 +71,7 @@ function Formulario() {
 
         //alert('Usuario creado correctamente', name, email, password);
       } else {
+        setStatus('error');
         console.log('Error al insertar');
       }
     } catch (error) {

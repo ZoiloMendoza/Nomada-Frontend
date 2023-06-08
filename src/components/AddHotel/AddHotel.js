@@ -2,6 +2,9 @@ import React, { useState } from 'react';
 import ReactGoogleAutocomplete from 'react-google-autocomplete';
 import { TextField, Button, Box, Grid } from '@mui/material';
 import { useRouter } from 'next/router';
+import Alert from '@mui/material/Alert';
+import AlertTitle from '@mui/material/AlertTitle';
+import Stack from '@mui/material/Stack';
 import axios from 'axios';
 const URLRAILWAY = process.env.NEXT_PUBLIC_BACKEND;
 const API_GOOGLE = process.env.NEXT_PUBLIC_API_GOOGLE;
@@ -26,7 +29,7 @@ const styles = {
 const AddHotel = () => {
   const router = useRouter();
   const [photoUrl, setPhotoUrl] = useState('');
-
+  const [status, setStatus] = useState('');
   const [hotelData, setHotelData] = useState({
     name: '',
     address: '',
@@ -75,12 +78,15 @@ const AddHotel = () => {
       if (hotelAdd.status == 201) {
         const dataApi = hotelAdd.data;
         console.log('Hospedaje creado', dataApi);
-        alert('Hotel agregado correctamente');
+        setStatus('success');
+        //alert('Hotel agregado correctamente');
         router.push(`/itinerary?id=${dataApi.viajeId}`);
       } else {
+        setStatus('error');
         console.log('Error al insertar');
       }
     } catch (error) {
+      setStatus('error');
       console.error('Error en la petición:', error);
     }
   };
@@ -115,6 +121,20 @@ const AddHotel = () => {
       <h2>Hospedaje</h2>
       <Box sx={styles.box}>
         <form>
+          <Stack sx={{ width: '100%' }} autoHideDuration={6500} spacing={2}>
+            {status === 'success' && (
+              <Alert severity='success'>
+                <AlertTitle>Éxito</AlertTitle>
+                Hotel agregado correctamente!
+              </Alert>
+            )}
+            {status === 'error' && (
+              <Alert severity='error'>
+                <AlertTitle>Error</AlertTitle>
+                Ocurrió un error.
+              </Alert>
+            )}
+          </Stack>
           <TextField
             sx={styles.input}
             required
