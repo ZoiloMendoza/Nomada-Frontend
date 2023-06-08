@@ -86,24 +86,25 @@ function Formulario() {
         {' '}
         Por favor, ingresa los siguientes datos para crear tu cuenta en Nomadapp{' '}
       </Typography>
-      <Stack sx={{ width: '100%' }} autoHideDuration={5000} spacing={2}>
-        {status === 'success' && (
-          <Alert severity='success'>
-            <AlertTitle>Éxito</AlertTitle>
-            Usuario creado correctamente!
-          </Alert>
-        )}
-        {status === 'error' && (
-          <Alert severity='error'>
-            <AlertTitle>Error</AlertTitle>
-            Ocurrió un error durante la creación del usuario.
-          </Alert>
-        )}
-      </Stack>
+
       <Box sx={style.formulario}>
         <Grid container direction='row' spacing={5}>
           <Grid item xs={18} sm={18} md={18} lg={18} xl={18}>
             <Card>
+              <Stack sx={{ width: '100%' }} autoHideDuration={5000} spacing={2}>
+                {status === 'success' && (
+                  <Alert severity='success'>
+                    <AlertTitle>Éxito</AlertTitle>
+                    Usuario creado correctamente!
+                  </Alert>
+                )}
+                {status === 'error' && (
+                  <Alert severity='error'>
+                    <AlertTitle>Error</AlertTitle>
+                    Ocurrió un error durante la creación del usuario.
+                  </Alert>
+                )}
+              </Stack>
               <CardContent>
                 <TextField
                   variant='filled'
