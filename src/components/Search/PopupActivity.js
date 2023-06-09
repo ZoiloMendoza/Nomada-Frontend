@@ -71,7 +71,7 @@ const PopupActivity = ({ data, openForm, closeForm, categoria }) => {
             {status === 'error' && (
               <Alert severity='error'>
                 <AlertTitle>Error</AlertTitle>
-                Ocurrió un errory.
+                Ocurrió un error.
               </Alert>
             )}
           </Stack>

@@ -66,6 +66,12 @@ const CityCard = ({ contentApi }) => {
     setOpen(true);
     console.log('Add button clicked!');
   };
+  const getImage = (destinoImage) => {
+    if (destinoImage.data !== null && destinoImage?.data.length > 0) {
+      return destinoImage?.data[0]?.images.small.url;
+    }
+    return '/img/placeholder.jpeg';
+  };
 
   const closeDestino = () => {
     setOpen(false);
@@ -83,7 +89,7 @@ const CityCard = ({ contentApi }) => {
         {contentApi
           ? contentApi?.map((item) => (
               <RootCard key={item.location_id} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
-                <Media component='img' image={item?.data[0]?.images?.original?.url} title={item.name} />
+                <Media component='img' image={getImage(item)} title={item.name} />
                 {hovered && (
                   <Content>
                     <Typography variant='h5' gutterBottom>
