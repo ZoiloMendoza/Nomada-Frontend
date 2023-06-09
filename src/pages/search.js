@@ -4,7 +4,7 @@ import RestaurantCard from '@/components/Search/RestaurantCard';
 import Box from '@mui/material/Box';
 import CityCard from '@/components/Search/cityCard';
 import ActivityCard from '@/components/Search/activityCard';
-
+import { useState, useEffect } from 'react';
 export default function Search() {
   const [restaurantData, setRestaurantData] = useState(null);
   const [destinoData, setDestinoData] = useState(null);
