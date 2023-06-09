@@ -3,7 +3,12 @@ import axios from 'axios';
 const apiKey = process.env.NEXT_PUBLIC_API_TRIPADVISOR_KEY;
 
 export default async function handler(req, res) {
-  const { latitude, longitude } = req.query;
+  const latitude = '19.7059504';
+  const longitude = '-101.1949825';
+  const {
+    query: { params },
+  } = req;
+  console.log(params, 'hey')
   const host = req.headers.host;
   const contentRestaurant = await getData({ latitude, longitude, category: 'restaurants', host });
   const contentDestino = await getData({ latitude, longitude, category: 'geos', host });

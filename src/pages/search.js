@@ -12,9 +12,9 @@ export default function Search() {
   const [actividadesData, setActividadesData] = useState(null);
 
  useEffect(() => {
-    const latitude = '19.7059504';
-    const longitude = '-101.1949825';
-    const url = `/api/proxy/search/${latitude}/${longitude}`;
+    const params = '19.7059504';
+   
+    const url = `/api/proxy/search/${params}`;
     axios.get(url)
       .then((response) => {
         const data = response.data;
