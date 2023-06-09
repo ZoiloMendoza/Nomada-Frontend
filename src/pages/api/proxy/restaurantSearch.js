@@ -3,7 +3,7 @@ const apiKey = process.env.NEXT_PUBLIC_API_TRIPADVISOR_KEY;
 
 export default async function handler(req, res) {
   const { latitude, longitude, category } = req.query;
-  const host = req.headers.host;
+  const host = 'https://nomada-frontend.vercel.app'
   const data = await getData({ latitude, longitude, category, host });
   if (Object.keys(data).length === 0) {
     return res.status(500).json({ error: 'An error occurred while fetching data from the TripAdvisor API' });
@@ -24,13 +24,11 @@ export async function fetchData(url, headers) {
 export async function getData(params) {
   const { latitude, longitude, category, host } = params;
   const apiUrl = `https://api.content.tripadvisor.com/api/v1/location/nearby_search?latLong=${latitude}%2C${longitude}&key=${apiKey}&category=${category}&radius=60&radiusUnit=km&language=en`;
-
   const headers = {
     accept: 'application/json',
     origin: host,
     referer: host
   };
-
   const responseData = await fetchData(apiUrl, headers);
   if (!responseData || !responseData.data) {
     return [];
