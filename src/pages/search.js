@@ -30,8 +30,6 @@ export const getServerSideProps = async (context) => {
   console.log(params, 'params search');
   try {
     const datosGeo = await searchLocation(params.destino);
-    //console.log(datosGeo, 'frio')
-    //const test = await getDataFindSearchSinPhoto({ params })
     const contentRestaurant = await getData({ ...datosGeo, category: 'restaurants' });
     const contentDestino = await getData({ ...datosGeo, category: 'geos' });
     const contentActividades = await getData({ ...datosGeo, category: 'attractions' });
