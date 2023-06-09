@@ -5,7 +5,7 @@ import Box from '@mui/material/Box';
 import CityCard from '@/components/Search/cityCard';
 import ActivityCard from '@/components/Search/activityCard';
 import { useState, useEffect } from 'react';
-import axios from axios;
+import axios from 'axios';
 export default function Search() {
   const [restaurantData, setRestaurantData] = useState(null);
   const [destinoData, setDestinoData] = useState(null);
