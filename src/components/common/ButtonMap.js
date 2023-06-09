@@ -14,7 +14,7 @@ const ButtonMap = () => {
       }}
       disableElevation
     >
-      Map
+      Mapa
     </Button>
   );
 };
