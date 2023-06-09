@@ -1,8 +1,6 @@
 import SearchBar from '@/components/Search/Search';
 import MapButton from '@/components/common/MapButton';
 import RestaurantCard from '@/components/Search/RestaurantCard';
-import { getData } from './api/proxy/restaurantSearch';
-import { searchLocation } from './api/proxy/opencage';
 import Box from '@mui/material/Box';
 import CityCard from '@/components/Search/cityCard';
 import ActivityCard from '@/components/Search/activityCard';
@@ -25,19 +23,27 @@ export default function Search({ contentRestaurant, contentDestino, contentActiv
     </>
   );
 }
-export const getServerSideProps = async (context) => {
-  const params = context.query;
-  console.log(params, 'params search');
+
+export const getServerSideProps = async () => {
   try {
-    const datosGeo = await searchLocation(params.destino);
-    const contentRestaurant = await getData({ ...datosGeo, category: 'restaurants' });
-    const contentDestino = await getData({ ...datosGeo, category: 'geos' });
-    const contentActividades = await getData({ ...datosGeo, category: 'attractions' });
+    const params = {
+      latitude: '19.7059504',
+      longitude: '-101.1949825',
+    }
+    const url = `/api/proxy/search/${params}`;
+
+    const response = await axios.get(url);
+    const data = response.data;
+
+    const contentRestaurant = data.contentRestaurant;
+    const contentDestino = data.contentDestino;
+    const contentActividades = data.contentActividades;
+
     return {
       props: {
-        contentRestaurant: contentRestaurant,
-        contentDestino: contentDestino,
-        contentActividades: contentActividades,
+        contentRestaurant,
+        contentDestino,
+        contentActividades,
       },
     };
   } catch (error) {
@@ -50,3 +56,4 @@ export const getServerSideProps = async (context) => {
     };
   }
 };
+
