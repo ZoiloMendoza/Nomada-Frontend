@@ -2,13 +2,13 @@ import * as React from 'react';
 //import ButtonMisViajes from '@/components/misViajes/ButtonMisViajes';
 import ButtonNuevoViaje from '@/components/misViajes/ButtonNuevoViaje';
 //import CardMisViajes from '@/components/misViajes/CardMisViajes';
-import MisViajesCard from '@/components/misViajes/MisViajesCard';
+//import MisViajesCard from '@/components/misViajes/MisViajesCard';
 import { Grid, Box } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import axios from 'axios';
 import CircularProgress from '@mui/material/CircularProgress';
-
+import dynamic from 'next/dynamic';
 import PropTypes from 'prop-types';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
@@ -66,6 +66,21 @@ const NoViajesMessage = () => (
     No tiene más viajes por el momento ...
   </Box>
 );
+const DynamicMisViajesCard = dynamic(() => import('@/components/misViajes/MisViajesCard'), {
+  loading: () => (
+    <Box
+      sx={{
+        display: 'flex',
+        position: 'fixed',
+        top: '50%',
+        left: '50%',
+        transform: 'translate(-50%, -50%)',
+      }}
+    >
+      <CircularProgress />
+    </Box>
+  ),
+});
 
 export default function MisViajes() {
   const [value, setValue] = React.useState(0);
@@ -136,7 +151,7 @@ export default function MisViajes() {
           {viajesDelUsuario.length > 0 ? (
             viajesDelUsuario.map((viajes) => (
               <Grid item xs={12} md={6} key={viajes._id}>
-                <MisViajesCard datosViajes={viajes} />
+                <DynamicMisViajesCard datosViajes={viajes} />
               </Grid>
             ))
           ) : (
@@ -151,7 +166,7 @@ export default function MisViajes() {
             viajesInvidatos.map((viaje) => (
               <Grid item xs={12} md={6} key={viaje._id}>
                 <h3>{`Viaje compartido por ${viaje.administradorViaje.name}`}</h3>
-                <MisViajesCard datosViajes={viaje} />
+                <DynamicMisViajesCard datosViajes={viaje} />
               </Grid>
             ))
           ) : (
