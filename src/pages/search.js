@@ -30,7 +30,7 @@ export const getServerSideProps = async () => {
     const latitude= '19.7059504';
     const longitude= '-101.1949825';
     
-    const url = `/api/proxy/restaurantSearch?latitude=${encodeURIComponent(latitude)}&longitude=${encodeURIComponent(longitude)}`;
+    const url = `/api/proxy/search/${encodeURIComponent(latitude)}/${encodeURIComponent(longitude)}`;
 
     const response = await axios.get(url);
     const data = response.data;
