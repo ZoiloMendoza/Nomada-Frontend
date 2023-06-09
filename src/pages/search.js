@@ -47,36 +47,3 @@ useEffect(() => {
   );
 }
 
-export const getServerSideProps = async () => {
-  try {
-    
-    const latitude= '19.7059504';
-    const longitude= '-101.1949825';
-    
-    const url = `/api/proxy/search/${encodeURIComponent(latitude)}/${encodeURIComponent(longitude)}`;
-
-    const response = await axios.get(url);
-    const data = response.data;
-
-    const contentRestaurant = data.contentRestaurant;
-    const contentDestino = data.contentDestino;
-    const contentActividades = data.contentActividades;
-
-    return {
-      props: {
-        contentRestaurant,
-        contentDestino,
-        contentActividades,
-      },
-    };
-  } catch (error) {
-    return {
-      props: {
-        contentRestaurant: null,
-        contentDestino: null,
-        contentActividades: null,
-      },
-    };
-  }
-};
-
