@@ -10,22 +10,22 @@ export default function Search() {
   const [destinoData, setDestinoData] = useState(null);
   const [actividadesData, setActividadesData] = useState(null);
 
-useEffect(() => {
-  const latitude = '19.7059504';
-  const longitude = '-101.1949825';
-  const url = `/api/proxy/search/${latitude}/${longitude}`;
+ useEffect(() => {
+    const latitude = '19.7059504';
+    const longitude = '-101.1949825';
+    const url = `/api/proxy/search/${latitude}/${longitude}`;
+    axios.get(url)
+      .then((response) => {
+        const data = response.data;
+        setRestaurantData(data.contentRestaurant);
+        setDestinoData(data.contentDestino);
+        setActividadesData(data.contentActividades);
+      })
+      .catch((error) => {
+        console.error('Error fetching data:', error);
+      });
+  }, []);
 
-  fetch(url)
-    .then((response) => response.json())
-    .then((data) => {
-      setRestaurantData(data.contentRestaurant);
-      setDestinoData(data.contentDestino);
-      setActividadesData(data.contentActividades);
-    })
-    .catch((error) => {
-      console.error('Error fetching data:', error);
-    });
-}, []);
   return (
     <>
       <SearchBar />
