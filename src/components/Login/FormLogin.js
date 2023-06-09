@@ -45,7 +45,7 @@ function FormLogin() {
     if (userPost.status !== 200) {
       setStatus('error'); //console.log('error al insertar');
     } else {
-      setStatus('seccess');
+      setStatus('success');
       console.log('Logeado');
       const usuario = {
         ...userPost.data,

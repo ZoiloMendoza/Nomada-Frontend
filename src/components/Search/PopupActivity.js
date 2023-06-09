@@ -2,6 +2,9 @@ import React, { useState } from 'react';
 import { Button, Dialog, DialogTitle, DialogContent, DialogContentText, TextField, DialogActions } from '@mui/material';
 import { useRouter } from 'next/router';
 import axios from 'axios';
+import Alert from '@mui/material/Alert';
+import AlertTitle from '@mui/material/AlertTitle';
+import Stack from '@mui/material/Stack';
 
 const PopupActivity = ({ data, openForm, closeForm, categoria }) => {
   const router = useRouter();
@@ -10,6 +13,7 @@ const PopupActivity = ({ data, openForm, closeForm, categoria }) => {
   const [name, setName] = useState(data.name);
   const [date, setDate] = useState('');
   const [time, setTime] = useState('');
+  const [status, setStatus] = useState('');
 
   const handleClose = () => {
     closeForm();
@@ -30,9 +34,11 @@ const PopupActivity = ({ data, openForm, closeForm, categoria }) => {
         nuevaActividad,
       );
       console.log(crearRutaPost, 'crearRuta');
-      alert('se agrego actividad');
+      //alert('se agrego actividad');
+      setStatus('success');
     } catch (error) {
       console.log(error);
+      setStatus('error');
     }
   };
   const handleSubmit = () => {
@@ -51,6 +57,20 @@ const PopupActivity = ({ data, openForm, closeForm, categoria }) => {
         <DialogTitle>Ingresa información</DialogTitle>
         <DialogContent>
           <DialogContentText>Por favor, ingresa los siguientes datos para agregarlos a tu itinerario</DialogContentText>
+          <Stack sx={{ width: '100%' }} autoHideDuration={5000} spacing={2}>
+            {status === 'success' && (
+              <Alert severity='success'>
+                <AlertTitle>Éxito</AlertTitle>
+                Actividad agregada correctamente!
+              </Alert>
+            )}
+            {status === 'error' && (
+              <Alert severity='error'>
+                <AlertTitle>Error</AlertTitle>
+                Ocurrió un errory.
+              </Alert>
+            )}
+          </Stack>
           <TextField
             variant='filled'
             autoFocus
