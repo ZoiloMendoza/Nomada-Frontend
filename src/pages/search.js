@@ -26,11 +26,11 @@ export default function Search({ contentRestaurant, contentDestino, contentActiv
 
 export const getServerSideProps = async () => {
   try {
-    const params = {
-      latitude: '19.7059504',
-      longitude: '-101.1949825',
-    }
-    const url = `/api/proxy/search/${params}`;
+    
+    const latitude= '19.7059504';
+    const longitude= '-101.1949825';
+    
+    const url = `/api/proxy/restaurantSearch?latitude=${encodeURIComponent(latitude)}&longitude=${encodeURIComponent(longitude)}`;
 
     const response = await axios.get(url);
     const data = response.data;
