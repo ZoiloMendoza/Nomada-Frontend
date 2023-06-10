@@ -97,7 +97,7 @@ export default function Add({ destinoSeleccionado, destino }) {
             &nbsp; Buscar actividades
           </AddButton>
         </Link>
-        <Link href='/map'>
+        <Link href='/mapa'>
           <AddButtonTwo>
             <MapIcon />
             &nbsp; Mapa
