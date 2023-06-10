@@ -6,7 +6,7 @@ import Alert from '@mui/material/Alert';
 import AlertTitle from '@mui/material/AlertTitle';
 import Stack from '@mui/material/Stack';
 
-const PopupDestino = ({ data, open, categoria }) => {
+const PopupDestino = ({ data, open, closeDestino, categoria }) => {
   // const [openForm, setOpenForm] = useState(false);
   const router = useRouter();
   const { idRuta } = router.query;
@@ -17,7 +17,7 @@ const PopupDestino = ({ data, open, categoria }) => {
 
   const handleClose = () => {
     setTimeout(() => {
-      closeForm();
+      closeDestino();
     }, 1000);
   };
   const agregarActividad = async () => {
@@ -66,7 +66,7 @@ const PopupDestino = ({ data, open, categoria }) => {
             {status === 'success' && (
               <Alert severity='success'>
                 <AlertTitle>Éxito</AlertTitle>
-                Actividad agregado el destino correctamente!
+                Actividad agregada correctamente!
               </Alert>
             )}
             {status === 'error' && (
