@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Button, Dialog, DialogTitle, DialogContent, DialogContentText, TextField, DialogActions } from '@mui/material';
 import { useRouter } from 'next/router';
-
 import Alert from '@mui/material/Alert';
 import AlertTitle from '@mui/material/AlertTitle';
 import Stack from '@mui/material/Stack';
@@ -17,7 +16,9 @@ const PopupForm = ({ data, openForm, closeForm, categoria }) => {
   const [status, setStatus] = useState('');
 
   const handleClose = () => {
-    closeForm();
+    setTimeout(() => {
+      closeForm();
+    }, 1000);
   };
   const agregarActividad = async () => {
     try {
@@ -47,7 +48,9 @@ const PopupForm = ({ data, openForm, closeForm, categoria }) => {
     console.log('Nombre: ', name);
     console.log('Fecha: ', date);
     console.log('Horario: ', time);
-    handleClose();
+    setTimeout(() => {
+      handleClose();
+    }, 1000);
   };
 
   console.log(data);

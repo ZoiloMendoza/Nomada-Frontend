@@ -18,7 +18,7 @@ const styles = {
 
 function MapButton() {
   return (
-    <Link href='/map'>
+    <Link href='/mapa'>
       <Button variant='contained' sx={styles.button} startIcon={<MapIcon />}>
         Mapa
       </Button>
