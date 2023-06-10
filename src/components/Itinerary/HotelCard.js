@@ -25,6 +25,11 @@ const styles = {
   expandIconOpen: {
     transform: 'rotate(180deg)',
   },
+  icon: {
+    width: '50px',
+    height: '50px',
+    color: '#E91E62',
+  },
 };
 
 const HotelCard = ({ hotelData, handleEdit, handleDelete }) => {
@@ -73,7 +78,7 @@ const HotelCard = ({ hotelData, handleEdit, handleDelete }) => {
                     <Typography variant='body1'>Check-out: {hotelData?.fechaFinal}</Typography>
                   </Grid>
                   <Grid item xs={2}>
-                    <HotelIcon />
+                    <HotelIcon sx={styles.icon} />
                   </Grid>
                 </Grid>
 

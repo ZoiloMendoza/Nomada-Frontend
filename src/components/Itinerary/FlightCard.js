@@ -21,6 +21,11 @@ const styles = {
   expandIconOpen: {
     transform: 'rotate(180deg)',
   },
+  icon: {
+    width: '50px',
+    height: '50px',
+    color: '#434565',
+  },
 };
 
 const FlightCard = ({ flightData, handleEdit, handleDelete }) => {
@@ -65,7 +70,7 @@ const FlightCard = ({ flightData, handleEdit, handleDelete }) => {
               />
             </Grid>
             <Grid item xs={2}>
-              <FlightIcon />
+              <FlightIcon sx={styles.icon} />
             </Grid>
           </Grid>
           <CardContent>

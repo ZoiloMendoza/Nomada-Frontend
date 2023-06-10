@@ -97,6 +97,7 @@ export default function TabsDestinos({ dataDestino, updateDestinoCallback }) {
                   />
                 </IconButton>
               </Tooltip>
+              <span color='secondary'>Eliminar este destino</span>
             </div>
 
             <FlightCard flightData={ruta.transporte} />

@@ -25,6 +25,11 @@ const styles = {
   expandIconOpen: {
     transform: 'rotate(180deg)',
   },
+  icon: {
+    width: '50px',
+    height: '50px',
+    color: '#FFE400',
+  },
 };
 
 const ActivityCard = ({ activityData, handleEdit }) => {
@@ -86,7 +91,7 @@ const ActivityCard = ({ activityData, handleEdit }) => {
                   </CardContent>
                 </Grid>
                 <Grid item xs={2}>
-                  <LocalActivityIcon />
+                  <LocalActivityIcon sx={styles.icon} />
                 </Grid>
               </Grid>
 
