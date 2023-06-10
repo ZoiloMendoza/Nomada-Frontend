@@ -6,7 +6,7 @@ import Alert from '@mui/material/Alert';
 import AlertTitle from '@mui/material/AlertTitle';
 import Stack from '@mui/material/Stack';
 
-const PopupDestino = ({ data, open, closeDestino, categoria }) => {
+const PopupDestino = ({ data, open, categoria }) => {
   // const [openForm, setOpenForm] = useState(false);
   const router = useRouter();
   const { idRuta } = router.query;
