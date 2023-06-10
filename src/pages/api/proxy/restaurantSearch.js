@@ -1,23 +1,14 @@
 import axios from 'axios';
-
 const apiKey = process.env.NEXT_PUBLIC_API_TRIPADVISOR_KEY;
 
 export default async function handler(req, res) {
-  const { latitude, longitude } = req.query;
+  const { latitude, longitude, category } = req.query;
   const host = req.headers.host;
-  const contentRestaurant = await getData({ latitude, longitude, category: 'restaurants', host });
-  const contentDestino = await getData({ latitude, longitude, category: 'geos', host });
-  const contentActividades = await getData({ latitude, longitude, category: 'attractions', host });
-
-  if (contentRestaurant === null || contentDestino === null || contentActividades === null) {
+  const data = await getData({ latitude, longitude, category, host });
+  if (Object.keys(data).length === 0) {
     return res.status(500).json({ error: 'An error occurred while fetching data from the TripAdvisor API' });
   }
-
-  return res.status(200).json({
-    contentRestaurant,
-    contentDestino,
-    contentActividades
-  });
+  return res.status(200).json(data);
 }
 
 export async function fetchData(url, headers) {
@@ -42,7 +33,7 @@ export async function getData(params) {
 
   const responseData = await fetchData(apiUrl, headers);
   if (!responseData || !responseData.data) {
-    return null;
+    return [];
   }
 
   const locationData = responseData.data.slice(0, 3);

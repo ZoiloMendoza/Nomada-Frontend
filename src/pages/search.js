@@ -1,45 +1,23 @@
 import SearchBar from '@/components/Search/Search';
 import MapButton from '@/components/common/MapButton';
 import RestaurantCard from '@/components/Search/RestaurantCard';
+import { getData } from './api/proxy/restaurantSearch';
+import { searchLocation } from './api/proxy/opencage';
 import Box from '@mui/material/Box';
 import CityCard from '@/components/Search/cityCard';
 import ActivityCard from '@/components/Search/activityCard';
-import { useState, useEffect } from 'react';
-import axios from 'axios';
-export default function Search() {
-  const [restaurantData, setRestaurantData] = useState(null);
-  const [destinoData, setDestinoData] = useState(null);
-  const [actividadesData, setActividadesData] = useState(null);
 
- useEffect(() => {
-    const params = '19.7059504';
-   
-    const url = `/api/proxy/search/${params}`;
-    axios.get(url)
-      .then((response) => {
-        const data = response.data;
-        setRestaurantData(data.contentRestaurant);
-        setDestinoData(data.contentDestino);
-        setActividadesData(data.contentActividades);
-      })
-      .catch((error) => {
-        console.error('Error fetching data:', error);
-      });
-  }, []);
-
+export default function Search({ contentRestaurant, contentDestino, contentActividades }) {
+  //console.log(contentRestaurant);
+  //console.log(contentDestino);
+  console.log(contentActividades, 'contentActividades');
   return (
     <>
       <SearchBar />
 
-      <Box>
-        {destinoData && <CityCard contentApi={destinoData} />}
-      </Box>
-      <Box>
-        {restaurantData && <RestaurantCard restaurantData={restaurantData} />}
-      </Box>
-      <Box>
-        {actividadesData && <ActivityCard activityData={actividadesData} />}
-      </Box>
+      <Box>{<CityCard contentApi={contentDestino} />}</Box>
+      <Box>{<RestaurantCard restaurantData={contentRestaurant} />}</Box>
+      <Box>{<ActivityCard activityData={contentActividades} />}</Box>
 
       <Box sx={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
         <MapButton />
@@ -47,4 +25,30 @@ export default function Search() {
     </>
   );
 }
-
+export const getServerSideProps = async (context) => {
+  const params = context.query;
+  console.log(params, 'params search');
+  try {
+    const datosGeo = await searchLocation(params.destino);
+    //console.log(datosGeo, 'frio')
+    //const test = await getDataFindSearchSinPhoto({ params })
+    const contentRestaurant = await getData({ ...datosGeo, category: 'restaurants' });
+    const contentDestino = await getData({ ...datosGeo, category: 'geos' });
+    const contentActividades = await getData({ ...datosGeo, category: 'attractions' });
+    return {
+      props: {
+        contentRestaurant: contentRestaurant,
+        contentDestino: contentDestino,
+        contentActividades: contentActividades,
+      },
+    };
+  } catch (error) {
+    return {
+      props: {
+        contentRestaurant: null,
+        contentDestino: null,
+        contentActividades: null,
+      },
+    };
+  }
+};
