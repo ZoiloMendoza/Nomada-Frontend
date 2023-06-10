@@ -24,7 +24,7 @@ export async function fetchData(url, headers) {
 export async function getData(params) {
   const { latitude, longitude, category, host } = params;
   const apiUrl = `https://api.content.tripadvisor.com/api/v1/location/nearby_search?latLong=${latitude}%2C${longitude}&key=${apiKey}&category=${category}&radius=60&radiusUnit=km&language=en`;
-
+  console.log(host, 'es mi host');
   const headers = {
     accept: 'application/json',
     origin: 'https://nomada-frontend.vercel.app',
