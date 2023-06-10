@@ -27,7 +27,7 @@ const PopupActivity = ({ data, openForm, closeForm, categoria }) => {
         categoria: categoria,
         nombre: data.name,
         direccion: data.address_obj.address_string,
-        fotos: data.data[0].images.large.url,
+        fotos: data?.data[0]?.images?.large.url || '',
         fechaInicio: date,
         fechaFinal: time,
       };
