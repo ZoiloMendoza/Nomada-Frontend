@@ -7,9 +7,10 @@ import Box from '@mui/material/Box';
 import CityCard from '@/components/Search/cityCard';
 import ActivityCard from '@/components/Search/activityCard';
 
-export default function Search({ contentRestaurant, contentDestino, contentActividades }) {
+export default function Search({ contentRestaurant, contentDestino, contentActividades, mensaje }) {
   //console.log(contentRestaurant);
   //console.log(contentDestino);
+  console.log(mensaje);
   console.log(contentActividades, 'contentActividades');
   return (
     <>
@@ -45,6 +46,7 @@ export const getServerSideProps = async (context) => {
   } catch (error) {
     return {
       props: {
+        mensaje: JSON.stringify(error, Object.getOwnPropertyNames(error)),
         contentRestaurant: null,
         contentDestino: null,
         contentActividades: null,
