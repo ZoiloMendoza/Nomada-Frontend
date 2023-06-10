@@ -27,8 +27,9 @@ export async function getData(params) {
 
   const headers = {
     accept: 'application/json',
-    origin: host,
-    referer: host
+    origin: 'https://nomada-frontend.vercel.app',
+    "Referer": "https://nomada-frontend.vercel.app",
+    "Referrer-Policy": "strict-origin-when-cross-origin"
   };
 
   const responseData = await fetchData(apiUrl, headers);
