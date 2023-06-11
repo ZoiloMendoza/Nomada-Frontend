@@ -14,6 +14,7 @@ import { useAuth } from '@/utils/useAuth';
 import Alert from '@mui/material/Alert';
 import AlertTitle from '@mui/material/AlertTitle';
 import Stack from '@mui/material/Stack';
+import { Link } from '@mui/icons-material';
 const apiKey = process.env.NEXT_PUBLIC_API_VUELOS_KEY;
 const URLRAILWAY = process.env.NEXT_PUBLIC_BACKEND;
 const API_GOOGLE = process.env.NEXT_PUBLIC_API_GOOGLE;
@@ -363,6 +364,7 @@ const BoardingPassCard = () => {
         </Box>
         <Box display='flex' justifyContent='center' sx={{ width: '100%' }}>
           <ButtonCustom text={'Agregar'} onClick={() => handleClick()} />
+          <Link href={`/itineray?id=${id}`}></Link>
         </Box>
       </FlightInfoContainer>
     </Box>
