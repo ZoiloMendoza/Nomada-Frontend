@@ -5,7 +5,7 @@ import CardComponent from './CardComponent';
 const MapDisplay = ({ cards }) => (
   <div style={{ display: 'flex' }}>
     <div style={{ flex: '1', paddingRight: '16px' }}>
-      {cards.map((card) => (
+      {cards && cards.map((card) => (
         <CardComponent key={card.id} card={card} />
       ))}
     </div>
