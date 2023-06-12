@@ -100,7 +100,7 @@ export default function TabsDestinos({ dataDestino, updateDestinoCallback }) {
               <span color='secondary'>Eliminar este destino</span>
             </div>
 
-            <FlightCard flightData={ruta.transporte} />
+            {ruta.transporte.numeroVuelo && <FlightCard flightData={ruta.transporte}/>}
             <HotelCard hotelData={ruta.hospedajes} />
             <ActivityCard activityData={dataDestino.rutas[index].actividades} />
           </TabPanel>

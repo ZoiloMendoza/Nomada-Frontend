@@ -4,9 +4,9 @@ import { Edit as EditIcon, Delete as DeleteIcon } from '@mui/icons-material';
 import { ExpandMore } from '@mui/icons-material';
 import HotelIcon from '@mui/icons-material/Hotel';
 import { Tooltip } from '@mui/material';
-
+import axios from 'axios';
 import Grid from '@mui/material/Grid';
-
+const URLRAILWAY = process.env.NEXT_PUBLIC_BACKEND;
 const styles = {
   card: {
     marginBottom: '5px',
@@ -32,13 +32,25 @@ const styles = {
   },
 };
 
-const HotelCard = ({ hotelData, handleEdit, handleDelete }) => {
+const HotelCard = ({ hotelData, handleEdit }) => {
   const [expanded, setExpanded] = useState(false);
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
-
+  
+ 
+  const handleDelete = async (id) => {
+    try {
+      if (id) {
+        await axios.delete(`${URLRAILWAY}/api/v1/hospedajes/${id}`);
+        alert('Vuelo eliminada');
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  console.log(hotelData, 'hotel Datos')
   return (
     <>
       {hotelData
@@ -57,7 +69,7 @@ const HotelCard = ({ hotelData, handleEdit, handleDelete }) => {
                     </IconButton>
                   </Tooltip>
                   <Tooltip title='Eliminar este hospedaje'>
-                    <IconButton aria-label='delete' onClick={() => handleDelete(hotelInfo)}>
+                    <IconButton aria-label='delete' onClick={() => handleDelete(hotelData._id)}>
                       <DeleteIcon
                         sx={{
                           width: '20px',

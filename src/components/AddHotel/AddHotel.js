@@ -99,14 +99,18 @@ const AddHotel = () => {
   };
   const handlePlaceSelect = (place) => {
     if (place && place.geometry && place.geometry.location) {
-      console.log('Place selected:', place.name);
-      //console.log('Place photos:', place.photos[0].getUrl());
+      console.log('Place selected:', place);
+      console.log('Place photos:', place.photos);
       console.log('Formatted Address:', place.formatted_address);
       console.log('Latitude:', place.geometry.location.lat());
       console.log('Longitude:', place.geometry.location.lng());
       console.log('Place_id', place.place_id);
       const selectedDestino = place.formatted_address;
-      setPhotoUrl(place?.photos[0]?.getUrl() || '');
+      if(place?.photos){
+        setPhotoUrl(place?.photos[0]?.getUrl());
+      }else {
+        setPhotoUrl('');
+      }
       setHotelData((prevState) => ({
         ...prevState,
         address: selectedDestino,

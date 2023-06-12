@@ -58,6 +58,13 @@ const BoardingPassCard = () => {
   });
   const [origenYdestinoVuelo, setOrigenYdestinoVuelo] = useState({
     flightNumber: '',
+    aerolinea: '',
+    aeropuertoOrigen: '',
+    terminalOrigen: '',
+    aeropuertoDestino: '',
+    terminalDestino: '',
+    duracionVuelo: '',
+    status: '',
     origen: '',
     destino: '',
     paisDestino: '',
@@ -88,6 +95,7 @@ const BoardingPassCard = () => {
       consultaViaje();
     }
   }, [usuario, id]);
+
   const creandoRuta = async () => {
     try {
       const nuevaRuta = {
@@ -102,17 +110,23 @@ const BoardingPassCard = () => {
   };
   const creandoTransporte = async (datosDelVuelo) => {
     try {
-      console.log(datosDelVuelo.idRuta, 'dentrode transporte');
       const nuevoTransporte = {
         rutaId: datosDelVuelo.idRuta,
         numeroVuelo: datosDelVuelo?.flightNumber,
         origen: formData?.origen,
         destino: formData?.destino,
-        fechaIda: datosDelVuelo?.fechaInicio,
-        fechaRegreso: datosDelVuelo?.fechaFinal,
+        fechaIda: datosDelVuelo?.fechaInicio ? new Date(datosDelVuelo.fechaInicio).toLocaleDateString('es', {day: '2-digit', month: 'long', year:'numeric', hour: '2-digit', minute: '2-digit'}) : '',
+        fechaRegreso: datosDelVuelo?.fechaFinal ? new Date(datosDelVuelo.fechaFinal).toLocaleDateString('es', {day: '2-digit', month: 'long', year:'numeric', hour: '2-digit', minute: '2-digit'}) : '',
         imagen: datosDelVuelo?.imagen,
         latitud: datosDelVuelo?.latitud,
         longitud: datosDelVuelo?.longitud,
+        aerolinea: datosDelVuelo?.aerolinea,
+        aeropuertoOrigen: datosDelVuelo?.aeropuertoOrigen,
+        terminalOrigen: datosDelVuelo?.terminalOrigen,
+        aeropuertoDestino: datosDelVuelo?.aeropuertoDestino,
+        terminalDestino: datosDelVuelo?.terminalDestino,
+        duracionVuelo: datosDelVuelo?.duracionVuelo,
+        status: datosDelVuelo?.status,
       };
       const crearTransportePost = await axios.post(`${URLRAILWAY}/api/v1/transportes`, nuevoTransporte);
       console.log('transporte', crearTransportePost);
@@ -194,6 +208,13 @@ const BoardingPassCard = () => {
             fechaFinal: dataApi?.arr_time || '',
             flightNumber: dataApi?.flight_iata || '',
             paisDestino: dataApi?.arr_country || 'No encontrado',
+            aerolinea: dataApi?.airline_name || '',
+            aeropuertoOrigen: dataApi?.dep_name || '',
+            terminalOrigen: dataApi?.dep_terminal || '',
+            aeropuertoDestino: dataApi?.arr_name || '',
+            terminalDestino: dataApi?.arr_terminal || '',
+            duracionVuelo: dataApi?.duration || '',
+            status: dataApi?.status || '',
           });
         } else {
           setStatus('error');
@@ -203,7 +224,6 @@ const BoardingPassCard = () => {
     } catch (error) {
       console.error('Error en la petición:', error);
       setStatus('error');
-      //alert('Error al crear al buscar el vuelo. Por favor, inténtalo de nuevo.');
     }
   };
   const handlePlaceSelect = (place) => {
@@ -226,14 +246,7 @@ const BoardingPassCard = () => {
   };
   const handlePlaceSelectOrigen = (place) => {
     if (place && place.geometry && place.geometry.location) {
-      console.log('Place selected:', place);
-      //console.log('Place photos:', place.photos[0].getUrl());
-      console.log('Formatted Address:', place.formatted_address);
-      console.log('Latitude:', place.geometry.location.lat());
-      console.log('Longitude:', place.geometry.location.lng());
-      console.log('Place_id', place.place_id);
       const selectedOrigen = place.formatted_address;
-      //setPhotoUrl(place.photos[0].getUrl());
       setFormData((prevState) => ({
         ...prevState,
         origen: selectedOrigen,

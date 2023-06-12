@@ -56,7 +56,7 @@ const ActivityCard = ({ activityData, handleEdit }) => {
   return (
     <>
       {activities
-        ? activities?.map((activityData) => (
+        && activities?.map((activityData) => (
             <Card sx={styles.card} key={activityData?._id}>
               <Tooltip title='Editar esta actividad'>
                 <IconButton aria-label='edit' onClick={() => handleEdit(activityInfo)}>
@@ -109,8 +109,7 @@ const ActivityCard = ({ activityData, handleEdit }) => {
                 </CardContent>
               </Collapse>
             </Card>
-          ))
-        : 'Sin actividades'}
+          ))}
     </>
   );
 };

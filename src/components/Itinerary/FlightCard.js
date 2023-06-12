@@ -1,12 +1,12 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, Typography, Collapse, IconButton } from '@mui/material';
 import { ExpandMore } from '@mui/icons-material';
 import { Edit as EditIcon, Delete as DeleteIcon } from '@mui/icons-material';
 import FlightIcon from '@mui/icons-material/Flight';
 import Tooltip from '@mui/material/Tooltip';
-
+import axios from 'axios';
 import Grid from '@mui/material/Grid';
-
+const URLRAILWAY = process.env.NEXT_PUBLIC_BACKEND;
 const styles = {
   card: {
     marginBottom: '10px',
@@ -28,20 +28,44 @@ const styles = {
   },
 };
 
-const FlightCard = ({ flightData, handleEdit, handleDelete }) => {
+const FlightCard = ({ flightData, handleEdit }) => {
   const [expanded, setExpanded] = useState(false);
-
+  const [vuelo, setVuelo] = useState(null);
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
-  //console.log(flightData, 'flightData');
+  useEffect(() => {
+    const getTransporte = async () => {
+      try {
+        const transporte = await axios.get(`${URLRAILWAY}/api/v1/transportes/${flightData._id}`);
+        setVuelo(transporte.data);
+      } catch (error) {
+        console.log(error)
+      }
+    }
+    if(flightData._id){
+      getTransporte();
+    }
+  }, [flightData._id]);
+  const handleDelete = async () => {
+    try {
+      if (flightData._id) {
+        await axios.patch(`${URLRAILWAY}/api/v1/transportes/${flightData._id}`, { numeroVuelo: ''});
+        setVuelo('');
+        alert('Vuelo eliminada');
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <>
-      {flightData ? (
+      {vuelo?.numeroVuelo && (
         <Card sx={styles.card}>
           <div sx={styles.editDeleteIcons}>
             <Tooltip title='Editar este vuelo'>
-              <IconButton aria-label='edit' onClick={() => handleEdit(flightInfo)}>
+              <IconButton aria-label='edit' onClick={() => handleEdit()}>
                 <EditIcon
                   sx={{
                     width: '20px',
@@ -52,7 +76,7 @@ const FlightCard = ({ flightData, handleEdit, handleDelete }) => {
             </Tooltip>
 
             <Tooltip title='Eliminar este vuelo'>
-              <IconButton aria-label='delete' onClick={() => handleDelete(flightInfo)}>
+              <IconButton aria-label='delete' onClick={() => handleDelete()}>
                 <DeleteIcon
                   sx={{
                     width: '20px',
@@ -65,8 +89,8 @@ const FlightCard = ({ flightData, handleEdit, handleDelete }) => {
           <Grid container spacing={2}>
             <Grid item xs={10}>
               <CardHeader
-                title={`${flightData?.origen} a ${flightData?.destino}`}
-                subheader={`${flightData.fechaIda} | ${flightData?.airline}`}
+                title={`${vuelo?.origen?.split(',')[0].trim()} a ${vuelo?.destino?.split(',')[0].trim()}`}
+                subheader={`${vuelo.fechaIda?.split(',')[0].trim()} | ${vuelo?.aerolinea}`}
               />
             </Grid>
             <Grid item xs={2}>
@@ -75,10 +99,10 @@ const FlightCard = ({ flightData, handleEdit, handleDelete }) => {
           </Grid>
           <CardContent>
             <Typography variant='h6' component='p'>
-              {`${flightData?.fechaIda} - ${flightData?.fechaRegreso}`}
+              {`${vuelo?.fechaIda} - ${vuelo?.fechaRegreso?.split(',')[1]?.trim()}`}
             </Typography>
             <Typography variant='subtitle1' component='p'>
-              {`duración: ${flightData?.duration} | escalas: ${flightData?.stops}`}
+              {`Duración: ${Math.floor(parseInt(vuelo.duracionVuelo)/60)}:${parseInt(vuelo.duracionVuelo) % 60} Hrs`}
             </Typography>
           </CardContent>
           <IconButton
@@ -92,25 +116,26 @@ const FlightCard = ({ flightData, handleEdit, handleDelete }) => {
           <Collapse in={expanded} timeout='auto' unmountOnExit>
             <CardContent>
               <Typography variant='subtitle1' component='p'>
-                {`Status: ${flightData?.status}`}
+                {`Status: ${vuelo?.status}`}
               </Typography>
               <Typography variant='subtitle1' component='p'>
-                {`Número de vuelo: ${flightData?.numeroVuelo}`}
+                {`Número de vuelo: ${vuelo?.numeroVuelo}`}
               </Typography>
               <Typography variant='subtitle1' component='p'>
-                {`Terminal: ${flightData?.terminal}`}
+                {`Aeropuerto salida: ${vuelo?.aeropuertoOrigen}`}
               </Typography>
               <Typography variant='subtitle1' component='p'>
-                {`Puerta: ${flightData?.gate}`}
+                {`Terminal: ${vuelo?.terminalOrigen}`}
               </Typography>
               <Typography variant='subtitle1' component='p'>
-                {`Clase: ${flightData?.class}`}
+                {`Aeropuerto llegada: ${vuelo?.aeropuertoDestino}`}
+              </Typography>
+              <Typography variant='subtitle1' component='p'>
+                {`Terminal: ${vuelo?.terminalDestino}`}
               </Typography>
             </CardContent>
           </Collapse>
         </Card>
-      ) : (
-        'skeleton'
       )}
     </>
   );
