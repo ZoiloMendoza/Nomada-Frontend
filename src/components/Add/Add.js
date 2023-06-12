@@ -65,15 +65,11 @@ const AddButtonGroup = styled(ButtonGroup)(() => ({
   alignItems: 'center',
 }));
 
-export default function Add({ destinoSeleccionado, destino }) {
-  //const [idRuta, setIdRuta] = useState('')
+export default function Add({ destinoSeleccionado, ruta}) {
+  
   const router = useRouter();
   const { id } = router.query;
   const encodedDestino = encodeURIComponent(destinoSeleccionado);
-  //console.log(destino, 'DESTINO');
-  //console.log(encodedDestino, 'ENCODEDESTINO');
-  //setIdRuta(destino.rutas[0]._id)
-  //console.log(idRuta, 'idRuda de destino')
   return (
     <AddSection>
       <AddButtonGroup aria-label='button group'>
@@ -83,13 +79,13 @@ export default function Add({ destinoSeleccionado, destino }) {
             &nbsp; Nuevo destino
           </AddButton>
         </Link>
-        <Link href={`/addhotel?destino=${destinoSeleccionado}&idRuta=${destino}`}>
+        <Link href={`/addhotel?destino=${destinoSeleccionado}&idRuta=${ruta._id}`}>
           <AddButton>
             <HotelIcon />
             &nbsp; Hospedaje
           </AddButton>
         </Link>
-        <Link href={`/search?destino=${encodedDestino}&idRuta=${destino}`}>
+        <Link href={`/search?destino=${encodedDestino}&idRuta=${ruta._id}`}>
           {/*`/search?latitude=${destino?.latitude}&longitude=${destino?.longitude}&idRuta=${destino?.idRuta}`*/}
 
           <AddButton>
@@ -97,7 +93,7 @@ export default function Add({ destinoSeleccionado, destino }) {
             &nbsp; Buscar actividades
           </AddButton>
         </Link>
-        <Link href='/mapa'>
+        <Link href={`/mapa?destino=${destinoSeleccionado}&idRuta=${ruta._id}&latitud=${ruta.transporte.latitud}&longitud=${ruta.transporte.longitud}`}>
           <AddButtonTwo>
             <MapIcon />
             &nbsp; Mapa

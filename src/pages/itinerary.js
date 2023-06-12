@@ -4,23 +4,44 @@ import HeroImage from '@/components/Itinerary/HeroImage';
 import axios from 'axios';
 import Add from '@/components/Add/Add';
 import Box from '@mui/material/Box';
+import CircularProgress from '@mui/material/CircularProgress';
 import { useMediaQuery } from '@mui/material';
 import TabDestinos from '@/components/Itinerary/TabsDestinos';
 import TabsDestinosMobile from '@/components/Itinerary/TabsDestinosMobile';
-//import { useRouter } from 'next/router';
+import { useRouter } from 'next/router';
 import { useAuth } from '@/utils/useAuth';
 const URLRAILWAY = process.env.NEXT_PUBLIC_BACKEND;
 
-export default function Itinerary({ contentViaje }) {
+export default function Itinerary() {
   const usuario = useAuth();
-  //const router = useRouter();
-  //const [loading, setLoading] = useState(true);
+  const router = useRouter();
+  const { id: tripId } = router.query;
+  const [loading, setLoading] = useState(true);
   const [roleInvitado, setRoleInvitado] = useState(null);
   const [roleUsuario, setRoleUsiario] = useState(null);
   const [error, setError] = useState(null);
-  const [destinoSeleccionado, setDestinoSeleccionado] = useState(contentViaje?.rutas[0]?.transporte?.destino ?? '');
+  const [contentViaje, setContentViaje] = useState(null); 
+  const [destinoSeleccionado, setDestinoSeleccionado] = useState(null);
   const isMobile = useMediaQuery((theme) => (theme ? theme.breakpoints.down('sm') : '(max-width:600px)'));
-  
+  useEffect(() => {
+    const fetchTripData = async () => {
+      try {
+        const response = await axios.get(`${URLRAILWAY}/api/v1/viajes/${tripId}`);
+        if (response.status === 200) {
+          const tripData = response.data;
+          setContentViaje(tripData);
+          setDestinoSeleccionado(tripData?.rutas[0]?.transporte?.destino ?? '');
+          setLoading(false);
+        }
+      } catch (error) {
+        setError(error);
+      }
+    };
+
+    if (tripId) {
+      fetchTripData();
+    }
+  }, [tripId]);
   useEffect(() => {
     const validacionViaje = () => {
       try {
@@ -47,9 +68,18 @@ export default function Itinerary({ contentViaje }) {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [usuario, contentViaje]);
-  if (error) {
-    return <p>Error: {error.message}</p>;
-  }
+  if (loading) return  <Box
+  sx={{
+    display: 'flex',
+    position: 'fixed',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+  }}
+>
+  <CircularProgress />
+</Box>;
+  if (error) return <p>Error: {error.message}</p>;
 
   console.log('contentViaje', contentViaje);
 
@@ -64,7 +94,9 @@ export default function Itinerary({ contentViaje }) {
     <Box sx={{ backgroundColor: '#EAEDED' }}>
       <HeroImage viajeData={contentViaje} imagenFondo={imagenFondo} />
       {(roleUsuario === 'admin' || roleInvitado === 'admin') && (
-        <Add destinoSeleccionado={destinoSeleccionado} destino={contentViaje?.rutas[idRutaElegida]?._id} />
+        <Add destinoSeleccionado={destinoSeleccionado} 
+             ruta={contentViaje?.rutas[idRutaElegida]} 
+             />
       )}
       {isMobile ? (
         <Box
@@ -89,23 +121,3 @@ export default function Itinerary({ contentViaje }) {
   );
 }
 
-export const getServerSideProps = async (context) => {
-  const tripId = context.query.id;
-  try {
-    const response = await axios.get(`${URLRAILWAY}/api/v1/viajes/${tripId}`);
-    if (response.status === 200) {
-      const tripData = response.data;
-      return {
-        props: {
-          contentViaje: tripData,
-        },
-      };
-    }
-  } catch (error) {
-    return {
-      props: {
-        contentViaje: null,
-      },
-    };
-  }
-};
