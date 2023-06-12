@@ -2,7 +2,6 @@ import SearchBar from '@/components/Search/Search';
 import MapButton from '@/components/common/MapButton';
 import RestaurantCard from '@/components/Search/RestaurantCard';
 import { getData } from './api/proxy/restaurantSearch';
-import { searchLocation } from './api/proxy/opencage';
 import Box from '@mui/material/Box';
 import CityCard from '@/components/Search/cityCard';
 import ActivityCard from '@/components/Search/activityCard';
