@@ -1,6 +1,6 @@
 import { styled } from '@mui/system';
 import { Button, ButtonGroup } from '@mui/material';
-import { Link } from '@mui/material';
+import Link from 'next/link';
 import { useRouter } from 'next/router';
 import FlightIcon from '@mui/icons-material/Flight';
 import HotelIcon from '@mui/icons-material/Hotel';
@@ -85,9 +85,8 @@ export default function Add({ destinoSeleccionado, ruta}) {
             &nbsp; Hospedaje
           </AddButton>
         </Link>
-        <Link href={`/search?destino=${encodedDestino}&idRuta=${ruta._id}`}>
+        <Link href={`/search?destino=${encodedDestino}&idRuta=${ruta._id}&latitud=${ruta.transporte.latitud}&longitud=${ruta.transporte.longitud}`}>
           {/*`/search?latitude=${destino?.latitude}&longitude=${destino?.longitude}&idRuta=${destino?.idRuta}`*/}
-
           <AddButton>
             <LocalActivityIcon />
             &nbsp; Buscar actividades
