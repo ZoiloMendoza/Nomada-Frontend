@@ -11,6 +11,7 @@ const URLRAILWAY = process.env.NEXT_PUBLIC_BACKEND;
 const styles = {
   title: {
     marginLeft: '15px',
+    color: '#E91E63'
   },
 };
 
@@ -52,6 +53,7 @@ export default function Mapa() {
         alignItems: 'center',
         justifyContent: 'space-between',
         gap: '0 20px',
+        paddingRight: '20px'
         }}
       >
       <Select
@@ -59,18 +61,17 @@ export default function Mapa() {
         value={destinoSelect}
         label="destinoSelect"
         onChange={handleChange}
-        sx={{ width: '230px' }}
+        sx={{ width: '230px', marginLeft:'20px' }}
       >
-
       {rutasViaje && rutasViaje?.map((ruta, index) => (
         <MenuItem key={index} value={ruta.transporte.destino}>
           {ruta.transporte.destino}
         </MenuItem>
       ))}
       </Select>
-      <h1 sx={styles.title}>Destino: {destinoSelect}</h1>
+      <h1 style={styles.title}>{destinoSelect || 'No tienes destinos, agrega uno en Nuevo Viaje'}</h1>
     </Box>
-      {rutasViaje && <MapDisplay actividades={rutasViaje[rutaElegida]?.actividades} />}
+      {rutasViaje && <MapDisplay ruta={rutasViaje[rutaElegida]} />}
     </>
   );
 }

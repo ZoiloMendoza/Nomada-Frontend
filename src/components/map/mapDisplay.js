@@ -1,7 +1,6 @@
 import React from 'react';
 import MapComponent from './mapGoogle';
 import CardComponent from './CardComponent';
-import { useRouter } from 'next/router';
 import { Grid } from '@mui/material';
 import { Box } from '@mui/material';
 
@@ -17,20 +16,18 @@ const styles = {
   },
 };
 
-const MapDisplay = ({ actividades }) => {
-  const router = useRouter();
-  const { latitud, longitud } = router.query;
-
+const MapDisplay = ({ ruta }) => {
+  
   return (
     <Grid container sx={styles.grid}>
       <Grid item xs={3}>
         <Box sx={styles.cards}>
-          {actividades &&
-            actividades?.map((actividad) => <CardComponent key={actividad.location_id} actividad={actividad} />)}
+          {ruta?.actividades &&
+            ruta?.actividades?.map((actividad) => <CardComponent key={actividad.location_id} actividad={actividad} />)}
         </Box>
       </Grid>
       <Grid item xs={9}>
-        <MapComponent latitud={latitud} longitud={longitud} />
+        <MapComponent latitud={ruta?.transporte?.latitud} longitud={ruta?.transporte?.longitud} />
       </Grid>
     </Grid>
   );
