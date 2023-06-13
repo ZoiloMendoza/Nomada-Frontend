@@ -9,6 +9,9 @@ import Tooltip from '@mui/material/Tooltip';
 import FlightCard from './FlightCard';
 import ActivityCard from '@/components/Itinerary/ActivityCard';
 import HotelCard from '@/components/Itinerary/HotelCard';
+import axios from 'axios';
+
+const URLRAILWAY = process.env.NEXT_PUBLIC_BACKEND;
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -52,9 +55,13 @@ export default function TabsDestinos({ dataDestino, updateDestinoCallback }) {
     setValue(newValue);
     const destinoSeleccionado = dataDestino.rutas[newValue].transporte.destino;
     updateDestinoCallback(destinoSeleccionado);
-    console.log(newValue, 'newValue');
-    console.log(destinoSeleccionado, 'destinoSeleccionado');
   };
+  const handleDelete = async (idRuta) => {
+    const rutaDelete = await axios.delete(`${URLRAILWAY}/api/v1/rutas/${idRuta}`);
+    console.log(rutaDelete.status);
+    alert('Ruta eliminada');
+  };
+
   return (
     <Box
       sx={{
@@ -88,7 +95,7 @@ export default function TabsDestinos({ dataDestino, updateDestinoCallback }) {
           <TabPanel key={index} value={value} index={index}>
             <div>
               <Tooltip title='Borrar Destino Completo'>
-                <IconButton aria-label='delete' onClick={() => handleDelete(rutaInfo)}>
+                <IconButton aria-label='delete' onClick={() => handleDelete(ruta._id)}>
                   <DeleteIcon
                     sx={{
                       width: '20px',
@@ -100,7 +107,7 @@ export default function TabsDestinos({ dataDestino, updateDestinoCallback }) {
               <span color='secondary'>Eliminar este destino</span>
             </div>
 
-            {ruta.transporte.numeroVuelo && <FlightCard flightData={ruta.transporte}/>}
+            {ruta.transporte.numeroVuelo && <FlightCard flightData={ruta.transporte} />}
             <HotelCard hotelData={ruta.hospedajes} />
             <ActivityCard activityData={dataDestino.rutas[index].actividades} />
           </TabPanel>
