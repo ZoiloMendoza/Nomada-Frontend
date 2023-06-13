@@ -29,9 +29,17 @@ export const getServerSideProps = async (context) => {
   const params = context.query;
   console.log(params, 'params search');
   try {
-    const contentRestaurant = await getData({ latitude: params.latitud , longitude: params.longitud , category: 'restaurants' });
-    const contentDestino = await getData({ latitude: params.latitud , longitude: params.longitud, category: 'geos' });
-    const contentActividades = await getData({ latitude: params.latitud , longitude: params.longitud, category: 'attractions' });
+    const contentRestaurant = await getData({
+      latitude: params.latitud,
+      longitude: params.longitud,
+      category: 'restaurants',
+    });
+    const contentDestino = await getData({ latitude: params.latitud, longitude: params.longitud, category: 'geos' });
+    const contentActividades = await getData({
+      latitude: params.latitud,
+      longitude: params.longitud,
+      category: 'attractions',
+    });
     return {
       props: {
         contentRestaurant: contentRestaurant,

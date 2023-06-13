@@ -5,7 +5,14 @@ import MapDisplay from '@/components/map/mapDisplay';
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import Box from '@mui/material/Box';
+import SearchBar from '@/components/map/SearchMapa';
 const URLRAILWAY = process.env.NEXT_PUBLIC_BACKEND;
+
+const styles = {
+  title: {
+    marginLeft: '15px',
+  },
+};
 
 export default function Mapa() {
   const router = useRouter();
@@ -38,6 +45,7 @@ export default function Mapa() {
   const rutaElegida = arregloDestinos?.indexOf(destinoSelect);
   return (
     <>
+      <SearchBar />
       <Box
         sx={{
         display: 'flex',
@@ -53,13 +61,14 @@ export default function Mapa() {
         onChange={handleChange}
         sx={{ width: '230px' }}
       >
+
       {rutasViaje && rutasViaje?.map((ruta, index) => (
         <MenuItem key={index} value={ruta.transporte.destino}>
           {ruta.transporte.destino}
         </MenuItem>
       ))}
       </Select>
-      <h1>Destino: {destinoSelect}</h1>
+      <h1 sx={styles.title}>Destino: {destinoSelect}</h1>
     </Box>
       {rutasViaje && <MapDisplay actividades={rutasViaje[rutaElegida]?.actividades} />}
     </>
