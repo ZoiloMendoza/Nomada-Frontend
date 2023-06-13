@@ -2,8 +2,15 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useRouter } from 'next/router';
 import MapDisplay from '@/components/map/mapDisplay';
+import SearchBar from '@/components/map/SearchMapa';
 
 const URLRAILWAY = process.env.NEXT_PUBLIC_BACKEND;
+
+const styles = {
+  title: {
+    marginLeft: '15px',
+  },
+};
 
 export default function Mapa() {
   const router = useRouter();
@@ -22,7 +29,8 @@ export default function Mapa() {
   console.log(rutaData);
   return (
     <>
-      <h1>MAPA DE GOOGLE</h1>
+      <SearchBar />
+      <h1 sx={styles.title}>Mapa de actividades en: </h1>
       {rutaData && <MapDisplay actividades={rutaData?.actividades} />}
     </>
   );

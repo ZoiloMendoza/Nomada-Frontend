@@ -5,6 +5,8 @@ import { useAuth } from '@/utils/useAuth';
 import axios from 'axios';
 import { useState, useEffect } from 'react';
 const URLRAILWAY = process.env.NEXT_PUBLIC_BACKEND;
+import SearchBar from '@/components/Calendario/SearchCalendario';
+
 export default function CalendarioPages() {
   const usuario = useAuth();
   const [viajesDelUsuario, setViajesDelUsuario] = useState(null);
@@ -19,7 +21,7 @@ export default function CalendarioPages() {
         }
       } catch (error) {
         console.error('Error fetching data', error);
-        setError(error); 
+        setError(error);
       }
     };
     if (usuario) {
@@ -35,10 +37,9 @@ export default function CalendarioPages() {
       <Head>
         <title>Nomada</title>
       </Head>
+      <SearchBar />
       <main className={styles.main}>
-        <div>
-          {viajesDelUsuario && <Calendario viajes={viajesDelUsuario}/>}
-        </div>
+        <div>{viajesDelUsuario && <Calendario viajes={viajesDelUsuario} />}</div>
       </main>
     </>
   );
