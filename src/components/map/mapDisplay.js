@@ -1,18 +1,23 @@
 import React from 'react';
-import MyComponent from './mapGoogle';
+import MapComponent from './mapGoogle';
 import CardComponent from './CardComponent';
+import { useRouter } from 'next/router';
 
-const MapDisplay = ({ cards }) => (
-  <div style={{ display: 'flex' }}>
-    <div style={{ flex: '1', paddingRight: '16px' }}>
-      {cards && cards.map((card) => (
-        <CardComponent key={card.id} card={card} />
-      ))}
+const MapDisplay = ({ actividades }) => {
+  const router = useRouter();
+  const { latitud, longitud } = router.query;
+
+  return (
+    <div style={{ display: 'flex' }}>
+      <div style={{ flex: '1', paddingRight: '16px' }}>
+        {actividades &&
+          actividades.map((actividad) => <CardComponent key={actividad.location_id} actividad={actividad} />)}
+      </div>
+      <div style={{ flex: '1' }}>
+        <MapComponent latitud={latitud} longitud={longitud} />
+      </div>
     </div>
-    <div style={{ flex: '1' }}>
-      <MyComponent />
-    </div>
-  </div>
-);
+  );
+};
 
 export default MapDisplay;

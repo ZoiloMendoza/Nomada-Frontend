@@ -55,61 +55,61 @@ const ActivityCard = ({ activityData, handleEdit }) => {
   //console.log(activityData, 'activitiData');
   return (
     <>
-      {activities
-        && activities?.map((activityData) => (
-            <Card sx={styles.card} key={activityData?._id}>
-              <Tooltip title='Editar esta actividad'>
-                <IconButton aria-label='edit' onClick={() => handleEdit(activityInfo)}>
-                  <EditIcon
-                    sx={{
-                      width: '20px',
-                      color: '#D2D2D2',
-                    }}
-                  />
-                </IconButton>
-              </Tooltip>
-              <Tooltip title='Eliminar esta actividad'>
-                <IconButton aria-label='delete' onClick={() => handleDelete(activityData._id)}>
-                  <DeleteIcon
-                    sx={{
-                      width: '20px',
-                      color: '#D2D2D2',
-                    }}
-                  />
-                </IconButton>
-              </Tooltip>
-              <Grid container spacing={2}>
-                <Grid item xs={4}>
-                  <CardMedia sx={styles.media} image={activityData?.fotos} title={activityData?.nombre} />
-                </Grid>
-                <Grid item xs={6}>
-                  <CardHeader title={activityData?.nombre} subheader={activityData?.direccion} />
-                  <CardContent>
-                    <Typography variant='body2' color='textSecondary' component='p'>
-                      {activityData?.fechaInicio}
-                    </Typography>
-                  </CardContent>
-                </Grid>
-                <Grid item xs={2}>
-                  <LocalActivityIcon sx={styles.icon} />
-                </Grid>
-              </Grid>
-
-              <IconButton
-                className={`${styles.expandIcon} ${expanded ? styles.expandIconOpen : ''}`}
-                onClick={handleExpandClick}
-                aria-expanded={expanded}
-                aria-label='mostrar más'
-              >
-                <ExpandMore />
+      {activities &&
+        activities?.map((activityData) => (
+          <Card sx={styles.card} key={activityData?._id}>
+            <Tooltip title='Editar esta actividad'>
+              <IconButton aria-label='edit' onClick={() => handleEdit(activityInfo)}>
+                <EditIcon
+                  sx={{
+                    width: '20px',
+                    color: '#D2D2D2',
+                  }}
+                />
               </IconButton>
-              <Collapse in={expanded} timeout='auto' unmountOnExit>
+            </Tooltip>
+            <Tooltip title='Eliminar esta actividad'>
+              <IconButton aria-label='delete' onClick={() => handleDelete(activityData._id)}>
+                <DeleteIcon
+                  sx={{
+                    width: '20px',
+                    color: '#D2D2D2',
+                  }}
+                />
+              </IconButton>
+            </Tooltip>
+            <Grid container spacing={2}>
+              <Grid item xs={4}>
+                <CardMedia sx={styles.media} component='img' image={activityData?.fotos} title={activityData?.nombre} />
+              </Grid>
+              <Grid item xs={6}>
+                <CardHeader title={activityData?.nombre} subheader={activityData?.direccion} />
                 <CardContent>
-                  <Typography paragraph>{activityData?.direccion}</Typography>
+                  <Typography variant='body2' color='textSecondary' component='p'>
+                    {activityData?.fechaInicio}
+                  </Typography>
                 </CardContent>
-              </Collapse>
-            </Card>
-          ))}
+              </Grid>
+              <Grid item xs={2}>
+                <LocalActivityIcon sx={styles.icon} />
+              </Grid>
+            </Grid>
+
+            <IconButton
+              className={`${styles.expandIcon} ${expanded ? styles.expandIconOpen : ''}`}
+              onClick={handleExpandClick}
+              aria-expanded={expanded}
+              aria-label='mostrar más'
+            >
+              <ExpandMore />
+            </IconButton>
+            <Collapse in={expanded} timeout='auto' unmountOnExit>
+              <CardContent>
+                <Typography paragraph>{activityData?.direccion}</Typography>
+              </CardContent>
+            </Collapse>
+          </Card>
+        ))}
     </>
   );
 };

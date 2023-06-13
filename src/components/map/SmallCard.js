@@ -17,8 +17,8 @@ const styles = {
   },
 };
 
-const SmallCard = ({ card }) => {
-  const { image, name } = card;
+const SmallCard = ({ actividad }) => {
+  const { image, name } = actividad;
 
   return (
     <Card className={styles.card}>

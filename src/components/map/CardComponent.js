@@ -29,22 +29,22 @@ const styles = {
   },
 };
 
-const CardComponent = ({ card }) => {
-  const { image, name, address, description } = card;
+const CardComponent = ({ actividad }) => {
+  const { fotos, nombre, direccion } = actividad;
 
   return (
     <Card className={styles.card}>
-      <CardMedia className={styles.media} image={image} title={name} />
+      <CardMedia className={styles.media} component='img' image={fotos} title={nombre} />
       <CardContent className={styles.content}>
         <Typography variant='h6' className={styles.title}>
-          {name}
+          {nombre}
         </Typography>
         <Typography variant='body2' className={styles.address}>
-          {address}
+          {direccion}
         </Typography>
-        <Typography variant='body2' className={styles.description}>
+        {/* <Typography variant='body2' className={styles.description}>
           {description}
-        </Typography>
+  </Typography> */}
       </CardContent>
     </Card>
   );

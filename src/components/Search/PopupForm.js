@@ -30,6 +30,7 @@ const PopupForm = ({ data, openForm, closeForm, categoria }) => {
         fotos: data?.data[0]?.images?.large?.url || '',
         fechaInicio: date,
         fechaFinal: time,
+        locationId: data.location_id,
       };
       const crearRutaPost = await axios.post(
         `https://nomada-backend-production.up.railway.app/api/v1/actividades`,

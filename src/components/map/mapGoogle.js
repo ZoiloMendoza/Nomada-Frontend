@@ -8,12 +8,13 @@ const containerStyle = {
   height: '400px',
 };
 
-const center = {
-  lat: -3.745,
-  lng: -38.523,
-};
+function MapComponent({ latitud, longitud }) {
+  console.log(latitud, longitud);
+  const center = {
+    lat: parseFloat(latitud),
+    lng: parseFloat(longitud),
+  };
 
-function MyComponent() {
   return (
     <LoadScript googleMapsApiKey={apiKey}>
       <GoogleMap mapContainerStyle={containerStyle} center={center} zoom={10}>
@@ -24,4 +25,4 @@ function MyComponent() {
   );
 }
 
-export default React.memo(MyComponent);
+export default React.memo(MapComponent);

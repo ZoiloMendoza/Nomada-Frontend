@@ -30,6 +30,7 @@ const PopupDestino = ({ data, open, closeDestino, categoria }) => {
         fotos: data?.data[0]?.images?.large?.url || '',
         fechaInicio: time,
         fechaFinal: time,
+        locationId: data.location_id,
       };
       const crearDestino = await axios.post(
         `https://nomada-backend-production.up.railway.app/api/v1/actividades`,
