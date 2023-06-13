@@ -4,8 +4,8 @@ import { GoogleMap, LoadScript } from '@react-google-maps/api';
 const apiKey = process.env.NEXT_PUBLIC_API_GOOGLE;
 
 const containerStyle = {
-  width: '400px',
-  height: '400px',
+  width: '100%',
+  height: '100%',
 };
 
 function MapComponent({ latitud, longitud }) {

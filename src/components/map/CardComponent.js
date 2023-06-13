@@ -3,16 +3,14 @@ import Card from '@mui/material/Card';
 import CardMedia from '@mui/material/CardMedia';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
+import { Grid } from '@mui/material';
 
 const styles = {
   card: {
     display: 'flex',
     marginBottom: '5px',
   },
-  media: {
-    width: 200,
-    height: 200,
-  },
+  media: {},
   content: {
     flex: 1,
     paddingLeft: '5px',
@@ -34,18 +32,24 @@ const CardComponent = ({ actividad }) => {
 
   return (
     <Card className={styles.card}>
-      <CardMedia className={styles.media} component='img' image={fotos} title={nombre} />
-      <CardContent className={styles.content}>
-        <Typography variant='h6' className={styles.title}>
-          {nombre}
-        </Typography>
-        <Typography variant='body2' className={styles.address}>
-          {direccion}
-        </Typography>
-        {/* <Typography variant='body2' className={styles.description}>
+      <Grid container>
+        <Grid item xs={6}>
+          <CardMedia sx={{ width: '100%' }} className={styles.media} component='img' image={fotos} title={nombre} />
+        </Grid>
+        <Grid item xs={6}>
+          <CardContent className={styles.content}>
+            <Typography variant='h6' className={styles.title}>
+              {nombre}
+            </Typography>
+            <Typography variant='body2' className={styles.address}>
+              {direccion}
+            </Typography>
+            {/* <Typography variant='body2' className={styles.description}>
           {description}
   </Typography> */}
-      </CardContent>
+          </CardContent>
+        </Grid>
+      </Grid>
     </Card>
   );
 };
