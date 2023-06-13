@@ -74,17 +74,17 @@ const BoardingPassCard = () => {
   const router = useRouter();
   const { id } = router.query;
   const regexPattern = /^[A-Za-z]{2}\d{4}$/;
-  
+
   useEffect(() => {
     const isValidMongoId = (idAvalidar) => /^[a-f\d]{24}$/i.test(idAvalidar);
     if (usuario && isValidMongoId(id)) {
       const consultaViaje = async () => {
         try {
           const response = await axios.get(`${URLRAILWAY}/api/v1/viajes/${id}`);
-          if (response.data && response.data.origen) {
+          if (response.data && response.data.destino) {
             setFormData((prevState) => ({
               ...prevState,
-              origen: response.data.origen,
+              origen: response.data.destino,
             }));
           }
         } catch (error) {
@@ -115,8 +115,24 @@ const BoardingPassCard = () => {
         numeroVuelo: datosDelVuelo?.flightNumber,
         origen: formData?.origen,
         destino: formData?.destino,
-        fechaIda: datosDelVuelo?.fechaInicio ? new Date(datosDelVuelo.fechaInicio).toLocaleDateString('es', {day: '2-digit', month: 'long', year:'numeric', hour: '2-digit', minute: '2-digit'}) : '',
-        fechaRegreso: datosDelVuelo?.fechaFinal ? new Date(datosDelVuelo.fechaFinal).toLocaleDateString('es', {day: '2-digit', month: 'long', year:'numeric', hour: '2-digit', minute: '2-digit'}) : '',
+        fechaIda: datosDelVuelo?.fechaInicio
+          ? new Date(datosDelVuelo.fechaInicio).toLocaleDateString('es', {
+              day: '2-digit',
+              month: 'long',
+              year: 'numeric',
+              hour: '2-digit',
+              minute: '2-digit',
+            })
+          : '',
+        fechaRegreso: datosDelVuelo?.fechaFinal
+          ? new Date(datosDelVuelo.fechaFinal).toLocaleDateString('es', {
+              day: '2-digit',
+              month: 'long',
+              year: 'numeric',
+              hour: '2-digit',
+              minute: '2-digit',
+            })
+          : '',
         imagen: datosDelVuelo?.imagen,
         latitud: datosDelVuelo?.latitud,
         longitud: datosDelVuelo?.longitud,

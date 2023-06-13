@@ -80,7 +80,7 @@ const ActivityCard = ({ activityData, handleEdit }) => {
             </Tooltip>
             <Grid container spacing={2}>
               <Grid item xs={4}>
-                <CardMedia sx={styles.media} component='img' image={activityData?.fotos} title={activityData?.nombre} />
+                <CardMedia sx={styles.media} image={activityData?.fotos} title={activityData?.nombre} />
               </Grid>
               <Grid item xs={6}>
                 <CardHeader title={activityData?.nombre} subheader={activityData?.direccion} />
