@@ -5,7 +5,7 @@ const apiKey = process.env.NEXT_PUBLIC_API_GOOGLE;
 
 const containerStyle = {
   width: '100%',
-  height: '100%',
+  height: '80%',
 };
 
 function MapComponent({ latitud, longitud }) {
@@ -17,7 +17,7 @@ function MapComponent({ latitud, longitud }) {
 
   return (
     <LoadScript googleMapsApiKey={apiKey}>
-      <GoogleMap mapContainerStyle={containerStyle} center={center} zoom={10}>
+      <GoogleMap mapContainerStyle={containerStyle} center={center} zoom={11}>
         {/* Child components, such as markers, info windows, etc. */}
         <></>
       </GoogleMap>

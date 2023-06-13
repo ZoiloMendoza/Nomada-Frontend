@@ -79,20 +79,20 @@ export default function Add({ destinoSeleccionado, ruta}) {
             &nbsp; Nuevo destino
           </AddButton>
         </Link>
-        <Link href={`/addhotel?destino=${destinoSeleccionado}&idRuta=${ruta._id}`}>
+        <Link href={`/addhotel?destino=${destinoSeleccionado}&idRuta=${ruta._id}&id=${id}`}>
           <AddButton>
             <HotelIcon />
             &nbsp; Hospedaje
           </AddButton>
         </Link>
-        <Link href={`/search?destino=${encodedDestino}&idRuta=${ruta._id}&latitud=${ruta.transporte.latitud}&longitud=${ruta.transporte.longitud}`}>
+        <Link href={`/search?destino=${encodedDestino}&idRuta=${ruta._id}&latitud=${ruta.transporte.latitud}&longitud=${ruta.transporte.longitud}&id=${id}`}>
           {/*`/search?latitude=${destino?.latitude}&longitude=${destino?.longitude}&idRuta=${destino?.idRuta}`*/}
           <AddButton>
             <LocalActivityIcon />
             &nbsp; Buscar actividades
           </AddButton>
         </Link>
-        <Link href={`/mapa?destino=${destinoSeleccionado}&idRuta=${ruta._id}&latitud=${ruta.transporte.latitud}&longitud=${ruta.transporte.longitud}`}>
+        <Link href={`/mapa?destino=${destinoSeleccionado}&idRuta=${ruta._id}&latitud=${ruta.transporte.latitud}&longitud=${ruta.transporte.longitud}&id=${id}`}>
           <AddButtonTwo>
             <MapIcon />
             &nbsp; Mapa

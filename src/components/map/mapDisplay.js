@@ -22,7 +22,7 @@ const MapDisplay = ({ actividades }) => {
       <Grid item xs={5}>
         <Box sx={styles.cards}>
           {actividades &&
-            actividades.map((actividad) => <CardComponent key={actividad.location_id} actividad={actividad} />)}
+            actividades?.map((actividad) => <CardComponent key={actividad.location_id} actividad={actividad} />)}
         </Box>
       </Grid>
       <Grid item xs={7}>
