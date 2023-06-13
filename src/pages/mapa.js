@@ -17,26 +17,23 @@ const styles = {
 
 export default function Mapa() {
   const router = useRouter();
-  const [rutasData, setRutasData] = useState(null);
   const [rutasViaje, setRutasViaje] = useState(null);
-  const { idRuta, id, destino } = router.query;
+  const { id, destino } = router.query;
   const [destinoSelect, setdestinoSelect] = useState(destino);
   // console.log(idRuta);
   useEffect(() => {
     const getRuta = async () => {
       try {
-        const responseRuta = await axios.get(`${URLRAILWAY}/api/v1/rutas/${idRuta}`);
-        if(responseRuta.status === 200) setRutasData(responseRuta.data);
         const responseViaje = await axios.get(`${URLRAILWAY}/api/v1/viajes/${id}`)
         if(responseViaje.status === 200) setRutasViaje(responseViaje.data.rutas); 
       } catch (error) {
         console.log(error)
       }
     };
-    if (idRuta && id) {
+    if (id) {
       getRuta();
     }
-  }, [idRuta, id]);
+  }, [id]);
   const handleChange = (event) => {
     setdestinoSelect(event.target.value);
   };

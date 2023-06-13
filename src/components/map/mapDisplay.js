@@ -16,9 +16,7 @@ const styles = {
   },
 };
 
-const MapDisplay = ({ ruta }) => {
-  
-  return (
+const MapDisplay = ({ ruta }) => (
     <Grid container sx={styles.grid}>
       <Grid item xs={3}>
         <Box sx={styles.cards}>
@@ -31,6 +29,5 @@ const MapDisplay = ({ ruta }) => {
       </Grid>
     </Grid>
   );
-};
 
 export default MapDisplay;
