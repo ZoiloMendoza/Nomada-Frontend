@@ -6,6 +6,9 @@ import HotelIcon from '@mui/icons-material/Hotel';
 import { Tooltip } from '@mui/material';
 import axios from 'axios';
 import Grid from '@mui/material/Grid';
+import Alert from '@mui/material/Alert';
+import AlertTitle from '@mui/material/AlertTitle';
+import Stack from '@mui/material/Stack';
 const URLRAILWAY = process.env.NEXT_PUBLIC_BACKEND;
 const styles = {
   card: {
@@ -34,28 +37,44 @@ const styles = {
 
 const HotelCard = ({ hotelData, handleEdit }) => {
   const [expanded, setExpanded] = useState(false);
+  const [status, setStatus] = useState('');
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
-  
- 
+
   const handleDelete = async (id) => {
     try {
       if (id) {
         await axios.delete(`${URLRAILWAY}/api/v1/hospedajes/${id}`);
-        alert('Vuelo eliminada');
+        //alert('Vuelo eliminada');
+        setStatus('success');
       }
     } catch (error) {
       console.log(error);
+      setStatus('error');
     }
   };
-  console.log(hotelData, 'hotel Datos')
+  console.log(hotelData, 'hotel Datos');
   return (
     <>
       {hotelData
         ? hotelData.map((hotelData, index) => (
             <Card sx={styles.card} key={index}>
+              <Stack sx={{ width: '100%' }} autoHideDuration={5000} spacing={2}>
+                {status === 'success' && (
+                  <Alert severity='success'>
+                    <AlertTitle>Éxito</AlertTitle>
+                    Hospedaje eliminado correctamente!
+                  </Alert>
+                )}
+                {status === 'error' && (
+                  <Alert severity='error'>
+                    <AlertTitle>Error</AlertTitle>
+                    Ocurrió un error.
+                  </Alert>
+                )}
+              </Stack>
               <CardContent>
                 <div>
                   <Tooltip title='Editar este hospedaje'>

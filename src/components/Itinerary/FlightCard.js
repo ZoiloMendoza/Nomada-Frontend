@@ -6,6 +6,9 @@ import FlightIcon from '@mui/icons-material/Flight';
 import Tooltip from '@mui/material/Tooltip';
 import axios from 'axios';
 import Grid from '@mui/material/Grid';
+import Alert from '@mui/material/Alert';
+import AlertTitle from '@mui/material/AlertTitle';
+import Stack from '@mui/material/Stack';
 const URLRAILWAY = process.env.NEXT_PUBLIC_BACKEND;
 const styles = {
   card: {
@@ -31,6 +34,7 @@ const styles = {
 const FlightCard = ({ flightData, handleEdit }) => {
   const [expanded, setExpanded] = useState(false);
   const [vuelo, setVuelo] = useState(null);
+  const [status, setStatus] = useState('');
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
@@ -40,22 +44,24 @@ const FlightCard = ({ flightData, handleEdit }) => {
         const transporte = await axios.get(`${URLRAILWAY}/api/v1/transportes/${flightData._id}`);
         setVuelo(transporte.data);
       } catch (error) {
-        console.log(error)
+        console.log(error);
       }
-    }
-    if(flightData._id){
+    };
+    if (flightData._id) {
       getTransporte();
     }
   }, [flightData._id]);
   const handleDelete = async () => {
     try {
       if (flightData._id) {
-        await axios.patch(`${URLRAILWAY}/api/v1/transportes/${flightData._id}`, { numeroVuelo: ''});
+        await axios.patch(`${URLRAILWAY}/api/v1/transportes/${flightData._id}`, { numeroVuelo: '' });
         setVuelo('');
-        alert('Vuelo eliminada');
+        // alert('Vuelo eliminada');
+        setStatus('success');
       }
     } catch (error) {
       console.log(error);
+      setStatus('error');
     }
   };
 
@@ -64,6 +70,20 @@ const FlightCard = ({ flightData, handleEdit }) => {
       {vuelo?.numeroVuelo && (
         <Card sx={styles.card}>
           <div sx={styles.editDeleteIcons}>
+            <Stack sx={{ width: '100%' }} autoHideDuration={5000} spacing={2}>
+              {status === 'success' && (
+                <Alert severity='success'>
+                  <AlertTitle>Éxito</AlertTitle>
+                  Vuelo eliminado correctamente!
+                </Alert>
+              )}
+              {status === 'error' && (
+                <Alert severity='error'>
+                  <AlertTitle>Error</AlertTitle>
+                  Ocurrió un error.
+                </Alert>
+              )}
+            </Stack>
             <Tooltip title='Editar este vuelo'>
               <IconButton aria-label='edit' onClick={() => handleEdit()}>
                 <EditIcon
@@ -102,7 +122,7 @@ const FlightCard = ({ flightData, handleEdit }) => {
               {`${vuelo?.fechaIda} - ${vuelo?.fechaRegreso?.split(',')[1]?.trim()}`}
             </Typography>
             <Typography variant='subtitle1' component='p'>
-              {`Duración: ${Math.floor(parseInt(vuelo.duracionVuelo)/60)}:${parseInt(vuelo.duracionVuelo) % 60} Hrs`}
+              {`Duración: ${Math.floor(parseInt(vuelo.duracionVuelo) / 60)}:${parseInt(vuelo.duracionVuelo) % 60} Hrs`}
             </Typography>
           </CardContent>
           <IconButton
