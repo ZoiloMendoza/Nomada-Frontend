@@ -84,16 +84,13 @@ const DynamicMisViajesCard = dynamic(() => import('@/components/misViajes/MisVia
 
 export default function MisViajes() {
   const [value, setValue] = React.useState(0);
-
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
-  };
-
   const router = useRouter();
   const [loading, setLoading] = useState(true);
   const [viajesDelUsuario, setViajesDelUsuario] = useState([]);
   const [viajesInvidatos, setViajesInvitados] = useState([]);
-
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
+  };
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -149,9 +146,9 @@ export default function MisViajes() {
         <h2>Mis Viajes</h2>
         <Grid sx={{ padding: '15px' }} container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
           {viajesDelUsuario.length > 0 ? (
-            viajesDelUsuario.map((viajes) => (
-              <Grid item xs={12} md={6} key={viajes._id}>
-                <DynamicMisViajesCard datosViajes={viajes} />
+            viajesDelUsuario.map((viaje) => (
+              <Grid item xs={12} md={6} key={viaje._id}>
+                <DynamicMisViajesCard datosViaje={viaje} />
               </Grid>
             ))
           ) : (
@@ -166,7 +163,7 @@ export default function MisViajes() {
             viajesInvidatos.map((viaje) => (
               <Grid item xs={12} md={6} key={viaje._id}>
                 <h3>{`Viaje compartido por ${viaje.administradorViaje.name}`}</h3>
-                <DynamicMisViajesCard datosViajes={viaje} />
+                <DynamicMisViajesCard datosViaje={viaje} />
               </Grid>
             ))
           ) : (

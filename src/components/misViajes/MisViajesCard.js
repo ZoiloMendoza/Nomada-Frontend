@@ -11,31 +11,53 @@ import Box from '@mui/material/Box';
 import { Delete as DeleteIcon } from '@mui/icons-material';
 import IosShareIcon from '@mui/icons-material/IosShare';
 import { Tooltip } from '@mui/material';
+import axios from 'axios';
+const URLRAILWAY = process.env.NEXT_PUBLIC_BACKEND;
+const MisViajesCard = ({ datosViaje, title }) => {
+  console.log(datosViaje, 'MisvIAJES');
 
-const MisViajesCard = ({ datosViajes, title }) => {
-  console.log(datosViajes, 'MisvIAJES');
-  //console.log(datosViajes.rutas[0].transporte.imagen, 'espero url')
+  const handleDelete = async () => {
+    const viajeDelete = await axios.delete(`${URLRAILWAY}/api/v1/viajes/${datosViaje._id}`);
+    console.log(viajeDelete.status);
+    alert('Viaje eliminado');
+  };
+  //console.log(datosViaje.rutas[0].transporte.imagen, 'espero url')
   return (
     <Card sx={{ display: 'flex', marginBottom: '5vh', alignItems: 'center', flexWrap: 'wrap' }}>
       <CardMedia
         component='img'
         sx={{ width: '200px', height: '250px' }}
         title={title}
-        image={datosViajes?.rutas[0]?.transporte?.imagen}
+        image={datosViaje?.rutas[0]?.transporte?.imagen}
       />
       <CardContent sx={{ flex: '1 0 auto', maxWidth: '250px' }}>
         <Typography variant='h5' component='h2'>
-          {datosViajes?.nombre}
+          {datosViaje?.nombre}
         </Typography>
         <Typography gutterBottom variant='subtitle1'>
-          {`${datosViajes.rutas.length}`} Destinos
+        { 
+            datosViaje.rutas.length > 0 ?
+              (datosViaje.rutas.map(ruta => {
+                try {
+                  return ruta.transporte.destino.split(',')[0];
+                } catch (e) {
+                  console.error('Error al obtener el nombre corto de la ruta:', e);
+                return null;
+                }
+              }).filter(Boolean).join(', ') || datosViaje.rutas.length)
+              :
+                'No hay destinos'
+        } 
         </Typography>
         <Typography variant='body2' color='textSecondary' component='p'>
-          {`Inicio ${datosViajes.fechaInicio} final ${datosViajes.fechaFinal}`} Fechas
+          {`Inicio ${datosViaje.fechaInicio}`}
+        </Typography>
+        <Typography variant='body2' color='textSecondary' component='p'>
+          {`final ${datosViaje.fechaFinal}`}
         </Typography>
       </CardContent>
       <Grid container direction='column' justify='center' alignItems='center' sx={{ maxWidth: '200px' }}>
-        <Link href={`/itinerary?id=${datosViajes._id}`}>
+        <Link href={`/itinerary?id=${datosViaje._id}`}>
           <Button
             size='small'
             variant='contained'
@@ -58,7 +80,7 @@ const MisViajesCard = ({ datosViajes, title }) => {
             </IconButton>
           </Tooltip>
           <Tooltip title='Eliminar Viaje'>
-            <IconButton aria-label='delete' onClick={() => handleDelete(flightInfo)}>
+            <IconButton aria-label='delete' onClick={() => handleDelete()}>
               <DeleteIcon
                 sx={{
                   width: '30px',

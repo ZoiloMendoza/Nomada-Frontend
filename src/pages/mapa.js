@@ -6,6 +6,7 @@ import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import Box from '@mui/material/Box';
 import SearchBar from '@/components/map/SearchMapa';
+import CircularProgress from '@mui/material/CircularProgress';
 const URLRAILWAY = process.env.NEXT_PUBLIC_BACKEND;
 
 const styles = {
@@ -17,6 +18,7 @@ const styles = {
 
 export default function Mapa() {
   const router = useRouter();
+  const [loading, setLoading] = useState(true);
   const [rutasViaje, setRutasViaje] = useState(null);
   const { id, destino } = router.query;
   const [destinoSelect, setdestinoSelect] = useState(destino);
@@ -25,7 +27,10 @@ export default function Mapa() {
     const getRuta = async () => {
       try {
         const responseViaje = await axios.get(`${URLRAILWAY}/api/v1/viajes/${id}`)
-        if(responseViaje.status === 200) setRutasViaje(responseViaje.data.rutas); 
+        if(responseViaje.status === 200){
+          setRutasViaje(responseViaje.data.rutas); 
+          setLoading(false);
+        } 
       } catch (error) {
         console.log(error)
       }
@@ -41,6 +46,16 @@ export default function Mapa() {
   console.log(destino, 'destino')
   const arregloDestinos = rutasViaje?.map((transporte) => transporte?.transporte?.destino);
   const rutaElegida = arregloDestinos?.indexOf(destinoSelect);
+  if (loading) return  <Box
+    sx={{
+      display: 'flex',
+      position: 'fixed',
+      top: '50%',
+      left: '50%',
+      transform: 'translate(-50%, -50%)',
+    }}>
+      <CircularProgress />
+    </Box>;
   return (
     <>
       <SearchBar />

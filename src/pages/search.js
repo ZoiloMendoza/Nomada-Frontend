@@ -10,7 +10,7 @@ export default function Search({ contentRestaurant, contentDestino, contentActiv
   //console.log(contentRestaurant);
   //console.log(contentDestino);
   console.log(mensaje);
-  console.log(contentActividades, 'contentActividades');
+
   return (
     <>
       <SearchBar />
