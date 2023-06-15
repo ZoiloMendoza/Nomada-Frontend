@@ -6,7 +6,14 @@ import Box from '@mui/material/Box';
 import CityCard from '@/components/Search/cityCard';
 import ActivityCard from '@/components/Search/activityCard';
 
-export default function Search({ contentRestaurant, contentDestino, contentActividades, mensaje }) {
+const styles = {
+  title: {
+    color: '#E91E63',
+    textAlign: 'center',
+  },
+};
+
+export default function Search({ contentRestaurant, contentDestino, contentActividades, mensaje, destino }) {
   //console.log(contentRestaurant);
   //console.log(contentDestino);
   console.log(mensaje);
@@ -14,6 +21,11 @@ export default function Search({ contentRestaurant, contentDestino, contentActiv
   return (
     <>
       <SearchBar />
+
+      <h1 style={styles.title} destino={destino}>
+        {' '}
+        Destinos y Actividades en {destino}
+      </h1>
 
       <Box>{<CityCard contentApi={contentDestino} />}</Box>
       <Box>{<RestaurantCard restaurantData={contentRestaurant} />}</Box>

@@ -1,5 +1,5 @@
 import React from 'react';
-import { IconButton, Paper, Toolbar } from '@mui/material';
+import { IconButton, Toolbar } from '@mui/material';
 import { ArrowBack } from '@mui/icons-material';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -24,14 +24,14 @@ export default function SearchBar() {
   const { id } = router.query;
 
   return (
-    <Paper sx={styles.root} elevation={2}>
+    <div sx={styles.root}>
       <Toolbar sx={styles.toolbar}>
         <Link href={`/itinerary?id=${id}`}>
           <IconButton edge='start' color='inherit' aria-label='back'>
-            <ArrowBack />
+            <ArrowBack color='primary' />
           </IconButton>
         </Link>
       </Toolbar>
-    </Paper>
+    </div>
   );
 }
