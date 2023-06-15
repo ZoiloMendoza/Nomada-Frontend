@@ -5,6 +5,7 @@ import axios from 'axios';
 import { IconButton } from '@mui/material';
 import { Add, Favorite, FavoriteBorder } from '@mui/icons-material';
 import CircularProgress from '@mui/material/CircularProgress';
+import { Rating } from '@mui/material';
 
 import { Typography, CardMedia, CardContent, Box } from '@mui/material';
 
@@ -39,10 +40,7 @@ const styles = {
     color: '#FFFFF',
   },
   reviewsContainer: {
-    marginTop: '10px',
-  },
-  review: {
-    marginBottom: '10px',
+    margin: '10px',
   },
 };
 
@@ -92,43 +90,44 @@ const CardDetalleActivity = ({ data, open, closeCard, openForm }) => {
     <>
       <PopupBox open={open} onClose={handleClose}>
         {item && (
-          <BoxItem key={item.location_id}>
-            <CardMedia sx={styles.media} image={data?.data[0]?.images?.original?.url} />
-            <CardContent>
-              <Typography variant='h6' gutterBottom>
-                {item?.name}
-              </Typography>
-              <Box display='flex' alignItems='center' mb={1}>
-                {/*<Rating value={item.rating} precision={0.5} readOnly />*/}
-                <Typography variant='body2' color='textSecondary' ml={1}>
-                  ({item?.num_reviews} reviews)
+          <BoxItem
+            key={item.location_id}
+            sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '90%' }}
+          >
+            <Box sx={{ width: '50%', height: 300 }}>
+              <CardMedia sx={styles.media} image={data?.data[0]?.images?.original?.url} />
+              <CardContent>
+                <Typography variant='h6' gutterBottom>
+                  {item?.name}
                 </Typography>
-              </Box>
-              <Typography variant='body1' gutterBottom>
-                {item?.address_obj?.address_string}
-              </Typography>
-            </CardContent>
-            <IconButton sx={styles.addIcon} aria-label='Add to itinerary' onClick={openForm}>
-              <Add />
-            </IconButton>
-            <IconButton sx={styles.iconButton} aria-label='favorite' onClick={handleFavoriteClick}>
-              {isFavorite ? <Favorite /> : <FavoriteBorder />}
-            </IconButton>
+                <Box display='flex' alignItems='center' mb={1}>
+                  <Rating value={item.rating} precision={0.5} readOnly />
+                  <Typography variant='body2' color='textSecondary' ml={1}>
+                    ({item?.num_reviews} reviews)
+                  </Typography>
+                </Box>
+                <Typography variant='body2' color='textSecondary' gutterBottom>
+                  Ranking: <br /> {item?.ranking_data?.ranking_string}
+                </Typography>
+                <Typography variant='body1' gutterBottom>
+                  Dirección: <br /> {item?.address_obj?.address_string}
+                </Typography>
+
+                <Typography variant='body1' gutterBottom>
+                  Horarios: <br /> {item?.hours?.weekday_text}
+                </Typography>
+              </CardContent>
+              <IconButton sx={styles.addIcon} aria-label='Add to itinerary' onClick={openForm}>
+                <Add />
+              </IconButton>
+              <IconButton sx={styles.iconButton} aria-label='favorite' onClick={handleFavoriteClick}>
+                {isFavorite ? <Favorite /> : <FavoriteBorder />}
+              </IconButton>
+            </Box>
             <Box sx={styles.reviewsContainer}>
-              {/*item?.reviews?.map((review) => (
-                    <Box key={review._id} sx={styles.review}>
-                      <Typography variant='body1' gutterBottom>
-                        {review.name}
-                      </Typography>
-                      <Typography variant='body2' color='textSecondary' gutterBottom>
-                        {review.createdAt.substring(0, 10)}
-                      </Typography>
-                      <Rating value={review.rating} precision={0.5} readOnly />
-                      <Typography variant='body1' gutterBottom>
-                        {review.comment}
-                      </Typography>
-                    </Box>
-                  ))*/}
+              <Typography variant='body1' gutterBottom>
+                {item?.description}
+              </Typography>
             </Box>
           </BoxItem>
         )}
