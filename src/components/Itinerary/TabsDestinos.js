@@ -10,6 +10,10 @@ import FlightCard from './FlightCard';
 import ActivityCard from '@/components/Itinerary/ActivityCard';
 import HotelCard from '@/components/Itinerary/HotelCard';
 import axios from 'axios';
+import { useState } from 'react';
+import Alert from '@mui/material/Alert';
+import AlertTitle from '@mui/material/AlertTitle';
+import Stack from '@mui/material/Stack';
 
 const URLRAILWAY = process.env.NEXT_PUBLIC_BACKEND;
 
@@ -48,6 +52,7 @@ function a11yProps(index) {
 
 export default function TabsDestinos({ dataDestino, updateDestinoCallback }) {
   const [value, setValue] = React.useState(0);
+  const [status, setStatus] = useState('');
   if (!dataDestino) {
     return <div>Intentalo más tarde TabsDestinos</div>;
   }
@@ -59,7 +64,8 @@ export default function TabsDestinos({ dataDestino, updateDestinoCallback }) {
   const handleDelete = async (idRuta) => {
     const rutaDelete = await axios.delete(`${URLRAILWAY}/api/v1/rutas/${idRuta}`);
     console.log(rutaDelete.status);
-    alert('Ruta eliminada');
+    //alert('Ruta eliminada');
+    setStatus('success');
   };
 
   return (
@@ -94,6 +100,20 @@ export default function TabsDestinos({ dataDestino, updateDestinoCallback }) {
         dataDestino.rutas.map((ruta, index) => (
           <TabPanel key={index} value={value} index={index}>
             <div>
+              <Stack sx={{ width: '100%' }} autoHideDuration={5000} spacing={2}>
+                {status === 'success' && (
+                  <Alert severity='success'>
+                    <AlertTitle>Éxito</AlertTitle>
+                    Ruta eliminada correctamente!
+                  </Alert>
+                )}
+                {status === 'error' && (
+                  <Alert severity='error'>
+                    <AlertTitle>Error</AlertTitle>
+                    Ocurrió un error.
+                  </Alert>
+                )}
+              </Stack>
               <Tooltip title='Borrar Destino Completo'>
                 <IconButton aria-label='delete' onClick={() => handleDelete(ruta._id)}>
                   <DeleteIcon

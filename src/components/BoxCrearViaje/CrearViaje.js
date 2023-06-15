@@ -39,9 +39,12 @@ export default function CrearViaje() {
         nombre: '',
       });
       const idViaje = viajePost.data._id;
-      router.push({ pathname: '/crear-viaje', query: { id: idViaje } });
+      setTimeout(() => {
+        router.push({ pathname: '/crear-viaje', query: { id: idViaje } });
+      }, 4000);
     }
   };
+
   console.log(viajeName);
   return (
     <Card

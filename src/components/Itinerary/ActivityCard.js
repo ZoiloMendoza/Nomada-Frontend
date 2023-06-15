@@ -6,6 +6,9 @@ import Tooltip from '@mui/material/Tooltip';
 import LocalActivityIcon from '@mui/icons-material/LocalActivity';
 import axios from 'axios';
 import Grid from '@mui/material/Grid';
+import Alert from '@mui/material/Alert';
+import AlertTitle from '@mui/material/AlertTitle';
+import Stack from '@mui/material/Stack';
 const URLRAILWAY = process.env.NEXT_PUBLIC_BACKEND;
 const styles = {
   card: {
@@ -34,6 +37,7 @@ const styles = {
 
 const ActivityCard = ({ activityData, handleEdit }) => {
   const [expanded, setExpanded] = useState(false);
+  const [status, setStatus] = useState('');
   const [activities, setActivities] = useState(null);
   useEffect(() => {
     setActivities(activityData);
@@ -46,10 +50,12 @@ const ActivityCard = ({ activityData, handleEdit }) => {
       if (idActividad) {
         await axios.delete(`${URLRAILWAY}/api/v1/actividades/${idActividad}`);
         setActivities(activities.filter((activity) => activity._id !== idActividad));
-        alert('Card eliminada');
+        //alert('Card eliminada');
+        setStatus('success');
       }
     } catch (error) {
       console.log(error);
+      setStatus('error');
     }
   };
   //console.log(activityData, 'activitiData');
@@ -58,6 +64,20 @@ const ActivityCard = ({ activityData, handleEdit }) => {
       {activities &&
         activities?.map((activityData) => (
           <Card sx={styles.card} key={activityData?._id}>
+            <Stack sx={{ width: '100%' }} autoHideDuration={5000} spacing={2}>
+              {status === 'success' && (
+                <Alert severity='success'>
+                  <AlertTitle>Éxito</AlertTitle>
+                  Actividad eliminada correctamente!
+                </Alert>
+              )}
+              {status === 'error' && (
+                <Alert severity='error'>
+                  <AlertTitle>Error</AlertTitle>
+                  Ocurrió un error.
+                </Alert>
+              )}
+            </Stack>
             <Tooltip title='Editar esta actividad'>
               <IconButton aria-label='edit' onClick={() => handleEdit(activityInfo)}>
                 <EditIcon
