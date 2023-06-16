@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Card from '@mui/material/Card';
 import CardMedia from '@mui/material/CardMedia';
 import CardContent from '@mui/material/CardContent';
@@ -11,19 +11,38 @@ import Box from '@mui/material/Box';
 import { Delete as DeleteIcon } from '@mui/icons-material';
 import IosShareIcon from '@mui/icons-material/IosShare';
 import { Tooltip } from '@mui/material';
+import Alert from '@mui/material/Alert';
+import AlertTitle from '@mui/material/AlertTitle';
+import Stack from '@mui/material/Stack';
 import axios from 'axios';
 const URLRAILWAY = process.env.NEXT_PUBLIC_BACKEND;
 const MisViajesCard = ({ datosViaje, title }) => {
   console.log(datosViaje, 'MisvIAJES');
+  const [status, setStatus] = useState('');
 
   const handleDelete = async () => {
     const viajeDelete = await axios.delete(`${URLRAILWAY}/api/v1/viajes/${datosViaje._id}`);
     console.log(viajeDelete.status);
-    alert('Viaje eliminado');
+    setStatus('success');
+    //alert('Viaje eliminado');
   };
   //console.log(datosViaje.rutas[0].transporte.imagen, 'espero url')
   return (
     <Card sx={{ display: 'flex', marginBottom: '5vh', alignItems: 'center', flexWrap: 'wrap' }}>
+      <Stack sx={{ width: '100%' }} autoHideDuration={5000} spacing={2}>
+        {status === 'success' && (
+          <Alert severity='success'>
+            <AlertTitle>Éxito</AlertTitle>
+            Viaje eliminado correctamente!
+          </Alert>
+        )}
+        {status === 'error' && (
+          <Alert severity='error'>
+            <AlertTitle>Error</AlertTitle>
+            Ocurrió un error.
+          </Alert>
+        )}
+      </Stack>
       <CardMedia
         component='img'
         sx={{ width: '200px', height: '250px' }}
@@ -35,19 +54,19 @@ const MisViajesCard = ({ datosViaje, title }) => {
           {datosViaje?.nombre}
         </Typography>
         <Typography gutterBottom variant='subtitle1'>
-        { 
-            datosViaje.rutas.length > 0 ?
-              (datosViaje.rutas.map(ruta => {
-                try {
-                  return ruta.transporte.destino.split(',')[0];
-                } catch (e) {
-                  console.error('Error al obtener el nombre corto de la ruta:', e);
-                return null;
-                }
-              }).filter(Boolean).join(', ') || datosViaje.rutas.length)
-              :
-                'No hay destinos'
-        } 
+          {datosViaje.rutas.length > 0
+            ? datosViaje.rutas
+                .map((ruta) => {
+                  try {
+                    return ruta.transporte.destino.split(',')[0];
+                  } catch (e) {
+                    console.error('Error al obtener el nombre corto de la ruta:', e);
+                    return null;
+                  }
+                })
+                .filter(Boolean)
+                .join(', ') || datosViaje.rutas.length
+            : 'No hay destinos'}
         </Typography>
         <Typography variant='body2' color='textSecondary' component='p'>
           {`Inicio ${datosViaje.fechaInicio}`}

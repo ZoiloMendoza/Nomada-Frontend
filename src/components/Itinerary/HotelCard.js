@@ -37,22 +37,22 @@ const styles = {
 
 const HotelCard = ({ hotelData, handleEdit }) => {
   const [expanded, setExpanded] = useState(false);
-  const [status, setStatus] = useState('');
+  const [statuses, setStatuses] = useState({});
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
 
-  const handleDelete = async (id) => {
+  const handleDelete = async (id, index) => {
     try {
       if (id) {
         await axios.delete(`${URLRAILWAY}/api/v1/hospedajes/${id}`);
         //alert('Vuelo eliminada');
-        setStatus('success');
+        setStatuses((prevStatuses) => ({ ...prevStatuses, [index]: 'success' }));
       }
     } catch (error) {
       console.log(error);
-      setStatus('error');
+      setStatus((prevStatuses) => ({ ...prevStatuses, [index]: 'error' }));
     }
   };
   console.log(hotelData, 'hotel Datos');
@@ -62,13 +62,13 @@ const HotelCard = ({ hotelData, handleEdit }) => {
         ? hotelData.map((hotelData, index) => (
             <Card sx={styles.card} key={index}>
               <Stack sx={{ width: '100%' }} autoHideDuration={5000} spacing={2}>
-                {status === 'success' && (
+                {statuses[index] === 'success' && (
                   <Alert severity='success'>
                     <AlertTitle>Éxito</AlertTitle>
                     Hospedaje eliminado correctamente!
                   </Alert>
                 )}
-                {status === 'error' && (
+                {statuses[index] === 'error' && (
                   <Alert severity='error'>
                     <AlertTitle>Error</AlertTitle>
                     Ocurrió un error.
@@ -88,7 +88,7 @@ const HotelCard = ({ hotelData, handleEdit }) => {
                     </IconButton>
                   </Tooltip>
                   <Tooltip title='Eliminar este hospedaje'>
-                    <IconButton aria-label='delete' onClick={() => handleDelete(hotelData._id)}>
+                    <IconButton aria-label='delete' onClick={() => handleDelete(hotelData._id, index)}>
                       <DeleteIcon
                         sx={{
                           width: '20px',
