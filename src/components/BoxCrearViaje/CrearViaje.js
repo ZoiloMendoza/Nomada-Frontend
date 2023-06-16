@@ -1,5 +1,4 @@
 import { Card, Typography, Input, Button, Box } from '@mui/material';
-import Link from 'next/link';
 import { useState } from 'react';
 import axios from 'axios';
 import { useRouter } from 'next/router';
@@ -24,6 +23,7 @@ export default function CrearViaje() {
   const addViaje = async () => {
     if (viajeName.nombre === '') {
       setStatus('error');
+      return;
     }
     const usuario = JSON.parse(localStorage.getItem('usuarioLogeado'));
     const viajeBody = { nombre: viajeName.nombre, administradorViaje: usuario.idUser };
@@ -41,7 +41,7 @@ export default function CrearViaje() {
       const idViaje = viajePost.data._id;
       setTimeout(() => {
         router.push({ pathname: '/crear-viaje', query: { id: idViaje } });
-      }, 4000);
+      }, 2000);
     }
   };
 
@@ -103,23 +103,21 @@ export default function CrearViaje() {
         />
       </Box>
       <Box my={4} ml={7} justifyContent='center' direction='row'>
-        <Link href='/crear-viaje'>
-          <Button
-            variant='contained'
-            disabled={!validarViaje}
-            style={{
-              fontSize: '15px',
-              backgroundColor: customColor2,
-              borderRadius: '40px',
-              padding: '15px 40px',
-              textTransform: 'none',
-              fontFamily: 'Inter, sans-serif',
-            }}
-            onClick={addViaje}
-          >
-            CREAR VIAJE
-          </Button>
-        </Link>
+        <Button
+          variant='contained'
+          disabled={!validarViaje}
+          style={{
+            fontSize: '15px',
+            backgroundColor: customColor2,
+            borderRadius: '40px',
+            padding: '15px 40px',
+            textTransform: 'none',
+            fontFamily: 'Inter, sans-serif',
+          }}
+          onClick={addViaje}
+        >
+          CREAR VIAJE
+        </Button>
       </Box>
     </Card>
   );
