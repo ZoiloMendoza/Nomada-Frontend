@@ -87,7 +87,6 @@ function MisFavoritos() {
   const router = useRouter();
   const [loading, setLoading] = useState(true);
   const [viajesDelUsuario, setViajesDelUsuario] = useState([]);
-  const [viajesInvidatos, setViajesInvitados] = useState([]);
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
