@@ -101,14 +101,16 @@ export default function MisViajes() {
         }
         const viajesDelUsuario = await axios.get(`${URLRAILWAY}/api/v1/users/${usuario.idUser}`);
         if (viajesDelUsuario.status === 200) {
-          setViajesDelUsuario(viajesDelUsuario.data.viajes && []);
+          setViajesDelUsuario(viajesDelUsuario.data.viajes);
           console.log(viajesDelUsuario.data.viajes, 'viajes del usuario');
           setLoading(false);
         }
-        const viajesColaborativos = await axios.get(`${URLRAILWAY}/api/v1/colaboradores/search/${usuario.idUser}`);
-        if (viajesColaborativos.status === 200) {
-          setViajesInvitados(viajesColaborativos.data && []);
-          console.log(viajesColaborativos.data, 'viajes JUNTOS');
+        if(usuario){
+          const viajesColaborativos = await axios.get(`${URLRAILWAY}/api/v1/colaboradores/search/${usuario.idUser}`);
+          if (viajesColaborativos.status === 200) {
+            setViajesInvitados(viajesColaborativos.data);
+            console.log(viajesColaborativos, 'viajes JUNTOS');
+          }
         }
       } catch (error) {
         console.error('Error fetching data', error);
