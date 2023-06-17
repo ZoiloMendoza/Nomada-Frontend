@@ -16,6 +16,7 @@ import AlertTitle from '@mui/material/AlertTitle';
 import Stack from '@mui/material/Stack';
 import axios from 'axios';
 const URLRAILWAY = process.env.NEXT_PUBLIC_BACKEND;
+
 const MisViajesCard = ({ datosViaje, title }) => {
   console.log(datosViaje, 'MisvIAJES');
   const [status, setStatus] = useState('');
