@@ -46,7 +46,8 @@ const BoardingPassCard = () => {
   const usuario = useAuth();
   const [error, setError] = useState(false);
   const [photoUrl, setPhotoUrl] = useState('');
-  const [status, setStatus] = useState('');
+  const [status, setStatus] = useState(null);
+  const [errorMessage, setErrorMessage] = useState('');
   const [formData, setFormData] = useState({
     flightNumber: '',
     origen: '',
@@ -89,6 +90,7 @@ const BoardingPassCard = () => {
           }
         } catch (error) {
           console.error(error);
+          setErrorMessage('Ocurrió un error al realizar la acción.');
           setStatus('error');
         }
       };
@@ -182,6 +184,7 @@ const BoardingPassCard = () => {
         if (viajePost.status !== 201) {
           console.log('error al actualizar el viaje');
           setStatus('error');
+          setErrorMessage('Error al actualizar el viaje.');
           return;
         }
         const idRuta = await creandoRuta();
@@ -284,7 +287,7 @@ const BoardingPassCard = () => {
         {status === 'error' && (
           <Alert severity='error'>
             <AlertTitle>Error</AlertTitle>
-            Ocurrió un error.
+            {errorMessage}
           </Alert>
         )}
       </Stack>

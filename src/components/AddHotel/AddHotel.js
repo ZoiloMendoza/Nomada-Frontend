@@ -50,48 +50,38 @@ const AddHotel = () => {
     }));
   };
 
-  const resetData = (e) => {
-    e.preventDefault();
-    setHotelData({
-      name: '',
-      address: '',
-      checkIn: '',
-      checkOut: '',
-      reservation: '',
-    });
-  };
   const estanTodosLosCamposLlenos = (obj) => {
     const { name, address, checkIn, checkOut, longitud, latitud } = obj;
-    return Object.values({ name, address, checkIn, checkOut, longitud, latitud }).every(
-      (value) => value !== '',
-    );
+    return Object.values({ name, address, checkIn, checkOut, longitud, latitud }).every((value) => value !== '');
   };
   const hotelAddClick = async (e) => {
     e.preventDefault();
     try {
-      if(estanTodosLosCamposLlenos(hotelData)){
-      const nuevoHospedaje = {
-        rutaId: idRuta,
-        nombreHospedaje: hotelData.name,
-        direccion: hotelData.address,
-        fechaInicio: hotelData.checkIn,
-        fechaFinal: hotelData.checkOut,
-        imagen: photoUrl,
-        latitud: hotelData.latitud,
-        longitud: hotelData.longitud,
-      };
-      const hotelAdd = await axios.post(`${URLRAILWAY}/api/v1/hospedajes`, nuevoHospedaje);
-      if (hotelAdd.status == 201) {
-        const dataApi = hotelAdd.data;
-        console.log('Hospedaje creado', dataApi);
-        setStatus('success');
-        //alert('Hotel agregado correctamente');
-        router.push(`/itinerary?id=${dataApi.viajeId}`);
-      } else {
-        setStatus('error');
-        console.log('Error al insertar');
+      if (estanTodosLosCamposLlenos(hotelData)) {
+        const nuevoHospedaje = {
+          rutaId: idRuta,
+          nombreHospedaje: hotelData.name,
+          direccion: hotelData.address,
+          fechaInicio: hotelData.checkIn,
+          fechaFinal: hotelData.checkOut,
+          imagen: photoUrl,
+          latitud: hotelData.latitud,
+          longitud: hotelData.longitud,
+        };
+        const hotelAdd = await axios.post(`${URLRAILWAY}/api/v1/hospedajes`, nuevoHospedaje);
+        if (hotelAdd.status == 201) {
+          const dataApi = hotelAdd.data;
+          console.log('Hospedaje creado', dataApi);
+          setStatus('success');
+          //alert('Hotel agregado correctamente');
+          setTimeout(() => {
+            router.push(`/itinerary?id=${dataApi.viajeId}`);
+          }, 1500);
+        } else {
+          setStatus('error');
+          console.log('Error al insertar');
+        }
       }
-    }
     } catch (error) {
       setStatus('error');
       console.error('Error en la petición:', error);
@@ -99,6 +89,7 @@ const AddHotel = () => {
   };
   const handlePlaceSelect = (place) => {
     if (place && place.geometry && place.geometry.location) {
+      setStatus('');
       console.log('Place selected:', place);
       console.log('Place photos:', place.photos);
       console.log('Formatted Address:', place.formatted_address);
@@ -106,9 +97,9 @@ const AddHotel = () => {
       console.log('Longitude:', place.geometry.location.lng());
       console.log('Place_id', place.place_id);
       const selectedDestino = place.formatted_address;
-      if(place?.photos){
+      if (place?.photos) {
         setPhotoUrl(place?.photos[0]?.getUrl());
-      }else {
+      } else {
         setPhotoUrl('');
       }
       setHotelData((prevState) => ({
@@ -118,6 +109,19 @@ const AddHotel = () => {
         longitud: place.geometry.location.lng(),
       }));
     }
+  };
+  const resetData = (e) => {
+    e.preventDefault();
+    setHotelData({
+      name: '',
+      address: '',
+      checkIn: '',
+      checkOut: '',
+      reservation: '',
+      latitud: '', // Restablecer el campo latitud
+      longitud: '', // Restablecer el campo longitud
+    });
+    setStatus(''); // Restablecer el estado al cancelar
   };
   return (
     <Grid
@@ -214,7 +218,13 @@ const AddHotel = () => {
             fullWidth
             variant='filled'
           />
-          <Button type='submit' variant='contained' color='primary' sx={styles.button} onClick={(e) => hotelAddClick(e)}>
+          <Button
+            type='submit'
+            variant='contained'
+            color='primary'
+            sx={styles.button}
+            onClick={(e) => hotelAddClick(e)}
+          >
             Agregar
           </Button>
 
