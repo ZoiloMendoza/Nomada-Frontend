@@ -15,7 +15,7 @@ function MisViajes() {
             style={{
               fontSize: '15px',
               backgroundColor: customColor,
-              borderRadius: '40px',
+              borderRadius: '10px',
               padding: '15px 40px',
               textTransform: 'none',
             }}
