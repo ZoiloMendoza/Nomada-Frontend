@@ -197,7 +197,9 @@ const BoardingPassCard = () => {
         }
         setStatus('success');
         console.log('Viaje y transporte actualizados');
-        router.push(`/itinerary?id=${id}`);
+        setTimeout(() => {
+          router.push(`/itinerary?id=${id}`);
+        }, 1500); // 2000 milliseconds = 2 seconds
       }
     } catch (error) {
       setStatus('error');
