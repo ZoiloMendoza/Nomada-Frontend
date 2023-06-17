@@ -10,7 +10,6 @@ const styles = {
     justifyContent: 'center',
     alignItems: 'center',
     flexDirection: 'column',
-    margin: '5vh 0',
     height: '100vh',
   },
 };

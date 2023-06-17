@@ -9,8 +9,8 @@ const ButtonCustom = ({ text, onClick }) => (
     variant='contained'
     style={{
       backgroundColor: '#E91E63',
-      borderRadius: '10px',
-      padding: '10px 10px',
+      borderRadius: '40px',
+      padding: '10px',
       width: '50%',
       textTransform: 'none',
     }}

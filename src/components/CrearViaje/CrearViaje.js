@@ -396,7 +396,7 @@ const BoardingPassCard = () => {
             InputLabelProps={{ shrink: true }}
           />
         </Box>
-        <Box display='flex' justifyContent='center' sx={{ width: '100%' }}>
+        <Box sx={{ width: '100%', display: 'flex', justifyContent: 'center' }}>
           <ButtonCustom text={'Agregar'} onClick={() => handleClick()} />
         </Box>
       </FlightInfoContainer>
