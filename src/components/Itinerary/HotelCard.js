@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Card, CardContent, CardMedia, Typography, IconButton, Collapse } from '@mui/material';
 import { Edit as EditIcon, Delete as DeleteIcon } from '@mui/icons-material';
 import { ExpandMore } from '@mui/icons-material';
@@ -6,9 +6,6 @@ import HotelIcon from '@mui/icons-material/Hotel';
 import { Tooltip } from '@mui/material';
 import axios from 'axios';
 import Grid from '@mui/material/Grid';
-import Alert from '@mui/material/Alert';
-import AlertTitle from '@mui/material/AlertTitle';
-import Stack from '@mui/material/Stack';
 const URLRAILWAY = process.env.NEXT_PUBLIC_BACKEND;
 const styles = {
   card: {
@@ -35,10 +32,26 @@ const styles = {
   },
 };
 
-const HotelCard = ({ hotelData, handleEdit }) => {
-  const [expanded, setExpanded] = useState(false);
-  const [statuses, setStatuses] = useState({});
+const HotelCard = ({ rutaParaHoteles, handleEdit, setStatuses, index, setCardEliminada }) => {
 
+  const [expanded, setExpanded] = useState(false);
+  const [hotelData, setHotelData] = useState(null)
+  console.log(rutaParaHoteles, 'hotel entrada');
+  useEffect(() => {
+    const getHoteles = async () => {
+      try {
+        const rutaSinHotelEliminado = await axios.get(`${URLRAILWAY}/api/v1/rutas/${rutaParaHoteles._id}`);
+        setHotelData(rutaSinHotelEliminado.data.hospedajes);
+        console.log(rutaSinHotelEliminado.data.hospedajes, 'hotel api');
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    if (rutaParaHoteles._id) {
+      getHoteles();
+    }
+  }, [rutaParaHoteles._id]);
+  
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
@@ -47,34 +60,21 @@ const HotelCard = ({ hotelData, handleEdit }) => {
     try {
       if (id) {
         await axios.delete(`${URLRAILWAY}/api/v1/hospedajes/${id}`);
-        //alert('Vuelo eliminada');
         setStatuses((prevStatuses) => ({ ...prevStatuses, [index]: 'success' }));
+        setHotelData(prevData => prevData.filter(hotel => hotel._id !== id));
+        setCardEliminada('Hotel');
       }
     } catch (error) {
       console.log(error);
-      setStatus((prevStatuses) => ({ ...prevStatuses, [index]: 'error' }));
+      setStatuses((prevStatuses) => ({ ...prevStatuses, [index]: 'error' }));
     }
   };
   console.log(hotelData, 'hotel Datos');
   return (
     <>
       {hotelData
-        ? hotelData.map((hotelData, index) => (
-            <Card sx={styles.card} key={index}>
-              <Stack sx={{ width: '100%' }} autoHideDuration={5000} spacing={2}>
-                {statuses[index] === 'success' && (
-                  <Alert severity='success'>
-                    <AlertTitle>Éxito</AlertTitle>
-                    Hospedaje eliminado correctamente!
-                  </Alert>
-                )}
-                {statuses[index] === 'error' && (
-                  <Alert severity='error'>
-                    <AlertTitle>Error</AlertTitle>
-                    Ocurrió un error.
-                  </Alert>
-                )}
-              </Stack>
+        && hotelData.map((hotelData, indexHotel) => (
+            <Card sx={styles.card} key={indexHotel}>
               <CardContent>
                 <div>
                   <Tooltip title='Editar este hospedaje'>
@@ -130,8 +130,7 @@ const HotelCard = ({ hotelData, handleEdit }) => {
                 </Collapse>
               </CardContent>
             </Card>
-          ))
-        : 'No hay Hoteles'}
+          ))}
     </>
   );
 };

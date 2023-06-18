@@ -92,7 +92,7 @@ export default function Add({ destinoSeleccionado, ruta}) {
             &nbsp; Buscar actividades
           </AddButton>
         </Link>
-        <Link href={`/mapa?destino=${destinoSeleccionado}&idRuta=${ruta._id}&id=${id}`}>
+        <Link href={`/mapa?destino=${destinoSeleccionado}&idRuta=${ruta._id}&id=${id}&latitudS=${ruta.transporte.latitud}&longitudS=${ruta.transporte.longitud}`}>
           <AddButtonTwo>
             <MapIcon />
             &nbsp; Mapa

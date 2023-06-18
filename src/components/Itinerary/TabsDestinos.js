@@ -10,7 +10,7 @@ import FlightCard from './FlightCard';
 import ActivityCard from '@/components/Itinerary/ActivityCard';
 import HotelCard from '@/components/Itinerary/HotelCard';
 import axios from 'axios';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Alert from '@mui/material/Alert';
 import AlertTitle from '@mui/material/AlertTitle';
 import Stack from '@mui/material/Stack';
@@ -53,9 +53,22 @@ function a11yProps(index) {
 export default function TabsDestinos({ dataDestino, updateDestinoCallback }) {
   const [value, setValue] = React.useState(0);
   const [status, setStatus] = useState('');
+  const [statuses, setStatuses] = useState({});
+  const [cardEliminada, setCardEliminada] = useState('');
   if (!dataDestino) {
     return <div>Intentalo más tarde TabsDestinos</div>;
   }
+  useEffect(() => {
+    Object.keys(statuses).forEach((index) => {
+      if (statuses[index]) {
+        const timer = setTimeout(() => {
+          setStatuses((prevStatuses) => ({ ...prevStatuses, [index]: null }));
+        }, 3000);
+        return () => clearTimeout(timer);
+      }
+    });
+  }, [statuses, setStatuses]);
+
   const handleChange = (event, newValue) => {
     setValue(newValue);
     const destinoSeleccionado = dataDestino.rutas[newValue].transporte.destino;
@@ -100,20 +113,6 @@ export default function TabsDestinos({ dataDestino, updateDestinoCallback }) {
         dataDestino.rutas.map((ruta, index) => (
           <TabPanel key={index} value={value} index={index}>
             <div>
-              <Stack sx={{ width: '100%' }} autoHideDuration={5000} spacing={2}>
-                {status === 'success' && (
-                  <Alert severity='success'>
-                    <AlertTitle>Éxito</AlertTitle>
-                    Ruta eliminada correctamente!
-                  </Alert>
-                )}
-                {status === 'error' && (
-                  <Alert severity='error'>
-                    <AlertTitle>Error</AlertTitle>
-                    Ocurrió un error.
-                  </Alert>
-                )}
-              </Stack>
               <Tooltip title='Borrar Destino Completo'>
                 <IconButton aria-label='delete' onClick={() => handleDelete(ruta._id)}>
                   <DeleteIcon
@@ -126,10 +125,24 @@ export default function TabsDestinos({ dataDestino, updateDestinoCallback }) {
               </Tooltip>
               <span color='secondary'>Eliminar este destino</span>
             </div>
-
-            {ruta.transporte.numeroVuelo && <FlightCard flightData={ruta.transporte} />}
-            <HotelCard hotelData={ruta.hospedajes} />
-            <ActivityCard activityData={dataDestino.rutas[index].actividades} />
+            <Stack sx={{ width: '100%' }} spacing={2}>
+                  {statuses[index] === 'success' && (
+                  <Alert severity='success'>
+                    {`${cardEliminada} eliminado correctamente!`}
+                  </Alert>
+                  )}
+                  {statuses[index] === 'error' && (
+                  <Alert severity='error'>
+                  <AlertTitle>Error</AlertTitle>
+                    {`Ocurrió un error al eliminar el ${cardEliminada}`}
+                  </Alert>
+                  )}
+            </Stack>
+            {ruta.transporte.numeroVuelo && 
+            <FlightCard flightData={ruta.transporte} setStatuses={setStatuses} index={index} setCardEliminada={setCardEliminada}/>
+            }
+            <HotelCard rutaParaHoteles={ruta} setStatuses={setStatuses} index={index} setCardEliminada={setCardEliminada}/>
+            <ActivityCard activityData={dataDestino.rutas[index]} setStatuses={setStatuses} index={index} setCardEliminada={setCardEliminada}/>
           </TabPanel>
         ))
       ) : (
