@@ -28,7 +28,7 @@ const PopupDestino = ({ data, open, closeDestino, categoria }) => {
         nombre: data.name,
         direccion: data.address_obj.address_string,
         fotos: data?.data[0]?.images?.large?.url || '',
-        fechaInicio: time,
+        fechaInicio: date,
         fechaFinal: time,
         locationId: data.location_id,
       };

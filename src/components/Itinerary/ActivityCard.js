@@ -6,7 +6,6 @@ import Tooltip from '@mui/material/Tooltip';
 import LocalActivityIcon from '@mui/icons-material/LocalActivity';
 import axios from 'axios';
 import Grid from '@mui/material/Grid';
-import { DatePicker } from '@mui/lab';
 const URLRAILWAY = process.env.NEXT_PUBLIC_BACKEND;
 const styles = {
   card: {
@@ -36,21 +35,23 @@ const styles = {
 const ActivityCard = ({ activityData, handleEdit, setStatuses, index, setCardEliminada }) => {
   const [expanded, setExpanded] = useState(false);
   const [activities, setActivities] = useState(null);
-  const [editingDates, setEditingDates] = useState(false);
-  const [startDate, setStartDate] = useState('');
-  const [minDate, setMinDate] = useState(null);
-  const [maxDate, setMaxDate] = useState(null);
+  const [editingDates, setEditingDates] = useState({});
+  const [startDates, setStartDates] = useState([]);
+  const [inicio, setInicio] = useState('');
+  const [final, setFinal] = useState('');
+
 
   useEffect(() => {
     const getActividades = async () => {
       try {
         const rutaSinActividadeEliminada = await axios.get(`${URLRAILWAY}/api/v1/rutas/${activityData._id}`);
-        setActivities(rutaSinActividadeEliminada.data.actividades);
-        setStartDate(new Date(rutaSinActividadeEliminada.data.actividades?.fechaInicio));
-        const minTransportDate = new Date(rutaSinActividadeEliminada.data.transporte.fechaInicio);
-        const maxTransportDate = new Date(rutaSinActividadeEliminada.data.transporte.fechaFin);
-        setMinDate(minTransportDate);
-        setMaxDate(maxTransportDate);
+        if(rutaSinActividadeEliminada.status === 200) {
+          setActivities(rutaSinActividadeEliminada.data.actividades);
+          const initialStartDates = rutaSinActividadeEliminada.data.actividades.map((activity) => activity.fechaInicio);
+          setStartDates(initialStartDates);
+          setInicio(rutaSinActividadeEliminada.data.fechaInicial);
+          setFinal(rutaSinActividadeEliminada.data.fechaFinal);
+        }
       } catch (error) {
         console.log(error);
       }
@@ -63,18 +64,27 @@ const ActivityCard = ({ activityData, handleEdit, setStatuses, index, setCardEli
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
-  const handleEditDates = () => {
-    setEditingDates(true);
+  const handleEditDates = (cardIndex) => {
+    setEditingDates((prevEditingDates) => ({
+      ...prevEditingDates,
+      [cardIndex]: true,
+    }));
   };
-  const handleCancelEditDates = () => {
-    setEditingDates(false);
+  const handleCancelEditDates = (cardIndex) => {
+    setEditingDates((prevEditingDates) => ({
+      ...prevEditingDates,
+      [cardIndex]: false,
+    }));
   };
-  const handleSaveDates = async () => {
+  const handleSaveDates = async (cardIndex) => {
     try {
       // Realizar la lógica para guardar las fechas actualizadas
       // utilizando el ID de la actividad
       // ...
-      setEditingDates(false); // Después de guardar, se desactiva la edición
+      setEditingDates((prevEditingDates) => ({
+        ...prevEditingDates,
+        [cardIndex]: false,
+      }));// Después de guardar, se desactiva la edición
     } catch (error) {
       console.log(error);
     }
@@ -92,30 +102,20 @@ const ActivityCard = ({ activityData, handleEdit, setStatuses, index, setCardEli
       setStatuses((prevStatuses) => ({ ...prevStatuses, [index]: 'error' }));
     }
   };
- 
+ console.log(inicio,final, 'fechas')
   return (
     <>
       {activities &&
-        activities?.map((activityData) => (
+        activities?.map((activityData, cardIndex) => (
           <Card sx={styles.card} key={activityData?._id}>
-            <Tooltip title='Editar esta actividad'>
-              <IconButton aria-label='edit' onClick={() => handleEdit(activityInfo)}>
-                <EditIcon
-                  sx={{
-                    width: '20px',
-                    color: '#D2D2D2',
-                  }}
-                />
-              </IconButton>
-            </Tooltip>
             <Tooltip title='Eliminar esta actividad'>
               <IconButton aria-label='delete' onClick={() => handleDelete(activityData._id, index)}>
                 <DeleteIcon
                   sx={{
-                    width: '20px',
-                    color: '#D2D2D2',
+                    color: '#FFC107', boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',borderRadius: '50%'
                   }}
                 />
+               
               </IconButton>
             </Tooltip>
             <Grid container spacing={2}>
@@ -125,32 +125,56 @@ const ActivityCard = ({ activityData, handleEdit, setStatuses, index, setCardEli
               <Grid item xs={6}>
                 <CardHeader title={activityData?.nombre} subheader={activityData?.direccion} />
                 <CardContent>
-                  {editingDates ? (
+                  {editingDates[cardIndex] ? (
                     <div>
-                      <DatePicker
-                        label="Fecha de inicio"
-                        value={startDate || new Date(activityData?.fechaInicio)}
-                        onChange={(date) => setStartDate(date)}
-                        renderInput={(params) => <TextField {...params} />}
-                        minDate={minDate}
-                        maxDate={maxDate}
+                      <TextField
+                        label=""
+                        value={startDates[cardIndex] || activityData?.fechaInicio}
+                        onChange={(e) => {
+                          const updatedStartDates = [...startDates];
+                          updatedStartDates[cardIndex] = e.target.value;
+                          setStartDates(updatedStartDates);
+                        }}
+                        InputProps={{
+                          inputProps: {
+                          type: 'date',
+                          min:inicio, 
+                          max:final,
+                          },
+                        }}
+                        sx={{
+                          margin: 0,
+                          padding: 0,
+                        }}
                       />
-                      <IconButton onClick={handleSaveDates}>
-                      <SaveIcon />
+                      <IconButton onClick={() => handleSaveDates(cardIndex)}>
+                        <SaveIcon sx={{
+                                    color: '#FFC107', boxShadow: '0 2px 4px rgba(0, 0, 0, 0.2)',borderRadius: '50%'}}
+                        />
                       </IconButton>
-                      <IconButton onClick={handleCancelEditDates}>
-                      <CancelIcon />
+                      <IconButton onClick={() => handleCancelEditDates(cardIndex)}>
+                        <CancelIcon sx={{
+                                    color: '#FFC107', boxShadow: '0 2px 4px rgba(0, 0, 0, 0.2)',borderRadius: '50%'}}
+                        />
                       </IconButton>
+                      
                     </div>
                   ) : (
-                        <div>
-                          <Typography variant='body2' color='textSecondary' component='p'>
-                            {activityData?.fechaInicio}
-                            </Typography>
-                            <IconButton onClick={handleEditDates}>
-                            <EditIcon />
-                            </IconButton>
-                        </div>
+                    <Grid container direction="row" alignItems="center">
+                      <Grid item>
+                        <Typography variant='body2' color='textSecondary' component='p'>
+                        {`Día: ${activityData?.fechaInicio}`}
+                        </Typography>
+                        <Typography variant='body2' color='textSecondary' component='p'>
+                        {`Hora: ${activityData?.fechaFinal}`}
+                        </Typography>
+                      </Grid>
+                      <Grid item>
+                        <IconButton onClick={() => handleEditDates(cardIndex)}>
+                          <EditIcon style={{color: '#FFC107', boxShadow: '0 2px 4px rgba(0, 0, 0, 0.2)',borderRadius: '40%',}}/>
+                       </IconButton>
+                      </Grid>
+                    </Grid>
                       )}
                 </CardContent>
               </Grid>

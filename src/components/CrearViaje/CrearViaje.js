@@ -98,10 +98,12 @@ const BoardingPassCard = () => {
     }
   }, [usuario, id]);
 
-  const creandoRuta = async () => {
+  const creandoRuta = async (fechas) => {
     try {
       const nuevaRuta = {
         viajeId: id,
+        fechaInicial: fechas.fechaInicio,
+        fechaFinal: fechas.fechaFinal
       };
       const crearRutaPost = await axios.post(`${URLRAILWAY}/api/v1/rutas`, nuevaRuta);
       return crearRutaPost.data._id;
@@ -187,7 +189,7 @@ const BoardingPassCard = () => {
           setErrorMessage('Error al actualizar el viaje.');
           return;
         }
-        const idRuta = await creandoRuta();
+        const idRuta = await creandoRuta({fechaInicio, fechaFinal});
         if (idRuta) {
           await creandoTransporte({ ...formData, ...origenYdestinoVuelo, imagen: photoUrl, idRuta });
         } else {
@@ -282,7 +284,6 @@ const BoardingPassCard = () => {
       <Stack sx={{ width: '100%' }} autoHideDuration={5000} spacing={2}>
         {status === 'success' && (
           <Alert severity='success'>
-            <AlertTitle>Éxito</AlertTitle>
             Destino agregado correctamente!
           </Alert>
         )}
