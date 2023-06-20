@@ -86,6 +86,8 @@ const CardDetalleActivity = ({ data, open, closeCard, openForm }) => {
     );
   }
 
+  console.log(item.hours);
+
   return (
     <>
       <PopupBox open={open} onClose={handleClose}>
@@ -114,7 +116,11 @@ const CardDetalleActivity = ({ data, open, closeCard, openForm }) => {
                 </Typography>
 
                 <Typography variant='body1' gutterBottom>
-                  Horarios: <br /> {item?.hours?.weekday_text}
+                  Horarios: <br />
+                  <div sx={{ display: 'flex' }}>
+                    {item?.hours?.weekday_text &&
+                      item.hours.weekday_text.map((day, index) => <p key={`day-${index}`}>{day}</p>)}
+                  </div>
                 </Typography>
               </CardContent>
               <IconButton sx={styles.addIcon} aria-label='Add to itinerary' onClick={openForm}>
