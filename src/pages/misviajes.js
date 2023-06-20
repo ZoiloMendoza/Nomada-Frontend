@@ -101,7 +101,7 @@ export default function MisViajes() {
         }
         const viajesDelUsuario = await axios.get(`${URLRAILWAY}/api/v1/users/${usuario.idUser}`);
         if (viajesDelUsuario.status === 200) {
-          setViajesDelUsuario(viajesDelUsuario.data.viajes && []);
+          setViajesDelUsuario(viajesDelUsuario.data.viajes);
           console.log(viajesDelUsuario.data.viajes, 'viajes del usuario');
           setLoading(false);
         }
@@ -143,7 +143,6 @@ export default function MisViajes() {
         </Tabs>
       </Box>
       <TabPanel value={value} index={0}>
-        
         <Grid sx={{ padding: '15px' }} container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
           {viajesDelUsuario.length > 0 ? (
             viajesDelUsuario.map((viaje) => (
@@ -157,12 +156,13 @@ export default function MisViajes() {
         </Grid>
       </TabPanel>
       <TabPanel value={value} index={1}>
-        
         <Grid sx={{ padding: '15px' }} container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
           {viajesInvidatos.length > 0 ? (
             viajesInvidatos.map((viaje) => (
               <Grid item xs={12} md={6} key={viaje._id}>
-                <Box><h3>{`Viaje compartido por ${viaje.administradorViaje.name}`}</h3></Box>
+                <Box>
+                  <h3>{`Viaje compartido por ${viaje.administradorViaje.name}`}</h3>
+                </Box>
                 <DynamicMisViajesCard datosViaje={viaje} />
               </Grid>
             ))

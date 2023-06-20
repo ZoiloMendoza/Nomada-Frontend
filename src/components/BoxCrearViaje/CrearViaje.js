@@ -60,7 +60,7 @@ export default function CrearViaje() {
         {status === 'success' && (
           <Alert severity='success'>
             <AlertTitle>Éxito</AlertTitle>
-            Actividad agregada correctamente!
+            Viaje creado correctamente!
           </Alert>
         )}
         {status === 'error' && (
