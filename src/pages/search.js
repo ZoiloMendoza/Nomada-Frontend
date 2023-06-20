@@ -28,7 +28,7 @@ export default function Search({ contentRestaurant, contentDestino, contentActiv
 
       <h1 style={styles.title} destino={destino}>
         {' '}
-        Destinos y Actividades en {destino}
+        {`Destinos y Actividades en ${destino}`.split(',')[0]}
       </h1>
 
       <Box>{<CityCard contentApi={contentDestino} />}</Box>

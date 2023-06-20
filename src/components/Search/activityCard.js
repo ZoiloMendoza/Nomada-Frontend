@@ -8,7 +8,9 @@ import { Add, Favorite, FavoriteBorder } from '@mui/icons-material';
 const styles = {
   card: {
     maxWidth: 345,
+    height: '350px',
     margin: '0 80px',
+    padding: '10px',
   },
   media: {
     height: 140,

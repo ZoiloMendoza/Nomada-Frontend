@@ -12,7 +12,7 @@ import { Typography, CardMedia, CardContent, Box } from '@mui/material';
 const BoxItem = styled(Box)(({ theme }) => ({
   padding: '5px',
   [theme.breakpoints.down('sm')]: {
-    maxHeight: '50vh',
+    maxHeight: '90vh',
     overflow: 'scroll',
     position: 'absolute',
     bottom: 0,
@@ -26,11 +26,13 @@ const BoxItem = styled(Box)(({ theme }) => ({
 }));
 
 const styles = {
-  card: {},
+  card: {
+    maxHeight: '90vh',
+  },
   media: {
     height: 0,
     paddingTop: '56.25%', // 16:9
-    width: '90%',
+    width: '100%',
   },
 
   closeButton: {
@@ -40,7 +42,11 @@ const styles = {
     color: '#FFFFF',
   },
   reviewsContainer: {
-    margin: '10px',
+    marginTop: '30vh',
+    display: 'block',
+    maxWidth: '300px',
+    maxHeight: '90%',
+    textOverflow: 'ellipsis',
   },
 };
 
@@ -86,6 +92,13 @@ const CardDetalleActivity = ({ data, open, closeCard, openForm }) => {
     );
   }
 
+  const getImage = (data) => {
+    if (data.data !== null && data?.data?.length > 0) {
+      return data?.data[0]?.images.small.url;
+    }
+    return '/img/placeholder.jpeg';
+  };
+
   console.log(item.hours);
 
   return (
@@ -97,7 +110,7 @@ const CardDetalleActivity = ({ data, open, closeCard, openForm }) => {
             sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '90%' }}
           >
             <Box sx={{ width: '50%', height: 300 }}>
-              <CardMedia sx={styles.media} image={data?.data[0]?.images?.original?.url} />
+              <CardMedia sx={styles.media} image={getImage(data)} />
               <CardContent>
                 <Typography variant='h6' gutterBottom>
                   {item?.name}
@@ -109,17 +122,23 @@ const CardDetalleActivity = ({ data, open, closeCard, openForm }) => {
                   </Typography>
                 </Box>
                 <Typography variant='body2' color='textSecondary' gutterBottom>
-                  Ranking: <br /> {item?.ranking_data?.ranking_string}
+                  <strong>Ranking:</strong> <br /> {item?.ranking_data?.ranking_string}
                 </Typography>
                 <Typography variant='body1' gutterBottom>
-                  Dirección: <br /> {item?.address_obj?.address_string}
+                  <strong>Dirección: </strong>
+                  <br /> {item?.address_obj?.address_string}
                 </Typography>
 
                 <Typography variant='body1' gutterBottom>
-                  Horarios: <br />
-                  <div sx={{ display: 'flex' }}>
-                    {item?.hours?.weekday_text &&
-                      item.hours.weekday_text.map((day, index) => <p key={`day-${index}`}>{day}</p>)}
+                  <strong>Horarios:</strong> <br />
+                  <div sx={{ display: 'flex', flexDirection: 'column' }}>
+                    {(item?.hours?.weekday_text &&
+                      item.hours.weekday_text.map((day, index) => (
+                        <small key={`day-${index}`}>
+                          {day} <br />
+                        </small>
+                      ))) ||
+                      'Horarios no disponibles...'}
                   </div>
                 </Typography>
               </CardContent>
@@ -130,11 +149,21 @@ const CardDetalleActivity = ({ data, open, closeCard, openForm }) => {
                 {isFavorite ? <Favorite /> : <FavoriteBorder />}
               </IconButton>
             </Box>
-            <Box sx={styles.reviewsContainer}>
-              <Typography variant='body1' gutterBottom>
-                {item?.description}
-              </Typography>
-            </Box>
+            <CardContent sx={styles.reviewsContainer}>
+              <small
+                variant='body1'
+                gutterBottom
+                sx={{
+                  paddingTop: '20vh',
+                  paddingBottom: '20vh',
+                  textOverflow: 'ellipsis',
+                  overflow: 'hidden',
+                }}
+              >
+                <strong> Descripción:</strong> <br />
+                {item?.description || 'No hay ninguna descripción disponible por el momento...'}
+              </small>
+            </CardContent>
           </BoxItem>
         )}
       </PopupBox>

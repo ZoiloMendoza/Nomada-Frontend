@@ -29,7 +29,15 @@ const MisViajesCard = ({ datosViaje, title }) => {
   };
   //console.log(datosViaje.rutas[0].transporte.imagen, 'espero url')
   return (
-    <Card sx={{ display: 'flex', marginBottom: '5vh', alignItems: 'center', flexWrap: 'wrap' }}>
+    <Card
+      sx={{
+        display: 'flex',
+        marginBottom: '5vh',
+        alignItems: 'center',
+        flexWrap: 'wrap',
+        justifyContent: 'space-between',
+      }}
+    >
       <Stack sx={{ width: '100%' }} autoHideDuration={5000} spacing={2}>
         {status === 'success' && (
           <Alert severity='success'>
@@ -46,11 +54,11 @@ const MisViajesCard = ({ datosViaje, title }) => {
       </Stack>
       <CardMedia
         component='img'
-        sx={{ width: '200px', height: '250px' }}
+        sx={{ width: '30%', height: '250px' }}
         title={title}
         image={datosViaje?.rutas[0]?.transporte?.imagen}
       />
-      <CardContent sx={{ flex: '1 0 auto', maxWidth: '250px' }}>
+      <CardContent sx={{ flex: '1 0 auto', maxWidth: '30%' }}>
         <Typography variant='h5' component='h2'>
           {datosViaje?.nombre}
         </Typography>
@@ -76,7 +84,7 @@ const MisViajesCard = ({ datosViaje, title }) => {
           {`final ${datosViaje.fechaFinal}`}
         </Typography>
       </CardContent>
-      <Grid container direction='column' justify='center' alignItems='center' sx={{ maxWidth: '200px' }}>
+      <Grid container direction='column' justify='center' alignItems='center' sx={{ maxWidth: '30%' }}>
         <Link href={`/itinerary?id=${datosViaje._id}`}>
           <Button
             size='small'

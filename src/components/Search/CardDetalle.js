@@ -48,6 +48,9 @@ const styles = {
   },
   reviewsContainer: {
     padding: '15px',
+    maxWidth: '300px',
+    maxHeight: '90%',
+    textOverflow: 'ellipsis',
   },
 };
 
@@ -91,6 +94,13 @@ const CardDetalle = ({ data, open, closeCard, openForm }) => {
     );
   }
 
+  const getImage = (data) => {
+    if (data.data !== null && data?.data?.length > 0) {
+      return data?.data[0]?.images.small.url;
+    }
+    return '/img/placeholder.jpeg';
+  };
+
   return (
     <>
       <PopupBox open={open} onClose={handleClose}>
@@ -98,7 +108,7 @@ const CardDetalle = ({ data, open, closeCard, openForm }) => {
           {item && (
             <GridItem sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '90%' }}>
               <Box>
-                <CardMedia sx={styles.media} image={data?.data[0]?.images?.original?.url} />
+                <CardMedia sx={styles.media} image={getImage(data)} />
                 <CardContent>
                   <Typography variant='h6' gutterBottom>
                     {item?.name}
@@ -110,9 +120,10 @@ const CardDetalle = ({ data, open, closeCard, openForm }) => {
                     </Typography>
                   </Box>
 
-                  <Typography variant='body1' gutterBottom>
-                    {item?.description}
-                  </Typography>
+                  <small variant='body1' gutterBottom>
+                    <strong>Descripción:</strong> <br />
+                    {item?.description || 'No hay ninguna descripción disponible...'}
+                  </small>
                 </CardContent>
                 <IconButton sx={styles.addIcon} aria-label='Add to itinerary' onClick={openForm}>
                   <Add />
@@ -124,15 +135,21 @@ const CardDetalle = ({ data, open, closeCard, openForm }) => {
 
               <Box sx={styles.reviewsContainer}>
                 <Typography variant='body2' color='textSecondary' gutterBottom>
-                  Ranking: <br /> {item?.ranking_data?.ranking_string}
+                  <strong> Ranking: </strong> <br /> {item?.ranking_data?.ranking_string || 'Ranking no disponible...'}
                 </Typography>
                 <Typography variant='body1' gutterBottom>
-                  Dirección: <br /> {item?.address_obj?.address_string}
+                  <strong>Dirección:</strong> <br /> {item?.address_obj?.address_string}
                 </Typography>
-
-                <Typography variant='body1' gutterBottom>
-                  Horarios: <br /> {item?.hours?.weekday_text}
-                </Typography>
+                <strong> Horarios: </strong> <br />
+                <div sx={{ display: 'flex', flexDirection: 'column' }}>
+                  {(item?.hours?.weekday_text &&
+                    item.hours.weekday_text.map((day, index) => (
+                      <small key={`day-${index}`}>
+                        {day} <br />
+                      </small>
+                    ))) ||
+                    'Horarios no disponibles...'}
+                </div>
               </Box>
             </GridItem>
           )}
