@@ -37,8 +37,9 @@ const ActivityCard = ({ activityData, handleEdit, setStatuses, index, setCardEli
   const [activities, setActivities] = useState(null);
   const [editingDates, setEditingDates] = useState({});
   const [startDates, setStartDates] = useState([]);
-  const [inicio, setInicio] = useState('');
-  const [final, setFinal] = useState('');
+  const [horaDates, setHoraDates] = useState([]);
+  const [inicio, setInicio] = useState('');//limites de calendario
+  const [final, setFinal] = useState('');//limites de calendario
 
 
   useEffect(() => {
@@ -48,7 +49,9 @@ const ActivityCard = ({ activityData, handleEdit, setStatuses, index, setCardEli
         if(rutaSinActividadeEliminada.status === 200) {
           setActivities(rutaSinActividadeEliminada.data.actividades);
           const initialStartDates = rutaSinActividadeEliminada.data.actividades.map((activity) => activity.fechaInicio);
+          const initialHoraDates = rutaSinActividadeEliminada.data.actividades.map((activity) => activity.fechaFinal);
           setStartDates(initialStartDates);
+          setHoraDates(initialHoraDates)
           setInicio(rutaSinActividadeEliminada.data.fechaInicial);
           setFinal(rutaSinActividadeEliminada.data.fechaFinal);
         }
@@ -76,19 +79,30 @@ const ActivityCard = ({ activityData, handleEdit, setStatuses, index, setCardEli
       [cardIndex]: false,
     }));
   };
-  const handleSaveDates = async (cardIndex) => {
+  const handleSaveDates = async (cardIndex, idActividad) => {
     try {
-      // Realizar la lógica para guardar las fechas actualizadas
-      // utilizando el ID de la actividad
-      // ...
-      setEditingDates((prevEditingDates) => ({
-        ...prevEditingDates,
-        [cardIndex]: false,
-      }));// Después de guardar, se desactiva la edición
+      if (idActividad) {
+        const updateActividad = await axios.patch(`${URLRAILWAY}/api/v1/actividades/${idActividad}`, {
+          fechaInicio: startDates[cardIndex],
+          fechaFinal: horaDates[cardIndex],
+        });
+        if (updateActividad.status === 201) {
+          console.log(updateActividad.data);
+          const updatedStartDates = [...startDates];
+          updatedStartDates[cardIndex] = startDates[cardIndex];
+          setStartDates(updatedStartDates);
+          setEditingDates((prevEditingDates) => ({
+            ...prevEditingDates,
+            [cardIndex]: false,
+          }));
+        }
+      }
     } catch (error) {
       console.log(error);
+      setStatuses((prevStatuses) => ({ ...prevStatuses, [index]: 'error' }));
     }
   };
+  
   const handleDelete = async (idActividad, index) => {
     try {
       if (idActividad) {
@@ -128,7 +142,7 @@ const ActivityCard = ({ activityData, handleEdit, setStatuses, index, setCardEli
                   {editingDates[cardIndex] ? (
                     <div>
                       <TextField
-                        label=""
+                        label='Fecha'
                         value={startDates[cardIndex] || activityData?.fechaInicio}
                         onChange={(e) => {
                           const updatedStartDates = [...startDates];
@@ -143,11 +157,21 @@ const ActivityCard = ({ activityData, handleEdit, setStatuses, index, setCardEli
                           },
                         }}
                         sx={{
-                          margin: 0,
-                          padding: 0,
+                          marginBottom: '0.6em'
                         }}
                       />
-                      <IconButton onClick={() => handleSaveDates(cardIndex)}>
+                      <TextField
+                        label='Hora'
+                        type='time'
+                        value={horaDates[cardIndex] || activityData?.fechaFinal}
+                        onChange={(e) => {
+                          const updatedHoraDates = [...horaDates];
+                          updatedHoraDates[cardIndex] = e.target.value;
+                          setHoraDates(updatedHoraDates);
+                        }}
+                        
+                      />
+                      <IconButton onClick={() => handleSaveDates(cardIndex,activityData._id)}>
                         <SaveIcon sx={{
                                     color: '#FFC107', boxShadow: '0 2px 4px rgba(0, 0, 0, 0.2)',borderRadius: '50%'}}
                         />
@@ -163,10 +187,10 @@ const ActivityCard = ({ activityData, handleEdit, setStatuses, index, setCardEli
                     <Grid container direction="row" alignItems="center">
                       <Grid item>
                         <Typography variant='body2' color='textSecondary' component='p'>
-                        {`Día: ${activityData?.fechaInicio}`}
+                        {`Día: ${startDates[cardIndex] || activityData?.fechaInicio}`}
                         </Typography>
                         <Typography variant='body2' color='textSecondary' component='p'>
-                        {`Hora: ${activityData?.fechaFinal}`}
+                        {`Hora: ${horaDates[cardIndex] || activityData?.fechaFinal}`}
                         </Typography>
                       </Grid>
                       <Grid item>
