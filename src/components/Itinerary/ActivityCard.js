@@ -38,20 +38,19 @@ const ActivityCard = ({ activityData, handleEdit, setStatuses, index, setCardEli
   const [editingDates, setEditingDates] = useState({});
   const [startDates, setStartDates] = useState([]);
   const [horaDates, setHoraDates] = useState([]);
-  const [inicio, setInicio] = useState('');//limites de calendario
-  const [final, setFinal] = useState('');//limites de calendario
-
+  const [inicio, setInicio] = useState(''); //limites de calendario
+  const [final, setFinal] = useState(''); //limites de calendario
 
   useEffect(() => {
     const getActividades = async () => {
       try {
         const rutaSinActividadeEliminada = await axios.get(`${URLRAILWAY}/api/v1/rutas/${activityData._id}`);
-        if(rutaSinActividadeEliminada.status === 200) {
+        if (rutaSinActividadeEliminada.status === 200) {
           setActivities(rutaSinActividadeEliminada.data.actividades);
           const initialStartDates = rutaSinActividadeEliminada.data.actividades.map((activity) => activity.fechaInicio);
           const initialHoraDates = rutaSinActividadeEliminada.data.actividades.map((activity) => activity.fechaFinal);
           setStartDates(initialStartDates);
-          setHoraDates(initialHoraDates)
+          setHoraDates(initialHoraDates);
           setInicio(rutaSinActividadeEliminada.data.fechaInicial);
           setFinal(rutaSinActividadeEliminada.data.fechaFinal);
         }
@@ -102,7 +101,7 @@ const ActivityCard = ({ activityData, handleEdit, setStatuses, index, setCardEli
       setStatuses((prevStatuses) => ({ ...prevStatuses, [index]: 'error' }));
     }
   };
-  
+
   const handleDelete = async (idActividad, index) => {
     try {
       if (idActividad) {
@@ -116,7 +115,7 @@ const ActivityCard = ({ activityData, handleEdit, setStatuses, index, setCardEli
       setStatuses((prevStatuses) => ({ ...prevStatuses, [index]: 'error' }));
     }
   };
- console.log(inicio,final, 'fechas')
+  console.log(inicio, final, 'fechas');
   return (
     <>
       {activities &&
@@ -126,10 +125,10 @@ const ActivityCard = ({ activityData, handleEdit, setStatuses, index, setCardEli
               <IconButton aria-label='delete' onClick={() => handleDelete(activityData._id, index)}>
                 <DeleteIcon
                   sx={{
-                    color: '#FFC107', boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',borderRadius: '50%'
+                    color: '#D2D2D2',
+                    borderRadius: '50%',
                   }}
                 />
-               
               </IconButton>
             </Tooltip>
             <Grid container spacing={2}>
@@ -151,13 +150,13 @@ const ActivityCard = ({ activityData, handleEdit, setStatuses, index, setCardEli
                         }}
                         InputProps={{
                           inputProps: {
-                          type: 'date',
-                          min:inicio, 
-                          max:final,
+                            type: 'date',
+                            min: inicio,
+                            max: final,
                           },
                         }}
                         sx={{
-                          marginBottom: '0.6em'
+                          marginBottom: '0.6em',
                         }}
                       />
                       <TextField
@@ -169,37 +168,43 @@ const ActivityCard = ({ activityData, handleEdit, setStatuses, index, setCardEli
                           updatedHoraDates[cardIndex] = e.target.value;
                           setHoraDates(updatedHoraDates);
                         }}
-                        
                       />
-                      <IconButton onClick={() => handleSaveDates(cardIndex,activityData._id)}>
-                        <SaveIcon sx={{
-                                    color: '#FFC107', boxShadow: '0 2px 4px rgba(0, 0, 0, 0.2)',borderRadius: '50%'}}
+                      <IconButton onClick={() => handleSaveDates(cardIndex, activityData._id)}>
+                        <SaveIcon
+                          sx={{
+                            color: '#D2D2D2',
+
+                            borderRadius: '50%',
+                          }}
                         />
                       </IconButton>
                       <IconButton onClick={() => handleCancelEditDates(cardIndex)}>
-                        <CancelIcon sx={{
-                                    color: '#FFC107', boxShadow: '0 2px 4px rgba(0, 0, 0, 0.2)',borderRadius: '50%'}}
+                        <CancelIcon
+                          sx={{
+                            color: '#D2D2D2',
+
+                            borderRadius: '50%',
+                          }}
                         />
                       </IconButton>
-                      
                     </div>
                   ) : (
-                    <Grid container direction="row" alignItems="center">
+                    <Grid container direction='row' alignItems='center'>
                       <Grid item>
                         <Typography variant='body2' color='textSecondary' component='p'>
-                        {`Día: ${startDates[cardIndex] || activityData?.fechaInicio}`}
+                          {`Día: ${startDates[cardIndex] || activityData?.fechaInicio}`}
                         </Typography>
                         <Typography variant='body2' color='textSecondary' component='p'>
-                        {`Hora: ${horaDates[cardIndex] || activityData?.fechaFinal}`}
+                          {`Hora: ${horaDates[cardIndex] || activityData?.fechaFinal}`}
                         </Typography>
                       </Grid>
                       <Grid item>
                         <IconButton onClick={() => handleEditDates(cardIndex)}>
-                          <EditIcon style={{color: '#FFC107', boxShadow: '0 2px 4px rgba(0, 0, 0, 0.2)',borderRadius: '40%',}}/>
-                       </IconButton>
+                          <EditIcon style={{ color: '#D2D2D2', borderRadius: '40%' }} />
+                        </IconButton>
                       </Grid>
                     </Grid>
-                      )}
+                  )}
                 </CardContent>
               </Grid>
               <Grid item xs={2}>

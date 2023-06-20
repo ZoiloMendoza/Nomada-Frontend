@@ -17,17 +17,17 @@ const styles = {
 };
 
 const MapDisplay = ({ ruta }) => (
-    <Grid container sx={styles.grid}>
-      <Grid item xs={3}>
-        <Box sx={styles.cards}>
-          {ruta?.actividades &&
-            ruta.actividades.map((actividad) => <CardComponent key={actividad.nombre} actividad={actividad} />)}
-        </Box>
-      </Grid>
-      <Grid item xs={9}>
-        <MapComponent latitud={ruta?.transporte?.latitud} longitud={ruta?.transporte?.longitud} />
-      </Grid>
+  <Grid container sx={styles.grid}>
+    <Grid item xs={3}>
+      <Box sx={styles.cards}>
+        {ruta?.actividades &&
+          ruta.actividades.map((actividad) => <CardComponent key={actividad.nombre} actividad={actividad} />)}
+      </Box>
     </Grid>
-  );
+    <Grid item xs={9}>
+      <MapComponent latitud={ruta?.transporte?.latitud} longitud={ruta?.transporte?.longitud} />
+    </Grid>
+  </Grid>
+);
 
 export default MapDisplay;

@@ -34,6 +34,7 @@ const GridItem = styled(Grid)(({ theme }) => ({
 const styles = {
   card: {
     width: '90%',
+    objectFit: 'cover',
   },
   media: {
     height: 0,
@@ -107,7 +108,7 @@ const CardDetalle = ({ data, open, closeCard, openForm }) => {
         <Grid container>
           {item && (
             <GridItem sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '90%' }}>
-              <Box>
+              <Box sx={{ maxWidth: '60%', paddingTop: '10vh' }}>
                 <CardMedia sx={styles.media} image={getImage(data)} />
                 <CardContent>
                   <Typography variant='h6' gutterBottom>
