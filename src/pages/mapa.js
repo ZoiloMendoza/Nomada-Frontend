@@ -30,7 +30,8 @@ export default function Mapa() {
         if(responseViaje.status === 200){
           setRutasViaje(responseViaje.data.rutas); 
           setLoading(false);
-        } 
+        }
+        
       } catch (error) {
         console.log(error)
       }
@@ -39,6 +40,12 @@ export default function Mapa() {
       getRuta();
     }
   }, [id]);
+  useEffect(() => {
+    if (destino) {
+      setdestinoSelect(destino);
+    }
+  }, [destino]);
+  
   const handleChange = (event) => {
     setdestinoSelect(event.target.value);
   };

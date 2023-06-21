@@ -21,7 +21,7 @@ const MapDisplay = ({ ruta }) => (
       <Grid item xs={3}>
         <Box sx={styles.cards}>
           {ruta?.actividades &&
-            ruta?.actividades?.map((actividad) => <CardComponent key={actividad.location_id} actividad={actividad} />)}
+            ruta.actividades.map((actividad) => <CardComponent key={actividad.nombre} actividad={actividad} />)}
         </Box>
       </Grid>
       <Grid item xs={9}>

@@ -31,10 +31,9 @@ const styles = {
   },
 };
 
-const FlightCard = ({ flightData, handleEdit }) => {
+const FlightCard = ({ flightData, handleEdit, setStatuses, index, setCardEliminada }) => {
   const [expanded, setExpanded] = useState(false);
   const [vuelo, setVuelo] = useState(null);
-  const [status, setStatus] = useState('');
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
@@ -55,13 +54,13 @@ const FlightCard = ({ flightData, handleEdit }) => {
     try {
       if (flightData._id) {
         await axios.patch(`${URLRAILWAY}/api/v1/transportes/${flightData._id}`, { numeroVuelo: '' });
+        setStatuses((prevStatuses) => ({ ...prevStatuses, [index]: 'success' }));
         setVuelo('');
-        // alert('Vuelo eliminada');
-        setStatus('success');
+        setCardEliminada('Vuelo');
       }
     } catch (error) {
       console.log(error);
-      setStatus('error');
+      setStatuses((prevStatuses) => ({ ...prevStatuses, [index]: 'error' }));
     }
   };
 
@@ -70,20 +69,6 @@ const FlightCard = ({ flightData, handleEdit }) => {
       {vuelo?.numeroVuelo && (
         <Card sx={styles.card}>
           <div sx={styles.editDeleteIcons}>
-            <Stack sx={{ width: '100%' }} autoHideDuration={5000} spacing={2}>
-              {status === 'success' && (
-                <Alert severity='success'>
-                  <AlertTitle>Éxito</AlertTitle>
-                  Vuelo eliminado correctamente!
-                </Alert>
-              )}
-              {status === 'error' && (
-                <Alert severity='error'>
-                  <AlertTitle>Error</AlertTitle>
-                  Ocurrió un error.
-                </Alert>
-              )}
-            </Stack>
             <Tooltip title='Editar este vuelo'>
               <IconButton aria-label='edit' onClick={() => handleEdit()}>
                 <EditIcon

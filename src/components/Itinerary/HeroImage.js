@@ -151,7 +151,7 @@ const HeroImage = (props) => {
                 </Button>
               </Link>
               <div>
-                <CircleIconButton icon={<Favorite />} href='/favorite' />
+                <CircleIconButton icon={<Favorite />} href='/favorites' />
                 <CircleIconButton icon={<AddCircleIcon />} onClick={destino} />
               </div>
             </div>

@@ -82,12 +82,11 @@ const DynamicMisViajesCard = dynamic(() => import('@/components/misViajes/MisVia
   ),
 });
 
-export default function MisFavoritos() {
+function MisFavoritos() {
   const [value, setValue] = React.useState(0);
   const router = useRouter();
   const [loading, setLoading] = useState(true);
   const [viajesDelUsuario, setViajesDelUsuario] = useState([]);
-  const [viajesInvidatos, setViajesInvitados] = useState([]);
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
@@ -101,13 +100,13 @@ export default function MisFavoritos() {
         }
         const viajesDelUsuario = await axios.get(`${URLRAILWAY}/api/v1/users/${usuario.idUser}`);
         if (viajesDelUsuario.status === 200) {
-          setViajesDelUsuario(viajesDelUsuario.data.viajes);
+          setViajesDelUsuario(viajesDelUsuario.data.viajes && []);
           console.log(viajesDelUsuario.data.viajes, 'viajes del usuario');
           setLoading(false);
         }
         const viajesColaborativos = await axios.get(`${URLRAILWAY}/api/v1/colaboradores/search/${usuario.idUser}`);
         if (viajesColaborativos.status === 200) {
-          setViajesInvitados(viajesColaborativos.data);
+          setViajesInvitados(viajesColaborativos.data && []);
           console.log(viajesColaborativos.data, 'viajes JUNTOS');
         }
       } catch (error) {
@@ -156,21 +155,7 @@ export default function MisFavoritos() {
           )}
         </Grid>
       </TabPanel>
-      <TabPanel value={value} index={1}>
-        <h2>Viajes Compartidos</h2>
-        <Grid sx={{ padding: '15px' }} container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
-          {viajesInvidatos.length > 0 ? (
-            viajesInvidatos.map((viaje) => (
-              <Grid item xs={12} md={6} key={viaje._id}>
-                <h3>{`Viaje compartido por ${viaje.administradorViaje.name}`}</h3>
-                <DynamicMisViajesCard datosViaje={viaje} />
-              </Grid>
-            ))
-          ) : (
-            <NoViajesMessage />
-          )}
-        </Grid>
-      </TabPanel>
     </Box>
   );
 }
+export default MisFavoritos;
