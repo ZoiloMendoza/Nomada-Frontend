@@ -12,7 +12,7 @@ const URLRAILWAY = process.env.NEXT_PUBLIC_BACKEND;
 const styles = {
   title: {
     marginLeft: '15px',
-    color: '#E91E63'
+    color: '#E91E63',
   },
 };
 
@@ -26,14 +26,13 @@ export default function Mapa() {
   useEffect(() => {
     const getRuta = async () => {
       try {
-        const responseViaje = await axios.get(`${URLRAILWAY}/api/v1/viajes/${id}`)
-        if(responseViaje.status === 200){
-          setRutasViaje(responseViaje.data.rutas); 
+        const responseViaje = await axios.get(`${URLRAILWAY}/api/v1/viajes/${id}`);
+        if (responseViaje.status === 200) {
+          setRutasViaje(responseViaje.data.rutas);
           setLoading(false);
         }
-        
       } catch (error) {
-        console.log(error)
+        console.log(error);
       }
     };
     if (id) {
@@ -45,51 +44,50 @@ export default function Mapa() {
       setdestinoSelect(destino);
     }
   }, [destino]);
-  
+
   const handleChange = (event) => {
     setdestinoSelect(event.target.value);
   };
   console.log(rutasViaje, 'VIAJE');
-  console.log(destino, 'destino')
+  console.log(destino, 'destino');
   const arregloDestinos = rutasViaje?.map((transporte) => transporte?.transporte?.destino);
   const rutaElegida = arregloDestinos?.indexOf(destinoSelect);
-  if (loading) return  <Box
-    sx={{
-      display: 'flex',
-      position: 'fixed',
-      top: '50%',
-      left: '50%',
-      transform: 'translate(-50%, -50%)',
-    }}>
-      <CircularProgress />
-    </Box>;
+  if (loading)
+    return (
+      <Box
+        sx={{
+          display: 'flex',
+          position: 'fixed',
+          top: '50%',
+          left: '50%',
+          transform: 'translate(-50%, -50%)',
+        }}
+      >
+        <CircularProgress />
+      </Box>
+    );
   return (
     <>
       <SearchBar />
       <Box
         sx={{
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        gap: '0 20px',
-        paddingRight: '20px'
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          gap: '0 20px',
+          paddingRight: '20px',
         }}
       >
-      <Select
-        id="demo"
-        value={destinoSelect}
-        label="destinoSelect"
-        onChange={handleChange}
-        sx={{ width: '230px', marginLeft:'20px' }}
-      >
-      {rutasViaje && rutasViaje?.map((ruta, index) => (
-        <MenuItem key={index} value={ruta.transporte.destino}>
-          {ruta.transporte.destino}
-        </MenuItem>
-      ))}
-      </Select>
-      <h1 style={styles.title}>{destinoSelect || 'No tienes destinos, agrega uno en Nuevo Viaje'}</h1>
-    </Box>
+        <Select id='demo' value={destinoSelect} onChange={handleChange} sx={{ width: '230px', marginLeft: '20px' }}>
+          {rutasViaje &&
+            rutasViaje?.map((ruta, index) => (
+              <MenuItem key={index} value={ruta.transporte.destino}>
+                {ruta.transporte.destino}
+              </MenuItem>
+            ))}
+        </Select>
+        <h1 style={styles.title}>{destinoSelect || 'No tienes destinos, agrega uno en Nuevo Viaje'}</h1>
+      </Box>
       {rutasViaje && <MapDisplay ruta={rutasViaje[rutaElegida]} />}
     </>
   );

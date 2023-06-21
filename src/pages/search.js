@@ -5,6 +5,7 @@ import { getData } from './api/proxy/restaurantSearch';
 import Box from '@mui/material/Box';
 import CityCard from '@/components/Search/cityCard';
 import ActivityCard from '@/components/Search/activityCard';
+import { useRouter } from 'next/router';
 
 const styles = {
   title: {
@@ -13,10 +14,13 @@ const styles = {
   },
 };
 
-export default function Search({ contentRestaurant, contentDestino, contentActividades, mensaje, destino }) {
+export default function Search({ contentRestaurant, contentDestino, contentActividades, mensaje }) {
   //console.log(contentRestaurant);
   //console.log(contentDestino);
   console.log(mensaje);
+
+  const router = useRouter();
+  const { destino } = router.query;
 
   return (
     <>
@@ -24,7 +28,7 @@ export default function Search({ contentRestaurant, contentDestino, contentActiv
 
       <h1 style={styles.title} destino={destino}>
         {' '}
-        Destinos y Actividades en {destino}
+        {`Destinos y Actividades en ${destino}`.split(',')[0]}
       </h1>
 
       <Box>{<CityCard contentApi={contentDestino} />}</Box>

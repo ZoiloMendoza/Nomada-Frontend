@@ -1,4 +1,4 @@
-import { Card, CardContent, CardMedia, Typography, IconButton, Button, Box } from '@mui/material';
+import { Card, CardContent, CardMedia, Typography, IconButton, Button } from '@mui/material';
 import Carrusel from '../common/Carrusel';
 import { useState } from 'react';
 import CardDetalle from './CardDetalle';
@@ -8,8 +8,9 @@ import { Add, Favorite, FavoriteBorder } from '@mui/icons-material';
 const styles = {
   card: {
     maxWidth: 345,
-    minHeight: 196,
-    margin: '80px 80px',
+    height: '350px',
+    margin: '0 80px',
+    padding: '10px',
   },
   media: {
     height: 140,
@@ -84,50 +85,48 @@ function RestaurantCard({ restaurantData }) {
       <h2 style={{ marginLeft: '30px' }}>Restaurantes</h2>
       <Carrusel>
         {restaurantData?.map((restaurant) => (
-          <Box sx={styles.card} key={restaurant.location_id}>
-            <Card>
-              <CardMedia
-                component='img'
-                sx={styles.media}
-                image={getImage(restaurant)}
-                //image={restaurant?.data[0]?.images.small.url}
-                title={restaurant?.data[0]?.user.username}
-              />
-              <CardContent>
-                <Typography gutterBottom variant='h5' component='h2'>
-                  {restaurant.name}
-                </Typography>
-                <Typography variant='body2' color='textSecondary' component='p'>
-                  {getAdress(restaurant.address_obj)}
-                </Typography>
-              </CardContent>
+          <Card sx={styles.card} key={restaurant.location_id}>
+            <CardMedia
+              component='img'
+              sx={styles.media}
+              image={getImage(restaurant)}
+              //image={restaurant?.data[0]?.images.small.url}
+              title={restaurant?.data[0]?.user.username}
+            />
+            <CardContent>
+              <Typography gutterBottom variant='h5' component='h2'>
+                {restaurant.name}
+              </Typography>
+              <Typography variant='body2' color='textSecondary' component='p'>
+                {getAdress(restaurant.address_obj)}
+              </Typography>
+            </CardContent>
 
-              <Button
-                sx={styles.button}
-                size='small'
-                variant='outlined'
-                color='primary'
-                onClick={() => {
-                  handleClick(restaurant.location_id);
-                }}
-              >
-                Ver detalles
-              </Button>
+            <Button
+              sx={styles.button}
+              size='small'
+              variant='outlined'
+              color='primary'
+              onClick={() => {
+                handleClick(restaurant.location_id);
+              }}
+            >
+              Ver detalles
+            </Button>
 
-              <IconButton
-                sx={styles.addIcon}
-                aria-label='Add to itinerary'
-                onClick={() => {
-                  handleAddClick(restaurant.location_id);
-                }}
-              >
-                <Add />
-              </IconButton>
-              <IconButton sx={styles.iconButton} aria-label='favorite' onClick={handleFavoriteClick}>
-                {isFavorite ? <Favorite /> : <FavoriteBorder />}
-              </IconButton>
-            </Card>
-          </Box>
+            <IconButton
+              sx={styles.addIcon}
+              aria-label='Add to itinerary'
+              onClick={() => {
+                handleAddClick(restaurant.location_id);
+              }}
+            >
+              <Add />
+            </IconButton>
+            <IconButton sx={styles.iconButton} aria-label='favorite' onClick={handleFavoriteClick}>
+              {isFavorite ? <Favorite /> : <FavoriteBorder />}
+            </IconButton>
+          </Card>
         ))}
       </Carrusel>
       {open && selectedRestaurant !== null && (
