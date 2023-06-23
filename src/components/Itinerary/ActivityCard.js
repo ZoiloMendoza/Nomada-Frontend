@@ -6,6 +6,9 @@ import Tooltip from '@mui/material/Tooltip';
 import LocalActivityIcon from '@mui/icons-material/LocalActivity';
 import axios from 'axios';
 import Grid from '@mui/material/Grid';
+import Alert from '@mui/material/Alert';
+import AlertTitle from '@mui/material/AlertTitle';
+import Stack from '@mui/material/Stack';
 const URLRAILWAY = process.env.NEXT_PUBLIC_BACKEND;
 const styles = {
   card: {
@@ -40,6 +43,8 @@ const ActivityCard = ({ activityData, handleEdit, setStatuses, index, setCardEli
   const [horaDates, setHoraDates] = useState([]);
   const [inicio, setInicio] = useState(''); //limites de calendario
   const [final, setFinal] = useState(''); //limites de calendario
+  const [status, setStatus] = useState('');
+  const [statuses2, setStatuses2] = useState({});
 
   useEffect(() => {
     const getActividades = async () => {
@@ -78,6 +83,12 @@ const ActivityCard = ({ activityData, handleEdit, setStatuses, index, setCardEli
       [cardIndex]: false,
     }));
   };
+  const timer = () => {
+    setTimeout(() => {
+      setStatuses2({});
+    }, 3000);
+  };
+
   const handleSaveDates = async (cardIndex, idActividad) => {
     try {
       if (idActividad) {
@@ -94,11 +105,14 @@ const ActivityCard = ({ activityData, handleEdit, setStatuses, index, setCardEli
             ...prevEditingDates,
             [cardIndex]: false,
           }));
+
+          setStatuses2((prevStatuses) => ({ ...prevStatuses, [cardIndex]: 'success' }));
+          timer();
         }
       }
     } catch (error) {
       console.log(error);
-      setStatuses((prevStatuses) => ({ ...prevStatuses, [index]: 'error' }));
+      setStatuses2((prevStatuses) => ({ ...prevStatuses, [cardIndex]: 'error' }));
     }
   };
 
@@ -116,11 +130,23 @@ const ActivityCard = ({ activityData, handleEdit, setStatuses, index, setCardEli
     }
   };
   console.log(inicio, final, 'fechas');
+  console.log(statuses2, 'identificar');
   return (
     <>
       {activities &&
         activities?.map((activityData, cardIndex) => (
           <Card sx={styles.card} key={activityData?._id}>
+            <Stack sx={{ width: '100%' }} spacing={2}>
+              {statuses2[cardIndex] === 'success' && (
+                <Alert severity='success'>{` Actividad modificada correctamente!`}</Alert>
+              )}
+              {statuses2[cardIndex] === 'error' && (
+                <Alert severity='error'>
+                  <AlertTitle>Error</AlertTitle>
+                  {`Ocurrió un error.`}
+                </Alert>
+              )}
+            </Stack>
             <Tooltip title='Eliminar esta actividad'>
               <IconButton aria-label='delete' onClick={() => handleDelete(activityData._id, index)}>
                 <DeleteIcon
