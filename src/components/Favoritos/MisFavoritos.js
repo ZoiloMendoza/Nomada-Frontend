@@ -63,7 +63,7 @@ const NoViajesMessage = () => (
       boxSizing: 'border-box',
     }}
   >
-    No tiene más viajes por el momento ...
+    No tienes actividades favoritas guardadas por el momento ...
   </Box>
 );
 const DynamicMisViajesCard = dynamic(() => import('@/components/misViajes/MisViajesCard'), {
