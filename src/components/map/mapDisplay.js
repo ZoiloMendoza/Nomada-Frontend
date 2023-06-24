@@ -30,6 +30,7 @@ const MapDisplay = ({ ruta }) => {
         const actividadesResponses = await Promise.all(actividadesPromises);
         const actividadesData = actividadesResponses.map((response) => response.data);
         setActividadesDeRuta(actividadesData);
+
         console.log('me estoy ejecutando');
       } catch (error) {
         console.log(error);
