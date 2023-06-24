@@ -10,14 +10,17 @@ import SearchBar from '@/components/Calendario/SearchCalendario';
 export default function CalendarioPages() {
   const usuario = useAuth();
   const [viajesDelUsuario, setViajesDelUsuario] = useState(null);
+  const [actividades, setActividades] = useState(null);
   const [error, setError] = useState(null);
   useEffect(() => {
     const validacionViaje = async () => {
       try {
-        const viajesDelUsuario = await axios.get(`${URLRAILWAY}/api/v1/users/${usuario.idUser}`);
-        if (viajesDelUsuario.status === 200) {
-          setViajesDelUsuario(viajesDelUsuario.data.viajes);
-          console.log(viajesDelUsuario.data.viajes, 'viajes del usuario en calendario');
+        const viajesDelUsuarioGet = await axios.get(`${URLRAILWAY}/api/v1/users/${usuario.idUser}`);
+        if (viajesDelUsuarioGet.status === 200) {
+          setViajesDelUsuario(viajesDelUsuarioGet.data.viajes);
+          const misViajes = viajesDelUsuarioGet.data.viajes;
+          const misRutas = misViajes?.map((viaje) => viaje.rutas)
+          setActividades(misRutas.flat().map((ruta) => ruta.actividades).flat())
         }
       } catch (error) {
         console.error('Error fetching data', error);
@@ -29,6 +32,7 @@ export default function CalendarioPages() {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [usuario]);
+
   if (error) {
     return <p>Error: {error.message}</p>;
   }
@@ -39,7 +43,7 @@ export default function CalendarioPages() {
       </Head>
       <SearchBar />
       <main className={styles.main}>
-        <div>{viajesDelUsuario && <Calendario viajes={viajesDelUsuario} />}</div>
+        <div>{viajesDelUsuario && <Calendario viajes={viajesDelUsuario} actividades={actividades}/>}</div>
       </main>
     </>
   );

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Box, Button, Container, Typography } from '@mui/material';
 import Link from 'next/link';
-//import { useRouter } from 'next/router';
+import { useRouter } from 'next/router';
 import IconButton from '@mui/material/IconButton';
 import PeopleIcon from '@mui/icons-material/People';
 import { Favorite } from '@mui/icons-material';
@@ -86,7 +86,9 @@ const styles = {
 
 const HeroImage = (props) => {
   const [openModal, setOpenModal] = useState(false);
-  /*  const router = useRouter();
+  const router = useRouter();
+  const { id } = router.query;
+  /*
   const destino = () => {
     console.log('click boton add');
     router.push({
@@ -117,7 +119,7 @@ const HeroImage = (props) => {
               <Typography variant='h2' sx={styles.heroSubtitle}>
                 {`${props.viajeData?.destino}`.split(',')[0]} {` - ${props.viajeData?.fechaInicio}`}
               </Typography>
-              <Link href='/calendario'>
+              <Link href={`/calendario?id=${id}`}>
                 <Button variant='contained' color='secondary' sx={styles.heroButton}>
                   Calendario
                 </Button>
