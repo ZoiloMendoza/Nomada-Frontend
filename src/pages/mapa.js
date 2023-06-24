@@ -39,6 +39,7 @@ export default function Mapa() {
       getRuta();
     }
   }, [id]);
+
   useEffect(() => {
     if (destino) {
       setdestinoSelect(destino);
@@ -48,10 +49,12 @@ export default function Mapa() {
   const handleChange = (event) => {
     setdestinoSelect(event.target.value);
   };
+
   console.log(rutasViaje, 'VIAJE');
   console.log(destino, 'destino');
   const arregloDestinos = rutasViaje?.map((transporte) => transporte?.transporte?.destino);
   const rutaElegida = arregloDestinos?.indexOf(destinoSelect);
+  
   if (loading)
     return (
       <Box
