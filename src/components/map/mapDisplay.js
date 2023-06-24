@@ -39,7 +39,7 @@ const MapDisplay = ({ ruta }) => {
     if (ruta.actividades && ruta.actividades != actividadesDeRuta) {
       fetchActividades();
     }
-  }, [actividadesDeRuta, ruta]);
+  }, [ruta]);
   console.log(actividadesDeRuta, 'respuesta de tripad');
   return (
     <Grid container sx={styles.grid}>

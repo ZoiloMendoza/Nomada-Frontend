@@ -43,9 +43,9 @@ function MapComponent({ latitud, longitud, actividadesDeRuta }) {
 
   const onMapLoad = (map) => {
     setMapRef(map);
-    const bounds = new google.maps.LatLngBounds();
+    /*  const bounds = new google.maps.LatLngBounds();
     actividades?.forEach(({ lat, lng }) => bounds.extend({ lat, lng }));
-    map.fitBounds(bounds);
+    map.fitBounds(bounds); */
   };
 
   const { isLoaded } = useJsApiLoader({
