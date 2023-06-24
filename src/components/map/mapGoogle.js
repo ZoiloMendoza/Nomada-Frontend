@@ -3,7 +3,7 @@ import { useRouter } from 'next/router';
 import React, { useState, useEffect } from 'react';
 const apiKey = process.env.NEXT_PUBLIC_API_GOOGLE;
 import SmallCard from './SmallCard';
-
+const mapaLib = ['places'];
 const containerStyle = {
   width: '100%',
   height: '80%',
@@ -43,15 +43,16 @@ function MapComponent({ latitud, longitud, actividadesDeRuta }) {
 
   const onMapLoad = (map) => {
     setMapRef(map);
-    /*  const bounds = new google.maps.LatLngBounds();
+    /*const bounds = new google.maps.LatLngBounds();
     actividades?.forEach(({ lat, lng }) => bounds.extend({ lat, lng }));
-    map.fitBounds(bounds); */
+    map.fitBounds(bounds);
+    */
   };
 
   const { isLoaded } = useJsApiLoader({
     id: 'google-map-script',
     googleMapsApiKey: apiKey,
-    libraries: ['places'],
+    libraries: mapaLib,
   });
 
   useEffect(() => {
@@ -69,9 +70,11 @@ function MapComponent({ latitud, longitud, actividadesDeRuta }) {
       setIsLoading(false);
     }
   }, [latitud, longitud, latitudS, longitudS]);
+
   if (isLoading || isLoaded == false) {
     return <p>Cargando mapa...</p>;
   }
+  console.log(coords, 'hook coords');
   console.log(actividades, 'puras coordenadas');
   return (
     <GoogleMap
