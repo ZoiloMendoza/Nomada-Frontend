@@ -9,7 +9,7 @@ const containerStyle = {
   height: '80%',
 };
 
-function MapComponent({ latitud, longitud, actividadesDeRuta}) {
+function MapComponent({ latitud, longitud, actividadesDeRuta }) {
   console.log(latitud, longitud);
   const [isLoading, setIsLoading] = useState(true);
   const [actividades, setActividades] = useState(null);
@@ -23,16 +23,16 @@ function MapComponent({ latitud, longitud, actividadesDeRuta}) {
   const [isOpen, setIsOpen] = useState(false);
   const [smallCardData, setSmallCardData] = useState();
   useEffect(() => {
-    if(actividadesDeRuta){
-      setActividades(actividadesDeRuta?.map((actividad) => {
-        return {
+    if (actividadesDeRuta) {
+      setActividades(
+        actividadesDeRuta?.map((actividad) => ({
           address: actividad.name,
           lat: actividad.latitude,
-          lng: actividad.longitude
-        }
-      }))
+          lng: actividad.longitude,
+        })),
+      );
     }
-  },[actividadesDeRuta])
+  }, [actividadesDeRuta]);
 
   const markers = [
     { address: 'Address1', lat: 18.5204, lng: 73.8567 },
@@ -77,7 +77,7 @@ function MapComponent({ latitud, longitud, actividadesDeRuta}) {
   if (isLoading || isLoaded == false) {
     return <p>Cargando mapa...</p>;
   }
-  console.log(actividades, 'puras coordenadas')
+  console.log(actividades, 'puras coordenadas');
   return (
     <GoogleMap
       onLoad={onMapLoad}
