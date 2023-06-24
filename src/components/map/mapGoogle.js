@@ -22,23 +22,18 @@ function MapComponent({ latitud, longitud, actividadesDeRuta }) {
   const [mapRef, setMapRef] = useState();
   const [isOpen, setIsOpen] = useState(false);
   const [smallCardData, setSmallCardData] = useState();
+
   useEffect(() => {
     if (actividadesDeRuta) {
       setActividades(
         actividadesDeRuta?.map((actividad) => ({
           address: actividad.name,
-          lat: actividad.latitude,
-          lng: actividad.longitude,
+          lat: parseFloat(actividad.latitude),
+          lng: parseFloat(actividad.longitude),
         })),
       );
     }
   }, [actividadesDeRuta]);
-
-  const markers = [
-    { address: 'Address1', lat: 18.5204, lng: 73.8567 },
-    { address: 'Address2', lat: 18.5314, lng: 73.8446 },
-    { address: 'Address3', lat: 18.5642, lng: 73.7769 },
-  ];
 
   const handleMarkerClick = (id, lat, lng, address) => {
     mapRef?.panTo({ lat, lng });
@@ -49,7 +44,7 @@ function MapComponent({ latitud, longitud, actividadesDeRuta }) {
   const onMapLoad = (map) => {
     setMapRef(map);
     const bounds = new google.maps.LatLngBounds();
-    markers?.forEach(({ lat, lng }) => bounds.extend({ lat, lng }));
+    actividades?.forEach(({ lat, lng }) => bounds.extend({ lat, lng }));
     map.fitBounds(bounds);
   };
 
@@ -88,7 +83,7 @@ function MapComponent({ latitud, longitud, actividadesDeRuta }) {
     >
       {/* Child components, such as markers, info windows, etc. */}
       <>
-        {markers.map(({ address, lat, lng }, ind) => (
+        {actividades.map(({ address, lat, lng }, ind) => (
           <Marker
             key={ind}
             position={{ lat, lng }}
