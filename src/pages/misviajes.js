@@ -105,7 +105,7 @@ export default function MisViajes() {
           console.log(viajesDelUsuario.data.viajes, 'viajes del usuario');
           setLoading(false);
         }
-        if(usuario){
+        if (usuario) {
           const viajesColaborativos = await axios.get(`${URLRAILWAY}/api/v1/colaboradores/search/${usuario.idUser}`);
           if (viajesColaborativos.status === 200) {
             setViajesInvitados(viajesColaborativos.data);

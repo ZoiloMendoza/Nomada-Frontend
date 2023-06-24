@@ -1,7 +1,8 @@
-import { GoogleMap, useJsApiLoader } from '@react-google-maps/api';
+import { GoogleMap, useJsApiLoader, Marker } from '@react-google-maps/api';
 import { useRouter } from 'next/router';
 import React, { useState, useEffect } from 'react';
 const apiKey = process.env.NEXT_PUBLIC_API_GOOGLE;
+import SmallCard from './SmallCard';
 
 const containerStyle = {
   width: '100%',
@@ -17,6 +18,27 @@ function MapComponent({ latitud, longitud }) {
     lat: null,
     lng: null,
   });
+  const [mapRef, setMapRef] = useState();
+  const [isOpen, setIsOpen] = useState(false);
+  const [smallCardData, setSmallCardData] = useState();
+  const markers = [
+    { address: 'Address1', lat: 18.5204, lng: 73.8567 },
+    { address: 'Address2', lat: 18.5314, lng: 73.8446 },
+    { address: 'Address3', lat: 18.5642, lng: 73.7769 },
+  ];
+
+  const handleMarkerClick = (id, lat, lng, address) => {
+    mapRef?.panTo({ lat, lng });
+    setSmallCardData({ id, address });
+    setIsOpen(true);
+  };
+
+  const onMapLoad = (map) => {
+    setMapRef(map);
+    const bounds = new google.maps.LatLngBounds();
+    markers?.forEach(({ lat, lng }) => bounds.extend({ lat, lng }));
+    map.fitBounds(bounds);
+  };
 
   const { isLoaded } = useJsApiLoader({
     id: 'google-map-script',
@@ -42,10 +64,35 @@ function MapComponent({ latitud, longitud }) {
   if (isLoading || isLoaded == false) {
     return <p>Cargando mapa...</p>;
   }
+
   return (
-    <GoogleMap mapContainerStyle={containerStyle} center={coords} zoom={11}>
+    <GoogleMap
+      onLoad={onMapLoad}
+      mapContainerStyle={containerStyle}
+      center={coords}
+      zoom={11}
+      onClick={() => setIsOpen(false)}
+    >
       {/* Child components, such as markers, info windows, etc. */}
-      <></>
+      <>
+        {markers.map(({ address, lat, lng }, ind) => (
+          <Marker
+            key={ind}
+            position={{ lat, lng }}
+            onClick={() => {
+              handleMarkerClick(ind, lat, lng, address);
+            }}
+          >
+            {isOpen && smallCardData?.id === ind && (
+              <SmallCard
+                onCloseClick={() => {
+                  setIsOpen(false);
+                }}
+              />
+            )}
+          </Marker>
+        ))}
+      </>
     </GoogleMap>
   );
 }
