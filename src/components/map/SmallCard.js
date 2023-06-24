@@ -18,7 +18,7 @@ const styles = {
 };
 
 const SmallCard = ({ actividad }) => {
-  const { image, name } = actividad;
+  const { name } = actividad;
 
   return (
     <Card className={styles.card}>
