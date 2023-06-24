@@ -68,6 +68,7 @@ export default function Itinerary() {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [usuario, contentViaje]);
+
   if (loading) return  <Box
     sx={{
       display: 'flex',
@@ -89,6 +90,7 @@ export default function Itinerary() {
   const arregloDestinos = contentViaje?.rutas.map((transporte) => transporte?.transporte?.destino);
   const idRutaElegida = arregloDestinos?.indexOf(destinoSeleccionado);
   const imagenFondo = contentViaje?.rutas[idRutaElegida]?.transporte?.imagen;
+  
   return (
     <Box sx={{ backgroundColor: '#EAEDED' }}>
       <HeroImage viajeData={contentViaje} imagenFondo={imagenFondo} />
