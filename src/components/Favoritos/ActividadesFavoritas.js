@@ -3,7 +3,7 @@ import Carrusel from '../common/Carrusel';
 import { useState } from 'react';
 import PopupActivity from './PopupActivity';
 import { Add, Tooltip, DeleteIcon } from '@mui/icons-material';
-
+import CardDetalleActivity from '../Search/cardDetalleActivity';
 const styles = {
   card: {
     maxWidth: 345,
