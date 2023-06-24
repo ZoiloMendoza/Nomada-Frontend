@@ -27,8 +27,8 @@ function MapComponent({ latitud, longitud, actividadesDeRuta}) {
       setActividades(actividadesDeRuta?.map((actividad) => {
         return {
           address: actividad.name,
-          lat: actividad.latitude,
-          lng: actividad.longitude
+          lat: parseFloat(actividad.latitude),
+          lng: parseFloat(actividad.longitude)
         }
       }))
     }
@@ -49,7 +49,7 @@ function MapComponent({ latitud, longitud, actividadesDeRuta}) {
   const onMapLoad = (map) => {
     setMapRef(map);
     const bounds = new google.maps.LatLngBounds();
-    markers?.forEach(({ lat, lng }) => bounds.extend({ lat, lng }));
+    actividades?.forEach(({ lat, lng }) => bounds.extend({ lat, lng }));
     map.fitBounds(bounds);
   };
 
@@ -88,7 +88,7 @@ function MapComponent({ latitud, longitud, actividadesDeRuta}) {
     >
       {/* Child components, such as markers, info windows, etc. */}
       <>
-        {markers.map(({ address, lat, lng }, ind) => (
+        {actividades.map(({ address, lat, lng }, ind) => (
           <Marker
             key={ind}
             position={{ lat, lng }}
