@@ -142,8 +142,13 @@ export default function MisViajes() {
     <Box sx={{ width: '100%', minHeight: '100vh', padding: '5px', backgroundColor: '#EAEDED' }}>
       <Box sx={{ borderBottom: 1, borderColor: 'divider', marginTop: '10px' }}>
         <Tabs value={value} onChange={handleChange} aria-label='basic tabs example'>
-          <Tab label='Mis Viajes' {...a11yProps(0)} />
-          <Tab label='Viajes Compartidos' {...a11yProps(1)} />
+          {favoritosDelViaje.length > 0 ? (
+            favoritosDelViaje.map((ruta, index) => (
+              <Tab key={index} label={`${ruta?.transporte?.destino}`} {...a11yProps(index)} />
+            ))
+          ) : (
+            <NoViajesMessage />
+          )}
         </Tabs>
       </Box>
       <TabPanel value={value} index={0}>
