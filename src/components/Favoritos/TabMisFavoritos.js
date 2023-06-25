@@ -9,6 +9,7 @@ import PropTypes from 'prop-types';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Typography from '@mui/material/Typography';
+import { useAuth } from '@/utils/useAuth';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -82,38 +83,44 @@ export default function MisViajes() {
   const [value, setValue] = React.useState(0);
   const router = useRouter();
   const [loading, setLoading] = useState(true);
-  const [viajesDelUsuario, setViajesDelUsuario] = useState([]);
-  const [viajesInvidatos, setViajesInvitados] = useState([]);
+  const [favoritosDelUsuario, setfavoritosDelUsuario] = useState([]);
+  const [favoritosDelViaje, setFavoritosDelViaje] = useState([]);
+  //const [viajesInvidatos, setViajesInvitados] = useState([]);
+  const { id } = router.query;
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
+  const usuario = useAuth();
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchFavoritos = async () => {
       try {
-        const usuario = JSON.parse(localStorage.getItem('usuarioLogeado'));
-        if (!usuario) {
-          router.push('/login');
-          return;
-        }
-        const viajesDelUsuario = await axios.get(`${URLRAILWAY}/api/v1/users/${usuario.idUser}`);
-        if (viajesDelUsuario.status === 200) {
-          setViajesDelUsuario(viajesDelUsuario.data.viajes);
-          console.log(viajesDelUsuario.data.viajes, 'viajes del usuario');
+        const favoritosDelViaje = await axios.get(`${URLRAILWAY}/api/v1/viajes/${id}`);
+        if (favoritosDelViaje.status === 200) {
+          setFavoritosDelViaje(favoritosDelViaje.data.rutas);
+          console.log(favoritosDelViaje.data.rutas, 'Favoritos del viaje');
           setLoading(false);
-        }
-        if (usuario) {
-          const viajesColaborativos = await axios.get(`${URLRAILWAY}/api/v1/colaboradores/search/${usuario.idUser}`);
-          if (viajesColaborativos.status === 200) {
-            setViajesInvitados(viajesColaborativos.data);
-            console.log(viajesColaborativos, 'viajes JUNTOS');
-          }
         }
       } catch (error) {
         console.error('Error fetching data', error);
       }
     };
-    fetchData();
-  }, [router]);
+    if (id) fetchFavoritos();
+  }, [id]);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const favoritosDelUsuario = await axios.get(`${URLRAILWAY}/api/v1/users/${usuario.idUser}`);
+        if (favoritosDelUsuario.status === 200) {
+          setfavoritosDelUsuario(favoritosDelUsuario.data.viajes);
+
+          setLoading(false);
+        }
+      } catch (error) {
+        console.error('Error fetching data', error);
+      }
+    };
+    if (usuario) fetchData();
+  }, [usuario]);
 
   if (loading) {
     return (
@@ -141,25 +148,9 @@ export default function MisViajes() {
       </Box>
       <TabPanel value={value} index={0}>
         <Grid sx={{ padding: '15px' }} container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
-          {viajesDelUsuario.length > 0 ? (
-            viajesDelUsuario.map((viaje) => (
+          {favoritosDelUsuario.length > 0 ? (
+            favoritosDelUsuario.map((viaje) => (
               <Grid item xs={12} md={6} key={viaje._id}>
-                <DynamicMisViajesCard datosViaje={viaje} />
-              </Grid>
-            ))
-          ) : (
-            <NoViajesMessage />
-          )}
-        </Grid>
-      </TabPanel>
-      <TabPanel value={value} index={1}>
-        <Grid sx={{ padding: '15px' }} container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
-          {viajesInvidatos.length > 0 ? (
-            viajesInvidatos.map((viaje) => (
-              <Grid item xs={12} md={6} key={viaje._id}>
-                <Box>
-                  <h3>{`Viaje compartido por ${viaje.administradorViaje.name}`}</h3>
-                </Box>
                 <DynamicMisViajesCard datosViaje={viaje} />
               </Grid>
             ))

@@ -40,6 +40,7 @@ const MapDisplay = ({ ruta }) => {
     if (ruta.actividades && ruta.actividades != actividadesDeRuta) {
       fetchActividades();
     }
+    //eslint-disable-next-line react-hooks/exhaustive-deps
   }, [ruta]);
   console.log(actividadesDeRuta, 'respuesta de tripad');
   return (
