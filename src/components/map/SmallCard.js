@@ -18,14 +18,15 @@ const styles = {
 };
 
 const SmallCard = ({ actividad }) => {
-  const { name } = actividad;
+  const { fotos, nombre, direccion } = actividad;
 
   return (
     <Card className={styles.card}>
-      <CardMedia className={styles.media} image={image} title={name} />
+      <CardMedia className={styles.media} image={fotos} title={nombre} />
       <Typography variant='subtitle1' className={styles.title}>
-        {name}
+        {nombre}
       </Typography>
+      <Typography variant='subtitle2'>{direccion}</Typography>
     </Card>
   );
 };
