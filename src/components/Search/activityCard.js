@@ -33,6 +33,7 @@ function ActivityCard({ activityData }) {
   const [openForm, setOpenForm] = useState(false);
   const [selectedActivity, setSelectedActivity] = useState(null);
   const [isFavorite, setIsFavorite] = useState(false);
+  const [editingDates, setEditingDates] = useState({});
   //const [infoRuta, setinfoRuta] = useState([]);
 
   const handleClick = (location_id) => {
@@ -41,7 +42,7 @@ function ActivityCard({ activityData }) {
     setOpen(true);
   };
 
-  console.log(activityData);
+  //console.log(activityData);
 
   const handleAddClick = (location_id) => {
     const selectedActivity = activityData.find((activity) => activity.location_id === location_id);
@@ -78,8 +79,19 @@ function ActivityCard({ activityData }) {
     return formatoActivity;
   };
 
-  const handleFavoriteClick = () => {
-    setIsFavorite(!isFavorite);
+  const handleEditDates = (cardIndex) => {
+    
+  };
+  const handleFavoriteClick = (location_id, cardIndex) => {
+    const nextIsFavorite = !isFavorite;
+    setIsFavorite(nextIsFavorite);
+    setEditingDates((prevEditingDates) => ({
+      ...prevEditingDates,
+      [cardIndex]: nextIsFavorite,
+    }));
+    if(nextIsFavorite){
+      console.log('peticion para guardar favorito')
+    }
     console.log('Favorite button clicked!');
   };
 
@@ -87,7 +99,7 @@ function ActivityCard({ activityData }) {
     <>
       <h2 style={{ marginLeft: '30px' }}>Actividades</h2>
       <Carrusel>
-        {activityData?.map((activity) => (
+        {activityData?.map((activity, index) => (
           <Card sx={styles.card} key={activity.location_id}>
             <CardMedia
               sx={styles.media}
@@ -124,8 +136,8 @@ function ActivityCard({ activityData }) {
             >
               <Add />
             </IconButton>
-            <IconButton sx={styles.iconButton} aria-label='favorite' onClick={handleFavoriteClick}>
-              {isFavorite ? <Favorite /> : <FavoriteBorder />}
+            <IconButton sx={styles.iconButton} aria-label='favorite' onClick={()=> handleFavoriteClick(activity.location_id, index)}>
+              {editingDates[index]  ? <Favorite /> : <FavoriteBorder />}
             </IconButton>
           </Card>
         ))}
