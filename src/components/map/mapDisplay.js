@@ -30,7 +30,6 @@ const MapDisplay = ({ ruta }) => {
         const actividadesResponses = await Promise.all(actividadesPromises);
         const actividadesData = actividadesResponses.map((response) => response.data);
         setActividadesDeRuta(actividadesData);
-        
         console.log('me estoy ejecutando');
       } catch (error) {
         console.log(error);
@@ -41,7 +40,6 @@ const MapDisplay = ({ ruta }) => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [ruta]);
-  console.log(actividadesDeRuta, 'respuesta de tripad')
   return (
     <Grid container sx={styles.grid}>
       <Grid item xs={3}>
