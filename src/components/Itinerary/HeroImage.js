@@ -125,7 +125,7 @@ const HeroImage = (props) => {
                 </Button>
               </Link>
               <div>
-                <CircleIconButton icon={<Favorite />} href='/favorites' />
+                <CircleIconButton icon={<Favorite />} href={`/favorites?id=${id}`} />
 
                 <CircleIconButton icon={<PeopleIcon />} onClick={handleOpenModal} />
               </div>

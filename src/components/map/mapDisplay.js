@@ -35,10 +35,11 @@ const MapDisplay = ({ ruta }) => {
         console.log(error);
       }
     };
+
     if (ruta.actividades && ruta.actividades != actividadesDeRuta) {
       fetchActividades();
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    //eslint-disable-next-line react-hooks/exhaustive-deps
   }, [ruta]);
   return (
     <Grid container sx={styles.grid}>

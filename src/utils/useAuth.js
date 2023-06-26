@@ -8,7 +8,7 @@ export function useAuth() {
   useEffect(() => {
     const usuarioLogeado = JSON.parse(localStorage.getItem('usuarioLogeado'));
     if (!usuarioLogeado) {
-      router.replace('/registro');
+      router.replace('/login');
       return;
     }
 

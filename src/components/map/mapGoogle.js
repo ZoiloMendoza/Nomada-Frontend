@@ -74,7 +74,7 @@ function MapComponent({ latitud, longitud, actividadesDeRuta }) {
   if (isLoading || isLoaded == false) {
     return <p>Cargando mapa...</p>;
   }
-  console.log(coords, 'hook coords')
+  console.log(coords, 'hook coords');
   console.log(actividades, 'puras coordenadas');
   return (
     <GoogleMap
