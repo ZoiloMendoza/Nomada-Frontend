@@ -63,7 +63,7 @@ const NoViajesMessage = () => (
     No tiene más viajes por el momento ...
   </Box>
 );
-const DynamicMisViajesCard = dynamic(() => import('@/components/misViajes/MisViajesCard'), {
+/*const DynamicMisViajesCard = dynamic(() => import('@/components/misViajes/MisViajesCard'), {
   loading: () => (
     <Box
       sx={{
@@ -74,11 +74,12 @@ const DynamicMisViajesCard = dynamic(() => import('@/components/misViajes/MisVia
         transform: 'translate(-50%, -50%)',
       }}
     >
+  
       <CircularProgress />
     </Box>
   ),
 });
-
+*/
 export default function MisViajes() {
   const [value, setValue] = React.useState(0);
   const router = useRouter();
@@ -151,19 +152,6 @@ export default function MisViajes() {
           )}
         </Tabs>
       </Box>
-      <TabPanel value={value} index={0}>
-        <Grid sx={{ padding: '15px' }} container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
-          {favoritosDelUsuario.length > 0 ? (
-            favoritosDelUsuario.map((viaje) => (
-              <Grid item xs={12} md={6} key={viaje._id}>
-                <DynamicMisViajesCard datosViaje={viaje} />
-              </Grid>
-            ))
-          ) : (
-            <NoViajesMessage />
-          )}
-        </Grid>
-      </TabPanel>
     </Box>
   );
 }

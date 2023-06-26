@@ -1,5 +1,4 @@
 import { Card, CardContent, CardMedia, Typography, IconButton, Button } from '@mui/material';
-import Carrusel from '../common/Carrusel';
 import { useState } from 'react';
 import PopupActivity from './PopupActivity';
 import { Add, Tooltip, DeleteIcon } from '@mui/icons-material';
@@ -94,57 +93,57 @@ function ActividadesFavoritas({ activityData }) {
   return (
     <>
       <h2 style={{ marginLeft: '30px' }}>Actividades</h2>
-      <Carrusel>
-        {activityData?.map((activity) => (
-          <Card sx={styles.card} key={activity.location_id}>
-            <CardMedia
-              sx={styles.media}
-              image={getImage(activity)}
-              //  title={activity?.data[0]?.user.username}
-            />
-            <CardContent>
-              <Typography gutterBottom variant='h5' component='h2'>
-                {activity.name}
-              </Typography>
-              <Typography variant='body2' color='textSecondary' component='p'>
-                {getAdress(activity.address_obj)}
-              </Typography>
-            </CardContent>
 
-            <Button
-              sx={styles.button}
-              size='small'
-              variant='outlined'
-              color='primary'
-              onClick={() => {
-                handleClick(activity.location_id);
-              }}
-            >
-              Ver detalles
-            </Button>
+      {activityData?.map((activity) => (
+        <Card sx={styles.card} key={activity.location_id}>
+          <CardMedia
+            sx={styles.media}
+            image={getImage(activity)}
+            //  title={activity?.data[0]?.user.username}
+          />
+          <CardContent>
+            <Typography gutterBottom variant='h5' component='h2'>
+              {activity.name}
+            </Typography>
+            <Typography variant='body2' color='textSecondary' component='p'>
+              {getAdress(activity.address_obj)}
+            </Typography>
+          </CardContent>
 
-            <IconButton
-              sx={styles.addIcon}
-              aria-label='Add to itinerary'
-              onClick={() => {
-                handleAddClick(activity.location_id);
-              }}
-            >
-              <Add />
+          <Button
+            sx={styles.button}
+            size='small'
+            variant='outlined'
+            color='primary'
+            onClick={() => {
+              handleClick(activity.location_id);
+            }}
+          >
+            Ver detalles
+          </Button>
+
+          <IconButton
+            sx={styles.addIcon}
+            aria-label='Add to itinerary'
+            onClick={() => {
+              handleAddClick(activity.location_id);
+            }}
+          >
+            <Add />
+          </IconButton>
+          <Tooltip title='Eliminar este hospedaje'>
+            <IconButton aria-label='delete' onClick={() => handleDelete(hotelData._id, index)}>
+              <DeleteIcon
+                sx={{
+                  width: '20px',
+                  color: '#D2D2D2',
+                }}
+              />
             </IconButton>
-            <Tooltip title='Eliminar este hospedaje'>
-              <IconButton aria-label='delete' onClick={() => handleDelete(hotelData._id, index)}>
-                <DeleteIcon
-                  sx={{
-                    width: '20px',
-                    color: '#D2D2D2',
-                  }}
-                />
-              </IconButton>
-            </Tooltip>
-          </Card>
-        ))}
-      </Carrusel>
+          </Tooltip>
+        </Card>
+      ))}
+
       {open && selectedActivity !== null && (
         <CardDetalleActivity
           data={selectedActivity}

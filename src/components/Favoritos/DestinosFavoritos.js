@@ -1,7 +1,6 @@
 import { Card, CardContent, CardMedia, Typography, IconButton, Button, Tooltip, DeleteIcon } from '@mui/material';
 import { useState } from 'react';
-import CardDetalle from './CardDetalle';
-import PopupForm from './PopupForm';
+import PopupForm from '../Search/PopupForm';
 import { Add } from '@mui/icons-material';
 
 const styles = {
@@ -144,15 +143,6 @@ function DestinosFavoritos({ restaurantData }) {
         </Card>
       ))}
 
-      {open && selectedRestaurant !== null && (
-        <CardDetalle
-          data={selectedRestaurant}
-          open={open}
-          closeCard={closeCard}
-          categoria={'restaurant'}
-          openForm={funcionOpen}
-        />
-      )}
       {openForm && selectedRestaurant !== null && (
         <PopupForm data={selectedRestaurant} openForm={openForm} closeForm={closeForm} />
       )}

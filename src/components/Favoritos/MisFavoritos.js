@@ -1,8 +1,8 @@
 import TabsMisFavoritos from './TabMisFavoritos';
-//import DestinosFavoritos from './DestinosFavoritos';
+import DestinosFavoritos from './DestinosFavoritos';
 //import RestaurantesFavoritos from './RestaurantesFavoritos';
 //import ActividadesFavoritas from './ActividadesFavoritas';
-//import { Box } from '@mui/material';
+import { Box } from '@mui/material';
 
 const styles = {
   title: {
@@ -15,8 +15,8 @@ export default function MisFavoritos() {
     <>
       <TabsMisFavoritos />
 
-      {/* <Box>{<DestinosFavoritos contentApi={contentDestino} />}</Box>
-      <Box>{<RestaurantesFavoritos restaurantData={contentRestaurant} />}</Box>
+      <Box>{<DestinosFavoritos contentApi={[]} />}</Box>
+      {/*<Box>{<RestaurantesFavoritos restaurantData={contentRestaurant} />}</Box>
   <Box>{<ActividadesFavoritas activityData={contentActividades} />}</Box>*/}
     </>
   );
