@@ -4,6 +4,8 @@ import { useState } from 'react';
 import CardDetalleActivity from './cardDetalleActivity';
 import PopupActivity from './PopupActivity';
 import { Add, Favorite, FavoriteBorder } from '@mui/icons-material';
+import Alert from '@mui/material/Alert';
+import Stack from '@mui/material/Stack';
 
 const styles = {
   card: {
@@ -32,8 +34,9 @@ function ActivityCard({ activityData }) {
   const [open, setOpen] = useState(false);
   const [openForm, setOpenForm] = useState(false);
   const [selectedActivity, setSelectedActivity] = useState(null);
-  const [isFavorite, setIsFavorite] = useState(false);
   const [editingDates, setEditingDates] = useState({});
+  const [showAlert, setShowAlert] = useState({});
+
   //const [infoRuta, setinfoRuta] = useState([]);
 
   const handleClick = (location_id) => {
@@ -79,22 +82,19 @@ function ActivityCard({ activityData }) {
     return formatoActivity;
   };
 
-  const handleEditDates = (cardIndex) => {
-    
-  };
+  const handleEditDates = (cardIndex) => {};
   const handleFavoriteClick = (location_id, cardIndex) => {
-    const nextIsFavorite = !isFavorite;
-    setIsFavorite(nextIsFavorite);
+    const nextIsFavorite = !editingDates[cardIndex];
     setEditingDates((prevEditingDates) => ({
       ...prevEditingDates,
       [cardIndex]: nextIsFavorite,
     }));
-    if(nextIsFavorite){
-      console.log('peticion para guardar favorito')
-    }
+    setShowAlert((prevShowAlert) => ({
+      ...prevShowAlert,
+      [cardIndex]: true,
+    }));
     console.log('Favorite button clicked!');
   };
-
   return (
     <>
       <h2 style={{ marginLeft: '30px' }}>Actividades</h2>
@@ -107,6 +107,11 @@ function ActivityCard({ activityData }) {
               //  title={activity?.data[0]?.user.username}
             />
             <CardContent>
+              {showAlert[index] && (
+                <Stack sx={{ width: '100%' }} autoHideDuration={5000} spacing={2}>
+                  <Alert severity='success'>Actividad agregada a favoritos!</Alert>
+                </Stack>
+              )}
               <Typography gutterBottom variant='h5' component='h2'>
                 {activity.name}
               </Typography>
@@ -136,8 +141,12 @@ function ActivityCard({ activityData }) {
             >
               <Add />
             </IconButton>
-            <IconButton sx={styles.iconButton} aria-label='favorite' onClick={()=> handleFavoriteClick(activity.location_id, index)}>
-              {editingDates[index]  ? <Favorite /> : <FavoriteBorder />}
+            <IconButton
+              sx={styles.iconButton}
+              aria-label='favorite'
+              onClick={() => handleFavoriteClick(activity.location_id, index)}
+            >
+              {editingDates[index] ? <Favorite /> : <FavoriteBorder />}
             </IconButton>
           </Card>
         ))}
