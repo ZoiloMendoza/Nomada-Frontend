@@ -4,7 +4,7 @@ import { useState } from 'react';
 import CardDetalleActivity from './cardDetalleActivity';
 import PopupActivity from './PopupActivity';
 import { Add, Favorite, FavoriteBorder } from '@mui/icons-material';
-
+import axios from 'axios';
 const styles = {
   card: {
     maxWidth: 345,
@@ -82,7 +82,7 @@ function ActivityCard({ activityData }) {
   const handleEditDates = (cardIndex) => {
     
   };
-  const handleFavoriteClick = (location_id, cardIndex) => {
+  const handleFavoriteClick = async (location_id, cardIndex) => {
     const nextIsFavorite = !isFavorite;
     setIsFavorite(nextIsFavorite);
     setEditingDates((prevEditingDates) => ({
@@ -91,6 +91,10 @@ function ActivityCard({ activityData }) {
     }));
     if(nextIsFavorite){
       console.log('peticion para guardar favorito')
+      const crearDestino = await axios.post(
+        `https://nomada-backend-production.up.railway.app/api/v1/favoritos`,
+        nuevaActividad,
+      );
     }
     console.log('Favorite button clicked!');
   };
