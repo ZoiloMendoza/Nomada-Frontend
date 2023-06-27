@@ -5,6 +5,7 @@ import axios from 'axios';
 import Alert from '@mui/material/Alert';
 import AlertTitle from '@mui/material/AlertTitle';
 import Stack from '@mui/material/Stack';
+const URLRAILWAY = process.env.NEXT_PUBLIC_BACKEND;
 
 const PopupActivity = ({ data, openForm, closeForm, categoria }) => {
   const router = useRouter();
@@ -32,10 +33,7 @@ const PopupActivity = ({ data, openForm, closeForm, categoria }) => {
         fechaFinal: time,
         locationId: data.location_id,
       };
-      const crearRutaPost = await axios.post(
-        `https://nomada-backend-production.up.railway.app/api/v1/actividades`,
-        nuevaActividad,
-      );
+      const crearRutaPost = await axios.post(`${URLRAILWAY}/api/v1/actividades`,nuevaActividad);
       console.log(crearRutaPost, 'crearRuta');
       //alert('se agrego actividad');
       setStatus('success');
