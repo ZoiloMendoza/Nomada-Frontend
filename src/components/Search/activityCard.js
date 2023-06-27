@@ -82,6 +82,11 @@ function ActivityCard({ activityData }) {
     return formatoActivity;
   };
 
+  const timer = () => {
+    setTimeout(() => {
+      setShowAlert({});
+    }, 3000);
+  };
   const handleEditDates = (cardIndex) => {};
   const handleFavoriteClick = (location_id, cardIndex) => {
     const nextIsFavorite = !editingDates[cardIndex];
@@ -93,8 +98,10 @@ function ActivityCard({ activityData }) {
       ...prevShowAlert,
       [cardIndex]: true,
     }));
+    timer();
     console.log('Favorite button clicked!');
   };
+
   return (
     <>
       <h2 style={{ marginLeft: '30px' }}>Actividades</h2>
