@@ -4,8 +4,11 @@ import { useState } from 'react';
 import CardDetalleActivity from './cardDetalleActivity';
 import PopupActivity from './PopupActivity';
 import { Add, Favorite, FavoriteBorder } from '@mui/icons-material';
+import axios from 'axios';
+import { useRouter } from 'next/router';
 import Alert from '@mui/material/Alert';
 import Stack from '@mui/material/Stack';
+const URLRAILWAY = process.env.NEXT_PUBLIC_BACKEND;
 
 const styles = {
   card: {
@@ -35,6 +38,9 @@ function ActivityCard({ activityData }) {
   const [openForm, setOpenForm] = useState(false);
   const [selectedActivity, setSelectedActivity] = useState(null);
   const [editingDates, setEditingDates] = useState({});
+  const [isFavorite,setIsFavorite] = useState(false)
+  const router = useRouter();
+  const { idRuta } = router.query
   const [showAlert, setShowAlert] = useState({});
 
   //const [infoRuta, setinfoRuta] = useState([]);
@@ -90,10 +96,33 @@ function ActivityCard({ activityData }) {
   const handleEditDates = (cardIndex) => {};
   const handleFavoriteClick = (location_id, cardIndex) => {
     const nextIsFavorite = !editingDates[cardIndex];
+  const handleFavoriteClick = async (location_id, cardIndex) => {
+    const nextIsFavorite = !isFavorite;
+    const selectedActivity = activityData.find((activity) => activity.location_id === location_id);
+    const nuevaActividad = {
+      rutaId: idRuta,
+      categoria: 'attraction',
+      nombre: selectedActivity.name,
+      direccion: selectedActivity.address_obj.address_string,
+      fotos: selectedActivity?.data[0]?.images?.large.url || '',
+      fechaInicio: '',
+      fechaFinal: '',
+      locationId: selectedActivity.location_id,
+    };
+    setIsFavorite(nextIsFavorite);
     setEditingDates((prevEditingDates) => ({
       ...prevEditingDates,
       [cardIndex]: nextIsFavorite,
     }));
+    if(nextIsFavorite){
+      console.log(nuevaActividad,'peticion para guardar favorito')
+      try {
+        const crearDestino = await axios.post(`${URLRAILWAY}/api/v1/favoritos`,nuevaActividad);
+        if(crearDestino.status === 201) console.log('----------Favorito guardado--------')
+      } catch (error) {
+        console.log(error)
+      }
+    }
     setShowAlert((prevShowAlert) => ({
       ...prevShowAlert,
       [cardIndex]: true,
