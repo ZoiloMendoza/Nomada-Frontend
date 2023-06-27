@@ -10,6 +10,7 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Typography from '@mui/material/Typography';
 import { useAuth } from '@/utils/useAuth';
+import DestinosFavoritos from './DestinosFavoritos';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -151,6 +152,19 @@ export default function MisViajes() {
             <NoViajesMessage />
           )}
         </Tabs>
+        <TabPanel value={value} index={0}>
+          <Grid sx={{ padding: '15px' }} container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
+            {favoritosDelViaje.length > 0 ? (
+              favoritosDelViaje.map((viaje) => (
+                <Grid item xs={12} md={6} key={viaje._id}>
+                  <Box>{<DestinosFavoritos contentApi={[]} />}</Box>
+                </Grid>
+              ))
+            ) : (
+              <NoViajesMessage />
+            )}
+          </Grid>
+        </TabPanel>
       </Box>
     </Box>
   );

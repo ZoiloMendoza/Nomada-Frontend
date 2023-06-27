@@ -25,19 +25,19 @@ const styles = {
   },
 };
 
-function DestinosFavoritos({ restaurantData }) {
+function DestinosFavoritos({ contentApi }) {
   const [open, setOpen] = useState(false);
   const [openForm, setOpenForm] = useState(false);
   const [selectedRestaurant, setSelectedRestaurant] = useState(null);
 
   const handleClick = (location_id) => {
-    const selectedRestaurant = restaurantData.find((restaurant) => restaurant.location_id === location_id);
+    const selectedRestaurant = contentApi.find((restaurant) => restaurant.location_id === location_id);
     setSelectedRestaurant(selectedRestaurant);
     setOpen(true);
   };
 
   const handleAddClick = (location_id) => {
-    const selectedRestaurant = restaurantData.find((restaurant) => restaurant.location_id === location_id);
+    const selectedRestaurant = contentApi.find((restaurant) => restaurant.location_id === location_id);
     setSelectedRestaurant(selectedRestaurant);
     setOpenForm(true);
     console.log('Add button clicked!');
@@ -51,7 +51,7 @@ function DestinosFavoritos({ restaurantData }) {
     setOpenForm(false);
   };
 
-  console.log(restaurantData, 'mensaje por nosotros');
+  console.log(contentApi, 'mensaje por nosotros');
   const funcionOpen = () => {
     setOpenForm(true);
     setOpen(false);
@@ -91,7 +91,7 @@ function DestinosFavoritos({ restaurantData }) {
     <>
       <h2 style={{ marginLeft: '30px' }}>Destinos</h2>
 
-      {restaurantData?.map((restaurant) => (
+      {contentApi?.map((restaurant) => (
         <Card sx={styles.card} key={restaurant.location_id}>
           <CardMedia
             component='img'
