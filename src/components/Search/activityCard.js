@@ -38,9 +38,8 @@ function ActivityCard({ activityData }) {
   const [openForm, setOpenForm] = useState(false);
   const [selectedActivity, setSelectedActivity] = useState(null);
   const [editingDates, setEditingDates] = useState({});
-  const [isFavorite,setIsFavorite] = useState(false)
   const router = useRouter();
-  const { idRuta } = router.query
+  const { idRuta } = router.query;
   const [showAlert, setShowAlert] = useState({});
 
   //const [infoRuta, setinfoRuta] = useState([]);
@@ -93,11 +92,9 @@ function ActivityCard({ activityData }) {
       setShowAlert({});
     }, 3000);
   };
-  const handleEditDates = (cardIndex) => {};
-  const handleFavoriteClick = (location_id, cardIndex) => {
-    const nextIsFavorite = !editingDates[cardIndex];
+
   const handleFavoriteClick = async (location_id, cardIndex) => {
-    const nextIsFavorite = !isFavorite;
+    const nextIsFavorite = !editingDates[cardIndex];
     const selectedActivity = activityData.find((activity) => activity.location_id === location_id);
     const nuevaActividad = {
       rutaId: idRuta,
@@ -109,18 +106,18 @@ function ActivityCard({ activityData }) {
       fechaFinal: '',
       locationId: selectedActivity.location_id,
     };
-    setIsFavorite(nextIsFavorite);
+
     setEditingDates((prevEditingDates) => ({
       ...prevEditingDates,
       [cardIndex]: nextIsFavorite,
     }));
-    if(nextIsFavorite){
-      console.log(nuevaActividad,'peticion para guardar favorito')
+    if (nextIsFavorite) {
+      console.log(nuevaActividad, 'peticion para guardar favorito');
       try {
-        const crearDestino = await axios.post(`${URLRAILWAY}/api/v1/favoritos`,nuevaActividad);
-        if(crearDestino.status === 201) console.log('----------Favorito guardado--------')
+        const crearDestino = await axios.post(`${URLRAILWAY}/api/v1/favoritos`, nuevaActividad);
+        if (crearDestino.status === 201) console.log('----------Favorito guardado--------');
       } catch (error) {
-        console.log(error)
+        console.log(error);
       }
     }
     setShowAlert((prevShowAlert) => ({
@@ -140,7 +137,7 @@ function ActivityCard({ activityData }) {
             <CardMedia
               sx={styles.media}
               image={getImage(activity)}
-              //  title={activity?.data[0]?.user.username}
+              // title={activity?.data[0]?.user.username}
             />
             <CardContent>
               {showAlert[index] && (
