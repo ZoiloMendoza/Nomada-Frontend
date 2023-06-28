@@ -6,8 +6,7 @@ import PopupActivity from './PopupActivity';
 import { Add, Favorite, FavoriteBorder } from '@mui/icons-material';
 import axios from 'axios';
 import { useRouter } from 'next/router';
-import Alert from '@mui/material/Alert';
-import Stack from '@mui/material/Stack';
+
 const URLRAILWAY = process.env.NEXT_PUBLIC_BACKEND;
 
 const styles = {
@@ -40,7 +39,6 @@ function ActivityCard({ activityData }) {
   const [editingDates, setEditingDates] = useState({});
   const router = useRouter();
   const { idRuta } = router.query;
-  const [showAlert, setShowAlert] = useState({});
 
   //const [infoRuta, setinfoRuta] = useState([]);
 
@@ -87,12 +85,6 @@ function ActivityCard({ activityData }) {
     return formatoActivity;
   };
 
-  const timer = () => {
-    setTimeout(() => {
-      setShowAlert({});
-    }, 3000);
-  };
-
   const handleFavoriteClick = async (location_id, cardIndex) => {
     const nextIsFavorite = !editingDates[cardIndex];
     const selectedActivity = activityData.find((activity) => activity.location_id === location_id);
@@ -120,11 +112,7 @@ function ActivityCard({ activityData }) {
         console.log(error);
       }
     }
-    setShowAlert((prevShowAlert) => ({
-      ...prevShowAlert,
-      [cardIndex]: true,
-    }));
-    timer();
+
     console.log('Favorite button clicked!');
   };
 
@@ -140,11 +128,6 @@ function ActivityCard({ activityData }) {
               // title={activity?.data[0]?.user.username}
             />
             <CardContent>
-              {showAlert[index] && (
-                <Stack sx={{ width: '100%' }} autoHideDuration={5000} spacing={2}>
-                  <Alert severity='success'>Actividad agregada a favoritos!</Alert>
-                </Stack>
-              )}
               <Typography gutterBottom variant='h5' component='h2'>
                 {activity.name}
               </Typography>
