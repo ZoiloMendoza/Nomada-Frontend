@@ -1,7 +1,11 @@
 import { Card, CardContent, CardMedia, Typography, IconButton, Button, Tooltip, DeleteIcon } from '@mui/material';
 import { useState } from 'react';
 import PopupForm from '../Search/PopupForm';
-import { Add } from '@mui/icons-material';
+import { Add, Favorite, FavoriteBorder } from '@mui/icons-material';
+import { useRouter } from 'next/router';
+import Alert from '@mui/material/Alert';
+import Stack from '@mui/material/Stack';
+const URLRAILWAY = process.env.NEXT_PUBLIC_BACKEND;
 
 const styles = {
   card: {
@@ -25,10 +29,14 @@ const styles = {
   },
 };
 
-function DestinosFavoritos({ contentApi }) {
+export default function DestinosFavoritos({ contentApi }) {
   const [open, setOpen] = useState(false);
   const [openForm, setOpenForm] = useState(false);
   const [selectedRestaurant, setSelectedRestaurant] = useState(null);
+  const [editingDates, setEditingDates] = useState({});
+  //const router = useRouter();
+  //const { idRuta } = router.query;
+  const [showAlert, setShowAlert] = useState({});
 
   const handleClick = (location_id) => {
     const selectedRestaurant = contentApi.find((restaurant) => restaurant.location_id === location_id);
@@ -52,13 +60,14 @@ function DestinosFavoritos({ contentApi }) {
   };
 
   console.log(contentApi, 'mensaje por nosotros');
+
   const funcionOpen = () => {
     setOpenForm(true);
     setOpen(false);
   };
   const getImage = (restaurantImage) => {
-    if (restaurantImage.data !== null && restaurantImage?.data?.length > 0) {
-      return restaurantImage?.data[0]?.images.small.url;
+    if (restaurantImage !== null && restaurantImage.fotos != '') {
+      return restaurantImage?.fotos;
     }
     return '/img/placeholder.jpeg';
   };
@@ -73,39 +82,55 @@ function DestinosFavoritos({ contentApi }) {
     const formatoRestaurant = address?.length < 40 ? address : `${address?.slice(0, 37)}...`;
     return formatoRestaurant;
   };
-
-  const handleDelete = async (id, index) => {
-    try {
-      if (id) {
-        await axios.delete(`${URLRAILWAY}/api/v1/hospedajes/${id}`);
-        setStatuses((prevStatuses) => ({ ...prevStatuses, [index]: 'success' }));
-        setHotelData((prevData) => prevData.filter((hotel) => hotel._id !== id));
-        setCardEliminada('Hotel');
+  const timer = () => {
+    setTimeout(() => {
+      setShowAlert({});
+    }, 3000);
+  };
+  const handleFavoriteClick = async (location_id, cardIndex) => {
+    const nextIsFavorite = !editingDates[cardIndex];
+    const selectedActivity = activityData.find((activity) => activity.location_id === location_id);
+    
+    setEditingDates((prevEditingDates) => ({
+      ...prevEditingDates,
+      [cardIndex]: nextIsFavorite,
+    }));
+    if (nextIsFavorite) {
+      console.log(nuevaActividad, 'peticion para guardar favorito');
+    }else {
+      try {
+        const crearDestino = await axios.delete(`${URLRAILWAY}/api/v1/favoritos/${location_id}`);
+        if (crearDestino.status === 200) console.log('----------Favorito eliminado--------');
+      } catch (error) {
+        console.log(error);
       }
-    } catch (error) {
-      console.log(error);
-      setStatuses((prevStatuses) => ({ ...prevStatuses, [index]: 'error' }));
     }
+    setShowAlert((prevShowAlert) => ({
+      ...prevShowAlert,
+      [cardIndex]: true,
+    }));
+    timer();
+    console.log('Favorite button clicked!');
   };
   return (
     <>
-      <h2 style={{ marginLeft: '30px' }}>Destinos</h2>
-
-      {contentApi?.map((restaurant) => (
-        <Card sx={styles.card} key={restaurant.location_id}>
+     
+      {contentApi && contentApi?.map((restaurant, index) => (
+       
+       <Card sx={styles.card} key={restaurant._id}>
           <CardMedia
             component='img'
             sx={styles.media}
             image={getImage(restaurant)}
             //image={restaurant?.data[0]?.images.small.url}
-            title={restaurant?.data[0]?.user.username}
+            //title={restaurant?.nombre}
           />
           <CardContent>
             <Typography gutterBottom variant='h5' component='h2'>
-              {restaurant.name}
+              {restaurant.nombre}
             </Typography>
             <Typography variant='body2' color='textSecondary' component='p'>
-              {getAdress(restaurant.address_obj)}
+              {getAdress(restaurant.direccion)}
             </Typography>
           </CardContent>
 
@@ -115,7 +140,7 @@ function DestinosFavoritos({ contentApi }) {
             variant='outlined'
             color='primary'
             onClick={() => {
-              handleClick(restaurant.location_id);
+              handleClick(restaurant?.locationId);
             }}
           >
             Ver detalles
@@ -125,21 +150,18 @@ function DestinosFavoritos({ contentApi }) {
             sx={styles.addIcon}
             aria-label='Add to itinerary'
             onClick={() => {
-              handleAddClick(restaurant.location_id);
+              handleAddClick(restaurant?.locationId);
             }}
           >
             <Add />
           </IconButton>
-          <Tooltip title='Eliminar este hospedaje'>
-            <IconButton aria-label='delete' onClick={() => handleDelete(hotelData._id, index)}>
-              <DeleteIcon
-                sx={{
-                  width: '20px',
-                  color: '#D2D2D2',
-                }}
-              />
+          <IconButton
+              sx={styles.iconButton}
+              aria-label='favorite'
+              onClick={() => handleFavoriteClick(restaurant?._id, index)}
+            >
+              {editingDates[index] ? <Favorite /> : <FavoriteBorder />}
             </IconButton>
-          </Tooltip>
         </Card>
       ))}
 
@@ -150,4 +172,3 @@ function DestinosFavoritos({ contentApi }) {
   );
 }
 
-export default DestinosFavoritos;

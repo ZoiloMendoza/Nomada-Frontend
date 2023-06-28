@@ -1,5 +1,4 @@
 import TabsMisFavoritos from './TabMisFavoritos';
-import DestinosFavoritos from './DestinosFavoritos';
 //import RestaurantesFavoritos from './RestaurantesFavoritos';
 //import ActividadesFavoritas from './ActividadesFavoritas';
 import { Box } from '@mui/material';
@@ -15,7 +14,6 @@ export default function MisFavoritos() {
     <>
       <TabsMisFavoritos />
 
-      <Box>{<DestinosFavoritos contentApi={[]} />}</Box>
       {/*<Box>{<RestaurantesFavoritos restaurantData={contentRestaurant} />}</Box>
   <Box>{<ActividadesFavoritas activityData={contentActividades} />}</Box>*/}
     </>

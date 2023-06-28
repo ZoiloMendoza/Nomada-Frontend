@@ -4,14 +4,13 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import axios from 'axios';
 import CircularProgress from '@mui/material/CircularProgress';
-import dynamic from 'next/dynamic';
 import PropTypes from 'prop-types';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Typography from '@mui/material/Typography';
 import { useAuth } from '@/utils/useAuth';
 import DestinosFavoritos from './DestinosFavoritos';
-
+import ActivityCard from '../Search/activityCard';
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -108,21 +107,6 @@ export default function MisViajes() {
     };
     if (id) fetchFavoritos();
   }, [id]);
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const favoritosDelUsuario = await axios.get(`${URLRAILWAY}/api/v1/users/${usuario.idUser}`);
-        if (favoritosDelUsuario.status === 200) {
-          setfavoritosDelUsuario(favoritosDelUsuario.data.viajes);
-
-          setLoading(false);
-        }
-      } catch (error) {
-        console.error('Error fetching data', error);
-      }
-    };
-    if (usuario) fetchData();
-  }, [usuario]);
 
   if (loading) {
     return (
@@ -144,27 +128,31 @@ export default function MisViajes() {
     <Box sx={{ width: '100%', minHeight: '100vh', padding: '5px', backgroundColor: '#EAEDED' }}>
       <Box sx={{ borderBottom: 1, borderColor: 'divider', marginTop: '10px' }}>
         <Tabs value={value} onChange={handleChange} aria-label='basic tabs example'>
-          {favoritosDelViaje.length > 0 ? (
+          {favoritosDelViaje.length ? (
             favoritosDelViaje.map((ruta, index) => (
               <Tab key={index} label={`${ruta?.transporte?.destino}`} {...a11yProps(index)} />
             ))
           ) : (
-            <NoViajesMessage />
+            <Tab label='Destino Uno' {...a11yProps(0)} />
           )}
         </Tabs>
-        <TabPanel value={value} index={0}>
-          <Grid sx={{ padding: '15px' }} container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
-            {favoritosDelViaje.length > 0 ? (
-              favoritosDelViaje.map((viaje) => (
-                <Grid item xs={12} md={6} key={viaje._id}>
-                  <Box>{<DestinosFavoritos contentApi={[]} />}</Box>
-                </Grid>
-              ))
-            ) : (
-              <NoViajesMessage />
-            )}
-          </Grid>
-        </TabPanel>
+        {favoritosDelViaje.length  ? (
+            favoritosDelViaje.map((ruta, index) => (
+              <TabPanel key={index} value={value} index={index}>
+              <Grid sx={{ padding: '15px' }} container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
+                
+                    <Grid item xs={12} md={6}>
+                      <Box>{<DestinosFavoritos contentApi={ruta?.listaFavoritos} />}</Box>
+                    </Grid>
+      
+              </Grid>
+            </TabPanel>
+            ))
+          ) : (
+            <TabPanel value={value} index={1}>
+            Item Two
+          </TabPanel>
+          )}
       </Box>
     </Box>
   );
