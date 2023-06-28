@@ -13,6 +13,7 @@ import PropTypes from 'prop-types';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Typography from '@mui/material/Typography';
+import { SkeletonMisViajes } from '@/components/SkeletonsCards/SkeletonMisViajes';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -77,7 +78,7 @@ const DynamicMisViajesCard = dynamic(() => import('@/components/misViajes/MisVia
         transform: 'translate(-50%, -50%)',
       }}
     >
-      <CircularProgress />
+      <SkeletonMisViajes />
     </Box>
   ),
 });
@@ -130,7 +131,7 @@ export default function MisViajes() {
           transform: 'translate(-50%, -50%)',
         }}
       >
-        <CircularProgress />
+        <SkeletonMisViajes />
       </Box>
     );
   }

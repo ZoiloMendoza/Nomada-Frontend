@@ -1,7 +1,8 @@
 import TabsMisFavoritos from './TabMisFavoritos';
 //import RestaurantesFavoritos from './RestaurantesFavoritos';
 //import ActividadesFavoritas from './ActividadesFavoritas';
-import { Box } from '@mui/material';
+//import { Box } from '@mui/material';
+//import { SkeletonFavoritos } from '../SkeletonsCards/SkeletonFavoritos';
 
 const styles = {
   title: {

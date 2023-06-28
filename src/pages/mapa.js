@@ -6,7 +6,8 @@ import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import Box from '@mui/material/Box';
 import SearchBar from '@/components/map/SearchMapa';
-import CircularProgress from '@mui/material/CircularProgress';
+//import CircularProgress from '@mui/material/CircularProgress';
+import { SkeletonMap } from '@/components/SkeletonsCards/SkeletonMap';
 const URLRAILWAY = process.env.NEXT_PUBLIC_BACKEND;
 
 const styles = {
@@ -54,7 +55,7 @@ export default function Mapa() {
   console.log(destino, 'destino');
   const arregloDestinos = rutasViaje?.map((transporte) => transporte?.transporte?.destino);
   const rutaElegida = arregloDestinos?.indexOf(destinoSelect);
-  
+
   if (loading)
     return (
       <Box
@@ -66,7 +67,7 @@ export default function Mapa() {
           transform: 'translate(-50%, -50%)',
         }}
       >
-        <CircularProgress />
+        <SkeletonMap />
       </Box>
     );
   return (

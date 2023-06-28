@@ -4,7 +4,7 @@ import HeroImage from '@/components/Itinerary/HeroImage';
 import axios from 'axios';
 import Add from '@/components/Add/Add';
 import Box from '@mui/material/Box';
-import CircularProgress from '@mui/material/CircularProgress';
+//import CircularProgress from '@mui/material/CircularProgress';
 import { useMediaQuery } from '@mui/material';
 import TabDestinos from '@/components/Itinerary/TabsDestinos';
 import TabsDestinosMobile from '@/components/Itinerary/TabsDestinosMobile';
