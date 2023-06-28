@@ -10,6 +10,7 @@ import TabDestinos from '@/components/Itinerary/TabsDestinos';
 import TabsDestinosMobile from '@/components/Itinerary/TabsDestinosMobile';
 import { useRouter } from 'next/router';
 import { useAuth } from '@/utils/useAuth';
+import { SkeletonImagenItinerario } from '@/components/SkeletonsCards/SkeletonImagenItinerario';
 const URLRAILWAY = process.env.NEXT_PUBLIC_BACKEND;
 
 export default function Itinerary() {
@@ -20,7 +21,7 @@ export default function Itinerary() {
   const [roleInvitado, setRoleInvitado] = useState(null);
   const [roleUsuario, setRoleUsiario] = useState(null);
   const [error, setError] = useState(null);
-  const [contentViaje, setContentViaje] = useState(null); 
+  const [contentViaje, setContentViaje] = useState(null);
   const [destinoSeleccionado, setDestinoSeleccionado] = useState(null);
   const isMobile = useMediaQuery((theme) => (theme ? theme.breakpoints.down('sm') : '(max-width:600px)'));
   useEffect(() => {
@@ -69,16 +70,20 @@ export default function Itinerary() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [usuario, contentViaje]);
 
-  if (loading) return  <Box
-    sx={{
-      display: 'flex',
-      position: 'fixed',
-      top: '50%',
-      left: '50%',
-      transform: 'translate(-50%, -50%)',
-    }}>
-      <CircularProgress />
-    </Box>;
+  if (loading)
+    return (
+      <Box
+        sx={{
+          display: 'flex',
+          position: 'fixed',
+          top: '50%',
+          left: '50%',
+          transform: 'translate(-50%, -50%)',
+        }}
+      >
+        <SkeletonImagenItinerario />
+      </Box>
+    );
   if (error) return <p>Error: {error.message}</p>;
 
   console.log('contentViaje', contentViaje);
@@ -90,14 +95,12 @@ export default function Itinerary() {
   const arregloDestinos = contentViaje?.rutas.map((transporte) => transporte?.transporte?.destino);
   const idRutaElegida = arregloDestinos?.indexOf(destinoSeleccionado);
   const imagenFondo = contentViaje?.rutas[idRutaElegida]?.transporte?.imagen;
-  
+
   return (
     <Box sx={{ backgroundColor: '#EAEDED' }}>
       <HeroImage viajeData={contentViaje} imagenFondo={imagenFondo} />
       {(roleUsuario === 'admin' || roleInvitado === 'admin') && (
-        <Add destinoSeleccionado={destinoSeleccionado} 
-             ruta={contentViaje?.rutas[idRutaElegida]} 
-             />
+        <Add destinoSeleccionado={destinoSeleccionado} ruta={contentViaje?.rutas[idRutaElegida]} />
       )}
       {isMobile ? (
         <Box
@@ -121,4 +124,3 @@ export default function Itinerary() {
     </Box>
   );
 }
-
