@@ -11,6 +11,7 @@ import TabsDestinosMobile from '@/components/Itinerary/TabsDestinosMobile';
 import { useRouter } from 'next/router';
 import { useAuth } from '@/utils/useAuth';
 import { SkeletonImagenItinerario } from '@/components/SkeletonsCards/SkeletonImagenItinerario';
+
 const URLRAILWAY = process.env.NEXT_PUBLIC_BACKEND;
 
 export default function Itinerary() {

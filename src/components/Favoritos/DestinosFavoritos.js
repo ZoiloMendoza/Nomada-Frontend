@@ -30,13 +30,13 @@ const styles = {
 };
 
 export default function DestinosFavoritos({ contentApi }) {
-  const [open, setOpen] = useState(false);
+  // const [open, setOpen] = useState(false);
   const [openForm, setOpenForm] = useState(false);
   const [selectedRestaurant, setSelectedRestaurant] = useState(null);
   const [editingDates, setEditingDates] = useState({});
   //const router = useRouter();
   //const { idRuta } = router.query;
-  const [showAlert, setShowAlert] = useState({});
+  // const [showAlert, setShowAlert] = useState({});
 
   const handleClick = (location_id) => {
     const selectedRestaurant = contentApi.find((restaurant) => restaurant.location_id === location_id);
@@ -90,14 +90,14 @@ export default function DestinosFavoritos({ contentApi }) {
   const handleFavoriteClick = async (location_id, cardIndex) => {
     const nextIsFavorite = !editingDates[cardIndex];
     const selectedActivity = activityData.find((activity) => activity.location_id === location_id);
-    
+
     setEditingDates((prevEditingDates) => ({
       ...prevEditingDates,
       [cardIndex]: nextIsFavorite,
     }));
     if (nextIsFavorite) {
       console.log(nuevaActividad, 'peticion para guardar favorito');
-    }else {
+    } else {
       try {
         const crearDestino = await axios.delete(`${URLRAILWAY}/api/v1/favoritos/${location_id}`);
         if (crearDestino.status === 200) console.log('----------Favorito eliminado--------');
@@ -114,56 +114,55 @@ export default function DestinosFavoritos({ contentApi }) {
   };
   return (
     <>
-     
-      {contentApi && contentApi?.map((restaurant, index) => (
-       
-       <Card sx={styles.card} key={restaurant._id}>
-          <CardMedia
-            component='img'
-            sx={styles.media}
-            image={getImage(restaurant)}
-            //image={restaurant?.data[0]?.images.small.url}
-            //title={restaurant?.nombre}
-          />
-          <CardContent>
-            <Typography gutterBottom variant='h5' component='h2'>
-              {restaurant.nombre}
-            </Typography>
-            <Typography variant='body2' color='textSecondary' component='p'>
-              {getAdress(restaurant.direccion)}
-            </Typography>
-          </CardContent>
+      {contentApi &&
+        contentApi?.map((restaurant, index) => (
+          <Card sx={styles.card} key={restaurant._id}>
+            <CardMedia
+              component='img'
+              sx={styles.media}
+              image={getImage(restaurant)}
+              //image={restaurant?.data[0]?.images.small.url}
+              //title={restaurant?.nombre}
+            />
+            <CardContent>
+              <Typography gutterBottom variant='h5' component='h2'>
+                {restaurant.nombre}
+              </Typography>
+              <Typography variant='body2' color='textSecondary' component='p'>
+                {getAdress(restaurant.direccion)}
+              </Typography>
+            </CardContent>
 
-          <Button
-            sx={styles.button}
-            size='small'
-            variant='outlined'
-            color='primary'
-            onClick={() => {
-              handleClick(restaurant?.locationId);
-            }}
-          >
-            Ver detalles
-          </Button>
+            <Button
+              sx={styles.button}
+              size='small'
+              variant='outlined'
+              color='primary'
+              onClick={() => {
+                handleClick(restaurant?.locationId);
+              }}
+            >
+              Ver detalles
+            </Button>
 
-          <IconButton
-            sx={styles.addIcon}
-            aria-label='Add to itinerary'
-            onClick={() => {
-              handleAddClick(restaurant?.locationId);
-            }}
-          >
-            <Add />
-          </IconButton>
-          <IconButton
+            <IconButton
+              sx={styles.addIcon}
+              aria-label='Add to itinerary'
+              onClick={() => {
+                handleAddClick(restaurant?.locationId);
+              }}
+            >
+              <Add />
+            </IconButton>
+            <IconButton
               sx={styles.iconButton}
               aria-label='favorite'
               onClick={() => handleFavoriteClick(restaurant?._id, index)}
             >
               {editingDates[index] ? <Favorite /> : <FavoriteBorder />}
             </IconButton>
-        </Card>
-      ))}
+          </Card>
+        ))}
 
       {openForm && selectedRestaurant !== null && (
         <PopupForm data={selectedRestaurant} openForm={openForm} closeForm={closeForm} />
@@ -171,4 +170,3 @@ export default function DestinosFavoritos({ contentApi }) {
     </>
   );
 }
-
