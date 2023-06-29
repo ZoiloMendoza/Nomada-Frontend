@@ -1,8 +1,8 @@
-import { GoogleMap, useJsApiLoader, Marker } from '@react-google-maps/api';
+import { GoogleMap, useJsApiLoader, Marker, InfoWindow } from '@react-google-maps/api';
 import { useRouter } from 'next/router';
 import React, { useState, useEffect } from 'react';
 const apiKey = process.env.NEXT_PUBLIC_API_GOOGLE;
-import SmallCard from './SmallCard';
+//import SmallCard from './SmallCard';
 const mapaLib = ['places'];
 const containerStyle = {
   width: '100%',
@@ -21,7 +21,23 @@ function MapComponent({ latitud, longitud, actividadesDeRuta }) {
   });
   const [mapRef, setMapRef] = useState();
   const [isOpen, setIsOpen] = useState(false);
-  const [smallCardData, setSmallCardData] = useState();
+  //const [smallCardData, setSmallCardData] = useState();
+  const [infoWindowData, setInfoWindowData] = useState();
+  const [otroHook, setOtroHook] = useState();
+
+  useEffect(() => {
+    if (actividadesDeRuta) {
+      setOtroHook(
+        actividadesDeRuta?.map((actividad) => ({
+          nombre: actividad.name,
+          fotos: actividad.image,
+          direccion: actividad.address,
+        })),
+      );
+    }
+  }, [actividadesDeRuta]);
+
+  console.log(otroHook, 'otro hook');
 
   useEffect(() => {
     if (actividadesDeRuta) {
@@ -37,7 +53,7 @@ function MapComponent({ latitud, longitud, actividadesDeRuta }) {
 
   const handleMarkerClick = (id, lat, lng, address) => {
     mapRef?.panTo({ lat, lng });
-    setSmallCardData({ id, address });
+    setInfoWindowData({ id, address });
     setIsOpen(true);
   };
 
@@ -94,12 +110,14 @@ function MapComponent({ latitud, longitud, actividadesDeRuta }) {
               handleMarkerClick(ind, lat, lng, address);
             }}
           >
-            {isOpen && smallCardData?.id === ind && (
-              <SmallCard
+            {isOpen && infoWindowData?.id === ind && (
+              <InfoWindow
                 onCloseClick={() => {
                   setIsOpen(false);
                 }}
-              />
+              >
+                <h3>{infoWindowData.address}</h3>
+              </InfoWindow>
             )}
           </Marker>
         ))}

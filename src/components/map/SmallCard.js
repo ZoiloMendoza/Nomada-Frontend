@@ -21,7 +21,7 @@ const SmallCard = ({ actividad }) => {
   const { fotos, nombre, direccion } = actividad;
 
   return (
-    <Card className={styles.card}>
+    <Card className={styles.card} open={open} onClose={handleClose}>
       <CardMedia className={styles.media} image={fotos} title={nombre} />
       <Typography variant='subtitle1' className={styles.title}>
         {nombre}
