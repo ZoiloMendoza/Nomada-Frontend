@@ -12,6 +12,7 @@ import { useRouter } from 'next/router';
 import { useAuth } from '@/utils/useAuth';
 import { SkeletonImagenItinerario } from '@/components/SkeletonsCards/SkeletonImagenItinerario';
 
+
 const URLRAILWAY = process.env.NEXT_PUBLIC_BACKEND;
 
 export default function Itinerary() {
@@ -81,9 +82,7 @@ export default function Itinerary() {
           left: '50%',
           transform: 'translate(-50%, -50%)',
         }}
-      >
-        <SkeletonImagenItinerario />
-      </Box>
+      ></Box>
     );
   if (error) return <p>Error: {error.message}</p>;
 
@@ -99,7 +98,7 @@ export default function Itinerary() {
 
   return (
     <Box sx={{ backgroundColor: '#EAEDED' }}>
-      <HeroImage viajeData={contentViaje} imagenFondo={imagenFondo} />
+      {loading ? <SkeletonImagenItinerario /> : <HeroImage viajeData={contentViaje} imagenFondo={imagenFondo} />}
       {(roleUsuario === 'admin' || roleInvitado === 'admin') && (
         <Add destinoSeleccionado={destinoSeleccionado} ruta={contentViaje?.rutas[idRutaElegida]} />
       )}

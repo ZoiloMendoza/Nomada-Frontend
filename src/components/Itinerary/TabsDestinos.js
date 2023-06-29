@@ -14,6 +14,7 @@ import { useState, useEffect } from 'react';
 import Alert from '@mui/material/Alert';
 import AlertTitle from '@mui/material/AlertTitle';
 import Stack from '@mui/material/Stack';
+import { SkeletonInfoVuelo } from '@/components/SkeletonsCards/SkeletonInfoVuelo';
 
 const URLRAILWAY = process.env.NEXT_PUBLIC_BACKEND;
 
@@ -52,7 +53,6 @@ function a11yProps(index) {
 
 export default function TabsDestinos({ dataDestino, updateDestinoCallback }) {
   const [value, setValue] = React.useState(0);
-  const [status, setStatus] = useState('');
   const [statuses, setStatuses] = useState({});
   const [cardEliminada, setCardEliminada] = useState('');
   if (!dataDestino) {
@@ -126,23 +126,40 @@ export default function TabsDestinos({ dataDestino, updateDestinoCallback }) {
               <span color='secondary'>Eliminar este destino</span>
             </div>
             <Stack sx={{ width: '100%' }} spacing={2}>
-                  {statuses[index] === 'success' && (
-                  <Alert severity='success'>
-                    {`${cardEliminada} eliminado correctamente!`}
-                  </Alert>
-                  )}
-                  {statuses[index] === 'error' && (
-                  <Alert severity='error'>
+              {statuses[index] === 'success' && (
+                <Alert severity='success'>{`${cardEliminada} eliminado correctamente!`}</Alert>
+              )}
+              {statuses[index] === 'error' && (
+                <Alert severity='error'>
                   <AlertTitle>Error</AlertTitle>
-                    {`Ocurrió un error al eliminar el ${cardEliminada}`}
-                  </Alert>
-                  )}
+                  {`Ocurrió un error al eliminar el ${cardEliminada}`}
+                </Alert>
+              )}
             </Stack>
-            {ruta.transporte.numeroVuelo && 
-            <FlightCard flightData={ruta.transporte} setStatuses={setStatuses} index={index} setCardEliminada={setCardEliminada}/>
-            }
-            <HotelCard rutaParaHoteles={ruta} setStatuses={setStatuses} index={index} setCardEliminada={setCardEliminada}/>
-            <ActivityCard activityData={dataDestino.rutas[index]} setStatuses={setStatuses} index={index} setCardEliminada={setCardEliminada}/>
+            {ruta ? (
+              ruta.transporte.numeroVuelo && (
+                <FlightCard
+                  flightData={ruta.transporte}
+                  setStatuses={setStatuses}
+                  index={index}
+                  setCardEliminada={setCardEliminada}
+                />
+              )
+            ) : (
+              <SkeletonInfoVuelo />
+            )}
+            <HotelCard
+              rutaParaHoteles={ruta}
+              setStatuses={setStatuses}
+              index={index}
+              setCardEliminada={setCardEliminada}
+            />
+            <ActivityCard
+              activityData={dataDestino.rutas[index]}
+              setStatuses={setStatuses}
+              index={index}
+              setCardEliminada={setCardEliminada}
+            />
           </TabPanel>
         ))
       ) : (

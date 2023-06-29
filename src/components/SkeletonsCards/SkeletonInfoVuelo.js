@@ -9,7 +9,7 @@ const SkeletonCard = () => (
   </article>
 );
 
-export const SkeletonImagenItinerario = () => (
+export const SkeletonInfoVuelo = () => (
   <SkeletonTheme baseColor='#c4c9d3' highlightColor='#a8acb8'>
     <SkeletonCard />
   </SkeletonTheme>

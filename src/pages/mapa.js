@@ -66,9 +66,7 @@ export default function Mapa() {
           left: '50%',
           transform: 'translate(-50%, -50%)',
         }}
-      >
-        <SkeletonMap />
-      </Box>
+      ></Box>
     );
   return (
     <>
@@ -92,7 +90,7 @@ export default function Mapa() {
         </Select>
         <h1 style={styles.title}>{destinoSelect || 'No tienes destinos, agrega uno en Nuevo Viaje'}</h1>
       </Box>
-      {rutasViaje && <MapDisplay ruta={rutasViaje[rutaElegida]} />}
+      {rutasViaje ? <MapDisplay ruta={rutasViaje[rutaElegida]} /> : <SkeletonMap />}
     </>
   );
 }

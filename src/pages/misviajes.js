@@ -77,9 +77,7 @@ const DynamicMisViajesCard = dynamic(() => import('@/components/misViajes/MisVia
         left: '50%',
         transform: 'translate(-50%, -50%)',
       }}
-    >
-      <SkeletonMisViajes />
-    </Box>
+    ></Box>
   ),
 });
 
@@ -130,9 +128,7 @@ export default function MisViajes() {
           left: '50%',
           transform: 'translate(-50%, -50%)',
         }}
-      >
-        <SkeletonMisViajes />
-      </Box>
+      ></Box>
     );
   }
 
@@ -150,7 +146,7 @@ export default function MisViajes() {
           {viajesDelUsuario.length > 0 ? (
             viajesDelUsuario.map((viaje) => (
               <Grid item xs={12} md={6} key={viaje._id}>
-                <DynamicMisViajesCard datosViaje={viaje} />
+                {loading ? <SkeletonMisViajes /> : <DynamicMisViajesCard datosViaje={viaje} />}
               </Grid>
             ))
           ) : (
@@ -166,7 +162,7 @@ export default function MisViajes() {
                 <Box>
                   <h3>{`Viaje compartido por ${viaje.administradorViaje.name}`}</h3>
                 </Box>
-                <DynamicMisViajesCard datosViaje={viaje} />
+                {loading ? <SkeletonMisViajes /> : <DynamicMisViajesCard datosViaje={viaje} />}
               </Grid>
             ))
           ) : (
