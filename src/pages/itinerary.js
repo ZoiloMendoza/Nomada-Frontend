@@ -11,7 +11,7 @@ import TabsDestinosMobile from '@/components/Itinerary/TabsDestinosMobile';
 import { useRouter } from 'next/router';
 import { useAuth } from '@/utils/useAuth';
 import { SkeletonImagenItinerario } from '@/components/SkeletonsCards/SkeletonImagenItinerario';
-
+import { SkeletonContenedorItinerario } from '@/components/SkeletonsCards/SkeletonContenedorItinerario';
 
 const URLRAILWAY = process.env.NEXT_PUBLIC_BACKEND;
 
@@ -72,18 +72,7 @@ export default function Itinerary() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [usuario, contentViaje]);
 
-  if (loading)
-    return (
-      <Box
-        sx={{
-          display: 'flex',
-          position: 'fixed',
-          top: '50%',
-          left: '50%',
-          transform: 'translate(-50%, -50%)',
-        }}
-      ></Box>
-    );
+  
   if (error) return <p>Error: {error.message}</p>;
 
   console.log('contentViaje', contentViaje);
@@ -116,7 +105,7 @@ export default function Itinerary() {
             margin: 5,
           }}
         >
-          <TabDestinos dataDestino={contentViaje} updateDestinoCallback={updateDestinoSeleccionado} />
+          {loading ? <SkeletonContenedorItinerario/> : <TabDestinos dataDestino={contentViaje} updateDestinoCallback={updateDestinoSeleccionado} />}
         </Box>
       )}
 

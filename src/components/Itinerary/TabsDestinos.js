@@ -67,7 +67,8 @@ export default function TabsDestinos({ dataDestino, updateDestinoCallback }) {
         return () => clearTimeout(timer);
       }
     });
-  }, [statuses, setStatuses]);
+    //eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [statuses]);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
