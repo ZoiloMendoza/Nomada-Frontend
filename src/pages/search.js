@@ -1,12 +1,11 @@
 import SearchBar from '@/components/Search/Search';
 import MapButton from '@/components/common/MapButton';
 import RestaurantCard from '@/components/Search/RestaurantCard';
+import { getData } from './api/proxy/restaurantSearch';
 import Box from '@mui/material/Box';
 import CityCard from '@/components/Search/cityCard';
 import ActivityCard from '@/components/Search/activityCard';
 import { useRouter } from 'next/router';
-import { useState, useEffect } from 'react';
-import axios from 'axios';
 
 const styles = {
   title: {
@@ -15,37 +14,13 @@ const styles = {
   },
 };
 
-export default function Search() {
-  const [contentRestaurant, setContentRestaurant] = useState(null);
-  const [contentDestino, setContentDestino] = useState(null);
-  const [contentActividades, setContentActividades] = useState(null);
- 
+export default function Search({ contentRestaurant, contentDestino, contentActividades, mensaje }) {
+  //console.log(contentRestaurant);
+  //console.log(contentDestino);
+  console.log(mensaje);
 
   const router = useRouter();
-  const { destino, latitud, longitud } = router.query;
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const restaurantResponse = await axios.get(`/api/proxy/restaurantSearch?latitude=${latitud}&longitude=${longitud}&category=restaurants`);
-        setContentRestaurant(restaurantResponse.data);
-
-        const geoResponse = await axios.get(`/api/proxy/restaurantSearch?latitude=${latitud}&longitude=${longitud}&category=geos`);
-        setContentDestino(geoResponse.data);
-
-        const attractionsResponse = await axios.get(`/api/proxy/restaurantSearch?latitude=${latitud}&longitude=${longitud}&category=attractions`);
-        setContentActividades(attractionsResponse.data);
-        console.log('peticion search')
-      } catch (error) {
-        console.log(error)
-      }
-    }
-
-    if (latitud && longitud) {
-      fetchData();
-    }
-    //eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [latitud, longitud, destino]);
+  const { destino } = router.query;
 
   return (
     <>
@@ -66,3 +41,36 @@ export default function Search() {
     </>
   );
 }
+export const getServerSideProps = async (context) => {
+  const params = context.query;
+  console.log(params, 'params search');
+  try {
+    const contentRestaurant = await getData({
+      latitude: params.latitud,
+      longitude: params.longitud,
+      category: 'restaurants',
+    });
+    const contentDestino = await getData({ latitude: params.latitud, longitude: params.longitud, category: 'geos' });
+    const contentActividades = await getData({
+      latitude: params.latitud,
+      longitude: params.longitud,
+      category: 'attractions',
+    });
+    return {
+      props: {
+        contentRestaurant: contentRestaurant,
+        contentDestino: contentDestino,
+        contentActividades: contentActividades,
+      },
+    };
+  } catch (error) {
+    return {
+      props: {
+        mensaje: JSON.stringify(error, Object.getOwnPropertyNames(error)),
+        contentRestaurant: null,
+        contentDestino: null,
+        contentActividades: null,
+      },
+    };
+  }
+};
