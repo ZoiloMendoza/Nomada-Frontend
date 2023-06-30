@@ -1,10 +1,8 @@
-import { Card, CardContent, CardMedia, Typography, IconButton, Button, Tooltip, DeleteIcon } from '@mui/material';
+import { Card, CardContent, CardMedia, Typography, IconButton, Button } from '@mui/material';
 import { useState } from 'react';
 import PopupForm from '../Search/PopupForm';
 import { Add, Favorite, FavoriteBorder } from '@mui/icons-material';
-import { useRouter } from 'next/router';
-import Alert from '@mui/material/Alert';
-import Stack from '@mui/material/Stack';
+
 const URLRAILWAY = process.env.NEXT_PUBLIC_BACKEND;
 
 const styles = {
@@ -51,9 +49,11 @@ export default function DestinosFavoritos({ contentApi }) {
     console.log('Add button clicked!');
   };
 
+  /*
   const closeCard = () => {
     setOpen(false);
   };
+  */
 
   const closeForm = () => {
     setOpenForm(false);
@@ -61,10 +61,12 @@ export default function DestinosFavoritos({ contentApi }) {
 
   console.log(contentApi, 'mensaje por nosotros');
 
+  /*
   const funcionOpen = () => {
     setOpenForm(true);
     setOpen(false);
   };
+  */
   const getImage = (restaurantImage) => {
     if (restaurantImage !== null && restaurantImage.fotos != '') {
       return restaurantImage?.fotos;
@@ -89,7 +91,7 @@ export default function DestinosFavoritos({ contentApi }) {
   };
   const handleFavoriteClick = async (location_id, cardIndex) => {
     const nextIsFavorite = !editingDates[cardIndex];
-    const selectedActivity = activityData.find((activity) => activity.location_id === location_id);
+    //const selectedActivity = activityData.find((activity) => activity.location_id === location_id);
 
     setEditingDates((prevEditingDates) => ({
       ...prevEditingDates,

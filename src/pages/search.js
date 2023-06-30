@@ -19,7 +19,7 @@ export default function Search() {
   const [contentRestaurant, setContentRestaurant] = useState(null);
   const [contentDestino, setContentDestino] = useState(null);
   const [contentActividades, setContentActividades] = useState(null);
-  const [mensaje, setMensaje] = useState(null);
+ 
 
   const router = useRouter();
   const { destino, latitud, longitud } = router.query;
@@ -46,8 +46,6 @@ export default function Search() {
     }
     //eslint-disable-next-line react-hooks/exhaustive-deps
   }, [latitud, longitud, destino]);
-
-  console.log(mensaje, 'Mensaje')
 
   return (
     <>

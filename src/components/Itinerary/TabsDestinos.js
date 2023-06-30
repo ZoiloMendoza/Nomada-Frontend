@@ -59,14 +59,19 @@ export default function TabsDestinos({ dataDestino, updateDestinoCallback }) {
     return <div>Intentalo más tarde TabsDestinos</div>;
   }
   useEffect(() => {
+    const timers = [];
     Object.keys(statuses).forEach((index) => {
       if (statuses[index]) {
         const timer = setTimeout(() => {
           setStatuses((prevStatuses) => ({ ...prevStatuses, [index]: null }));
         }, 3000);
-        return () => clearTimeout(timer);
+  
+        timers.push(timer);
       }
     });
+    return () => {
+      timers.forEach((timer) => clearTimeout(timer));
+    };
     //eslint-disable-next-line react-hooks/exhaustive-deps
   }, [statuses]);
 

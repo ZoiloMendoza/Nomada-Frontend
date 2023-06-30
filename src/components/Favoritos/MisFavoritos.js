@@ -4,12 +4,14 @@ import TabsMisFavoritos from './TabMisFavoritos';
 //import { Box } from '@mui/material';
 //import { SkeletonFavoritos } from '../SkeletonsCards/SkeletonFavoritos';
 
+/*
 const styles = {
   title: {
     color: '#E91E63',
     textAlign: 'center',
   },
 };
+*/
 export default function MisFavoritos() {
   return (
     <>
