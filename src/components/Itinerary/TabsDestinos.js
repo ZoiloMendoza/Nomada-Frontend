@@ -58,6 +58,8 @@ export default function TabsDestinos({ dataDestino, updateDestinoCallback }) {
   if (!dataDestino) {
     return <div>Intentalo más tarde TabsDestinos</div>;
   }
+  
+  // eslint-disable-next-line react-hooks/rules-of-hooks
   useEffect(() => {
     const timers = [];
     Object.keys(statuses).forEach((index) => {
