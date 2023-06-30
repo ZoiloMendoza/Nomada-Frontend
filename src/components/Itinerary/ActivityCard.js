@@ -35,7 +35,7 @@ const styles = {
   },
 };
 
-const ActivityCard = ({ activityData, handleEdit, setStatuses, index, setCardEliminada }) => {
+const ActivityCard = ({ activityData, setStatuses, index, setCardEliminada }) => {
   const [expanded, setExpanded] = useState(false);
   const [activities, setActivities] = useState(null);
   const [editingDates, setEditingDates] = useState({});
@@ -43,7 +43,6 @@ const ActivityCard = ({ activityData, handleEdit, setStatuses, index, setCardEli
   const [horaDates, setHoraDates] = useState([]);
   const [inicio, setInicio] = useState(''); //limites de calendario
   const [final, setFinal] = useState(''); //limites de calendario
-  const [status, setStatus] = useState('');
   const [statuses2, setStatuses2] = useState({});
 
   useEffect(() => {

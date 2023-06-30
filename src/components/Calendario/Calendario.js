@@ -26,7 +26,7 @@ const StyledCalendarContainer = styled('div')(({ theme }) => ({
 }));
 
 const eventStyleGetter = () => {
-  const backgroundColor = '#E91E63'; 
+  const backgroundColor = '#E91E63';
   const textColor = '#ffffff';
   const style = {
     backgroundColor,
@@ -40,27 +40,27 @@ const eventStyleGetter = () => {
   };
 };
 
-const Calendario = ({viajes, actividades}) => {
-
+const Calendario = ({ viajes, actividades }) => {
   const [events, setEvents] = useState([]);
-  console.log(viajes, 'componente calendario')
+  console.log(viajes, 'componente calendario');
 
   useEffect(() => {
-    const formattedEvents = actividades ? actividades.map((event) => ({
-      title: `${event.nombre},${event.direccion}`,
-      start: new Date(event.fechaInicio),
-      end: new Date(event.fechaInicio),
-      imageUrl: event.fotos
-    })) : [];
+    const formattedEvents = actividades
+      ? actividades.map((event) => ({
+          title: `${event.nombre},${event.direccion}`,
+          start: new Date(event.fechaInicio),
+          end: new Date(event.fechaInicio),
+          imageUrl: event.fotos,
+        }))
+      : [];
     setEvents(formattedEvents);
-    console.log(formattedEvents, 'hay imagen?')
+    console.log(formattedEvents, 'hay imagen?');
   }, [actividades]);
   console.log(actividades, 'rutas de cada viaje');
-  
+
   return (
     <ThemeProvider theme={localTheme}>
       <>
-       
         <StyledCalendarContainer>
           <Calendar
             selectable

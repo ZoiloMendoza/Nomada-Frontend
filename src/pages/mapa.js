@@ -8,6 +8,7 @@ import Box from '@mui/material/Box';
 import SearchBar from '@/components/map/SearchMapa';
 //import CircularProgress from '@mui/material/CircularProgress';
 import { SkeletonMap } from '@/components/SkeletonsCards/SkeletonMap';
+//import { SkeletonMapCard } from '@/components/SkeletonsCards/SkeletonMapCard';
 const URLRAILWAY = process.env.NEXT_PUBLIC_BACKEND;
 
 const styles = {
