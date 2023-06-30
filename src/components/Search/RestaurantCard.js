@@ -4,7 +4,7 @@ import { useState } from 'react';
 import CardDetalle from './CardDetalle';
 import PopupForm from './PopupForm';
 import { Add, Favorite, FavoriteBorder } from '@mui/icons-material';
-
+import { SkeletonSearchActividades } from '../SkeletonsCards/SkeletonSearchActividades';
 const styles = {
   card: {
     maxWidth: 345,
@@ -83,7 +83,7 @@ function RestaurantCard({ restaurantData }) {
   return (
     <>
       <h2 style={{ marginLeft: '30px' }}>Restaurantes</h2>
-      <Carrusel>
+      {restaurantData ? <Carrusel>
         {restaurantData?.map((restaurant) => (
           <Card sx={styles.card} key={restaurant.location_id}>
             <CardMedia
@@ -128,7 +128,7 @@ function RestaurantCard({ restaurantData }) {
             </IconButton>
           </Card>
         ))}
-      </Carrusel>
+      </Carrusel> : <SkeletonSearchActividades/>}
       {open && selectedRestaurant !== null && (
         <CardDetalle
           data={selectedRestaurant}

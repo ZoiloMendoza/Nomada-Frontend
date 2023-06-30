@@ -19,7 +19,7 @@ export default async function handler(req, res) {
       return res.status(500).json({ error: 'An error occurred while fetching data from the TripAdvisor API' });
     }
 
-    const locationData = response.data.data.slice(0, 6);
+    const locationData = response.data.data.slice(0, 5);
     const exampleData = await Promise.all(
       locationData.map(async (item) => {
         const photoUrl = `https://api.content.tripadvisor.com/api/v1/location/${item.location_id}/photos?key=${apiKey}&language=en`;
