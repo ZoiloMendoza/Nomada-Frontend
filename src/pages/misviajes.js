@@ -7,7 +7,7 @@ import { Grid, Box } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import axios from 'axios';
-import CircularProgress from '@mui/material/CircularProgress';
+//import CircularProgress from '@mui/material/CircularProgress';
 import dynamic from 'next/dynamic';
 import PropTypes from 'prop-types';
 import Tabs from '@mui/material/Tabs';
