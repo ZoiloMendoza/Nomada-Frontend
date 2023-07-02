@@ -1,3 +1,4 @@
+/*
 import Skeleton from 'react-loading-skeleton';
 import { useEffect, useState } from 'react';
 
@@ -54,3 +55,4 @@ if (loading) {
 }
 
 export default Skeleton();
+*/

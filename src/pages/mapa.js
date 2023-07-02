@@ -12,6 +12,7 @@ import { SkeletonMap } from '@/components/SkeletonsCards/SkeletonMap';
 import { useMediaQuery } from '@mui/material';
 //import { style } from '@mui/system';
 
+//import { SkeletonMapCard } from '@/components/SkeletonsCards/SkeletonMapCard';
 const URLRAILWAY = process.env.NEXT_PUBLIC_BACKEND;
 
 const styles = {

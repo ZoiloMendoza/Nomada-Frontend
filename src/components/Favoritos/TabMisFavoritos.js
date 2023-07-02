@@ -8,9 +8,9 @@ import PropTypes from 'prop-types';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Typography from '@mui/material/Typography';
-import { useAuth } from '@/utils/useAuth';
+//import { useAuth } from '@/utils/useAuth';
 import DestinosFavoritos from './DestinosFavoritos';
-import ActivityCard from '../Search/activityCard';
+//import ActivityCard from '../Search/activityCard';
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -46,7 +46,7 @@ function a11yProps(index) {
 
 const URLRAILWAY = process.env.NEXT_PUBLIC_BACKEND;
 
-const NoViajesMessage = () => (
+/*const NoViajesMessage = () => (
   <Box
     sx={{
       display: 'flex',
@@ -63,6 +63,8 @@ const NoViajesMessage = () => (
     No tiene más viajes por el momento ...
   </Box>
 );
+*/
+
 /*const DynamicMisViajesCard = dynamic(() => import('@/components/misViajes/MisViajesCard'), {
   loading: () => (
     <Box
@@ -84,14 +86,14 @@ export default function MisViajes() {
   const [value, setValue] = React.useState(0);
   const router = useRouter();
   const [loading, setLoading] = useState(true);
-  const [favoritosDelUsuario, setfavoritosDelUsuario] = useState([]);
+  //const [favoritosDelUsuario, setfavoritosDelUsuario] = useState([]);
   const [favoritosDelViaje, setFavoritosDelViaje] = useState([]);
   //const [viajesInvidatos, setViajesInvitados] = useState([]);
   const { id } = router.query;
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
-  const usuario = useAuth();
+  //const usuario = useAuth();
   useEffect(() => {
     const fetchFavoritos = async () => {
       try {
@@ -136,23 +138,21 @@ export default function MisViajes() {
             <Tab label='Destino Uno' {...a11yProps(0)} />
           )}
         </Tabs>
-        {favoritosDelViaje.length  ? (
-            favoritosDelViaje.map((ruta, index) => (
-              <TabPanel key={index} value={value} index={index}>
+        {favoritosDelViaje.length ? (
+          favoritosDelViaje.map((ruta, index) => (
+            <TabPanel key={index} value={value} index={index}>
               <Grid sx={{ padding: '15px' }} container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
-                
-                    <Grid item xs={12} md={6}>
-                      <Box>{<DestinosFavoritos contentApi={ruta?.listaFavoritos} />}</Box>
-                    </Grid>
-      
+                <Grid item xs={12} md={6}>
+                  <Box>{<DestinosFavoritos contentApi={ruta?.listaFavoritos} />}</Box>
+                </Grid>
               </Grid>
             </TabPanel>
-            ))
-          ) : (
-            <TabPanel value={value} index={1}>
+          ))
+        ) : (
+          <TabPanel value={value} index={1}>
             Item Two
           </TabPanel>
-          )}
+        )}
       </Box>
     </Box>
   );

@@ -6,7 +6,7 @@ import PopupActivity from './PopupActivity';
 import { Add, Favorite, FavoriteBorder } from '@mui/icons-material';
 import axios from 'axios';
 import { useRouter } from 'next/router';
-
+import { SkeletonSearchActividades } from '../SkeletonsCards/SkeletonSearchActividades';
 const URLRAILWAY = process.env.NEXT_PUBLIC_BACKEND;
 
 const styles = {
@@ -119,7 +119,7 @@ function ActivityCard({ activityData }) {
   return (
     <>
       <h2 style={{ marginLeft: '30px' }}>Actividades</h2>
-      <Carrusel>
+      {activityData ? <Carrusel>
         {activityData?.map((activity, index) => (
           <Card sx={styles.card} key={activity.location_id}>
             <CardMedia
@@ -166,7 +166,7 @@ function ActivityCard({ activityData }) {
             </IconButton>
           </Card>
         ))}
-      </Carrusel>
+      </Carrusel> : <SkeletonSearchActividades/>}
       {open && selectedActivity !== null && (
         <CardDetalleActivity
           data={selectedActivity}

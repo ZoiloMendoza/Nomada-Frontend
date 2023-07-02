@@ -4,7 +4,7 @@ import { Card, CardMedia, CardContent, Typography, IconButton } from '@mui/mater
 import { Favorite, Add, FavoriteBorder } from '@mui/icons-material';
 import Carrusel from '../common/Carrusel';
 import PopupDestino from './PopupDestino';
-
+import { SkeletonSearch } from '../SkeletonsCards/SkeletonSearch';
 const RootCard = styled(Card)(({}) => ({
   maxWidth: 345,
   margin: '1rem',
@@ -85,9 +85,9 @@ const CityCard = ({ contentApi }) => {
   return (
     <>
       <h2 style={{ marginLeft: '30px' }}>Destinos</h2>
-      <Carrusel>
+      {contentApi ? <Carrusel>
         {contentApi
-          ? contentApi?.map((item) => (
+          && contentApi?.map((item) => (
               <RootCard key={item.location_id} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
                 <Media component='img' image={getImage(item)} title={item.name} />
                 {hovered && (
@@ -113,8 +113,8 @@ const CityCard = ({ contentApi }) => {
                 )}
               </RootCard>
             ))
-          : ''}
-      </Carrusel>
+        }
+      </Carrusel> : <SkeletonSearch/>}
       {open && selectedDestino !== null && (
         <PopupDestino data={selectedDestino} open={open} closeDestino={closeDestino} categoria={'geos'} />
       )}
