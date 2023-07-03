@@ -46,7 +46,7 @@ const IconButtonStyled = styled(IconButton)(({}) => ({
   color: '#FFF',
 }));
 
-const CityCard = ({ contentApi }) => {
+const CityCard = ({ contentApi, view }) => {
   const [open, setOpen] = useState(false);
   const [selectedDestino, setSelectedDestino] = useState(null);
   const [isFavorite, setIsFavorite] = useState(false);
@@ -81,7 +81,9 @@ const CityCard = ({ contentApi }) => {
     setIsFavorite(!isFavorite);
     console.log('Favorite button clicked!');
   };
-
+  if(view){
+    return;
+  }
   return (
     <>
       <h2 style={{ marginLeft: '30px' }}>Destinos</h2>

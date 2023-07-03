@@ -35,7 +35,7 @@ const styles = {
   },
 };
 
-const ActivityCard = ({ activityData, setStatuses, index, setCardEliminada }) => {
+const ActivityCard = ({ activityData }) => {
   const [expanded, setExpanded] = useState(false);
   const [activities, setActivities] = useState(null);
   const [editingDates, setEditingDates] = useState({});
@@ -43,7 +43,8 @@ const ActivityCard = ({ activityData, setStatuses, index, setCardEliminada }) =>
   const [horaDates, setHoraDates] = useState([]);
   const [inicio, setInicio] = useState(''); //limites de calendario
   const [final, setFinal] = useState(''); //limites de calendario
-  const [statuses2, setStatuses2] = useState({});
+  const [statusesEditar, setStatusesEditar] = useState({});
+  const [statusesEliminar, setStatusesEliminar] = useState({});
 
   useEffect(() => {
     const getActividades = async () => {
@@ -82,11 +83,13 @@ const ActivityCard = ({ activityData, setStatuses, index, setCardEliminada }) =>
       [cardIndex]: false,
     }));
   };
-  const timer = () => {
-    setTimeout(() => {
-      setStatuses2({});
-    }, 3000);
-  };
+  const timer = () => new Promise((resolve) => {
+      setTimeout(() => {
+        setStatusesEditar({});
+        setStatusesEliminar({});
+        resolve(true);
+      }, 1500);
+    });
 
   const handleSaveDates = async (cardIndex, idActividad) => {
     try {
@@ -104,50 +107,67 @@ const ActivityCard = ({ activityData, setStatuses, index, setCardEliminada }) =>
             ...prevEditingDates,
             [cardIndex]: false,
           }));
-
-          setStatuses2((prevStatuses) => ({ ...prevStatuses, [cardIndex]: 'success' }));
+          setStatusesEditar((prevStatuses) => ({ ...prevStatuses, [cardIndex]: 'success' }));
           timer();
         }
       }
     } catch (error) {
       console.log(error);
-      setStatuses2((prevStatuses) => ({ ...prevStatuses, [cardIndex]: 'error' }));
+      setStatusesEditar((prevStatuses) => ({ ...prevStatuses, [cardIndex]: 'error' }));
+      timer();
     }
   };
 
-  const handleDelete = async (idActividad, index) => {
+  const handleDelete = async (idActividad, cardIndex) => {
     try {
       if (idActividad) {
-        await axios.delete(`${URLRAILWAY}/api/v1/actividades/${idActividad}`);
-        setStatuses((prevStatuses) => ({ ...prevStatuses, [index]: 'success' }));
-        setActivities(activities.filter((activity) => activity._id !== idActividad));
-        setCardEliminada('Actividad');
+        const eliminarActividad = await axios.delete(`${URLRAILWAY}/api/v1/actividades/${idActividad}`);
+        if(eliminarActividad.status === 200){
+          setStatusesEliminar((prevStatuses) => ({ ...prevStatuses, [cardIndex]: 'success' }));
+          const alertTimer = await timer();
+          if (alertTimer) {
+            setActivities(activities.filter((activity) => activity._id !== idActividad));
+          }
+        }
       }
     } catch (error) {
       console.log(error);
-      setStatuses((prevStatuses) => ({ ...prevStatuses, [index]: 'error' }));
+      setStatusesEliminar((prevStatuses) => ({ ...prevStatuses, [cardIndex]: 'error' }));
+      timer();
     }
   };
   console.log(inicio, final, 'fechas');
-  console.log(statuses2, 'identificar');
+  console.log(statusesEditar, 'identificar');
   return (
     <>
       {activities &&
         activities?.map((activityData, cardIndex) => (
           <Card sx={styles.card} key={activityData?._id}>
             <Stack sx={{ width: '100%' }} spacing={2}>
-              {statuses2[cardIndex] === 'success' && (
+              {statusesEditar[cardIndex] === 'success' && (
                 <Alert severity='success'>{` Actividad modificada correctamente!`}</Alert>
               )}
-              {statuses2[cardIndex] === 'error' && (
+              {statusesEditar[cardIndex] === 'error' && (
                 <Alert severity='error'>
                   <AlertTitle>Error</AlertTitle>
                   {`Ocurrió un error.`}
                 </Alert>
               )}
             </Stack>
+            <Stack sx={{ width: '100%' }} spacing={2}>
+              {statusesEliminar[cardIndex] === 'success' && (
+                <Alert severity='success'>{`Actividad eliminada correctamente!`}</Alert>
+              )}
+              {statusesEliminar[cardIndex] === 'error' && (
+                <Alert severity='error'>
+                  {`No se pudieron eliminar, intentelo más tarde.`}
+                </Alert>
+              )}
+            </Stack>
+            {statusesEliminar[cardIndex] === 'success' ? null : 
+            <>
             <Tooltip title='Eliminar esta actividad'>
-              <IconButton aria-label='delete' onClick={() => handleDelete(activityData._id, index)}>
+              <IconButton aria-label='delete' onClick={() => handleDelete(activityData._id, cardIndex)}>
                 <DeleteIcon
                   sx={{
                     color: '#D2D2D2',
@@ -236,7 +256,6 @@ const ActivityCard = ({ activityData, setStatuses, index, setCardEliminada }) =>
                 <LocalActivityIcon sx={styles.icon} />
               </Grid>
             </Grid>
-
             <IconButton
               className={`${styles.expandIcon} ${expanded ? styles.expandIconOpen : ''}`}
               onClick={handleExpandClick}
@@ -250,6 +269,7 @@ const ActivityCard = ({ activityData, setStatuses, index, setCardEliminada }) =>
                 <Typography paragraph>{activityData?.direccion}</Typography>
               </CardContent>
             </Collapse>
+            </>}
           </Card>
         ))}
     </>

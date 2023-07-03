@@ -4,7 +4,6 @@ import HeroImage from '@/components/Itinerary/HeroImage';
 import axios from 'axios';
 import Add from '@/components/Add/Add';
 import Box from '@mui/material/Box';
-//import CircularProgress from '@mui/material/CircularProgress';
 import { useMediaQuery } from '@mui/material';
 import TabDestinos from '@/components/Itinerary/TabsDestinos';
 import TabsDestinosMobile from '@/components/Itinerary/TabsDestinosMobile';
@@ -71,23 +70,18 @@ export default function Itinerary() {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [usuario, contentViaje]);
-
-  
   if (error) return <p>Error: {error.message}</p>;
-
   console.log('contentViaje', contentViaje);
-
   const updateDestinoSeleccionado = (destino) => {
     setDestinoSeleccionado(destino);
   };
-
   const arregloDestinos = contentViaje?.rutas.map((transporte) => transporte?.transporte?.destino);
   const idRutaElegida = arregloDestinos?.indexOf(destinoSeleccionado);
   const imagenFondo = contentViaje?.rutas[idRutaElegida]?.transporte?.imagen;
 
   return (
     <Box sx={{ backgroundColor: '#EAEDED' }}>
-      {loading ? <SkeletonImagenItinerario /> : <HeroImage viajeData={contentViaje} imagenFondo={imagenFondo} />}
+      {loading ? <SkeletonImagenItinerario /> : <HeroImage ruta={contentViaje?.rutas[idRutaElegida]} imagenFondo={imagenFondo} />}
       {(roleUsuario === 'admin' || roleInvitado === 'admin') && (
         <Add destinoSeleccionado={destinoSeleccionado} ruta={contentViaje?.rutas[idRutaElegida]} />
       )}
@@ -108,7 +102,6 @@ export default function Itinerary() {
           {loading ? <SkeletonContenedorItinerario/> : <TabDestinos dataDestino={contentViaje} updateDestinoCallback={updateDestinoSeleccionado} />}
         </Box>
       )}
-
       <ScrollToTop />
     </Box>
   );

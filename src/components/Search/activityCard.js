@@ -31,7 +31,7 @@ const styles = {
   },
 };
 
-function ActivityCard({ activityData }) {
+function ActivityCard({ activityData, view }) {
   //const actividades = activityData.rutas[0].actividades;
   const [open, setOpen] = useState(false);
   const [openForm, setOpenForm] = useState(false);
@@ -116,6 +116,9 @@ function ActivityCard({ activityData }) {
     console.log('Favorite button clicked!');
   };
 
+  if(view){
+    return;
+  }
   return (
     <>
       <h2 style={{ marginLeft: '30px' }}>Actividades</h2>

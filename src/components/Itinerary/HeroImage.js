@@ -70,6 +70,7 @@ const styles = {
   },
   heroSubtitle: {
     fontSize: '1.5rem',
+    fontWeight: 'bold',
     //textShadow: '2px 2px 1px gray',
     /*  [theme.breakpoints.down('sm')]: {
       fontSize: '1.2rem',
@@ -84,7 +85,7 @@ const styles = {
   },
 };
 
-const HeroImage = (props) => {
+const HeroImage = ({ruta, imagenFondo}) => {
   const [openModal, setOpenModal] = useState(false);
   const router = useRouter();
   const { id } = router.query;
@@ -93,31 +94,29 @@ const HeroImage = (props) => {
     console.log('click boton add');
     router.push({
       pathname: '/add',
-      query: { destino: viajeData?.destino, paisDestino: viajeData?.paisDestino, idRuta: viajeData?.rutas[0]?._id },
+      query: { destino: ruta?.destino, paisDestino: ruta?.paisDestino, idRuta: ruta?.rutas[0]?._id },
     });
   }; */
-
   const handleOpenModal = () => {
     setOpenModal(true);
     console.log('Add to Group clicked!');
   };
-
   const closeModal = () => {
     setOpenModal(false);
   };
 
   return (
     <>
-      {openModal && <AddToGroup viajeData={props.viajeData} openModal={openModal} closeModal={closeModal} />}
-      <Box sx={{ ...styles.hero, backgroundImage: `url(${props.imagenFondo})` }}>
+      {openModal && <AddToGroup viajeData={ruta} openModal={openModal} closeModal={closeModal} />}
+      <Box sx={{ ...styles.hero, backgroundImage: `url(${imagenFondo})` }}>
         <Container maxWidth={false} sx={styles.overlay}>
           <Container maxWidth={'lg'}>
             <div sx={styles.heroText}>
               <Typography variant='h1' sx={styles.heroTitle}>
-                {props.viajeData?.nombre}
+                {ruta?.transporte.destino}
               </Typography>
               <Typography variant='h2' sx={styles.heroSubtitle}>
-                {`${props.viajeData?.destino}`.split(',')[0]} {` - ${props.viajeData?.fechaInicio}`}
+                {`Ida: ${ruta?.fechaInicial}`.split(',')[0]} {` - Regreso: ${ruta?.fechaFinal}`}
               </Typography>
               <Link href={`/calendario?id=${id}`}>
                 <Button variant='contained' color='secondary' sx={styles.heroButton}>

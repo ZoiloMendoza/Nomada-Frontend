@@ -27,7 +27,7 @@ const styles = {
   },
 };
 
-function RestaurantCard({ restaurantData }) {
+function RestaurantCard({ restaurantData, view }) {
   const [open, setOpen] = useState(false);
   const [openForm, setOpenForm] = useState(false);
   const [selectedRestaurant, setSelectedRestaurant] = useState(null);
@@ -80,6 +80,9 @@ function RestaurantCard({ restaurantData }) {
     const formatoRestaurant = address?.length < 40 ? address : `${address?.slice(0, 37)}...`;
     return formatoRestaurant;
   };
+  if(view){
+    return;
+  }
   return (
     <>
       <h2 style={{ marginLeft: '30px' }}>Restaurantes</h2>

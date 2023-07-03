@@ -29,9 +29,17 @@ const styles = {
   },
 };
 
-const FlightCard = ({ flightData, handleEdit, setStatuses, index, setCardEliminada }) => {
+const FlightCard = ({ flightData }) => {
   const [expanded, setExpanded] = useState(false);
   const [vuelo, setVuelo] = useState(null);
+  const [status, setStatus] = useState(null);
+
+  const timer = () => new Promise((resolve) => {
+      setTimeout(() => {
+        setStatus(null);
+        resolve(true);
+      }, 1500);
+    });
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
@@ -48,17 +56,21 @@ const FlightCard = ({ flightData, handleEdit, setStatuses, index, setCardElimina
       getTransporte();
     }
   }, [flightData._id]);
+
   const handleDelete = async () => {
     try {
       if (flightData._id) {
         await axios.patch(`${URLRAILWAY}/api/v1/transportes/${flightData._id}`, { numeroVuelo: '' });
-        setStatuses((prevStatuses) => ({ ...prevStatuses, [index]: 'success' }));
-        setVuelo('');
-        setCardEliminada('Vuelo');
+        setStatus('success');
+        const alertTimer = await timer();
+        if (alertTimer) {
+            setVuelo('');
+        }
       }
     } catch (error) {
       console.log(error);
-      setStatuses((prevStatuses) => ({ ...prevStatuses, [index]: 'error' }));
+      setStatus('error');
+      timer();
     }
   };
 
@@ -66,18 +78,19 @@ const FlightCard = ({ flightData, handleEdit, setStatuses, index, setCardElimina
     <>
       {vuelo?.numeroVuelo && (
         <Card sx={styles.card}>
+          <Stack sx={{ width: '100%' }} spacing={2}>
+              {status === 'success' && (
+                <Alert severity='success'>{`Vuelo se elimino correctamente!`}</Alert>
+              )}
+              {status === 'error' && (
+                <Alert severity='error'>
+                  {`Intentelo más tarde.`}
+                </Alert>
+              )}
+          </Stack>
+          {status === 'success' ? null :
+          <>
           <div sx={styles.editDeleteIcons}>
-            <Tooltip title='Editar este vuelo'>
-              <IconButton aria-label='edit' onClick={() => handleEdit()}>
-                <EditIcon
-                  sx={{
-                    width: '20px',
-                    color: '#D2D2D2',
-                  }}
-                />
-              </IconButton>
-            </Tooltip>
-
             <Tooltip title='Eliminar este vuelo'>
               <IconButton aria-label='delete' onClick={() => handleDelete()}>
                 <DeleteIcon
@@ -138,6 +151,7 @@ const FlightCard = ({ flightData, handleEdit, setStatuses, index, setCardElimina
               </Typography>
             </CardContent>
           </Collapse>
+          </>}
         </Card>
       )}
     </>

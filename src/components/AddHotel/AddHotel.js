@@ -5,8 +5,8 @@ import { useRouter } from 'next/router';
 import Alert from '@mui/material/Alert';
 import AlertTitle from '@mui/material/AlertTitle';
 import Stack from '@mui/material/Stack';
-import axios from 'axios';
-const URLRAILWAY = process.env.NEXT_PUBLIC_BACKEND;
+import { createHospedaje } from './api';
+
 const API_GOOGLE = process.env.NEXT_PUBLIC_API_GOOGLE;
 const styles = {
   box: {
@@ -68,14 +68,13 @@ const AddHotel = () => {
           latitud: hotelData.latitud,
           longitud: hotelData.longitud,
         };
-        const hotelAdd = await axios.post(`${URLRAILWAY}/api/v1/hospedajes`, nuevoHospedaje);
-        if (hotelAdd.status == 201) {
-          const dataApi = hotelAdd.data;
-          console.log('Hospedaje creado', dataApi);
+
+        const hotelAdd = await createHospedaje(nuevoHospedaje);
+        if (hotelAdd) {
+          console.log('Hospedaje creado', hotelAdd);
           setStatus('success');
-          //alert('Hotel agregado correctamente');
           setTimeout(() => {
-            router.push(`/itinerary?id=${dataApi.viajeId}`);
+            router.push(`/itinerary?id=${hotelAdd.viajeId}`);
           }, 1500);
         } else {
           setStatus('error');
@@ -155,7 +154,7 @@ const AddHotel = () => {
             required
             label='Nombre del Hotel'
             name='name'
-            value={hotelData.name}
+            value={`${hotelData.name}`}
             onChange={handleChange}
             fullWidth
             variant='filled'
@@ -171,6 +170,7 @@ const AddHotel = () => {
               },
             }}
           />
+            
           <TextField
             sx={styles.input}
             required
