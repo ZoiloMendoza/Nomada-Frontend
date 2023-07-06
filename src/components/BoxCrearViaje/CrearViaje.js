@@ -60,7 +60,7 @@ export default function CrearViaje() {
         {status === 'success' && (
           <Alert severity='success'>
             <AlertTitle>Éxito</AlertTitle>
-            Viaje creado correctamente!
+            Viaje creado correctamente! Continúa a agregar origen y destino.
           </Alert>
         )}
         {status === 'error' && (

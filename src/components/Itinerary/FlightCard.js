@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, Typography, Collapse, IconButton } from '@mui/material';
 import { ExpandMore } from '@mui/icons-material';
-import { Edit as EditIcon, Delete as DeleteIcon } from '@mui/icons-material';
+import { Delete as DeleteIcon } from '@mui/icons-material';
 import FlightIcon from '@mui/icons-material/Flight';
 import Tooltip from '@mui/material/Tooltip';
 import axios from 'axios';
@@ -67,17 +67,6 @@ const FlightCard = ({ flightData, handleEdit, setStatuses, index, setCardElimina
       {vuelo?.numeroVuelo && (
         <Card sx={styles.card}>
           <div sx={styles.editDeleteIcons}>
-            <Tooltip title='Editar este vuelo'>
-              <IconButton aria-label='edit' onClick={() => handleEdit()}>
-                <EditIcon
-                  sx={{
-                    width: '20px',
-                    color: '#D2D2D2',
-                  }}
-                />
-              </IconButton>
-            </Tooltip>
-
             <Tooltip title='Eliminar este vuelo'>
               <IconButton aria-label='delete' onClick={() => handleDelete()}>
                 <DeleteIcon

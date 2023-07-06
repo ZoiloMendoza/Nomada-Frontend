@@ -1,5 +1,5 @@
 import { Box, TextField, Grid, Card, CardContent, Typography } from '@mui/material';
-import CheckboxFormulario from './CheckboxFormulario';
+//import CheckboxFormulario from './CheckboxFormulario';
 import ButtonForm from './ButtonForm';
 import { useState } from 'react';
 import axios from 'axios';
@@ -9,6 +9,8 @@ import AlertTitle from '@mui/material/AlertTitle';
 import Stack from '@mui/material/Stack';
 //import theme from './TemaConfig';
 import { useRouter } from 'next/router';
+//import React from 'react';
+//import { Formik, Form, Field } from 'formik';
 
 const URLRAILWAY = process.env.NEXT_PUBLIC_BACKEND;
 const style = {
@@ -168,9 +170,6 @@ function Formulario() {
                             />
                           </CardContent>
 
-                          <Grid item xs={12} style={{ textAlign: 'center' }}>
-                            <CheckboxFormulario name='checkboxFormulario' />
-                          </Grid>
                           <p>¿Ya tienes una cuenta?</p>
                           <Link legacyBehavior href='/login'>
                             <a style={{ color: 'blue', cursor: 'pointer' }}>Inicia sesión</a>
