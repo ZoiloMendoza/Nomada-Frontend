@@ -27,7 +27,7 @@ const style = {
 
 function Formulario() {
   const router = useRouter();
-  const [confirmarPassword, setConfirmarPaswordd] = useState({
+  const [confirmarPassword, setConfirmarPassword] = useState({
     confirmar: '',
   });
   const [formData, setFormData] = useState({
@@ -45,12 +45,12 @@ function Formulario() {
   };
   const handleOnChangeConfirmarPassword = (e) => {
     console.log([e.target.name], e.target.value);
-    setConfirmarPaswordd({ ...confirmarPassword, [e.target.name]: e.target.value });
+    setConfirmarPassword({ ...confirmarPassword, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = async (name, email, password) => {
     if (password !== confirmarPassword.confirmar) {
-      setStatus('success');
+      setStatus('error');
       return;
     }
     console.log('enviado', formData);
@@ -103,7 +103,7 @@ function Formulario() {
                 {status === 'error' && (
                   <Alert severity='error'>
                     <AlertTitle>Error</AlertTitle>
-                    Ocurrió un error durante la creación del usuario.
+                    Ocurrió un error, las contraseñas no coinciden.
                   </Alert>
                 )}
               </Stack>
