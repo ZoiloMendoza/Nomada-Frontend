@@ -30,8 +30,8 @@ function MapComponent({ latitud, longitud, actividadesDeRuta }) {
       setOtroHook(
         actividadesDeRuta?.map((actividad) => ({
           nombre: actividad.name,
-          fotos: actividad.image,
-          direccion: actividad.address,
+          fotos: actividad.fotos,
+          direccion: actividad.direccion,
         })),
       );
     }

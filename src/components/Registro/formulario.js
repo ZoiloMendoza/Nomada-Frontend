@@ -1,7 +1,7 @@
-import { Box, TextField, Grid, Card, CardContent, Typography } from '@mui/material';
-import CheckboxFormulario from './CheckboxFormulario';
-import ButtonForm from './ButtonForm';
 import { useState, useContext } from 'react';
+import { Box, TextField, Grid, Card, CardContent, Typography, Button } from '@mui/material';
+//import CheckboxFormulario from './CheckboxFormulario';
+//import ButtonForm from './ButtonForm';
 import axios from 'axios';
 import Link from 'next/link';
 import Alert from '@mui/material/Alert';
@@ -10,6 +10,8 @@ import Stack from '@mui/material/Stack';
 //import theme from './TemaConfig';
 import { useRouter } from 'next/router';
 import { UserContext } from '@/context/userLogin';
+//import React from 'react';
+//import { Formik, Form, Field } from 'formik';
 
 const URLRAILWAY = process.env.NEXT_PUBLIC_BACKEND;
 const style = {
@@ -24,11 +26,18 @@ const style = {
   },
 };
 
+function ButtonForm({ size, onClick, disabled }) {
+  return (
+    <Button variant='contained' size={size} color='primary' onClick={onClick} disabled={disabled}>
+      Crear cuenta
+    </Button>
+  );
+}
+
 function Formulario() {
   const router = useRouter();
   const userContextValues = useContext(UserContext);
   const { variableState, setVariableState } = userContextValues;
-  const [status, setStatus] = useState('');
   const [confirmarPassword, setConfirmarPaswordd] = useState({
     confirmar: '',
   });
@@ -37,22 +46,24 @@ function Formulario() {
     email: '',
     role: 'admin',
     password: '',
+    confirmar: '',
   });
   const { name, email, password } = formData;
   console.log(variableState, 'variableState')
+  const [status, setStatus] = useState('');
 
   const handleOnChange = (e) => {
     console.log([e.target.name], e.target.value);
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
-  const handleOnChangeConfirmarPassword = (e) => {
-    console.log([e.target.name], e.target.value);
-    setConfirmarPaswordd({ ...confirmarPassword, [e.target.name]: e.target.value });
-  };
+  //const handleOnChangeConfirmarPassword = (e) => {
+  //  console.log([e.target.name], e.target.value);
+  //  setConfirmarPassword({ ...confirmarPassword, [e.target.name]: e.target.value });
+  //};
 
-  const handleSubmit = async (name, email, password) => {
-    if (password !== confirmarPassword.confirmar) {
-      setStatus('success');
+  const handleSubmit = async (name, email, password, confirmar) => {
+    if (password !== confirmar) {
+      setStatus('error');
       return;
     }
     console.log('enviado');
@@ -80,6 +91,13 @@ function Formulario() {
     }
   };
 
+  const isFormComplete = () =>
+    formData.name !== '' &&
+    formData.email !== '' &&
+    formData.password !== '' &&
+    formData.confirmar !== '' &&
+    formData.password === formData.confirmar;
+
   return (
     <div className='Formulario'>
       <Typography align='center' variant='h5' sx={{ paddingTop: '5vh' }}>
@@ -89,7 +107,7 @@ function Formulario() {
 
       <Box sx={style.formulario}>
         <Grid container direction='row' spacing={5}>
-          <Grid item xs={18} sm={18} md={18} lg={18} xl={18}>
+          <Grid item xs={12}>
             <Card>
               <Stack sx={{ width: '100%' }} autoHideDuration={5000} spacing={2}>
                 {status === 'success' && (
@@ -101,7 +119,7 @@ function Formulario() {
                 {status === 'error' && (
                   <Alert severity='error'>
                     <AlertTitle>Error</AlertTitle>
-                    Ocurrió un error durante la creación del usuario.
+                    Ocurrió un error, verificar que las contraseñas coincidan.
                   </Alert>
                 )}
               </Stack>
@@ -112,79 +130,66 @@ function Formulario() {
                   label='usuario'
                   type='text'
                   name='name'
-                  value={formData.name || ''}
+                  value={formData.name}
+                  onChange={handleOnChange}
+                  margin='dense'
+                  fullWidth
+                  sx={{ fontFamily: 'Inter, sans-serif' }}
+                />
+                <TextField
+                  variant='filled'
+                  error={false}
+                  label='correo electrónico'
+                  type='text'
+                  name='email'
+                  value={formData.email}
+                  onChange={handleOnChange}
+                  margin='dense'
+                  fullWidth
+                  sx={{ fontFamily: 'Inter, sans-serif' }}
+                />
+                <TextField
+                  variant='filled'
+                  error={false}
+                  label='contraseña'
+                  type='password'
+                  name='password'
+                  helperText='Debe contener minimo 8 digitos, 1 mayuscula y 1 carácter especial.'
+                  value={formData.password}
+                  onChange={handleOnChange}
+                  margin='dense'
+                  fullWidth
+                  sx={{ fontFamily: 'Inter, sans-serif' }}
+                />
+                <TextField
+                  variant='filled'
+                  error={false}
+                  label='confirmar contraseña'
+                  type='password'
+                  name='confirmar'
+                  helperText='Debe contener minimo 8 digitos, 1 mayuscula y 1 carácter especial.'
+                  value={formData.confirmar}
                   onChange={handleOnChange}
                   margin='dense'
                   fullWidth
                   sx={{ fontFamily: 'Inter, sans-serif' }}
                 />
               </CardContent>
-              <Grid item xs={18} sm={18} md={18} lg={18} xl={18}>
-                <Card>
-                  <CardContent>
-                    <TextField
-                      variant='filled'
-                      error={false}
-                      label='correo electrónico'
-                      type='text'
-                      name='email'
-                      value={formData.email || ''}
-                      onChange={handleOnChange}
-                      margin='dense'
-                      fullWidth
-                      sx={{ fontFamily: 'Inter, sans-serif' }}
-                    />
-                  </CardContent>
-                  <Grid item xs={18} sm={18} md={18} lg={18} xl={18}>
-                    <Card>
-                      <CardContent>
-                        <TextField
-                          sx={{ fontFamily: 'Inter, sans-serif' }}
-                          variant='filled'
-                          error={false}
-                          label='contraseña'
-                          type='password'
-                          name='password'
-                          value={formData.password || ''}
-                          onChange={handleOnChange}
-                          margin='dense'
-                          fullWidth
-                        />
-                      </CardContent>
-                      <Grid item xs={18} sm={18} md={18} lg={18} xl={18}>
-                        <Card>
-                          <CardContent>
-                            <TextField
-                              sx={{ fontFamily: 'Inter, sans-serif' }}
-                              variant='filled'
-                              error={false}
-                              label='confirmar contraseña'
-                              type='password'
-                              name='confirmar'
-                              value={confirmarPassword.confirmar || ''}
-                              onChange={handleOnChangeConfirmarPassword}
-                              margin='dense'
-                              fullWidth
-                            />
-                          </CardContent>
-
-                          <Grid item xs={12} style={{ textAlign: 'center' }}>
-                            <CheckboxFormulario name='checkboxFormulario' />
-                          </Grid>
-                          <p>¿Ya tienes una cuenta?</p>
-                          <Link legacyBehavior href='/login'>
-                            <a style={{ color: 'blue', cursor: 'pointer' }}>Inicia sesión</a>
-                          </Link>
-
-                          <Grid my={4} justifyContent='center' direction='row' container>
-                            <ButtonForm size='medium' onClick={() => handleSubmit(name, email, password)} />
-                          </Grid>
-                        </Card>
-                      </Grid>
-                    </Card>
-                  </Grid>
-                </Card>
-              </Grid>
+              <CardContent>
+                <p>¿Ya tienes una cuenta?</p>
+                <Link legacyBehavior href='/login'>
+                  <a style={{ color: 'blue', cursor: 'pointer' }}>Inicia sesión</a>
+                </Link>
+              </CardContent>
+              <CardContent>
+                <Grid my={4} justifyContent='center' direction='row' container>
+                  <ButtonForm
+                    size='medium'
+                    onClick={() => handleSubmit(formData.name, formData.email, formData.password, formData.confirmar)}
+                    disabled={!isFormComplete()}
+                  />
+                </Grid>
+              </CardContent>
             </Card>
           </Grid>
         </Grid>
