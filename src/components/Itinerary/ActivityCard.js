@@ -136,6 +136,7 @@ const ActivityCard = ({ activityData }) => {
       timer();
     }
   };
+  
   console.log(inicio, final, 'fechas');
   console.log(statusesEditar, 'identificar');
   return (

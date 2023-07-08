@@ -1,7 +1,7 @@
 import { Box, TextField, Grid, Card, CardContent, Typography } from '@mui/material';
 import CheckboxFormulario from './CheckboxFormulario';
 import ButtonForm from './ButtonForm';
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import axios from 'axios';
 import Link from 'next/link';
 import Alert from '@mui/material/Alert';
@@ -9,6 +9,7 @@ import AlertTitle from '@mui/material/AlertTitle';
 import Stack from '@mui/material/Stack';
 //import theme from './TemaConfig';
 import { useRouter } from 'next/router';
+import { UserContext } from '@/context/userLogin';
 
 const URLRAILWAY = process.env.NEXT_PUBLIC_BACKEND;
 const style = {
@@ -25,6 +26,9 @@ const style = {
 
 function Formulario() {
   const router = useRouter();
+  const userContextValues = useContext(UserContext);
+  const { variableState, setVariableState } = userContextValues;
+  const [status, setStatus] = useState('');
   const [confirmarPassword, setConfirmarPaswordd] = useState({
     confirmar: '',
   });
@@ -35,7 +39,7 @@ function Formulario() {
     password: '',
   });
   const { name, email, password } = formData;
-  const [status, setStatus] = useState('');
+  console.log(variableState, 'variableState')
 
   const handleOnChange = (e) => {
     console.log([e.target.name], e.target.value);
@@ -51,25 +55,21 @@ function Formulario() {
       setStatus('success');
       return;
     }
-    console.log('enviado', formData);
+    console.log('enviado');
     try {
       const userPost = await axios.post(`${URLRAILWAY}/api/v1/signup`, formData);
       console.log('statusCode', userPost.status);
-      console;
       if (userPost.status == 201) {
-        console.log(userPost);
+        setStatus('success');
         console.log('Usuario creado exitosamente');
         const usuario = {
           ...userPost.data,
         };
+        setVariableState(usuario);
         localStorage.setItem('usuarioLogeado', JSON.stringify(usuario));
-        setStatus('success');
-
         setTimeout(() => {
           router.push('/inicio');
         }, 1500);
-
-        //alert('Usuario creado correctamente', name, email, password);
       } else {
         setStatus('error');
         console.log('Error al insertar');

@@ -116,7 +116,15 @@ const HeroImage = ({ruta, imagenFondo}) => {
                 {ruta?.transporte.destino}
               </Typography>
               <Typography variant='h2' sx={styles.heroSubtitle}>
-                {`Ida: ${ruta?.fechaInicial}`.split(',')[0]} {` - Regreso: ${ruta?.fechaFinal}`}
+              {`Inicio: ${new Date(ruta?.fechaInicial).toLocaleDateString('es', {
+              day: '2-digit',
+              month: 'long',
+              year: 'numeric',
+            }) || '--'}`} {`Final: ${new Date(ruta?.fechaFinal).toLocaleDateString('es', {
+              day: '2-digit',
+              month: 'long',
+              year: 'numeric',
+            }) || '--'}`}
               </Typography>
               <Link href={`/calendario?id=${id}`}>
                 <Button variant='contained' color='secondary' sx={styles.heroButton}>
@@ -125,7 +133,6 @@ const HeroImage = ({ruta, imagenFondo}) => {
               </Link>
               <div>
                 <CircleIconButton icon={<Favorite />} href={`/favorites?id=${id}`} />
-
                 <CircleIconButton icon={<PeopleIcon />} onClick={handleOpenModal} />
               </div>
             </div>
