@@ -21,7 +21,7 @@ export default function Itinerary() {
   const { id: tripId } = router.query;
   const [loading, setLoading] = useState(true);
   const [roleInvitado, setRoleInvitado] = useState('staff');
-  const [roleUsuario, setRoleUsiario] = useState('staff');
+  const [roleUsuario, setRoleUsuario] = useState('staff');
   const [error, setError] = useState(null);
   const [contentViaje, setContentViaje] = useState(null);
   const [destinoSeleccionado, setDestinoSeleccionado] = useState(null);
@@ -51,7 +51,7 @@ export default function Itinerary() {
     const validacionViaje = () => {
       try {
         if (contentViaje?.administradorViaje === usuario) {
-          setRoleUsiario('admin');
+          setRoleUsuario('admin');
           return;
         }
         if (contentViaje.colaboradores.length > 0) {
@@ -79,8 +79,7 @@ export default function Itinerary() {
   const arregloDestinos = contentViaje?.rutas.map((transporte) => transporte?.transporte?.destino);
   const idRutaElegida = arregloDestinos?.indexOf(destinoSeleccionado);
   const imagenFondo = contentViaje?.rutas[idRutaElegida]?.transporte?.imagen;
-  console.log(roleInvitado, 'roleInvitado')
-  console.log(roleUsuario, 'roleUsuario')
+  
   return (
     <Box sx={{ backgroundColor: '#EAEDED' }}>
       {loading ? <SkeletonImagenItinerario /> : <HeroImage ruta={contentViaje?.rutas[idRutaElegida]} imagenFondo={imagenFondo} />}
@@ -101,7 +100,7 @@ export default function Itinerary() {
             margin: 5,
           }}
         >
-          {loading && <TabDestinos dataDestino={contentViaje} updateDestinoCallback={updateDestinoSeleccionado} roleInvitado={roleInvitado} roleUsuario={roleUsuario}/>}
+          {loading ? <SkeletonContenedorItinerario/> : <TabDestinos dataDestino={contentViaje} updateDestinoCallback={updateDestinoSeleccionado} />}
         </Box>
       )}
       <ScrollToTop />

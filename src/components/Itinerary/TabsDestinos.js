@@ -49,7 +49,7 @@ function a11yProps(index) {
   };
 }
 
-export default function TabsDestinos({ dataDestino, updateDestinoCallback, roleInvitado, roleUsuario }) {
+export default function TabsDestinos({ dataDestino, updateDestinoCallback }) {
   const [value, setValue] = React.useState(0);
   const [status, setStatus] = useState(null);
   const [rutasActualizadas, setRutasActualizadas] = useState(null);
@@ -138,26 +138,26 @@ export default function TabsDestinos({ dataDestino, updateDestinoCallback, roleI
             <>
             <div>
               <Tooltip title='Borrar Destino Completo'>
-                {(roleUsuario === 'admin' || roleInvitado === 'admin') && (<IconButton aria-label='delete' onClick={() => handleDelete(ruta._id)}>
+               <IconButton aria-label='delete' onClick={() => handleDelete(ruta._id)}>
                   <DeleteIcon
                     sx={{
                       width: '20px',
                       color: '#D2D2D2',
                     }}
                   />
-                </IconButton>)}
+               </IconButton>
               </Tooltip>
               <span color='secondary'>Eliminar este destino</span>
             </div>
             {ruta ? (
               ruta.transporte.numeroVuelo && (
-                <FlightCard flightData={ruta.transporte} roleInvitado={roleInvitado} roleUsuario={roleUsuario}/>
+                <FlightCard flightData={ruta.transporte}/>
               )
             ) : (
               <SkeletonInfoVuelo />
             )}
-            <HotelCard rutaParaHoteles={ruta} roleInvitado={roleInvitado} roleUsuario={roleUsuario}/>
-            <ActivityCard activityData={dataDestino?.rutas[index]} roleInvitado={roleInvitado} roleUsuario={roleUsuario}/>
+            <HotelCard rutaParaHoteles={ruta}/>
+            <ActivityCard activityData={dataDestino?.rutas[index]}/>
             </>}
           </TabPanel>
         ))

@@ -35,7 +35,7 @@ const styles = {
   },
 };
 
-const ActivityCard = ({ activityData, roleInvitado, roleUsuario }) => {
+const ActivityCard = ({ activityData }) => {
   const [expanded, setExpanded] = useState(false);
   const [activities, setActivities] = useState(null);
   const [editingDates, setEditingDates] = useState({});
@@ -138,8 +138,9 @@ const ActivityCard = ({ activityData, roleInvitado, roleUsuario }) => {
     }
   };
   
-  console.log(inicio, final, 'fechas');
-  console.log(statusesEditar, 'identificar');
+  //console.log(inicio, final, 'fechas');
+  //console.log(statusesEditar, 'identificar');
+
   return (
     <>
       {activities &&
@@ -168,7 +169,8 @@ const ActivityCard = ({ activityData, roleInvitado, roleUsuario }) => {
             </Stack>
             {statusesEliminar[cardIndex] === 'success' ? null : 
             <>
-            {(roleUsuario === 'admin' || roleInvitado === 'admin') && (<Tooltip title='Eliminar esta actividad'>
+            <Tooltip title='Eliminar esta actividad'>
+           
               <IconButton aria-label='delete' onClick={() => handleDelete(activityData._id, cardIndex)}>
                 <DeleteIcon
                   sx={{
@@ -177,7 +179,8 @@ const ActivityCard = ({ activityData, roleInvitado, roleUsuario }) => {
                   }}
                 />
               </IconButton>
-            </Tooltip>)}
+            
+            </Tooltip>
             <Grid container spacing={2}>
               <Grid item xs={4}>
                 <CardMedia sx={styles.media} image={activityData?.fotos} title={activityData?.nombre} />
@@ -246,9 +249,9 @@ const ActivityCard = ({ activityData, roleInvitado, roleUsuario }) => {
                         </Typography>
                       </Grid>
                       <Grid item>
-                        {(roleUsuario === 'admin' || roleInvitado === 'admin') && (<IconButton onClick={() => handleEditDates(cardIndex)}>
+                        <IconButton onClick={() => handleEditDates(cardIndex)}>
                           <EditIcon style={{ color: '#D2D2D2', borderRadius: '40%' }} />
-                        </IconButton>)}
+                        </IconButton>
                       </Grid>
                     </Grid>
                   )}

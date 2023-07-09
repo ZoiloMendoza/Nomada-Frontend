@@ -35,7 +35,7 @@ const styles = {
   },
 };
 
-const HotelCard = ({ rutaParaHoteles, roleInvitado, roleUsuario }) => {
+const HotelCard = ({ rutaParaHoteles }) => {
 
   const [expanded, setExpanded] = useState(false);
   const [hotelData, setHotelData] = useState(null);
@@ -138,8 +138,8 @@ const HotelCard = ({ rutaParaHoteles, roleInvitado, roleUsuario }) => {
       timer();
     }
   };
-
-  console.log(hotelData, 'hotel Datos');
+  
+  //console.log(hotelData, 'hotel Datos');
   return (
     <>
       {hotelData
@@ -169,7 +169,8 @@ const HotelCard = ({ rutaParaHoteles, roleInvitado, roleUsuario }) => {
               </Stack>
               {statusesEliminar[index] === 'success' ? null :
               <CardContent>
-                  {(roleUsuario === 'admin' || roleInvitado === 'admin') && (<Tooltip title='Eliminar este hospedaje'>
+                <Tooltip title='Eliminar este hospedaje'>
+                 
                     <IconButton aria-label='delete' onClick={() => handleDelete(hotelData._id, index)}>
                       <DeleteIcon
                         sx={{
@@ -178,7 +179,8 @@ const HotelCard = ({ rutaParaHoteles, roleInvitado, roleUsuario }) => {
                         }}
                       />
                     </IconButton>
-                  </Tooltip>)}
+                  
+                  </Tooltip>
                 <Grid container spacing={2}>
                   <Grid item xs={4}>
                     <CardMedia sx={styles.media} image={hotelData?.imagen} title={hotelData.nombreHospedaje} />
@@ -255,9 +257,9 @@ const HotelCard = ({ rutaParaHoteles, roleInvitado, roleUsuario }) => {
                             </Typography>
                           </Grid>
                           <Grid item>
-                        {(roleUsuario === 'admin' || roleInvitado === 'admin') && (<IconButton onClick={() => handleEditDates(index)}>
+                        <IconButton onClick={() => handleEditDates(index)}>
                             <EditIcon style={{ color: '#D2D2D2', borderRadius: '40%' }} />
-                        </IconButton>)}
+                        </IconButton>
                           </Grid>
                         </Grid>                    
                       )}
