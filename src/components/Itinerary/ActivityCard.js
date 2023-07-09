@@ -66,6 +66,7 @@ const ActivityCard = ({ activityData }) => {
     if (activityData._id) {
       getActividades();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [activityData._id]);
 
   const handleExpandClick = () => {

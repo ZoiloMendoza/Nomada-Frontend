@@ -68,6 +68,7 @@ const HotelCard = ({ rutaParaHoteles }) => {
     if (rutaParaHoteles._id) {
       getHoteles();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [rutaParaHoteles._id]);
   
   const handleExpandClick = () => {

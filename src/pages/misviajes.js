@@ -109,6 +109,7 @@ export default function MisViajes() {
     if (usuario) {
       obtencionViajesDelUsuario();
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [usuario]);
 
   useEffect(() => {
@@ -117,6 +118,7 @@ export default function MisViajes() {
       setViajesDelUsuario(viajesDelUsuario.filter((viaje) => viaje._id !== eliminado));
       setEliminado(null);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [eliminado]);
 
   return (
