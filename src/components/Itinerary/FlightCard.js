@@ -30,7 +30,7 @@ const styles = {
   },
 };
 
-const FlightCard = ({ flightData }) => {
+const FlightCard = ({ flightData, roleInvitado, roleUsuario}) => {
   const [expanded, setExpanded] = useState(false);
   const [vuelo, setVuelo] = useState(null);
   const [status, setStatus] = useState(null);
@@ -92,7 +92,8 @@ const FlightCard = ({ flightData }) => {
           {status === 'success' ? null :
           <>
           <div sx={styles.editDeleteIcons}>
-            <Tooltip title='Eliminar este vuelo'>
+              {(roleUsuario === 'admin' || roleInvitado === 'admin') && (
+              <Tooltip title='Eliminar este vuelo'>
               <IconButton aria-label='delete' onClick={() => handleDelete()}>
                 <DeleteIcon
                   sx={{
@@ -101,7 +102,8 @@ const FlightCard = ({ flightData }) => {
                   }}
                 />
               </IconButton>
-            </Tooltip>
+              </Tooltip>)
+              }
           </div>
           <Grid container spacing={2}>
             <Grid item xs={10}>

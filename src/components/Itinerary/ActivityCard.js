@@ -35,7 +35,7 @@ const styles = {
   },
 };
 
-const ActivityCard = ({ activityData }) => {
+const ActivityCard = ({ activityData, roleInvitado, roleUsuario }) => {
   const [expanded, setExpanded] = useState(false);
   const [activities, setActivities] = useState(null);
   const [editingDates, setEditingDates] = useState({});
@@ -168,7 +168,7 @@ const ActivityCard = ({ activityData }) => {
             </Stack>
             {statusesEliminar[cardIndex] === 'success' ? null : 
             <>
-            <Tooltip title='Eliminar esta actividad'>
+            {(roleUsuario === 'admin' || roleInvitado === 'admin') && (<Tooltip title='Eliminar esta actividad'>
               <IconButton aria-label='delete' onClick={() => handleDelete(activityData._id, cardIndex)}>
                 <DeleteIcon
                   sx={{
@@ -177,7 +177,7 @@ const ActivityCard = ({ activityData }) => {
                   }}
                 />
               </IconButton>
-            </Tooltip>
+            </Tooltip>)}
             <Grid container spacing={2}>
               <Grid item xs={4}>
                 <CardMedia sx={styles.media} image={activityData?.fotos} title={activityData?.nombre} />
@@ -246,9 +246,9 @@ const ActivityCard = ({ activityData }) => {
                         </Typography>
                       </Grid>
                       <Grid item>
-                        <IconButton onClick={() => handleEditDates(cardIndex)}>
+                        {(roleUsuario === 'admin' || roleInvitado === 'admin') && (<IconButton onClick={() => handleEditDates(cardIndex)}>
                           <EditIcon style={{ color: '#D2D2D2', borderRadius: '40%' }} />
-                        </IconButton>
+                        </IconButton>)}
                       </Grid>
                     </Grid>
                   )}

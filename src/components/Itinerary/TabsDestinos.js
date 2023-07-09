@@ -49,7 +49,7 @@ function a11yProps(index) {
   };
 }
 
-export default function TabsDestinos({ dataDestino, updateDestinoCallback }) {
+export default function TabsDestinos({ dataDestino, updateDestinoCallback, roleInvitado, roleUsuario }) {
   const [value, setValue] = React.useState(0);
   const [status, setStatus] = useState(null);
   const [rutasActualizadas, setRutasActualizadas] = useState(null);
@@ -62,6 +62,7 @@ export default function TabsDestinos({ dataDestino, updateDestinoCallback }) {
         resolve(true);
       }, 1500);
     });
+
   useEffect(() => {
     const getRutas = async () => {
       try {
@@ -137,26 +138,26 @@ export default function TabsDestinos({ dataDestino, updateDestinoCallback }) {
             <>
             <div>
               <Tooltip title='Borrar Destino Completo'>
-                <IconButton aria-label='delete' onClick={() => handleDelete(ruta._id)}>
+                {(roleUsuario === 'admin' || roleInvitado === 'admin') && (<IconButton aria-label='delete' onClick={() => handleDelete(ruta._id)}>
                   <DeleteIcon
                     sx={{
                       width: '20px',
                       color: '#D2D2D2',
                     }}
                   />
-                </IconButton>
+                </IconButton>)}
               </Tooltip>
               <span color='secondary'>Eliminar este destino</span>
             </div>
             {ruta ? (
               ruta.transporte.numeroVuelo && (
-                <FlightCard flightData={ruta.transporte}/>
+                <FlightCard flightData={ruta.transporte} roleInvitado={roleInvitado} roleUsuario={roleUsuario}/>
               )
             ) : (
               <SkeletonInfoVuelo />
             )}
-            <HotelCard rutaParaHoteles={ruta}/>
-            <ActivityCard activityData={dataDestino?.rutas[index]}/>
+            <HotelCard rutaParaHoteles={ruta} roleInvitado={roleInvitado} roleUsuario={roleUsuario}/>
+            <ActivityCard activityData={dataDestino?.rutas[index]} roleInvitado={roleInvitado} roleUsuario={roleUsuario}/>
             </>}
           </TabPanel>
         ))

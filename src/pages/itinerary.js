@@ -101,7 +101,7 @@ export default function Itinerary() {
             margin: 5,
           }}
         >
-          {loading ? <SkeletonContenedorItinerario/> : <TabDestinos dataDestino={contentViaje} updateDestinoCallback={updateDestinoSeleccionado} />}
+          {loading && <TabDestinos dataDestino={contentViaje} updateDestinoCallback={updateDestinoSeleccionado} roleInvitado={roleInvitado} roleUsuario={roleUsuario}/>}
         </Box>
       )}
       <ScrollToTop />

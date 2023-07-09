@@ -35,7 +35,7 @@ const styles = {
   },
 };
 
-const HotelCard = ({ rutaParaHoteles }) => {
+const HotelCard = ({ rutaParaHoteles, roleInvitado, roleUsuario }) => {
 
   const [expanded, setExpanded] = useState(false);
   const [hotelData, setHotelData] = useState(null);
@@ -169,7 +169,7 @@ const HotelCard = ({ rutaParaHoteles }) => {
               </Stack>
               {statusesEliminar[index] === 'success' ? null :
               <CardContent>
-                  <Tooltip title='Eliminar este hospedaje'>
+                  {(roleUsuario === 'admin' || roleInvitado === 'admin') && (<Tooltip title='Eliminar este hospedaje'>
                     <IconButton aria-label='delete' onClick={() => handleDelete(hotelData._id, index)}>
                       <DeleteIcon
                         sx={{
@@ -178,7 +178,7 @@ const HotelCard = ({ rutaParaHoteles }) => {
                         }}
                       />
                     </IconButton>
-                  </Tooltip>
+                  </Tooltip>)}
                 <Grid container spacing={2}>
                   <Grid item xs={4}>
                     <CardMedia sx={styles.media} image={hotelData?.imagen} title={hotelData.nombreHospedaje} />
@@ -255,9 +255,9 @@ const HotelCard = ({ rutaParaHoteles }) => {
                             </Typography>
                           </Grid>
                           <Grid item>
-                            <IconButton onClick={() => handleEditDates(index)}>
+                        {(roleUsuario === 'admin' || roleInvitado === 'admin') && (<IconButton onClick={() => handleEditDates(index)}>
                             <EditIcon style={{ color: '#D2D2D2', borderRadius: '40%' }} />
-                        </IconButton>
+                        </IconButton>)}
                           </Grid>
                         </Grid>                    
                       )}
