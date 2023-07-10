@@ -6,7 +6,8 @@ import IconButton from '@mui/material/IconButton';
 import PeopleIcon from '@mui/icons-material/People';
 import { Favorite } from '@mui/icons-material';
 import AddToGroup from './AddToGroup';
-import { useState } from 'react';
+import { useState, useContext } from 'react';
+import { RoleContext } from '@/context/roleContext';
 //import { Tooltip } from '@mui/material';
 
 const CircleIconButton = ({ icon, href, onClick }) => (
@@ -89,6 +90,7 @@ const HeroImage = ({ruta, imagenFondo}) => {
   const [openModal, setOpenModal] = useState(false);
   const router = useRouter();
   const { id } = router.query;
+  const { roleInvitado, roleUsuario } = useContext(RoleContext);
   /*
   const destino = () => {
     console.log('click boton add');
@@ -132,7 +134,7 @@ const HeroImage = ({ruta, imagenFondo}) => {
                 </Button>
               </Link>
               <div>
-                <CircleIconButton icon={<Favorite />} href={`/favorites?id=${id}`} />
+                {(roleUsuario === 'admin' || roleInvitado === 'admin') && (<Link href={`/favorites?id=${id}`}><CircleIconButton icon={<Favorite />}/></Link>)}
                 <CircleIconButton icon={<PeopleIcon />} onClick={handleOpenModal} />
               </div>
             </div>

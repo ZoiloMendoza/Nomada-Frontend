@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
+import { RoleContext } from '@/context/roleContext';
 import { Modal, Box, Typography, TextField, Button, List, ListItem, ListItemText } from '@mui/material';
 import axios from 'axios';
 import Radio from '@mui/material/Radio';
@@ -45,6 +46,7 @@ const AddToGroup = ({ openModal, closeModal }) => {
   const [collaborators, setCollaborators] = useState([]);
   const [status, setStatus] = useState('');
   const [roleInvitado, setRoleInvitado] = useState('staff');
+  const { roleUsuario } = useContext(RoleContext);
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
   };
@@ -113,8 +115,9 @@ const AddToGroup = ({ openModal, closeModal }) => {
             {status == 'success' && <Alert severity='success'>Viaje compartido!</Alert>}
             {status == 'error' && <Alert severity='error'>Error </Alert>}
           </Stack>
-          <Typography variant='h5'>Ingresa el email de tus acompañantes</Typography>
           <form>
+            {(roleUsuario === 'admin') && (<div>
+            <Typography variant='h5'>Ingresa el email de tus acompañantes</Typography>
             <TextField
               type='email'
               value={email}
@@ -140,13 +143,13 @@ const AddToGroup = ({ openModal, closeModal }) => {
             <Button type='button' variant='contained' color='primary' onClick={guardarCorreo} role='button'>
               Agregar
             </Button>
-
+            </div>)}
             <List sx={styles.emailList}>
               <Typography variant='h5'>Viajeros:</Typography>
               {collaborators.map((collaborator) => (
                 <ListItem key={collaborator._id}>
                   <ListItemText primary={collaborator.email} />
-                  <IconButton onClick={() => borrarColaborador(collaborator._id)}>
+                  {(roleUsuario === 'admin') && (<IconButton onClick={() => borrarColaborador(collaborator._id)}>
                     <DeleteIcon
                       sx={{
                         width: '20px',
@@ -154,13 +157,10 @@ const AddToGroup = ({ openModal, closeModal }) => {
                         opacity: '0.5',
                       }}
                     />
-                  </IconButton>
+                  </IconButton>)}
                 </ListItem>
               ))}
             </List>
-            {/*<Button type='submit' variant='contained' color='primary'>
-              Guardar
-            </Button>*/}
           </form>
         </Box>
       </Modal>

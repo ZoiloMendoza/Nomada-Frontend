@@ -1,4 +1,5 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
+import { RoleContext } from '@/context/roleContext';
 import { Card, CardHeader, CardMedia, CardContent, Typography, IconButton, Collapse, TextField } from '@mui/material';
 import { ExpandMore } from '@mui/icons-material';
 import { Edit as EditIcon, Delete as DeleteIcon, Save as SaveIcon, Cancel as CancelIcon } from '@mui/icons-material';
@@ -45,7 +46,7 @@ const ActivityCard = ({ activityData }) => {
   const [final, setFinal] = useState(''); //limites de calendario
   const [statusesEditar, setStatusesEditar] = useState({});
   const [statusesEliminar, setStatusesEliminar] = useState({});
-
+  const { roleInvitado, roleUsuario } = useContext(RoleContext);
   useEffect(() => {
     const getActividades = async () => {
       try {
@@ -169,8 +170,7 @@ const ActivityCard = ({ activityData }) => {
             </Stack>
             {statusesEliminar[cardIndex] === 'success' ? null : 
             <>
-            <Tooltip title='Eliminar esta actividad'>
-           
+            {(roleUsuario === 'admin' || roleInvitado === 'admin') ? (<Tooltip title='Eliminar esta actividad'>
               <IconButton aria-label='delete' onClick={() => handleDelete(activityData._id, cardIndex)}>
                 <DeleteIcon
                   sx={{
@@ -179,8 +179,14 @@ const ActivityCard = ({ activityData }) => {
                   }}
                 />
               </IconButton>
-            
-            </Tooltip>
+            </Tooltip>) : <DeleteIcon
+                  sx={{
+                    color: '#D2D2D2',
+                    borderRadius: '50%',
+                    opacity: 0.1,
+                    pointerEvents: 'none',
+                  }}
+                />}
             <Grid container spacing={2}>
               <Grid item xs={4}>
                 <CardMedia sx={styles.media} image={activityData?.fotos} title={activityData?.nombre} />
@@ -249,9 +255,9 @@ const ActivityCard = ({ activityData }) => {
                         </Typography>
                       </Grid>
                       <Grid item>
-                        <IconButton onClick={() => handleEditDates(cardIndex)}>
+                        {(roleUsuario === 'admin' || roleInvitado === 'admin') && (<IconButton onClick={() => handleEditDates(cardIndex)}>
                           <EditIcon style={{ color: '#D2D2D2', borderRadius: '40%' }} />
-                        </IconButton>
+                        </IconButton>)}
                       </Grid>
                     </Grid>
                   )}

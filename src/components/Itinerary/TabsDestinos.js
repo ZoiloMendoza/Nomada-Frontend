@@ -10,7 +10,8 @@ import FlightCard from './FlightCard';
 import ActivityCard from '@/components/Itinerary/ActivityCard';
 import HotelCard from '@/components/Itinerary/HotelCard';
 import axios from 'axios';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
+import { RoleContext } from '@/context/roleContext';
 import Alert from '@mui/material/Alert';
 import Stack from '@mui/material/Stack';
 import { SkeletonInfoVuelo } from '@/components/SkeletonsCards/SkeletonInfoVuelo';
@@ -53,6 +54,7 @@ export default function TabsDestinos({ dataDestino, updateDestinoCallback }) {
   const [value, setValue] = React.useState(0);
   const [status, setStatus] = useState(null);
   const [rutasActualizadas, setRutasActualizadas] = useState(null);
+  const { roleInvitado, roleUsuario } = useContext(RoleContext);
   if (!dataDestino) {
     return <div>Intentalo más tarde TabsDestinos</div>;
   }
@@ -93,7 +95,8 @@ export default function TabsDestinos({ dataDestino, updateDestinoCallback }) {
       setRutasActualizadas(rutasActualizadas.filter((ruta) => ruta._id !== idRuta));
     }
   };
-
+  console.log(roleInvitado, 'roleInvitado Tab');
+  console.log(roleUsuario, 'roleUsuario Tab');
   return (
     <Box
       sx={{
@@ -136,7 +139,7 @@ export default function TabsDestinos({ dataDestino, updateDestinoCallback }) {
             </Stack>
             {status === 'success' ? null : 
             <>
-            <div>
+            {(roleUsuario === 'admin' || roleInvitado === 'admin') && (<div>
               <Tooltip title='Borrar Destino Completo'>
                <IconButton aria-label='delete' onClick={() => handleDelete(ruta._id)}>
                   <DeleteIcon
@@ -148,7 +151,7 @@ export default function TabsDestinos({ dataDestino, updateDestinoCallback }) {
                </IconButton>
               </Tooltip>
               <span color='secondary'>Eliminar este destino</span>
-            </div>
+            </div>)}
             {ruta ? (
               ruta.transporte.numeroVuelo && (
                 <FlightCard flightData={ruta.transporte}/>

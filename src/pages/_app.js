@@ -4,6 +4,7 @@ import '@fortawesome/fontawesome-svg-core/styles.css';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import { UseContextProvider } from '@/context/userLogin';
+import { RoleProvider } from '@/context/roleContext';
 config.autoAddCss = false;
 
 import Layout from '@/components/Layout';
@@ -32,10 +33,12 @@ export default function App({ Component, pageProps }) {
       </Head>
       <ThemeProvider theme={theme}>
         <UseContextProvider>
+          <RoleProvider>
           <Layout>
             <CssBaseline />
             <Component {...pageProps} />
           </Layout>
+          </RoleProvider>
         </UseContextProvider>
       </ThemeProvider>
     </>

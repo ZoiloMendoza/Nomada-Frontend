@@ -1,4 +1,5 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
+import { RoleContext } from '@/context/roleContext';
 import { Card, CardContent, CardHeader, Typography, Collapse, IconButton } from '@mui/material';
 import { ExpandMore } from '@mui/icons-material';
 import { Delete as DeleteIcon } from '@mui/icons-material';
@@ -34,7 +35,7 @@ const FlightCard = ({ flightData }) => {
   const [expanded, setExpanded] = useState(false);
   const [vuelo, setVuelo] = useState(null);
   const [status, setStatus] = useState(null);
-
+  const { roleInvitado, roleUsuario } = useContext(RoleContext);
   const timer = () => new Promise((resolve) => {
       setTimeout(() => {
         setStatus(null);
@@ -91,7 +92,7 @@ const FlightCard = ({ flightData }) => {
           </Stack>
           {status === 'success' ? null :
           <>
-          <div sx={styles.editDeleteIcons}>
+          {(roleUsuario === 'admin' || roleInvitado === 'admin') ? (<div sx={styles.editDeleteIcons}>
               <Tooltip title='Eliminar este vuelo'>
               <IconButton aria-label='delete' onClick={() => handleDelete()}>
                 <DeleteIcon
@@ -102,7 +103,14 @@ const FlightCard = ({ flightData }) => {
                 />
               </IconButton>
               </Tooltip>
-          </div>
+          </div>) : <DeleteIcon
+                  sx={{
+                    color: '#D2D2D2',
+                    width: '20px',
+                    opacity: 0.1,
+                    pointerEvents: 'none',
+                  }}
+                />}
           <Grid container spacing={2}>
             <Grid item xs={10}>
               <CardHeader

@@ -1,4 +1,5 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
+import { RoleContext } from '@/context/roleContext';
 import { Card, CardContent, CardMedia, Typography, IconButton, Collapse, TextField } from '@mui/material';
 import { Edit as EditIcon, Delete as DeleteIcon, Save as SaveIcon, Cancel as CancelIcon } from '@mui/icons-material';
 import { ExpandMore } from '@mui/icons-material';
@@ -46,6 +47,7 @@ const HotelCard = ({ rutaParaHoteles }) => {
   const [statusesEliminar, setStatusesEliminar] = useState({});
   const [inicio, setInicio] = useState(''); //limites de calendario
   const [final, setFinal] = useState(''); //limites de calendario
+  const { roleInvitado, roleUsuario } = useContext(RoleContext);
   //console.log(rutaParaHoteles, 'hotel entrada');
   useEffect(() => {
     const getHoteles = async () => {
@@ -169,8 +171,7 @@ const HotelCard = ({ rutaParaHoteles }) => {
               </Stack>
               {statusesEliminar[index] === 'success' ? null :
               <CardContent>
-                <Tooltip title='Eliminar este hospedaje'>
-                 
+                {(roleUsuario === 'admin' || roleInvitado === 'admin') ? (<Tooltip title='Eliminar este hospedaje'>
                     <IconButton aria-label='delete' onClick={() => handleDelete(hotelData._id, index)}>
                       <DeleteIcon
                         sx={{
@@ -179,8 +180,14 @@ const HotelCard = ({ rutaParaHoteles }) => {
                         }}
                       />
                     </IconButton>
-                  
-                  </Tooltip>
+                </Tooltip>) : <DeleteIcon
+                  sx={{
+                    color: '#D2D2D2',
+                    width: '20px',
+                    opacity: 0.1,
+                    pointerEvents: 'none',
+                  }}
+                />}
                 <Grid container spacing={2}>
                   <Grid item xs={4}>
                     <CardMedia sx={styles.media} image={hotelData?.imagen} title={hotelData.nombreHospedaje} />
@@ -257,9 +264,9 @@ const HotelCard = ({ rutaParaHoteles }) => {
                             </Typography>
                           </Grid>
                           <Grid item>
-                        <IconButton onClick={() => handleEditDates(index)}>
+                        {(roleUsuario === 'admin' || roleInvitado === 'admin') && (<IconButton onClick={() => handleEditDates(index)}>
                             <EditIcon style={{ color: '#D2D2D2', borderRadius: '40%' }} />
-                        </IconButton>
+                        </IconButton>)}
                           </Grid>
                         </Grid>                    
                       )}
