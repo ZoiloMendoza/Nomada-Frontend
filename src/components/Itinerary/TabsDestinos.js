@@ -55,9 +55,9 @@ export default function TabsDestinos({ dataDestino, updateDestinoCallback }) {
   const [status, setStatus] = useState(null);
   const [rutasActualizadas, setRutasActualizadas] = useState(null);
   const { roleInvitado, roleUsuario } = useContext(RoleContext);
-  if (!dataDestino) {
-    return <div>Intentalo más tarde TabsDestinos</div>;
-  }
+  //if (!dataDestino) {
+  //  return <div>Intentalo más tarde TabsDestinos</div>;
+  //}
   const timer = () => new Promise((resolve) => {
       setTimeout(() => {
         setStatus(null);
